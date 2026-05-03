@@ -1,43 +1,94 @@
-# Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+# Build the Hugo site and deploy the rendered output to GitHub Pages.
+#
+# What changed from the GitHub default "Static HTML" workflow:
+#   - The default uploads the repo root as-is. We don't have a rendered site
+#     in the repo — we have Hugo source. So this workflow installs Hugo +
+#     Node, runs the Tailwind+Hugo Pipes build, and uploads only ./public.
+#   - Pinned Hugo version matches the local toolchain (0.161.1 extended).
+#   - Node + `npm ci` happen before Hugo, because Hugo's css.TailwindCSS pipe
+#     shells out to the `tailwindcss` binary in node_modules/.bin.
+#   - fetch-depth: 0 on checkout so `.Lastmod` (used on legal pages) reads
+#     correct git timestamps. Default depth is 1 and gives wrong dates.
+#   - HUGO_ENV: production so partials that branch on hugo.IsProduction
+#     (we use it for JS minification) take the production path.
+#   - --baseURL is overridden from the Pages action's computed URL so the
+#     build works whether or not a custom domain is configured. The
+#     hugo.toml baseURL stays as the canonical production URL.
+
+name: Build and deploy to GitHub Pages
 
 on:
-  # Runs on pushes targeting the default branch
   push:
     branches: ["main"]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+# One deploy at a time. Don't cancel a running production deployment.
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
+# Pin tool versions in one place.
+env:
+  HUGO_VERSION: 0.161.1
+  NODE_VERSION: 20
+  HUGO_ENV: production
+  TZ: Europe/Copenhagen
+
 jobs:
-  # Single deploy job since we're just deploying
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Full history so .Lastmod / git-info shortcodes get correct dates.
+          fetch-depth: 0
+          # If the theme is ever moved to a submodule, uncomment this.
+          # submodules: recursive
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: ${{ env.HUGO_VERSION }}
+          extended: true
+
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Build
+        run: |
+          hugo \
+            --gc \
+            --minify \
+            --baseURL "${{ steps.pages.outputs.base_url }}/"
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
+
   deploy:
+    needs: build
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          # Upload entire repository
-          path: '.'
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v5
+        uses: actions/deploy-pages@v4

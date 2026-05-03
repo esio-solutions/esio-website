@@ -5,10 +5,16 @@
 /resources/
 .hugo_build.lock
 
-# Tailwind / npm artifacts inside the theme
+# Hugo build stats — regenerated every build; not source.
+hugo_stats.json
+
+# Tailwind / npm artifacts
 node_modules/
 
 # Editor
 .idea/
 .vscode/
 .DS_Store
+
+# OS noise
+Thumbs.db
