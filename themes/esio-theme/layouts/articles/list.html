@@ -1,0 +1,38 @@
+{{ define "main" }}
+  {{ partial "sections/page-header.html" . }}
+
+  <section class="bg-[var(--color-navy)] py-[90px] px-[6%]">
+    <div class="max-w-[1120px] mx-auto">
+      {{ if .Pages }}
+        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {{ range .Pages.ByDate.Reverse }}
+            <a href="{{ .RelPermalink }}"
+               class="group bg-white/5 hover:bg-white/10 border border-white/12 rounded-[var(--radius-large)] p-7 transition-all duration-200 hover:-translate-y-1 hover:border-white/30">
+              <time datetime='{{ .Date.Format "2006-01-02" }}'
+                    class="block text-xs text-white/50 font-bold uppercase tracking-widest mb-3">
+                {{ .Date.Format "January 2, 2006" }}
+              </time>
+              <h2 class="text-white text-xl font-extrabold leading-tight mb-3 group-hover:text-[var(--color-terra-light)] transition-colors">
+                {{ .Title }}
+              </h2>
+              {{ with .Params.description }}
+                <p class="text-white/65 text-sm leading-relaxed line-clamp-3">{{ . }}</p>
+              {{ end }}
+              {{ with .Params.tags }}
+                <div class="mt-4 flex flex-wrap gap-2">
+                  {{ range . }}
+                    <span class="bg-[var(--color-terra)]/15 text-[var(--color-terra-light)] text-[10px] font-extrabold uppercase tracking-wider rounded-full px-2.5 py-0.5">{{ . }}</span>
+                  {{ end }}
+                </div>
+              {{ end }}
+            </a>
+          {{ end }}
+        </div>
+      {{ else }}
+        <p class="text-white/65 text-center">No articles yet.</p>
+      {{ end }}
+    </div>
+  </section>
+
+  {{ partial "sections/footer.html" . }}
+{{ end }}

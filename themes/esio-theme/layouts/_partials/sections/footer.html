@@ -1,0 +1,32 @@
+{{- /*
+  Site footer. Three link columns + decorative SVG row + bottom strip.
+*/ -}}
+{{- $data := site.Data.sections.footer -}}
+<footer>
+  <div class="footer-inner">
+    <div class="foot-illos">
+      {{- range $i, $svg := $data.decorations }}
+        {{- $cls := printf "i%d-st%d" (add $i 1) $i }}
+        <div><img src="{{ $svg }}" alt="" class="{{ $cls }}" loading="lazy" decoding="async" /></div>
+      {{- end }}
+    </div>
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <img src="{{ $data.brand.logo.src }}" alt="{{ $data.brand.logo.alt }}" class="brand-logo" loading="lazy" decoding="async" />
+        <p>{{ $data.brand.tagline }}</p>
+      </div>
+      {{- range $data.columns }}
+        <div class="foot-col">
+          <h5>{{ .heading }}</h5>
+          {{- range .links }}
+            <a href="{{ .href }}">{{ .label }}</a>
+          {{- end }}
+        </div>
+      {{- end }}
+    </div>
+    <div class="foot-bottom">
+      <p>{{ $data.bottom.copyright }}</p>
+      <p>{{ $data.bottom.tagline }}</p>
+    </div>
+  </div>
+</footer>

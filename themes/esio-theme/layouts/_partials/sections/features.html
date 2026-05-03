@@ -1,0 +1,46 @@
+{{- /*
+  Features section: intro panel + N feature panels (5 total currently).
+  Panel index drives the `.fp-N` class for per-panel background colors and
+  illustration transforms (defined in esio.css).
+*/ -}}
+{{- $data := site.Data.sections.features -}}
+<section id="features" class="feat-section">
+
+  <!-- Panel 1 — Intro -->
+  <div class="feat-panel fp-1">
+    <div class="fp-inner fp-inner-intro">
+      <div class="fp-left">
+        <span class="tag tag-t">{{ $data.intro.tag }}</span>
+        <h2 class="fp-heading-intro">{{ delimit (split (trim $data.intro.headline "\n") "\n") "<br>" | safeHTML }}</h2>
+        <p class="fp-sub">{{ $data.intro.subtitle }}</p>
+      </div>
+      <div class="fp-icon-grid fp-icon-grid-intro" aria-hidden="true">
+        {{- range $data.intro.iconGrid }}
+          <img src="{{ . }}" alt="" loading="lazy" />
+        {{- end }}
+      </div>
+      <div class="fp-right">
+        <img src="{{ $data.intro.illustration }}" alt="" class="fp-illo" loading="lazy" />
+      </div>
+    </div>
+  </div>
+
+  {{- range $i, $p := $data.panels }}
+    {{- $n := add $i 2 }}
+    <div class="feat-panel fp-{{ $n }}">
+      <div class="fp-inner">
+        <div class="fp-left">
+          <h3 class="fp-title">{{ delimit (split (trim $p.title "\n") "\n") "<br>" | safeHTML }}</h3>
+          <p class="fp-desc">{{ $p.body }}</p>
+        </div>
+        <div class="fp-right fp-right-duo">
+          <div class="fp-illo-stack">
+            <span class="fp-mask-icon fp-icon-sm fp-icon-{{ $p.maskIcon }}" aria-hidden="true"></span>
+            <img src="{{ $p.illustration }}" alt="" class="fp-illo{{ if $p.flipped }} fp-flip{{ end }}" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </div>
+  {{- end }}
+
+</section>

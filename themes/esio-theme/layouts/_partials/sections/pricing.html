@@ -1,0 +1,83 @@
+{{- /*
+  Pricing section. Three tiers with a yearly/monthly toggle.
+  The toggle is wired with data attributes the inline <script> at the bottom
+  reads at runtime — same contract as the original Astro version.
+*/ -}}
+{{- $data := site.Data.sections.pricing -}}
+<section id="pricing" class="sec">
+  <div class="si">
+    <div class="tc">
+      <span class="tag tag-t">{{ $data.tag }}</span>
+      <h2 class="stitle">{{ $data.headline }}</h2>
+      <p class="ssub">{{ $data.subtitle }}</p>
+    </div>
+    <div class="billing-toggle" aria-label="Billing frequency switch">
+      <span class="billing-label is-active" data-billing-label="yearly">{{ $data.billingToggle.yearlyLabel }}</span>
+      <button
+        type="button"
+        class="billing-switch"
+        role="switch"
+        aria-checked="false"
+        aria-label="{{ $data.billingToggle.ariaLabel }}"
+      >
+        <span class="billing-switch__thumb"></span>
+      </button>
+      <span class="billing-label" data-billing-label="monthly">{{ $data.billingToggle.monthlyLabel }}</span>
+    </div>
+    <div class="price-grid">
+      {{- range $data.tiers }}
+        {{- $cardCls := cond .featured "pcard feat" "pcard" }}
+        {{- $ctaCls := cond (eq .cta.style "featured") "pcta cta-f" "pcta cta-g" }}
+        <div class="{{ $cardCls }}">
+          {{- with .badge }}<div class="fbadge">{{ . }}</div>{{ end }}
+          <div class="pname">{{ .name }}</div>
+          <div class="pprice">
+            <span class="pcurrency">{{ .currency }}</span>
+            <span class="price-value" data-yearly-price="{{ .yearlyPrice }}" data-monthly-price="{{ .monthlyPrice }}">{{ .yearlyPrice }}</span>
+          </div>
+          <div class="pperiod" data-yearly-period="{{ .yearlyPeriod }}" data-monthly-period="{{ .monthlyPeriod }}">{{ .yearlyPeriod }}</div>
+          <div class="pdesc">{{ .description }}</div>
+          <ul class="pfeats">
+            {{- range .features }}
+              <li>{{ . }}</li>
+            {{- end }}
+          </ul>
+          <a href="{{ .cta.href }}" class="{{ $ctaCls }}">{{ .cta.label }}</a>
+        </div>
+      {{- end }}
+    </div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    const section = document.querySelector('#pricing');
+    if (!section) return;
+
+    const toggle = section.querySelector('.billing-switch');
+    const labels = section.querySelectorAll('[data-billing-label]');
+    const prices = section.querySelectorAll('.price-value');
+    const periods = section.querySelectorAll('.pperiod[data-yearly-period]');
+
+    const update = (mode) => {
+      const monthly = mode === 'monthly';
+      toggle.setAttribute('aria-checked', String(monthly));
+      toggle.classList.toggle('is-monthly', monthly);
+      labels.forEach((l) => l.classList.toggle('is-active', l.getAttribute('data-billing-label') === mode));
+      prices.forEach((p) => {
+        const next = monthly ? p.getAttribute('data-monthly-price') : p.getAttribute('data-yearly-price');
+        if (next != null) p.textContent = next;
+      });
+      periods.forEach((p) => {
+        const next = monthly ? p.getAttribute('data-monthly-period') : p.getAttribute('data-yearly-period');
+        if (next != null) p.textContent = next;
+      });
+    };
+
+    toggle.addEventListener('click', () => {
+      const monthly = toggle.getAttribute('aria-checked') === 'true';
+      update(monthly ? 'yearly' : 'monthly');
+    });
+    update('yearly');
+  })();
+</script>

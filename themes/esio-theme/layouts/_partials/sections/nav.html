@@ -1,0 +1,20 @@
+{{- /*
+  Site navigation. All copy is sourced from data/sections/nav.yml.
+*/ -}}
+{{- $data := site.Data.sections.nav -}}
+<nav>
+  <a href="{{ $data.logo.href | default "/" }}" class="nav-logo">
+    <img src="{{ $data.logo.src }}" alt="{{ $data.logo.alt }}" loading="eager" decoding="async" />
+  </a>
+  <div class="nav-links">
+    {{- range $data.links }}
+      <a href="{{ .href }}">{{ .label }}</a>
+    {{- end }}
+  </div>
+  <div class="nav-right">
+    {{- range $data.actions }}
+      {{- $cls := cond (eq .style "solid") "btn-ns" "btn-ng" }}
+      <a href="{{ .href }}" class="{{ $cls }}">{{ .label }}</a>
+    {{- end }}
+  </div>
+</nav>

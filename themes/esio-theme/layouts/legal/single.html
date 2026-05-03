@@ -1,0 +1,33 @@
+{{ define "main" }}
+  {{ partial "sections/nav.html" . }}
+
+  <article class="bg-[var(--color-navy)] pt-[120px] pb-[90px] px-[6%]">
+    <div class="max-w-[820px] mx-auto">
+      <header class="mb-10">
+        <p class="text-[var(--color-terra-light)] text-xs font-extrabold uppercase tracking-widest mb-3">Legal</p>
+        <h1 class="text-white text-[clamp(28px,3.5vw,46px)] font-black tracking-tight leading-[1.1]">{{ .Title }}</h1>
+        {{ with .Lastmod }}
+          <p class="mt-4 text-sm text-white/45">Last updated {{ .Format "January 2, 2006" }}</p>
+        {{ end }}
+      </header>
+
+      {{ with .TableOfContents }}
+        <nav class="mb-10 bg-white/5 border border-white/12 rounded-[var(--radius-base)] p-6 prose-invert">
+          <p class="text-xs font-extrabold uppercase tracking-widest text-white/55 mb-3">Contents</p>
+          <div class="text-white/80 [&_a]:text-[var(--color-terra-light)] [&_a:hover]:text-[var(--color-terra)] [&_ul]:list-none [&_ul]:pl-0 [&_li]:mb-1.5">
+            {{ . }}
+          </div>
+        </nav>
+      {{ end }}
+
+      <div class="prose prose-invert prose-lg max-w-none
+                  prose-headings:text-white prose-headings:font-black
+                  prose-a:text-[var(--color-terra-light)] hover:prose-a:text-[var(--color-terra)]
+                  prose-strong:text-white prose-blockquote:border-[var(--color-terra)]">
+        {{ .Content }}
+      </div>
+    </div>
+  </article>
+
+  {{ partial "sections/footer.html" . }}
+{{ end }}

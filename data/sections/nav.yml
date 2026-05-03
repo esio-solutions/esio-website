@@ -1,0 +1,24 @@
+logo:
+  src: /assets/esio-logo.svg
+  alt: ESIO
+  href: /
+
+links:
+  - label: Why ESIO
+    href: "/#pain"
+  - label: Features
+    href: "/#features"
+  - label: Pricing
+    href: "/#pricing"
+  - label: Articles
+    href: "/articles/"
+  - label: Blog
+    href: "/posts/"
+
+actions:
+  - label: Log In
+    href: https://budget.esio.dk/Login
+    style: ghost
+  - label: Start Free
+    href: https://budget.esio.dk/Login
+    style: solid

@@ -1,0 +1,27 @@
+{{- /*
+  CSS pipeline.
+  styles.css is processed as a Hugo template first (so [params.colors],
+  typography and radii — exposed via the global `site` function — can be
+  injected into the Tailwind 4 @theme block), then run through the Tailwind
+  compiler via Hugo Pipes, then minified and fingerprinted. Wrapped in
+  templates.Defer so Tailwind sees every rendered template's class names
+  before scanning.
+
+  Note: inside templates.Defer the `$` and `.` contexts change, so the CSS
+  template uses the global `site` function rather than `.Site`.
+*/ -}}
+{{ with (templates.Defer (dict "key" "global")) }}
+  {{ with resources.Get "css/styles.css" }}
+    {{ with resources.ExecuteAsTemplate "css/styles.css" . . }}
+      {{ $opts := dict "inlineImports" true "optimize" true "minify" true }}
+      {{ with . | css.TailwindCSS $opts | fingerprint }}
+        <link
+          rel="stylesheet"
+          href="{{ .RelPermalink }}"
+          integrity="{{ .Data.Integrity }}"
+          crossorigin="anonymous"
+        />
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}

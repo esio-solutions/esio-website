@@ -1,0 +1,34 @@
+{{- /*
+  Hero section. Headline composes prefix / emphasis / suffix from data so
+  the <em>-styled mid-line stays semantic.
+*/ -}}
+{{- $data := site.Data.sections.hero -}}
+<section id="hero">
+  <div class="hero-left">
+    <a href="{{ $data.logo.href | default "/" }}" class="logo-big">
+      <img src="{{ $data.logo.src }}" alt="{{ $data.logo.alt }}" loading="eager" decoding="async" />
+    </a>
+    <div class="pill-row">
+      {{- range $data.pills }}
+        <div class="pill"><span class="dot"></span>{{ . }}</div>
+      {{- end }}
+    </div>
+    <h1>{{ $data.headline.prefix }}<br><em>{{ $data.headline.emphasis }}</em><br>{{ $data.headline.suffix | safeHTML }}</h1>
+    <p class="hero-p">{{ $data.paragraph }}</p>
+    <div class="btns">
+      {{- range $data.actions }}
+        {{- $cls := cond (eq .style "primary") "btn-p" "btn-s" }}
+        <a href="{{ .href }}" class="{{ $cls }}">{{ .label }}</a>
+      {{- end }}
+    </div>
+    <div class="trust"><div class="avs"></div></div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-chart-bg">
+      <img src="{{ $data.illustrations.background.src }}" alt="{{ $data.illustrations.background.alt }}" class="bg1-st1" loading="lazy" decoding="async" />
+    </div>
+    <div class="hero-illo">
+      <img src="{{ $data.illustrations.foreground.src }}" alt="{{ $data.illustrations.foreground.alt }}" class="i4-cls-4" loading="lazy" decoding="async" />
+    </div>
+  </div>
+</section>

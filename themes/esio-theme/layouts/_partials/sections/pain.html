@@ -1,0 +1,36 @@
+{{- /*
+  Pain section: problem statement + 3 cards.
+  Badge `id` controls the absolute-position class (.b1 / .b2) the existing
+  CSS uses for staggered floating animation.
+*/ -}}
+{{- $data := site.Data.sections.pain -}}
+<section id="pain" class="sec">
+  <div class="si">
+    <div class="pain-layout">
+      <div class="pain-illo">
+        <img src="{{ $data.illustration.src }}" alt="{{ $data.illustration.alt }}" class="illo2-cls-10" loading="lazy" decoding="async" />
+        {{- range $data.badges }}
+          <div class="badge {{ .id }}">
+            <div class="bl">{{ .label }}</div>
+            <div class="bv">{{ .value }}</div>
+            <div class="bt{{ with .trendVariant }} bt-{{ . }}{{ end }}">{{ .trend }}</div>
+          </div>
+        {{- end }}
+      </div>
+      <div>
+        <span class="tag tag-w">{{ $data.tag }}</span>
+        <h2 class="stitle">{{ $data.headline.primary }}<br>{{ $data.headline.emphasis }}</h2>
+        <p class="ssub">{{ $data.subtitle }}</p>
+      </div>
+    </div>
+    <div class="pain-cards">
+      {{- range $data.cards }}
+        <div class="pc">
+          <span class="pc-icon">{{ .icon | safeHTML }}</span>
+          <h3>{{ .title }}</h3>
+          <p>{{ .body }}</p>
+        </div>
+      {{- end }}
+    </div>
+  </div>
+</section>

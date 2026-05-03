@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="{{ site.Language.Lang }}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    {{ if .IsHome }}
+      <title>{{ site.Title }} — {{ site.Params.description }}</title>
+    {{ else if eq .Title site.Title }}
+      <title>{{ site.Title }}</title>
+    {{ else }}
+      <title>{{ .Title }} | {{ site.Title }}</title>
+    {{ end }}
+
+    {{ $description := site.Params.description }}
+    {{ with .Description }}{{ $description = . }}{{ end }}
+    <meta name="description" content="{{ $description }}" />
+
+    {{ partial "head/favicons.html" . }}
+    {{ partial "head/fonts.html" . }}
+    {{ partial "head/styles.html" . }}
+  </head>
+  <body class="bg-navy text-white antialiased">
+    {{ block "main" . }}{{ end }}
+    {{ partial "head/scripts.html" . }}
+  </body>
+</html>

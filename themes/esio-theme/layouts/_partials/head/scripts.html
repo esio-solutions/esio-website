@@ -1,0 +1,10 @@
+{{- /*
+  JavaScript pipeline.
+  main.js is currently just the mobile nav toggler. Built via esbuild
+  (Hugo's js.Build), minified in production, and fingerprinted.
+*/ -}}
+{{ with resources.Get "js/main.js" }}
+  {{ $opts := dict "minify" hugo.IsProduction "targetPath" "js/main.js" }}
+  {{ $main := . | js.Build $opts | fingerprint }}
+  <script src="{{ $main.RelPermalink }}" defer></script>
+{{ end }}

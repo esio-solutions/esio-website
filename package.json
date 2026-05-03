@@ -1,0 +1,14 @@
+{
+  "name": "esio-site",
+  "private": true,
+  "description": "ESIO marketing site (Hugo).",
+  "scripts": {
+    "dev": "hugo server --buildDrafts --buildFuture",
+    "build": "hugo --minify"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.0.0",
+    "@tailwindcss/typography": "^0.5.10",
+    "tailwindcss": "^4.0.0"
+  }
+}

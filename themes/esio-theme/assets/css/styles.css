@@ -1,0 +1,55 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* ──────────────────────────────────────────────────────────────────────────
+   Design tokens — sourced from `[params]` in hugo.toml.
+   This file is processed as a Hugo template before Tailwind sees it,
+   so site.Params.* expressions resolve at build time.
+   Editing values in hugo.toml is the only place colors/typography
+   should change.
+   ────────────────────────────────────────────────────────────────────────── */
+@theme {
+  --color-navy:        {{ site.Params.colors.navy }};
+  --color-navy-dark:   {{ site.Params.colors.navyDark }};
+  --color-navy-mid:    {{ site.Params.colors.navyMid }};
+  --color-purple:      {{ site.Params.colors.purple }};
+  --color-terra:       {{ site.Params.colors.terra }};
+  --color-terra-dark:  {{ site.Params.colors.terraDark }};
+  --color-terra-light: {{ site.Params.colors.terraLight }};
+  --color-terra-pale:  {{ site.Params.colors.terraPale }};
+  --color-teal:        {{ site.Params.colors.teal }};
+  --color-yellow:      {{ site.Params.colors.yellow }};
+
+  --font-display: "{{ site.Params.typography.fontFamily }}", sans-serif;
+  --font-sans:    "{{ site.Params.typography.fontFamily }}", sans-serif;
+
+  --radius-base:  {{ site.Params.radii.base }};
+  --radius-large: {{ site.Params.radii.large }};
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   Base layer
+   ────────────────────────────────────────────────────────────────────────── */
+@layer base {
+  html {
+    font-family: var(--font-display);
+    scroll-behavior: smooth;
+  }
+  body {
+    overflow-x: hidden;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   Section styles. Hand-rolled, ported 1:1 from the previous Astro site
+   so this Hugo build matches it pixel-for-pixel. All design tokens
+   resolve via the @theme block above; no hex values here.
+   ────────────────────────────────────────────────────────────────────────── */
+@import "./esio.css";
+
+/* Bespoke effects that don't map to Tailwind utilities — kept empty for now;
+   any future masks/keyframes/etc that should be tokenized go here. */
+@import "./components.css";
+
+/* Generic shared modules carried over from the upstream theme. */
+@import "./shared/_pagination.css";

@@ -1,0 +1,12 @@
+{{- /*
+  Site fonts.
+  Configured via `[params.typography]` in hugo.toml so the family/weights
+  can be changed without touching templates.
+*/ -}}
+{{ $family := site.Params.typography.fontFamily | default "Plus Jakarta Sans" }}
+{{ $weights := site.Params.typography.fontWeights | default "400;500;600;700;800;900" }}
+{{ $familyURL := replace $family " " "+" }}
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+{{ $href := printf "https://fonts.googleapis.com/css2?family=%s:wght@%s&display=swap" $familyURL $weights }}
+<link href="{{ $href | safeURL }}" rel="stylesheet" />

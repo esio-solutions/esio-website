@@ -1,0 +1,14 @@
+# Hugo build output
+/public/
+
+# Hugo cache (resources are regenerated on build)
+/resources/
+.hugo_build.lock
+
+# Tailwind / npm artifacts inside the theme
+node_modules/
+
+# Editor
+.idea/
+.vscode/
+.DS_Store

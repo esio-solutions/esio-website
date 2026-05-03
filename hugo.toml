@@ -1,0 +1,54 @@
+baseURL = "https://esio.dk/"
+title = "ESIO"
+theme = "esio-theme"
+defaultContentLanguage = "en"
+enableRobotsTXT = true
+enableEmoji = true
+
+[languages]
+  [languages.en]
+    locale = "en-us"
+    label = "English"
+    weight = 1
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 4
+    ordered = false
+
+[build]
+  writeStats = true
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Site params
+#   All design tokens live here. Editing a value below changes the rendered
+#   site after `hugo` rebuilds. Templates must NEVER hardcode these values.
+# ──────────────────────────────────────────────────────────────────────────────
+[params]
+  description = "Budgeting Software for Small Business & Startups"
+  platformUrl = "https://budget.esio.dk/Login"
+
+  [params.colors]
+    navy       = "#1B2B6B"
+    navyDark   = "#111E4A"
+    navyMid    = "#243580"
+    purple     = "#6B5B9E"
+    terra      = "#E07B5B"
+    terraDark  = "#C46340"
+    terraLight = "#F09070"
+    terraPale  = "#FAE8DF"
+    teal       = "#4DBFB8"
+    yellow     = "#F5C842"
+    white      = "#FFFFFF"
+
+  [params.typography]
+    fontFamily   = "Plus Jakarta Sans"
+    fontWeights  = "400;500;600;700;800;900"
+
+  [params.radii]
+    base  = "16px"
+    large = "24px"

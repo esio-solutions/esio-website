@@ -1,0 +1,26 @@
+{{- /*
+  Video section. Currently embeds YouTube via iframe (matches Astro source).
+  Builds the embed URL from the provider + id + params in data.
+*/ -}}
+{{- $data := site.Data.sections.video -}}
+{{- $params := default "" $data.embed.params -}}
+{{- $sep := cond (eq $params "") "" "?" -}}
+{{- $url := printf "https://www.youtube.com/embed/%s%s%s" $data.embed.id $sep $params -}}
+<section id="video" class="video-section">
+  <div class="video-inner-compact">
+    <span class="tag tag-t">{{ $data.tag }}</span>
+    <h2 class="stitle">{{ $data.headline }}</h2>
+    <p class="ssub video-sub">{{ $data.subtitle }}</p>
+    <div class="video-wrap" id="videoWrap">
+      <iframe
+        src="{{ $url | safeURL }}"
+        title="{{ $data.embed.title }}"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        class="video-frame"
+      ></iframe>
+    </div>
+    <div class="video-stats"></div>
+  </div>
+</section>

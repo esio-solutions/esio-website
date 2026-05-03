@@ -1,0 +1,26 @@
+{{- /*
+  Subscribe / trial CTA section.
+*/ -}}
+{{- $data := site.Data.sections.subscribe -}}
+<section id="subscribe">
+  <div class="si">
+    <div class="sub-grid">
+      <div class="sub-text">
+        <span class="tag tag-w sub-tag">{{ $data.tag }}</span>
+        <h2>{{ $data.headline.prefix }}<br>{{ $data.headline.suffix }}</h2>
+        <p>{{ $data.body }}</p>
+        <ul class="sub-benefits">
+          {{- range $data.benefits }}
+            <li>{{ . }}</li>
+          {{- end }}
+        </ul>
+      </div>
+      <div class="form-box form-box-center">
+        <div class="form-title form-title-lg">{{ $data.formBox.title }}</div>
+        <div class="form-sub-t form-sub-center">{{ delimit (split (trim $data.formBox.subtitle "\n") "\n") "<br>" | safeHTML }}</div>
+        <a href="{{ $data.formBox.cta.href }}" target="_blank" class="btn-sub btn-sub-link">{{ $data.formBox.cta.label }}</a>
+        <p class="form-note">{{ $data.formBox.legalNote }}</p>
+      </div>
+    </div>
+  </div>
+</section>
