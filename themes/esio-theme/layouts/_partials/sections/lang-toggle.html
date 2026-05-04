@@ -1,0 +1,40 @@
+{{- /*
+  Language switcher. Globe-icon button reveals a small popover containing
+  just the language flags — much narrower than the old combined settings
+  panel, so it doesn't clip on mobile.
+
+  Each language flag links to the equivalent page in that language; if a
+  translation is missing for the current page, we fall back to that
+  language's home page so the link is never dead.
+*/ -}}
+{{- $currentLang := site.Language.Lang -}}
+<div class="lang-switch">
+  <button type="button" class="lang-trigger" aria-label="{{ i18n "language" }}" aria-haspopup="true">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="10"/>
+      <path d="M2 12h20"/>
+      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+    </svg>
+  </button>
+  <div class="lang-panel" role="menu">
+    {{- $defaultLang := site.Home.Site.Language.Lang -}}
+    {{- range site.Languages }}
+      {{- $lang := .Lang -}}
+      {{- $isCurrent := eq $lang $currentLang -}}
+      {{- $href := cond (eq $lang $defaultLang) "/" (printf "/%s/" $lang) -}}
+      {{- with index (where $.Translations "Language.Lang" $lang) 0 -}}
+        {{- $href = .RelPermalink -}}
+      {{- end -}}
+      {{- $aria := i18n (printf "lang_%s" (cond (eq $lang "en") "english" "danish")) -}}
+      {{- if $isCurrent }}
+        <span class="lang-flag is-active" aria-label="{{ $aria }}" title="{{ $aria }}" aria-current="true">
+          {{- partial "settings/flag.html" $lang -}}
+        </span>
+      {{- else }}
+        <a href="{{ $href }}" class="lang-flag" aria-label="{{ $aria }}" title="{{ $aria }}">
+          {{- partial "settings/flag.html" $lang -}}
+        </a>
+      {{- end }}
+    {{- end }}
+  </div>
+</div>

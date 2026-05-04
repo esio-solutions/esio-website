@@ -13,7 +13,8 @@
     {{- end }}
   </div>
   <div class="nav-right">
-    {{ partial "sections/settings.html" . }}
+    {{ partial "sections/theme-toggle.html" . }}
+    {{ partial "sections/lang-toggle.html" . }}
     {{- range $data.actions }}
       {{- $cls := cond (eq .style "solid") "btn-ns" "btn-ng" }}
       <a href="{{ .href }}" class="{{ $cls }}">{{ .label }}</a>
