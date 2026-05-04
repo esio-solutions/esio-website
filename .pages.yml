@@ -4,13 +4,21 @@
 #
 # This config is the interface contract between the repo and editors using
 # pagescms.org. It describes:
-#   - where uploaded media lands (static/assets/)
-#   - the homepage section data files (data/sections/*.yml) as individual
-#     editable forms
+#   - where uploaded media lands (static/assets/ + share-cards subfolder)
+#   - the homepage section data files (data/<lang>/sections/*.yml) as
+#     individual editable forms grouped by language
 #   - the three markdown content collections (articles, posts, legal)
 #
-# Editing this file changes what editors can edit and how the form looks.
-# It does NOT change the data model — that lives in `data/sections/*.yml`
+# Sidebar layout uses `type: group` to nest related entries (e.g. all
+# English-language sections under one "English" group). Groups are
+# navigation-only — they don't affect file layout, only the CMS UI.
+#
+# List items inside forms use `list.collapsible.summary` so editors see
+# meaningful labels (e.g. "Surprise Tax Bills") instead of generic
+# "Item #1, Item #2…". Summary supports `{fieldname}` interpolation.
+#
+# Editing this file changes what editors see and how the form looks.
+# It does NOT change the data model — that lives in `data/<lang>/sections/*.yml`
 # and the markdown front-matter. Keep this config in sync with those.
 # ──────────────────────────────────────────────────────────────────────────────
 
@@ -28,453 +36,493 @@ media:
 
 content:
   # ────────────────────────────────────────────────────────────────────────
-  # Homepage page-level metadata
+  # Site-wide settings
   # ────────────────────────────────────────────────────────────────────────
-  - name: home
-    label: Homepage metadata
-    type: file
-    path: content/_index.md
-    format: yaml-frontmatter
-    fields: &homeFields
-      - { name: title, label: Page title, type: string, required: true }
-      - { name: description, label: Meta description, type: text }
-
-  # ────────────────────────────────────────────────────────────────────────
-  # Site SEO defaults
-  #   A narrow slice of hugo.toml exposing only the brand-level SEO fields.
-  #   PagesCMS preserves any TOML keys not defined here, so editors can
-  #   update the default social-share image without seeing — or accidentally
-  #   breaking — colors, theme tokens, languages, or build config.
-  #   Per-page social images live on each post / article (field "image").
-  # ────────────────────────────────────────────────────────────────────────
-  - name: site_seo
-    label: Site SEO defaults
-    type: file
-    path: hugo.toml
-    format: toml
-    fields:
-      - name: params
-        type: object
+  - name: settings
+    label: Site settings
+    type: group
+    items:
+      # Narrow slice of hugo.toml — only brand-level SEO fields. PagesCMS
+      # preserves any TOML keys not defined here, so editors can update
+      # the default social-share image without seeing — or accidentally
+      # breaking — colors, theme tokens, languages, or build config.
+      - name: site_seo
+        label: Site SEO defaults
+        type: file
+        path: hugo.toml
+        format: toml
         fields:
-          - { name: ogImage, type: image, label: "Default social-share image (1200x630, used when a page has no image of its own)" }
-
-  # ────────────────────────────────────────────────────────────────────────
-  # Homepage sections — each YAML file shows up as its own form in the CMS
-  # ────────────────────────────────────────────────────────────────────────
-  - name: nav
-    label: Navigation
-    type: file
-    path: data/en/sections/nav.yml
-    format: yaml
-    fields: &navFields
-      - name: logo
-        type: object
-        fields:
-          - { name: src, type: image, label: "Logo (dark theme — usually white-on-transparent)" }
-          - { name: srcLight, type: image, label: "Logo (light theme — usually navy-on-transparent)", required: false }
-          - { name: alt, type: string, label: Alt text }
-          - { name: href, type: string, label: Link target, default: "/" }
-      - name: links
-        label: Top-bar links
-        type: object
-        list: true
-        fields:
-          - { name: label, type: string, required: true }
-          - { name: href, type: string, required: true }
-      - name: actions
-        label: Right-side buttons
-        type: object
-        list: true
-        fields:
-          - { name: label, type: string, required: true }
-          - { name: href, type: string, required: true }
-          - name: style
-            type: select
-            options:
-              values: [ghost, solid]
-
-  - name: hero
-    label: Hero
-    type: file
-    path: data/en/sections/hero.yml
-    format: yaml
-    fields: &heroFields
-      - name: logo
-        type: object
-        fields:
-          - { name: src, type: image, label: "Hero logo (dark theme)" }
-          - { name: srcLight, type: image, label: "Hero logo (light theme)", required: false }
-          - { name: alt, type: string }
-          - { name: href, type: string, default: "/" }
-      - { name: pills, type: string, list: true, label: "Pills (\"Budgeting\", \"Planning\", ...)" }
-      - name: headline
-        label: Headline
-        type: object
-        fields:
-          - { name: prefix, type: string, label: "Top line" }
-          - { name: emphasis, type: string, label: "Emphasised middle line (renders inside <em>)" }
-          - { name: suffix, type: string, label: "Bottom line (HTML allowed)" }
-      - { name: paragraph, type: text, label: "Body paragraph" }
-      - name: actions
-        label: CTA buttons
-        type: object
-        list: true
-        fields:
-          - { name: label, type: string, required: true }
-          - { name: href, type: string, required: true }
-          - name: style
-            type: select
-            options:
-              values: [primary, secondary]
-      - name: illustrations
-        type: object
-        fields:
-          - name: background
+          - name: params
             type: object
             fields:
-              - { name: src, type: image, label: Background SVG }
-              - { name: alt, type: string }
-          - name: foreground
-            type: object
-            fields:
-              - { name: src, type: image, label: Foreground SVG }
-              - { name: alt, type: string }
+              - { name: ogImage, type: image, label: "Default social-share image (1200x630, used when a page has no image of its own)" }
 
-  - name: video
-    label: Video section
-    type: file
-    path: data/en/sections/video.yml
-    format: yaml
-    fields: &videoFields
-      - { name: tag, type: string }
-      - { name: headline, type: string }
-      - { name: subtitle, type: text }
-      - name: embed
-        type: object
-        fields:
-          - name: provider
-            type: select
-            options:
-              values: [youtube]
-          - { name: id, type: string, label: "Video ID (e.g. znk-ssXoI64)" }
-          - { name: title, type: string, label: "Iframe title (a11y)" }
-          - { name: params, type: string, label: "URL params (e.g. rel=0&modestbranding=1)" }
+  # ────────────────────────────────────────────────────────────────────────
+  # English homepage — page metadata + all section data files. The first
+  # entry under each section defines the YAML anchor (&navFields, …) so the
+  # Danish mirror can re-use the same field schema via *anchor aliases.
+  # ────────────────────────────────────────────────────────────────────────
+  - name: english
+    label: English
+    type: group
+    items:
+      - name: home
+        label: Homepage metadata
+        type: file
+        path: content/_index.md
+        format: yaml-frontmatter
+        fields: &homeFields
+          - { name: title, label: Page title, type: string, required: true }
+          - { name: description, label: Meta description, type: text }
 
-  - name: pain
-    label: Pain / Problem section
-    type: file
-    path: data/en/sections/pain.yml
-    format: yaml
-    fields: &painFields
-      - { name: tag, type: string }
-      - name: headline
-        type: object
-        fields:
-          - { name: primary, type: string, label: "First line" }
-          - { name: emphasis, type: string, label: "Second line" }
-      - { name: subtitle, type: text }
-      - name: illustration
-        type: object
-        fields:
-          - { name: src, type: image }
-          - { name: alt, type: string }
-      - name: badges
-        label: Floating badges
-        type: object
-        list: true
-        fields:
-          - name: id
-            type: select
-            label: Badge slot
-            options:
-              values: [b1, b2]
-          - { name: label, type: string }
-          - { name: value, type: string }
-          - { name: trend, type: string }
-          - name: trendVariant
-            type: select
-            required: false
-            options:
-              values: [deadline]
-      - name: cards
-        label: Pain cards
-        type: object
-        list: true
-        fields:
-          - { name: icon, type: string, label: "Emoji or unicode icon" }
-          - { name: title, type: string, required: true }
-          - { name: body, type: text, required: true }
-
-  - name: features
-    label: Features section
-    type: file
-    path: data/en/sections/features.yml
-    format: yaml
-    fields: &featuresFields
-      - name: intro
-        label: Intro panel
-        type: object
-        fields:
-          - { name: tag, type: string }
-          - { name: headline, type: text, label: "Headline (newline = <br>)" }
-          - { name: subtitle, type: text }
-          - { name: iconGrid, type: image, list: true, label: "4 icon SVGs" }
-          - { name: illustration, type: image, label: "Right-side illustration" }
-      - name: panels
-        label: Feature panels
-        type: object
-        list: true
-        fields:
-          - { name: id, type: string, label: "Slug (cashflow, tax, ...)" }
-          - { name: title, type: text, label: "Title (newline = <br>)" }
-          - { name: body, type: text, required: true }
-          - name: maskIcon
-            type: select
-            label: "Mask icon (numeric ID, must match esio-iconNN.svg)"
-            options:
-              values: ["01", "02", "03", "05"]
-          - { name: illustration, type: image }
-          - { name: flipped, type: boolean, default: false, label: "Mirror illustration horizontally" }
-
-  - name: pricing
-    label: Pricing section
-    type: file
-    path: data/en/sections/pricing.yml
-    format: yaml
-    fields: &pricingFields
-      - { name: tag, type: string }
-      - { name: headline, type: string }
-      - { name: subtitle, type: text }
-      - name: billingToggle
-        type: object
-        fields:
-          - { name: yearlyLabel, type: string }
-          - { name: monthlyLabel, type: string }
-          - { name: ariaLabel, type: string }
-      - name: tiers
-        label: Pricing tiers
-        type: object
-        list: true
-        fields:
-          - { name: id, type: string, required: true }
-          - { name: name, type: string, required: true }
-          - { name: currency, type: string, default: "DKK" }
-          - { name: yearlyPrice, type: string, label: "Yearly price (digits only)" }
-          - { name: monthlyPrice, type: string, label: "Monthly price (digits only)" }
-          - { name: yearlyPeriod, type: string }
-          - { name: monthlyPeriod, type: string }
-          - { name: description, type: text }
-          - { name: features, type: string, list: true, label: "Included features" }
-          - name: cta
-            type: object
-            fields:
-              - { name: label, type: string }
-              - { name: href, type: string }
-              - name: style
-                type: select
-                options:
-                  values: [ghost, featured]
-          - { name: featured, type: boolean, default: false, label: "Highlight as the recommended tier" }
-          - { name: badge, type: string, required: false, label: "Optional badge text (e.g. Most Popular)" }
-
-  - name: subscribe
-    label: Subscribe / Trial section
-    type: file
-    path: data/en/sections/subscribe.yml
-    format: yaml
-    fields: &subscribeFields
-      - { name: tag, type: string }
-      - name: headline
-        type: object
-        fields:
-          - { name: prefix, type: string }
-          - { name: suffix, type: string }
-      - { name: body, type: text }
-      - { name: benefits, type: string, list: true, label: "Benefit bullets" }
-      - name: formBox
-        type: object
-        fields:
-          - { name: title, type: string }
-          - { name: subtitle, type: text, label: "Subtitle (newline = <br>)" }
-          - name: cta
-            type: object
-            fields:
-              - { name: label, type: string }
-              - { name: href, type: string }
-          - { name: legalNote, type: text }
-
-  - name: footer
-    label: Footer
-    type: file
-    path: data/en/sections/footer.yml
-    format: yaml
-    fields: &footerFields
-      - { name: decorations, type: image, list: true, label: "6 decorative SVGs" }
-      - name: brand
-        type: object
-        fields:
+      - name: nav
+        label: Navigation
+        type: file
+        path: data/en/sections/nav.yml
+        format: yaml
+        fields: &navFields
           - name: logo
             type: object
             fields:
-              - { name: src, type: image, label: "Logo (dark theme)" }
-              - { name: srcLight, type: image, label: "Logo (light theme)", required: false }
-              - { name: alt, type: string }
-          - { name: tagline, type: text }
-      - name: columns
-        label: Footer columns
-        type: object
-        list: true
-        fields:
-          - { name: heading, type: string, required: true }
+              - { name: src, type: image, label: "Logo (dark theme — usually white-on-transparent)" }
+              - { name: srcLight, type: image, label: "Logo (light theme — usually navy-on-transparent)", required: false }
+              - { name: alt, type: string, label: Alt text }
+              - { name: href, type: string, label: Link target, default: "/" }
           - name: links
+            label: Top-bar links
             type: object
-            list: true
+            list:
+              collapsible:
+                summary: "{label} → {href}"
             fields:
               - { name: label, type: string, required: true }
               - { name: href, type: string, required: true }
-      - name: bottom
-        type: object
+          - name: actions
+            label: Right-side buttons
+            type: object
+            list:
+              collapsible:
+                summary: "{label} ({style})"
+            fields:
+              - { name: label, type: string, required: true }
+              - { name: href, type: string, required: true }
+              - name: style
+                type: select
+                options:
+                  values: [ghost, solid]
+
+      - name: hero
+        label: Hero
+        type: file
+        path: data/en/sections/hero.yml
+        format: yaml
+        fields: &heroFields
+          - name: logo
+            type: object
+            fields:
+              - { name: src, type: image, label: "Hero logo (dark theme)" }
+              - { name: srcLight, type: image, label: "Hero logo (light theme)", required: false }
+              - { name: alt, type: string }
+              - { name: href, type: string, default: "/" }
+          - { name: pills, type: string, list: true, label: "Pills (\"Budgeting\", \"Planning\", ...)" }
+          - name: headline
+            label: Headline
+            type: object
+            fields:
+              - { name: prefix, type: string, label: "Top line" }
+              - { name: emphasis, type: string, label: "Emphasised middle line (renders inside <em>)" }
+              - { name: suffix, type: string, label: "Bottom line (HTML allowed)" }
+          - { name: paragraph, type: text, label: "Body paragraph" }
+          - name: actions
+            label: CTA buttons
+            type: object
+            list:
+              collapsible:
+                summary: "{label} ({style})"
+            fields:
+              - { name: label, type: string, required: true }
+              - { name: href, type: string, required: true }
+              - name: style
+                type: select
+                options:
+                  values: [primary, secondary]
+          - name: illustrations
+            type: object
+            fields:
+              - name: background
+                label: "Background SVG"
+                type: object
+                fields:
+                  - { name: src, type: image }
+                  - { name: alt, type: string }
+              - name: foreground
+                label: "Foreground SVG"
+                type: object
+                fields:
+                  - { name: src, type: image }
+                  - { name: alt, type: string }
+
+      - name: video
+        label: Video section
+        type: file
+        path: data/en/sections/video.yml
+        format: yaml
+        fields: &videoFields
+          - { name: tag, type: string }
+          - { name: headline, type: string }
+          - { name: subtitle, type: text }
+          - name: embed
+            type: object
+            fields:
+              - name: provider
+                type: select
+                options:
+                  values: [youtube]
+              - { name: id, type: string, label: "Video ID (e.g. znk-ssXoI64)" }
+              - { name: title, type: string, label: "Iframe title (a11y)" }
+              - { name: params, type: string, label: "URL params (e.g. rel=0&modestbranding=1)" }
+
+      - name: pain
+        label: Pain / Problem section
+        type: file
+        path: data/en/sections/pain.yml
+        format: yaml
+        fields: &painFields
+          - { name: tag, type: string }
+          - name: headline
+            type: object
+            fields:
+              - { name: primary, type: string, label: "First line" }
+              - { name: emphasis, type: string, label: "Second line" }
+          - { name: subtitle, type: text }
+          - name: illustration
+            type: object
+            fields:
+              - { name: src, type: image }
+              - { name: alt, type: string }
+          - name: badges
+            label: Floating badges
+            type: object
+            list:
+              collapsible:
+                summary: "{label}: {value}"
+            fields:
+              - name: id
+                type: select
+                label: Badge slot
+                options:
+                  values: [b1, b2]
+              - { name: label, type: string }
+              - { name: value, type: string }
+              - { name: trend, type: string }
+              - name: trendVariant
+                type: select
+                required: false
+                options:
+                  values: [deadline]
+          - name: cards
+            label: Pain cards
+            type: object
+            list:
+              collapsible:
+                summary: "{icon} {title}"
+            fields:
+              - { name: icon, type: string, label: "Emoji or unicode icon" }
+              - { name: title, type: string, required: true }
+              - { name: body, type: text, required: true }
+
+      - name: features
+        label: Features section
+        type: file
+        path: data/en/sections/features.yml
+        format: yaml
+        fields: &featuresFields
+          - name: intro
+            label: Intro panel
+            type: object
+            fields:
+              - { name: tag, type: string }
+              - { name: headline, type: text, label: "Headline (newline = <br>)" }
+              - { name: subtitle, type: text }
+              - { name: iconGrid, type: image, list: true, label: "4 icon SVGs" }
+              - name: illustration
+                label: "Right-side illustration"
+                type: object
+                fields:
+                  - { name: src, type: image }
+                  - { name: alt, type: string }
+          - name: panels
+            label: Feature panels
+            type: object
+            list:
+              collapsible:
+                summary: "{id}"
+            fields:
+              - { name: id, type: string, label: "Slug (cashflow, tax, ...)" }
+              - { name: title, type: text, label: "Title (newline = <br>)" }
+              - { name: body, type: text, required: true }
+              - name: maskIcon
+                type: select
+                label: "Mask icon (numeric ID, must match esio-iconNN.svg)"
+                options:
+                  values: ["01", "02", "03", "05"]
+              - name: illustration
+                type: object
+                fields:
+                  - { name: src, type: image }
+                  - { name: alt, type: string }
+              - { name: flipped, type: boolean, default: false, label: "Mirror illustration horizontally" }
+
+      - name: pricing
+        label: Pricing section
+        type: file
+        path: data/en/sections/pricing.yml
+        format: yaml
+        fields: &pricingFields
+          - { name: tag, type: string }
+          - { name: headline, type: string }
+          - { name: subtitle, type: text }
+          - name: billingToggle
+            type: object
+            fields:
+              - { name: yearlyLabel, type: string }
+              - { name: monthlyLabel, type: string }
+              - { name: ariaLabel, type: string }
+          - name: tiers
+            label: Pricing tiers
+            type: object
+            list:
+              collapsible:
+                summary: "{name}"
+            fields:
+              - { name: id, type: string, required: true }
+              - { name: name, type: string, required: true }
+              - { name: currency, type: string, default: "DKK" }
+              - { name: yearlyPrice, type: string, label: "Yearly price (digits only)" }
+              - { name: monthlyPrice, type: string, label: "Monthly price (digits only)" }
+              - { name: yearlyPeriod, type: string }
+              - { name: monthlyPeriod, type: string }
+              - { name: description, type: text }
+              - { name: features, type: string, list: true, label: "Included features" }
+              - name: cta
+                type: object
+                fields:
+                  - { name: label, type: string }
+                  - { name: href, type: string }
+                  - name: style
+                    type: select
+                    options:
+                      values: [ghost, featured]
+              - { name: featured, type: boolean, default: false, label: "Highlight as the recommended tier" }
+              - { name: badge, type: string, required: false, label: "Optional badge text (e.g. Most Popular)" }
+
+      - name: subscribe
+        label: Subscribe / Trial section
+        type: file
+        path: data/en/sections/subscribe.yml
+        format: yaml
+        fields: &subscribeFields
+          - { name: tag, type: string }
+          - name: headline
+            type: object
+            fields:
+              - { name: prefix, type: string }
+              - { name: suffix, type: string }
+          - { name: body, type: text }
+          - { name: benefits, type: string, list: true, label: "Benefit bullets" }
+          - name: formBox
+            type: object
+            fields:
+              - { name: title, type: string }
+              - { name: subtitle, type: text, label: "Subtitle (newline = <br>)" }
+              - name: cta
+                type: object
+                fields:
+                  - { name: label, type: string }
+                  - { name: href, type: string }
+              - { name: legalNote, type: text }
+
+      - name: footer
+        label: Footer
+        type: file
+        path: data/en/sections/footer.yml
+        format: yaml
+        fields: &footerFields
+          - { name: decorations, type: image, list: true, label: "6 decorative SVGs" }
+          - name: brand
+            type: object
+            fields:
+              - name: logo
+                type: object
+                fields:
+                  - { name: src, type: image, label: "Logo (dark theme)" }
+                  - { name: srcLight, type: image, label: "Logo (light theme)", required: false }
+                  - { name: alt, type: string }
+              - { name: tagline, type: text }
+          - name: columns
+            label: Footer columns
+            type: object
+            list:
+              collapsible:
+                summary: "{heading}"
+            fields:
+              - { name: heading, type: string, required: true }
+              - name: links
+                type: object
+                list:
+                  collapsible:
+                    summary: "{label}"
+                fields:
+                  - { name: label, type: string, required: true }
+                  - { name: href, type: string, required: true }
+          - name: bottom
+            type: object
+            fields:
+              - { name: copyright, type: string }
+              - { name: tagline, type: string }
+
+  # ────────────────────────────────────────────────────────────────────────
+  # Danish homepage — re-uses every English schema via *anchor aliases.
+  # Editing the English schema above also changes these Danish forms.
+  # Danish content lives at data/da/sections/*.yml + content/_index.da.md.
+  # ────────────────────────────────────────────────────────────────────────
+  - name: danish
+    label: Dansk
+    type: group
+    items:
+      - name: home_da
+        label: Homepage metadata
+        type: file
+        path: content/_index.da.md
+        format: yaml-frontmatter
+        fields: *homeFields
+
+      - name: nav_da
+        label: Navigation
+        type: file
+        path: data/da/sections/nav.yml
+        format: yaml
+        fields: *navFields
+
+      - name: hero_da
+        label: Hero
+        type: file
+        path: data/da/sections/hero.yml
+        format: yaml
+        fields: *heroFields
+
+      - name: video_da
+        label: Video section
+        type: file
+        path: data/da/sections/video.yml
+        format: yaml
+        fields: *videoFields
+
+      - name: pain_da
+        label: Pain / Problem section
+        type: file
+        path: data/da/sections/pain.yml
+        format: yaml
+        fields: *painFields
+
+      - name: features_da
+        label: Features section
+        type: file
+        path: data/da/sections/features.yml
+        format: yaml
+        fields: *featuresFields
+
+      - name: pricing_da
+        label: Pricing section
+        type: file
+        path: data/da/sections/pricing.yml
+        format: yaml
+        fields: *pricingFields
+
+      - name: subscribe_da
+        label: Subscribe / Trial section
+        type: file
+        path: data/da/sections/subscribe.yml
+        format: yaml
+        fields: *subscribeFields
+
+      - name: footer_da
+        label: Footer
+        type: file
+        path: data/da/sections/footer.yml
+        format: yaml
+        fields: *footerFields
+
+  # ────────────────────────────────────────────────────────────────────────
+  # Markdown content collections — bilingual. Danish files are recognised by
+  # the .da.md filename suffix; both languages live in the same collection
+  # because file-level i18n in Hugo doesn't separate them by directory.
+  # ────────────────────────────────────────────────────────────────────────
+  - name: collections
+    label: Content
+    type: group
+    items:
+      - name: articles
+        label: Articles
+        type: collection
+        path: content/articles
+        filename: '{primary}.md'
+        exclude: ['_index.md']
+        format: yaml-frontmatter
+        view:
+          fields: [title, date, tags]
+          primary: title
+          sort: [date, title]
+          default:
+            sort: date
+            order: desc
         fields:
-          - { name: copyright, type: string }
-          - { name: tagline, type: string }
+          - { name: title, type: string, required: true }
+          - { name: description, type: text, label: "Card / SEO description" }
+          - { name: date, type: date, required: true }
+          - { name: author, type: string }
+          - { name: tags, type: string, list: true }
+          - { name: image, type: image, media: share, label: "Social-share image (1200x630, optional — falls back to site default)", required: false }
+          - { name: body, type: rich-text, label: Article body }
 
-  # ────────────────────────────────────────────────────────────────────────
-  # Markdown content collections
-  # ────────────────────────────────────────────────────────────────────────
-  - name: articles
-    label: Articles
-    type: collection
-    path: content/articles
-    filename: '{primary}.md'
-    exclude: ['_index.md']
-    format: yaml-frontmatter
-    view:
-      fields: [title, date, tags]
-      primary: title
-      sort: [date, title]
-      default:
-        sort: date
-        order: desc
-    fields:
-      - { name: title, type: string, required: true }
-      - { name: description, type: text, label: "Card / SEO description" }
-      - { name: date, type: date, required: true }
-      - { name: author, type: string }
-      - { name: tags, type: string, list: true }
-      - { name: image, type: image, media: share, label: "Social-share image (1200x630, optional — falls back to site default)", required: false }
-      - { name: body, type: rich-text, label: Article body }
+      - name: posts
+        label: Blog posts
+        type: collection
+        path: content/posts
+        filename: '{primary}.md'
+        exclude: ['_index.md']
+        format: yaml-frontmatter
+        view:
+          fields: [title, date]
+          primary: title
+          sort: [date, title]
+          default:
+            sort: date
+            order: desc
+        fields:
+          - { name: title, type: string, required: true }
+          - { name: description, type: text, label: "Card / SEO description" }
+          - { name: date, type: date, required: true }
+          - { name: image, type: image, media: share, label: "Social-share image (1200x630, optional — falls back to site default)", required: false }
+          - { name: body, type: rich-text, label: Post body }
 
-  - name: posts
-    label: Blog posts
-    type: collection
-    path: content/posts
-    filename: '{primary}.md'
-    exclude: ['_index.md']
-    format: yaml-frontmatter
-    view:
-      fields: [title, date]
-      primary: title
-      sort: [date, title]
-      default:
-        sort: date
-        order: desc
-    fields:
-      - { name: title, type: string, required: true }
-      - { name: description, type: text, label: "Card / SEO description" }
-      - { name: date, type: date, required: true }
-      - { name: image, type: image, media: share, label: "Social-share image (1200x630, optional — falls back to site default)", required: false }
-      - { name: body, type: rich-text, label: Post body }
-
-  - name: legal
-    label: Legal documents
-    type: collection
-    path: content/legal
-    filename: '{primary}.md'
-    exclude: ['_index.md']
-    format: yaml-frontmatter
-    view:
-      fields: [title, weight]
-      primary: title
-      sort: [weight, title]
-      default:
-        sort: weight
-        order: asc
-    fields:
-      - { name: title, type: string, required: true }
-      - { name: description, type: text }
-      - { name: date, type: date, label: "Last reviewed" }
-      - { name: weight, type: number, default: 99, label: "Sort order (1 = first)" }
-      - { name: body, type: rich-text, label: Document body }
-
-  # ──────────────────────────────────────────────────────────────────────────
-  # Danish (da) mirrors. Same field schemas as the English entries above —
-  # we re-use them via YAML anchors (&fooFields / *fooFields) so editing the
-  # English schema also updates the Danish form. Danish content lives at:
-  #   - data/da/sections/*.yml         (homepage section data)
-  #   - content/_index.da.md           (homepage page metadata)
-  #   - content/{posts,articles,legal}/*.da.md (markdown collections)
-  # The markdown collections are surfaced as a single list per type in the
-  # CMS — Danish files are recognisable by the .da.md filename suffix.
-  # ──────────────────────────────────────────────────────────────────────────
-  - name: home_da
-    label: Homepage metadata (Dansk)
-    type: file
-    path: content/_index.da.md
-    format: yaml-frontmatter
-    fields: *homeFields
-
-  - name: nav_da
-    label: Navigation (Dansk)
-    type: file
-    path: data/da/sections/nav.yml
-    format: yaml
-    fields: *navFields
-
-  - name: hero_da
-    label: Hero (Dansk)
-    type: file
-    path: data/da/sections/hero.yml
-    format: yaml
-    fields: *heroFields
-
-  - name: video_da
-    label: Video section (Dansk)
-    type: file
-    path: data/da/sections/video.yml
-    format: yaml
-    fields: *videoFields
-
-  - name: pain_da
-    label: Pain / Problem section (Dansk)
-    type: file
-    path: data/da/sections/pain.yml
-    format: yaml
-    fields: *painFields
-
-  - name: features_da
-    label: Features section (Dansk)
-    type: file
-    path: data/da/sections/features.yml
-    format: yaml
-    fields: *featuresFields
-
-  - name: pricing_da
-    label: Pricing section (Dansk)
-    type: file
-    path: data/da/sections/pricing.yml
-    format: yaml
-    fields: *pricingFields
-
-  - name: subscribe_da
-    label: Subscribe / Trial section (Dansk)
-    type: file
-    path: data/da/sections/subscribe.yml
-    format: yaml
-    fields: *subscribeFields
-
-  - name: footer_da
-    label: Footer (Dansk)
-    type: file
-    path: data/da/sections/footer.yml
-    format: yaml
-    fields: *footerFields
+      - name: legal
+        label: Legal documents
+        type: collection
+        path: content/legal
+        filename: '{primary}.md'
+        exclude: ['_index.md']
+        format: yaml-frontmatter
+        view:
+          fields: [title, weight]
+          primary: title
+          sort: [weight, title]
+          default:
+            sort: weight
+            order: asc
+        fields:
+          - { name: title, type: string, required: true }
+          - { name: description, type: text }
+          - { name: date, type: date, label: "Last reviewed" }
+          - { name: weight, type: number, default: 99, label: "Sort order (1 = first)" }
+          - { name: body, type: rich-text, label: Document body }
