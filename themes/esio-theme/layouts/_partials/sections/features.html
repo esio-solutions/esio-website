@@ -20,7 +20,7 @@
         {{- end }}
       </div>
       <div class="fp-right">
-        <img src="{{ $data.intro.illustration }}" alt="" class="fp-illo" loading="lazy" />
+        <img src="{{ $data.intro.illustration.src }}" alt="{{ $data.intro.illustration.alt }}" class="fp-illo" loading="lazy" />
       </div>
     </div>
   </div>
@@ -36,7 +36,7 @@
         <div class="fp-right fp-right-duo">
           <div class="fp-illo-stack">
             <span class="fp-mask-icon fp-icon-sm fp-icon-{{ $p.maskIcon }}" aria-hidden="true"></span>
-            <img src="{{ $p.illustration }}" alt="" class="fp-illo{{ if $p.flipped }} fp-flip{{ end }}" loading="lazy" />
+            <img src="{{ $p.illustration.src }}" alt="{{ $p.illustration.alt }}" class="fp-illo{{ if $p.flipped }} fp-flip{{ end }}" loading="lazy" />
           </div>
         </div>
       </div>

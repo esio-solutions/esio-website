@@ -13,7 +13,9 @@ intro:
     - /assets/esio-icon03.svg
     - /assets/esio-icon01.svg
     - /assets/esio-icon05.svg
-  illustration: /assets/features-02.svg
+  illustration:
+    src: /assets/features-02.svg
+    alt: "ESIO feature suite overview illustration"
 
 panels:
   - id: cashflow
@@ -25,7 +27,9 @@ panels:
       generates interactive cashflow simulations based on your real data,
       helping you plan ahead with confidence.
     maskIcon: "05"
-    illustration: /assets/features-07.svg
+    illustration:
+      src: /assets/features-07.svg
+      alt: "Cashflow simulation illustration"
     flipped: true
 
   - id: tax
@@ -37,7 +41,9 @@ panels:
       real-time, tracks every deadline, and surfaces deductions you didn't
       know existed.
     maskIcon: "01"
-    illustration: /assets/footer-06.svg
+    illustration:
+      src: /assets/footer-06.svg
+      alt: "Tax forecasting illustration"
 
   - id: projections
     title: |-
@@ -48,7 +54,9 @@ panels:
       implications before you commit. Plan hiring, investment, and expansion
       with data-backed confidence.
     maskIcon: "02"
-    illustration: /assets/features-05.svg
+    illustration:
+      src: /assets/features-05.svg
+      alt: "Financial projections illustration"
 
   - id: expenses
     title: |-
@@ -59,4 +67,6 @@ panels:
       export-ready. ESIO connects with platforms like Dinero and your
       e-commerce tools to keep your financial data up to date automatically.
     maskIcon: "03"
-    illustration: /assets/features-04.svg
+    illustration:
+      src: /assets/features-04.svg
+      alt: "Expense and income viewer illustration"
