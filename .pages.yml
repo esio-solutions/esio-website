@@ -88,6 +88,102 @@ content:
         fields: *homeFields
 
   # ────────────────────────────────────────────────────────────────────────
+  # About page — standalone Markdown content at /about/. Body is rich-text
+  # so editors can rewrite it through the CMS without touching the file.
+  # ────────────────────────────────────────────────────────────────────────
+  - name: about
+    label: About page
+    type: group
+    items:
+      - name: en
+        label: English
+        type: file
+        path: content/about.md
+        format: yaml-frontmatter
+        fields: &aboutFields
+          - { name: title, type: string, required: true, default: "About ESIO" }
+          - { name: description, type: text, label: "Meta description" }
+          - { name: date, type: date, required: true, label: "Last reviewed" }
+          - { name: body, type: rich-text, label: "Body" }
+      - name: da
+        label: Dansk
+        type: file
+        path: content/about.da.md
+        format: yaml-frontmatter
+        fields: *aboutFields
+
+  # ────────────────────────────────────────────────────────────────────────
+  # Contact page — standalone Markdown content at /contact/.
+  # ────────────────────────────────────────────────────────────────────────
+  - name: contact
+    label: Contact page
+    type: group
+    items:
+      - name: en
+        label: English
+        type: file
+        path: content/contact.md
+        format: yaml-frontmatter
+        fields: &contactFields
+          - { name: title, type: string, required: true, default: "Contact" }
+          - { name: description, type: text, label: "Meta description" }
+          - { name: date, type: date, required: true, label: "Last reviewed" }
+          - { name: body, type: rich-text, label: "Body" }
+      - name: da
+        label: Dansk
+        type: file
+        path: content/contact.da.md
+        format: yaml-frontmatter
+        fields: *contactFields
+
+  # ────────────────────────────────────────────────────────────────────────
+  # Team section — appears at the bottom of the About page. One YAML file
+  # per language so editors can rewrite individual bios per locale.
+  # ────────────────────────────────────────────────────────────────────────
+  - name: team
+    label: Team section
+    type: group
+    items:
+      - name: en
+        label: English
+        type: file
+        path: data/en/sections/team.yml
+        format: yaml
+        fields: &teamFields
+          - name: intro
+            label: "Section intro"
+            type: object
+            fields:
+              - { name: tag, type: string, label: "Eyebrow tag (small uppercase)" }
+              - { name: headline, type: string }
+              - { name: body, type: text }
+          - name: members
+            label: "Team members"
+            type: object
+            list:
+              collapsible:
+                summary: "{name} — {role}"
+            fields:
+              - { name: name, type: string, required: true }
+              - { name: role, type: string }
+              - { name: photo, type: image, required: false, label: "Photo (square; falls back to initials when empty)" }
+              - { name: bio, type: text }
+              - { name: quote, type: string, required: false, label: "Optional pull quote" }
+          - name: cta
+            label: "Closing CTA"
+            type: object
+            fields:
+              - { name: text, type: string, label: "Lead-in line above the link" }
+              - { name: link_label, type: string }
+              - { name: link_href, type: string, label: "Link target (mailto:, /contact/, etc.)" }
+      - name: da
+        label: Dansk
+        type: file
+        path: data/da/sections/team.yml
+        format: yaml
+        fields: *teamFields
+
+  # ────────────────────────────────────────────────────────────────────────
   # Page sections — listed in the order they render on the homepage.
   # Each is a group containing the English and Danish data files.
   # ────────────────────────────────────────────────────────────────────────

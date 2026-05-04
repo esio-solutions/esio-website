@@ -59,6 +59,11 @@ defaultContentLanguageInSubdir = false
   # per-language values via Hugo's params merge order.
   platformUrl = "https://budget.esio.dk/Login"
 
+  # CVR (Centrale Virksomhedsregister) — Danish business registration number.
+  # Surfaced via the {{< cvr >}} shortcode on contact / legal pages so this
+  # value lives in exactly one place.
+  cvr = "12345678"
+
   # Default Open Graph / Twitter Card image. Used on every page that doesn't
   # set its own `image:` or `cover:` in front-matter. Should be 1200x630
   # (1.91:1) so social platforms render the "large summary" card. Drop the

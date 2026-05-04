@@ -16,7 +16,11 @@
    stay brand-locked — they look the same in both modes by design.
    Alpha overlays use color-mix() so opacity is composed against the
    currently-resolved theme color, never a hardcoded hex. */
-nav{
+/* `body > nav` is the SITE navbar specifically. Don't use a bare `nav { … }`
+   selector here — content pages also emit <nav> elements (table-of-contents
+   on legal pages, breadcrumbs in articles, etc.), and they would otherwise
+   inherit the position:fixed below and stack on top of the real navbar. */
+body > nav{
   --nav-bg:color-mix(in srgb, var(--color-surface-dim), transparent 3%);
   --nav-border:color-mix(in srgb, var(--color-on-surface), transparent 93%);
   --nav-text:color-mix(in srgb, var(--color-on-surface), transparent 35%);
@@ -100,8 +104,8 @@ footer{
   --footer-muted:color-mix(in srgb, var(--color-on-surface), transparent 65%);
 }
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;height:68px;background:var(--nav-bg);backdrop-filter:blur(16px);border-bottom:1px solid var(--nav-border);padding:0 6%;display:flex;align-items:center;justify-content:space-between}
+/* NAV — scoped to the direct-body-child site nav only (see comment above). */
+body > nav{position:fixed;top:0;left:0;right:0;z-index:200;height:68px;background:var(--nav-bg);backdrop-filter:blur(16px);border-bottom:1px solid var(--nav-border);padding:0 6%;display:flex;align-items:center;justify-content:space-between}
 .nav-logo svg,.nav-logo img{height:28px;width:auto;display:block}
 .nav-links{display:flex;gap:30px}
 .nav-links a{font-size:14px;font-weight:600;color:var(--nav-text);text-decoration:none;transition:color .15s}
@@ -494,4 +498,82 @@ footer{background:var(--footer-bg);padding:60px 0 36px}
 .form-title-lg{font-size:26px}
 .form-sub-center{text-align:center;font-size:16px;line-height:1.7}
 .btn-sub-link{text-decoration:none;display:inline-block;text-align:center;font-size:18px;padding:18px 48px;border-radius:50px}
+
+/* PROSE — long-form content typography (legal, articles, posts, about, contact).
+   Hand-rolled because @tailwindcss/typography v0.5.x only partially supports
+   Tailwind v4: it emits the prose-* variant modifiers (prose-headings:, prose-a:,
+   …) but not the base .prose h1/p/ul rules, so without these the body of any
+   .prose container would render with raw browser defaults.
+   Wrapped in @layer components so Tailwind utility-variant overrides on
+   templates (e.g. prose-headings:text-white) still win the cascade. */
+@layer components {
+  .prose{color:var(--color-on-surface);line-height:1.7;font-size:16px;max-width:65ch}
+  .prose>:first-child{margin-top:0}
+  .prose>:last-child{margin-bottom:0}
+  .prose h1{font-size:2.25em;margin:1.5em 0 .5em;font-weight:900;line-height:1.2;color:var(--color-on-surface)}
+  .prose h2{font-size:1.5em;margin:2em 0 .75em;font-weight:900;line-height:1.3;color:var(--color-on-surface)}
+  .prose h3{font-size:1.25em;margin:1.6em 0 .5em;font-weight:800;line-height:1.4;color:var(--color-on-surface)}
+  .prose h4{font-size:1.1em;margin:1.5em 0 .5em;font-weight:800;color:var(--color-on-surface)}
+  .prose p{margin:1.25em 0}
+  .prose ul,.prose ol{margin:1.25em 0;padding-left:1.625em}
+  .prose ul{list-style-type:disc}
+  .prose ol{list-style-type:decimal}
+  .prose li{margin:.5em 0}
+  .prose li>p{margin:.6em 0}
+  .prose li::marker{color:color-mix(in srgb,var(--color-on-surface),transparent 50%)}
+  .prose strong{color:var(--color-on-surface);font-weight:700}
+  .prose em{font-style:italic}
+  .prose a{color:var(--color-terra-light);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px;font-weight:500;transition:color .15s}
+  .prose a:hover{color:var(--color-terra)}
+  .prose code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,monospace;font-size:.875em;padding:.2em .4em;border-radius:4px;background:color-mix(in srgb,var(--color-on-surface),transparent 90%);color:var(--color-terra-light)}
+  .prose pre{margin:1.5em 0;padding:1.25em 1.5em;border-radius:var(--radius-base);background:rgba(0,0,0,.3);overflow-x:auto;font-size:.875em;line-height:1.6}
+  .prose pre code{background:transparent;padding:0;font-size:1em;color:inherit}
+  .prose blockquote{margin:1.5em 0;padding-left:1.25em;border-left:3px solid var(--color-terra);font-style:italic;color:color-mix(in srgb,var(--color-on-surface),transparent 25%)}
+  .prose hr{margin:2.5em 0;border:0;border-top:1px solid color-mix(in srgb,var(--color-on-surface),transparent 85%)}
+
+  /* prose-lg variant — used in articles/posts/legal/about for slightly larger reading */
+  .prose-lg{font-size:18px;line-height:1.75}
+  .prose-lg h1{font-size:2.5em}
+  .prose-lg h2{font-size:1.625em}
+  .prose-lg h3{font-size:1.375em}
+
+  /* prose-invert — light text on the navy surface */
+  .prose-invert{color:#fff}
+  .prose-invert h1,.prose-invert h2,.prose-invert h3,.prose-invert h4,.prose-invert strong{color:#fff}
+  .prose-invert a{color:var(--color-terra-light)}
+  .prose-invert blockquote{color:rgba(255,255,255,.85)}
+  .prose-invert code{background:rgba(255,255,255,.08)}
+}
+
+/* TEAM section — personal-first B2B layout. Card per member with photo (or
+   initials fallback), name, role, bio, optional pull quote. Sits at the end
+   of the about page; closes with a contact CTA so the section answers
+   "who built this and how do I reach them" in one continuous beat. */
+.team-section{background:var(--color-surface-dim);padding:90px 6%;color:var(--color-on-surface)}
+.team-inner{max-width:1080px;margin:0 auto}
+.team-intro{text-align:center;margin-bottom:56px}
+.team-headline{font-size:clamp(28px,3.2vw,40px);font-weight:900;color:var(--color-on-surface);line-height:1.15;letter-spacing:-.5px;margin:14px 0 18px}
+.team-body{font-size:clamp(15px,1.3vw,17px);color:color-mix(in srgb,var(--color-on-surface),transparent 25%);line-height:1.7;max-width:640px;margin:0 auto}
+
+.team-grid{list-style:none;padding:0;margin:0 0 56px;display:grid;grid-template-columns:1fr;gap:24px}
+@media(min-width:720px){.team-grid{grid-template-columns:repeat(2,1fr);gap:28px}}
+@media(min-width:1024px){.team-grid{grid-template-columns:repeat(3,1fr);gap:32px}}
+
+.team-card{background:var(--color-surface-container-high);border:1px solid color-mix(in srgb,var(--color-on-surface),transparent 88%);border-radius:var(--radius-large);padding:28px;display:flex;flex-direction:column;gap:18px;transition:border-color .2s ease,transform .2s ease}
+.team-card:hover{border-color:color-mix(in srgb,var(--color-on-surface),transparent 70%);transform:translateY(-2px)}
+
+.team-photo{width:80px;height:80px;border-radius:50%;overflow:hidden;background:var(--color-primary-container);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.team-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.team-initials{font-size:30px;font-weight:900;color:var(--color-on-primary);font-family:var(--font-display);line-height:1}
+
+.team-content{display:flex;flex-direction:column;gap:6px}
+.team-name{font-size:18px;font-weight:800;color:var(--color-on-surface);margin:0;line-height:1.3}
+.team-role{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--color-primary);margin:0}
+.team-bio{font-size:14px;line-height:1.6;color:color-mix(in srgb,var(--color-on-surface),transparent 25%);margin:8px 0 0}
+.team-quote{margin:14px 0 0;padding:12px 0 0;border-top:1px solid color-mix(in srgb,var(--color-on-surface),transparent 90%);font-style:italic;font-size:13px;color:color-mix(in srgb,var(--color-on-surface),transparent 30%);line-height:1.5;border-left:0}
+
+.team-cta{text-align:center}
+.team-cta p{font-size:16px;color:color-mix(in srgb,var(--color-on-surface),transparent 25%);margin:0 0 12px}
+.team-cta-link{display:inline-flex;align-items:center;gap:8px;color:var(--color-primary);font-weight:700;font-size:16px;text-decoration:none;border-bottom:2px solid var(--color-primary);padding-bottom:2px;transition:color .2s ease,border-color .2s ease}
+.team-cta-link:hover{color:var(--color-terra-light);border-bottom-color:var(--color-terra-light)}
 

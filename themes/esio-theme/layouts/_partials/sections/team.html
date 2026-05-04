@@ -1,0 +1,51 @@
+{{- /*
+  Team section. Personal-first B2B layout: cards per member with photo (or
+  initials fallback when no photo set), name, role, bio, optional pull quote.
+  Closes with a contact CTA so the section answers "who built this and how
+  do I talk to them" in one continuous beat.
+*/ -}}
+{{- $data := index site.Data site.Language.Lang "sections" "team" -}}
+{{- if $data }}
+<section class="team-section">
+  <div class="team-inner">
+
+    <div class="team-intro">
+      {{- with $data.intro.tag }}<span class="tag tag-t">{{ . }}</span>{{- end }}
+      {{- with $data.intro.headline }}<h2 class="team-headline">{{ . }}</h2>{{- end }}
+      {{- with $data.intro.body }}<p class="team-body">{{ . }}</p>{{- end }}
+    </div>
+
+    {{- with $data.members }}
+    <ul class="team-grid">
+      {{- range . }}
+        <li class="team-card">
+          <div class="team-photo">
+            {{- if .photo }}
+              <img src="{{ .photo }}" alt="{{ .name }}" loading="lazy" decoding="async" />
+            {{- else }}
+              <span class="team-initials" aria-hidden="true">{{ substr .name 0 1 | upper }}</span>
+            {{- end }}
+          </div>
+          <div class="team-content">
+            <h3 class="team-name">{{ .name }}</h3>
+            {{- with .role }}<p class="team-role">{{ . }}</p>{{- end }}
+            {{- with .bio }}<p class="team-bio">{{ . }}</p>{{- end }}
+            {{- with .quote }}<blockquote class="team-quote">&ldquo;{{ . }}&rdquo;</blockquote>{{- end }}
+          </div>
+        </li>
+      {{- end }}
+    </ul>
+    {{- end }}
+
+    {{- with $data.cta }}
+      <div class="team-cta">
+        {{- with .text }}<p>{{ . }}</p>{{- end }}
+        {{- if and .link_label .link_href }}
+          <a href="{{ .link_href }}" class="team-cta-link">{{ .link_label }}</a>
+        {{- end }}
+      </div>
+    {{- end }}
+
+  </div>
+</section>
+{{- end }}

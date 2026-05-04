@@ -24,10 +24,10 @@ columns:
       - { label: Get Started,  href: "https://budget.esio.dk/Login" }
   - heading: Company
     links:
-      - { label: About,    href: "/articles/" }
+      - { label: About,    href: "/about/" }
       - { label: Blog,     href: "/posts/" }
       - { label: Careers,  href: "#" }
-      - { label: Contact,  href: "#" }
+      - { label: Contact,  href: "/contact/" }
   - heading: Legal
     links:
       - { label: Privacy Policy,    href: "/legal/privacy/" }
