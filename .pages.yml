@@ -20,6 +20,11 @@ media:
     input: static/assets
     output: /assets
     extensions: [svg, png, jpg, jpeg, webp, ico]
+  - name: share
+    label: Social-share cards (per-post 1200x630 OG images)
+    input: static/assets/share
+    output: /assets/share
+    extensions: [jpg, jpeg, png, webp]
 
 content:
   # ────────────────────────────────────────────────────────────────────────
@@ -33,6 +38,25 @@ content:
     fields: &homeFields
       - { name: title, label: Page title, type: string, required: true }
       - { name: description, label: Meta description, type: text }
+
+  # ────────────────────────────────────────────────────────────────────────
+  # Site SEO defaults
+  #   A narrow slice of hugo.toml exposing only the brand-level SEO fields.
+  #   PagesCMS preserves any TOML keys not defined here, so editors can
+  #   update the default social-share image without seeing — or accidentally
+  #   breaking — colors, theme tokens, languages, or build config.
+  #   Per-page social images live on each post / article (field "image").
+  # ────────────────────────────────────────────────────────────────────────
+  - name: site_seo
+    label: Site SEO defaults
+    type: file
+    path: hugo.toml
+    format: toml
+    fields:
+      - name: params
+        type: object
+        fields:
+          - { name: ogImage, type: image, label: "Default social-share image (1200x630, used when a page has no image of its own)" }
 
   # ────────────────────────────────────────────────────────────────────────
   # Homepage sections — each YAML file shows up as its own form in the CMS
@@ -337,7 +361,7 @@ content:
       - { name: date, type: date, required: true }
       - { name: author, type: string }
       - { name: tags, type: string, list: true }
-      - { name: image, type: image, label: "Social-share image (1200x630, optional — falls back to site default)", required: false }
+      - { name: image, type: image, media: share, label: "Social-share image (1200x630, optional — falls back to site default)", required: false }
       - { name: body, type: rich-text, label: Article body }
 
   - name: posts
@@ -358,7 +382,7 @@ content:
       - { name: title, type: string, required: true }
       - { name: description, type: text, label: "Card / SEO description" }
       - { name: date, type: date, required: true }
-      - { name: image, type: image, label: "Social-share image (1200x630, optional — falls back to site default)", required: false }
+      - { name: image, type: image, media: share, label: "Social-share image (1200x630, optional — falls back to site default)", required: false }
       - { name: body, type: rich-text, label: Post body }
 
   - name: legal
