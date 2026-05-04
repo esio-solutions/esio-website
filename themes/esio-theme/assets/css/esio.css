@@ -1,4 +1,13 @@
 
+/* Theme-aware logo swap.
+   Each logo callsite renders both variants (.logo-dark + .logo-light); CSS
+   hides whichever doesn't match the active [data-theme] on <html>. Keeping
+   both in the DOM avoids a flicker on theme toggle and a layout shift on
+   first paint. */
+:root[data-theme="dark"] .logo-light,
+:root:not([data-theme="light"]) .logo-light { display: none; }
+:root[data-theme="light"] .logo-dark { display: none; }
+
 /* Panel Color Wheels.
    Sections that hold "page chrome" (nav, hero, video, how, pricing, setup,
    cta, footer) reference Material 3 theme tokens (--color-surface,
@@ -285,17 +294,22 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:68px;background:var(-
 .fp-icon-03{-webkit-mask:url('/assets/esio-icon03.svg') center/contain no-repeat;mask:url('/assets/esio-icon03.svg') center/contain no-repeat}
 .fp-icon-05{-webkit-mask:url('/assets/esio-icon05.svg') center/contain no-repeat;mask:url('/assets/esio-icon05.svg') center/contain no-repeat}
 
-/* Panel colours */
-.fp-1{background:#1B2B6B}
-.fp-1 .fp-sub{color:rgba(255,255,255,.65)}
-.fp-2{background:#4DBFB8}
+/* Panel colours.
+   Backgrounds come from theme-aware --color-panel-N tokens (set in styles.css
+   per [data-theme]). Text on dark-bg panels uses on-surface so it flips
+   alongside the theme; text on always-light panels stays anchored to navy
+   for legibility regardless of mode. */
+.fp-1{background:var(--color-panel-1)}
+.fp-1 .fp-title,.fp-1 .fp-sub{color:var(--color-on-surface)}
+.fp-1 .fp-sub{color:color-mix(in srgb, var(--color-on-surface), transparent 35%)}
+.fp-2{background:var(--color-panel-2)}
 .fp-2 .fp-title,.fp-2 .fp-desc{color:var(--color-navy-dark)}
-.fp-3{background:#C4B5DE}
+.fp-3{background:var(--color-panel-3)}
 .fp-3 .fp-title,.fp-3 .fp-desc{color:var(--color-navy-dark)}
-.fp-4{background:#3A5A8C}
+.fp-4{background:var(--color-panel-4)}
 .fp-4 .fp-title{color:#fff}
 .fp-4 .fp-desc{color:rgba(255,255,255,.78)}
-.fp-5{background:#9CC5DF}
+.fp-5{background:var(--color-panel-5)}
 .fp-5 .fp-title,.fp-5 .fp-desc{color:var(--color-navy-dark)}
 
 /* HOW */

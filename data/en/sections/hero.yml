@@ -1,5 +1,6 @@
 logo:
-  src: /assets/esio-logo.svg
+  src: /assets/logo-white.svg
+  srcLight: /assets/logo-blue.svg
   alt: ESIO
   href: /
 

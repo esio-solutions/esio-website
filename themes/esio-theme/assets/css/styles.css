@@ -19,16 +19,19 @@
 {{- $light  := site.Params.theme.light -}}
 
 @theme {
-  --color-navy:        {{ $colors.navy }};
-  --color-navy-dark:   {{ $colors.navyDark }};
-  --color-navy-mid:    {{ $colors.navyMid }};
-  --color-purple:      {{ $colors.purple }};
-  --color-terra:       {{ $colors.terra }};
-  --color-terra-dark:  {{ $colors.terraDark }};
-  --color-terra-light: {{ $colors.terraLight }};
-  --color-terra-pale:  {{ $colors.terraPale }};
-  --color-teal:        {{ $colors.teal }};
-  --color-yellow:      {{ $colors.yellow }};
+  --color-navy:             {{ $colors.navy }};
+  --color-navy-dark:        {{ $colors.navyDark }};
+  --color-navy-mid:         {{ $colors.navyMid }};
+  --color-purple:           {{ $colors.purple }};
+  --color-terra:            {{ $colors.terra }};
+  --color-terra-dark:       {{ $colors.terraDark }};
+  --color-terra-light:      {{ $colors.terraLight }};
+  --color-terra-pale:       {{ $colors.terraPale }};
+  --color-teal:             {{ $colors.teal }};
+  --color-yellow:           {{ $colors.yellow }};
+  --color-panel-lavender:   {{ $colors.panelLavender }};
+  --color-panel-steel:      {{ $colors.panelSteel }};
+  --color-panel-periwinkle: {{ $colors.panelPeriwinkle }};
 
   /* Material 3 semantic tokens — defaults are the dark theme. */
   --color-surface:                {{ index $colors $dark.surface }};
@@ -40,6 +43,13 @@
   --color-on-primary:             {{ index $colors $dark.onPrimary }};
   --color-inverse-surface:        {{ index $colors $dark.inverseSurface }};
   --color-inverse-on-surface:     {{ index $colors $dark.inverseOnSurface }};
+
+  /* Feature-panel surfaces — flip per theme (see :root[data-theme=*] below). */
+  --color-panel-1: {{ index $colors $dark.panels.fp1 }};
+  --color-panel-2: {{ index $colors $dark.panels.fp2 }};
+  --color-panel-3: {{ index $colors $dark.panels.fp3 }};
+  --color-panel-4: {{ index $colors $dark.panels.fp4 }};
+  --color-panel-5: {{ index $colors $dark.panels.fp5 }};
 
   --font-display: "{{ site.Params.typography.fontFamily }}", sans-serif;
   --font-sans:    "{{ site.Params.typography.fontFamily }}", sans-serif;
@@ -63,6 +73,11 @@
   --color-on-primary:             {{ index $colors $dark.onPrimary }};
   --color-inverse-surface:        {{ index $colors $dark.inverseSurface }};
   --color-inverse-on-surface:     {{ index $colors $dark.inverseOnSurface }};
+  --color-panel-1: {{ index $colors $dark.panels.fp1 }};
+  --color-panel-2: {{ index $colors $dark.panels.fp2 }};
+  --color-panel-3: {{ index $colors $dark.panels.fp3 }};
+  --color-panel-4: {{ index $colors $dark.panels.fp4 }};
+  --color-panel-5: {{ index $colors $dark.panels.fp5 }};
 }
 
 :root[data-theme="light"] {
@@ -76,6 +91,11 @@
   --color-on-primary:             {{ index $colors $light.onPrimary }};
   --color-inverse-surface:        {{ index $colors $light.inverseSurface }};
   --color-inverse-on-surface:     {{ index $colors $light.inverseOnSurface }};
+  --color-panel-1: {{ index $colors $light.panels.fp1 }};
+  --color-panel-2: {{ index $colors $light.panels.fp2 }};
+  --color-panel-3: {{ index $colors $light.panels.fp3 }};
+  --color-panel-4: {{ index $colors $light.panels.fp4 }};
+  --color-panel-5: {{ index $colors $light.panels.fp5 }};
 }
 
 /* ──────────────────────────────────────────────────────────────────────────

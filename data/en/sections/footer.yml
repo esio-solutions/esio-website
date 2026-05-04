@@ -8,7 +8,8 @@ decorations:
 
 brand:
   logo:
-    src: /assets/esio-logo.svg
+    src: /assets/logo-white.svg
+    srcLight: /assets/logo-blue.svg
     alt: ESIO
   tagline: >-
     Budgeting App for small businesses and startups. Clear finances, zero

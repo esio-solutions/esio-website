@@ -46,7 +46,8 @@ content:
       - name: logo
         type: object
         fields:
-          - { name: src, type: image, label: Logo }
+          - { name: src, type: image, label: "Logo (dark theme — usually white-on-transparent)" }
+          - { name: srcLight, type: image, label: "Logo (light theme — usually navy-on-transparent)", required: false }
           - { name: alt, type: string, label: Alt text }
           - { name: href, type: string, label: Link target, default: "/" }
       - name: links
@@ -77,7 +78,8 @@ content:
       - name: logo
         type: object
         fields:
-          - { name: src, type: image, label: Hero logo }
+          - { name: src, type: image, label: "Hero logo (dark theme)" }
+          - { name: srcLight, type: image, label: "Hero logo (light theme)", required: false }
           - { name: alt, type: string }
           - { name: href, type: string, default: "/" }
       - { name: pills, type: string, list: true, label: "Pills (\"Budgeting\", \"Planning\", ...)" }
@@ -290,7 +292,8 @@ content:
           - name: logo
             type: object
             fields:
-              - { name: src, type: image }
+              - { name: src, type: image, label: "Logo (dark theme)" }
+              - { name: srcLight, type: image, label: "Logo (light theme)", required: false }
               - { name: alt, type: string }
           - { name: tagline, type: text }
       - name: columns

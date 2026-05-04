@@ -6,7 +6,8 @@
 <section id="hero">
   <div class="hero-left">
     <a href="{{ $data.logo.href | default "/" }}" class="logo-big">
-      <img src="{{ $data.logo.src }}" alt="{{ $data.logo.alt }}" loading="eager" decoding="async" />
+      <img src="{{ $data.logo.src }}" alt="{{ $data.logo.alt }}" class="logo-dark" loading="eager" decoding="async" />
+      <img src="{{ $data.logo.srcLight | default $data.logo.src }}" alt="{{ $data.logo.alt }}" class="logo-light" loading="eager" decoding="async" />
     </a>
     <div class="pill-row">
       {{- range $data.pills }}

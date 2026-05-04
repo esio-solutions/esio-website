@@ -50,17 +50,22 @@ defaultContentLanguageInSubdir = false
   platformUrl = "https://budget.esio.dk/Login"
 
   [params.colors]
-    navy       = "#1B2B6B"
-    navyDark   = "#111E4A"
-    navyMid    = "#243580"
-    purple     = "#6B5B9E"
-    terra      = "#E07B5B"
-    terraDark  = "#C46340"
-    terraLight = "#F09070"
-    terraPale  = "#FAE8DF"
-    teal       = "#4DBFB8"
-    yellow     = "#F5C842"
-    white      = "#FFFFFF"
+    navy            = "#1B2B6B"
+    navyDark        = "#111E4A"
+    navyMid         = "#243580"
+    purple          = "#6B5B9E"
+    terra           = "#E07B5B"
+    terraDark       = "#C46340"
+    terraLight      = "#F09070"
+    terraPale       = "#FAE8DF"
+    teal            = "#4DBFB8"
+    yellow          = "#F5C842"
+    white           = "#FFFFFF"
+    # Feature-panel pastels (originally hardcoded in esio.css; tokenised here so
+    # they participate in the theme system and can be remapped per mode below).
+    panelLavender   = "#C4B5DE"
+    panelSteel      = "#3A5A8C"
+    panelPeriwinkle = "#9CC5DF"
 
   [params.typography]
     fontFamily   = "Plus Jakarta Sans"
@@ -91,6 +96,15 @@ defaultContentLanguageInSubdir = false
       inverseSurface       = "white"
       inverseOnSurface     = "navyDark"
 
+      # Feature-panel backgrounds. Each .fp-N reads its bg from --color-panel-N;
+      # values here are the *names* of brand colors in [params.colors] above.
+      [params.theme.dark.panels]
+        fp1 = "navy"
+        fp2 = "teal"
+        fp3 = "panelLavender"
+        fp4 = "panelSteel"
+        fp5 = "panelPeriwinkle"
+
     [params.theme.light]
       surface              = "white"
       surfaceDim           = "terraPale" # subtle warm tint for recessed sections
@@ -101,3 +115,14 @@ defaultContentLanguageInSubdir = false
       onPrimary            = "white"
       inverseSurface       = "navyDark"
       inverseOnSurface     = "white"
+
+      # Light-mode panel mappings. Starting values are conservative — keep
+      # already-pastel panels (lavender, periwinkle, teal) as-is; flip the
+      # dark-bg panels (navy, steel) to lighter tones so the strip stays
+      # readable on a white body.
+      [params.theme.light.panels]
+        fp1 = "terraPale"
+        fp2 = "teal"
+        fp3 = "panelLavender"
+        fp4 = "navyMid"
+        fp5 = "panelPeriwinkle"

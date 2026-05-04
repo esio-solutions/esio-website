@@ -12,7 +12,8 @@
     </div>
     <div class="foot-grid">
       <div class="foot-brand">
-        <img src="{{ $data.brand.logo.src }}" alt="{{ $data.brand.logo.alt }}" class="brand-logo" loading="lazy" decoding="async" />
+        <img src="{{ $data.brand.logo.src }}" alt="{{ $data.brand.logo.alt }}" class="brand-logo logo-dark" loading="lazy" decoding="async" />
+        <img src="{{ $data.brand.logo.srcLight | default $data.brand.logo.src }}" alt="{{ $data.brand.logo.alt }}" class="brand-logo logo-light" loading="lazy" decoding="async" />
         <p>{{ $data.brand.tagline }}</p>
       </div>
       {{- range $data.columns }}
