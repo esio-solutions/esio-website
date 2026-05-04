@@ -22,10 +22,12 @@ For a Danish full-time employee earning DKK 35,000/month gross:
 
 ## The 12-month rule
 
-You can afford the hire if you can pay them, with current cash and realistic forward revenue, for 12 months. Not "if revenue grows 20%." With *current* numbers.
+You can afford the hire if you can pay them, with current cash and [a realistic forward forecast](/articles/forecasting-first-year/), for 12 months. Not "if revenue grows 20%." With *current* numbers.
 
 That sounds conservative because it is. The cost of hiring too early — having to fire, demoralised team, your own burnout — is far higher than the cost of waiting two extra months.
 
 ## What ESIO does here
 
 The "Cashflow Simulations" panel on our home page exists for exactly this question. You can plug in a hypothetical hire and see, day-by-day, what your bank balance does over the next 12–18 months — across realistic, pessimistic, and stretch scenarios. The result is a date, not a feeling.
+
+Pinning that date to [a budget you actually update](/articles/intro-to-budgeting/) is the difference between hiring on a number and hiring on enthusiasm.

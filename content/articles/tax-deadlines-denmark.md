@@ -37,4 +37,6 @@ If you pay yourself a salary or have employees:
 
 ESIO pulls your obligations from your accounting integration and shows them as a single liquidity-aware calendar. Forgetting a date is hard when ESIO marks the cash for it three months in advance.
 
+Missed deadlines are one of [the quiet costs of bad financial admin](/articles/hidden-cost-bad-admin/) — interest and fines accumulate before anyone reviews the books.
+
 *This article is for general guidance. For your specific obligations, talk to a Danish-authorised accountant.*

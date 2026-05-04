@@ -19,3 +19,5 @@ Three months in, she described it differently:
 She also told us the most useful feature is one we almost cut: a tiny indicator on the dashboard that shows whether *today's* expected balance is above or below safe minimum. That's the question she actually had — not "what's the forecast," but "am I OK today?"
 
 We left the indicator in.
+
+Lina's experience is the textbook case of [the gap between profit and cash](/articles/cashflow-vs-profit/) — books say one thing, the bank says another, and a daily indicator is what lets a founder live in the uncertainty without losing the day to it.

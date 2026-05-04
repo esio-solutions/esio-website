@@ -21,3 +21,5 @@ Profit said you were up. Cash said you were drowning.
 - **Tax provisioning** — money you owe but haven't paid yet.
 
 ESIO computes all three from your real data, daily, with no spreadsheet wrangling required.
+
+This split between cash and profit is one of the reasons [a budget is more than a once-a-year exercise](/articles/intro-to-budgeting/) — and why [forecasting cash before revenue](/articles/forecasting-first-year/) is the more useful discipline to develop early.

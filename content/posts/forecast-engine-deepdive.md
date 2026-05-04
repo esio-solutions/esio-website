@@ -21,3 +21,5 @@ Combined into a daily simulation 540 days forward. Re-runs on every data refresh
 It's accurate to within 5% on the 30-day horizon for businesses with 6+ months of history. The uncertainty band widens past 6 months — that's not a bug, that's reality. We surface the uncertainty rather than hide it, because a single number with false precision is worse than a range with honest ones.
 
 It's less accurate for very lumpy businesses (project-based agencies, high-ticket sales). For those, the scenario planner is the better tool.
+
+If you're newer to forecasting and want the customer-facing rationale rather than engineering details, [our article on building a first-year forecast](/articles/forecasting-first-year/) covers the same ground from the other side.

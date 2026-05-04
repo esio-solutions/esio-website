@@ -17,6 +17,8 @@ We've shipped first-party Dinero integration. If your accounting lives in Dinero
 
 We don't write back to Dinero. ESIO is read-only on your accounting data — your accountant remains the single source of truth, ESIO just makes the future legible.
 
+The 30-minute Monday reconciliation is one of [the hidden costs of bad admin](/articles/hidden-cost-bad-admin/) — Dinero auto-sync removes it from the calendar entirely.
+
 ## Up next
 
 E-conomic is wired and in beta with a few customers. Public release expected in May.

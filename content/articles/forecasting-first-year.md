@@ -24,8 +24,10 @@ The pessimistic case tells you when you'd have to act. That's the more useful nu
 
 ## Cash, then revenue
 
-If you only have time for one forecast, forecast cash. Revenue can be misleading (especially with payment delays); cash determines whether you can pay payroll on the 28th. ESIO defaults to cash because it's the question that actually keeps founders up at night.
+If you only have time for one forecast, forecast cash. Revenue can be misleading (especially with payment delays); cash determines whether you can pay payroll on the 28th. ESIO defaults to cash because it's [the question that actually keeps founders up at night](/articles/cashflow-vs-profit/).
 
 ## Revisit monthly
 
 A first-year forecast is wrong on day 1 and slightly less wrong every month. The discipline isn't predicting accurately — it's noticing the gap between forecast and actual, and asking why.
+
+A forecast pairs with [a budget you actively use](/articles/intro-to-budgeting/) — together they're the framework against which decisions like [your first hire](/articles/when-to-hire-first/) become numerical instead of emotional.
