@@ -1,5 +1,5 @@
 ---
-title: "A founder's calendar of Danish tax deadlines"
+title: "Danish tax deadlines: a founder's calendar"
 description: "VAT, A-skat, AM-bidrag, B-skat, year-end. The dates that quietly run a small Danish business."
 date: 2026-04-22
 author: "ESIO Team"

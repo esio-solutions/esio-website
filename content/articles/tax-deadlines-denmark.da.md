@@ -1,5 +1,5 @@
 ---
-title: "En iværksætters kalender over danske skattedeadlines"
+title: "Danske skattedeadlines: en iværksætters kalender"
 description: "Moms, A-skat, AM-bidrag, B-skat, årsafslutning. Datoerne der stille og roligt styrer en lille dansk virksomhed."
 date: 2026-04-22
 author: "ESIO-teamet"

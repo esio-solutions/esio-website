@@ -23,11 +23,18 @@ defaultContentLanguageInSubdir = false
     locale = "en-us"
     label = "English"
     weight = 1
+    [languages.en.params]
+      # Short tagline — used in <title>, og:description fallback, JSON-LD
+      # description fallback. Per-page front-matter `description:` overrides
+      # this for <meta description> on individual pages.
+      description = "Budgeting Software for Small Business & Startups"
 
   [languages.da]
     locale = "da-dk"
     label = "Dansk"
     weight = 2
+    [languages.da.params]
+      description = "Budgetsoftware til små virksomheder & iværksættere"
 
 [markup]
   [markup.goldmark]
@@ -47,7 +54,9 @@ defaultContentLanguageInSubdir = false
 #   site after `hugo` rebuilds. Templates must NEVER hardcode these values.
 # ──────────────────────────────────────────────────────────────────────────────
 [params]
-  description = "Budgeting Software for Small Business & Startups"
+  # description lives under [languages.<lang>.params] above so each language
+  # gets its own tagline. Don't set it here — that would override the
+  # per-language values via Hugo's params merge order.
   platformUrl = "https://budget.esio.dk/Login"
 
   # Default Open Graph / Twitter Card image. Used on every page that doesn't

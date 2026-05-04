@@ -1,6 +1,6 @@
 ---
-title: "Velkommen til ESIO"
-description: "Vi lancerede i dag — her er hvad der er i kassen."
+title: "ESIO er live: budget bygget til små virksomheder"
+description: "ESIO er live — realtids-cashflow, skatteprognoser og budgetstyring for iværksættere, der hellere vil drive deres virksomhed end stemme regneark af."
 date: 2026-04-01
 ---
 

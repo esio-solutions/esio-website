@@ -1,4 +1,4 @@
 ---
 title: "ESIO"
-description: "Budgeting Software for Small Business & Startups"
+description: "Budgeting software for small businesses and startups — real-time cashflow, tax forecasting, and budget tracking without wrestling spreadsheets."
 ---

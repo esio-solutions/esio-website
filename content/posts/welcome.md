@@ -1,6 +1,6 @@
 ---
-title: "Welcome to ESIO"
-description: "We launched today — here's what's inside the box."
+title: "ESIO is live: budgeting built for small businesses"
+description: "ESIO is live — real-time cashflow, tax forecasting, and budget tracking for founders who'd rather run their business than reconcile spreadsheets."
 date: 2026-04-01
 ---
 

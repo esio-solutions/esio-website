@@ -1,5 +1,5 @@
 ---
-title: "Hvorfor enhver lille virksomhed har brug for et budget"
+title: "Budget til små virksomheder: hvorfor enhver iværksætter bør have ét"
 description: "En praktisk introduktion til budgettering for iværksættere, der hellere vil slippe for at stirre på regneark."
 date: 2026-04-15
 author: "ESIO-teamet"

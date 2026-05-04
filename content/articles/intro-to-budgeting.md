@@ -1,5 +1,5 @@
 ---
-title: "Why every small business needs a budget"
+title: "Small business budgets: why every founder needs one"
 description: "A practical introduction to budgeting for founders who'd rather not stare at spreadsheets."
 date: 2026-04-15
 author: "ESIO Team"

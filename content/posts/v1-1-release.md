@@ -1,6 +1,6 @@
 ---
 title: "v1.1: Faster forecasts and PDF exports"
-description: "What landed in this week's release."
+description: "Forecasts now run 3× faster and every report has a PDF export for sending to your accountant or board — what landed in this week's release."
 date: 2026-04-25
 ---
 

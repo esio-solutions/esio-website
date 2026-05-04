@@ -1,6 +1,6 @@
 ---
 title: "v1.1: Hurtigere prognoser og PDF-eksport"
-description: "Hvad der landede i denne uges udgivelse."
+description: "Prognoser kører nu 3× hurtigere, og hver rapport har PDF-eksport til revisor eller bestyrelse — hvad der landede i denne uges udgivelse."
 date: 2026-04-25
 ---
 
