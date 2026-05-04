@@ -35,7 +35,7 @@ concurrency:
 # Pin tool versions in one place.
 env:
   HUGO_VERSION: 0.161.1
-  NODE_VERSION: 20
+  NODE_VERSION: 22
   HUGO_ENV: production
   TZ: Europe/Copenhagen
 
