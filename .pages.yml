@@ -6,12 +6,20 @@
 # pagescms.org. It describes:
 #   - where uploaded media lands (static/assets/ + share-cards subfolder)
 #   - the homepage section data files (data/<lang>/sections/*.yml) as
-#     individual editable forms grouped by language
+#     individual editable forms
 #   - the three markdown content collections (articles, posts, legal)
 #
-# Sidebar layout uses `type: group` to nest related entries (e.g. all
-# English-language sections under one "English" group). Groups are
-# navigation-only — they don't affect file layout, only the CMS UI.
+# Sidebar layout mirrors the actual page layout — Navigation appears at
+# the top because it renders at the top of the site; Footer at the
+# bottom for the same reason. Each section is a `type: group` containing
+# two file entries — English (en) and Dansk (da) — so an editor first
+# picks WHAT they want to edit (Hero, Pain, …) and then chooses the
+# language as a sub-step. Editing a single language without scrolling
+# past the other language's nine forms is the goal.
+#
+# Field schemas are defined once on the English entry via YAML anchors
+# (&navFields, &heroFields, …) and re-used on the Danish entry via
+# *anchor aliases. Editing the English schema cascades to Danish.
 #
 # List items inside forms use `list.collapsible.summary` so editors see
 # meaningful labels (e.g. "Surprise Tax Bills") instead of generic
@@ -36,47 +44,53 @@ media:
 
 content:
   # ────────────────────────────────────────────────────────────────────────
-  # Site-wide settings
+  # Site-wide settings — single file, no language variants
   # ────────────────────────────────────────────────────────────────────────
-  - name: settings
-    label: Site settings
-    type: group
-    items:
-      # Narrow slice of hugo.toml — only brand-level SEO fields. PagesCMS
-      # preserves any TOML keys not defined here, so editors can update
-      # the default social-share image without seeing — or accidentally
-      # breaking — colors, theme tokens, languages, or build config.
-      - name: site_seo
-        label: Site SEO defaults
-        type: file
-        path: hugo.toml
-        format: toml
+  - name: site_seo
+    label: Site SEO defaults
+    type: file
+    path: hugo.toml
+    format: toml
+    fields:
+      - name: params
+        type: object
         fields:
-          - name: params
-            type: object
-            fields:
-              - { name: ogImage, type: image, label: "Default social-share image (1200x630, used when a page has no image of its own)" }
+          - { name: ogImage, type: image, label: "Default social-share image (1200x630, used when a page has no image of its own)" }
 
   # ────────────────────────────────────────────────────────────────────────
-  # English homepage — page metadata + all section data files. The first
-  # entry under each section defines the YAML anchor (&navFields, …) so the
-  # Danish mirror can re-use the same field schema via *anchor aliases.
+  # Homepage metadata — <title> and <meta description> for the home page.
+  # Each page section (nav, hero, …) is a separate group below; this one
+  # covers the page-level SEO that wraps the whole homepage.
   # ────────────────────────────────────────────────────────────────────────
-  - name: english
-    label: English
+  - name: home
+    label: Homepage metadata
     type: group
     items:
-      - name: home
-        label: Homepage metadata
+      - name: en
+        label: English
         type: file
         path: content/_index.md
         format: yaml-frontmatter
         fields: &homeFields
           - { name: title, label: Page title, type: string, required: true }
           - { name: description, label: Meta description, type: text }
+      - name: da
+        label: Dansk
+        type: file
+        path: content/_index.da.md
+        format: yaml-frontmatter
+        fields: *homeFields
 
-      - name: nav
-        label: Navigation
+  # ────────────────────────────────────────────────────────────────────────
+  # Page sections — listed in the order they render on the homepage.
+  # Each is a group containing the English and Danish data files.
+  # ────────────────────────────────────────────────────────────────────────
+  - name: nav
+    label: Navigation
+    type: group
+    items:
+      - name: en
+        label: English
         type: file
         path: data/en/sections/nav.yml
         format: yaml
@@ -110,9 +124,19 @@ content:
                 type: select
                 options:
                   values: [ghost, solid]
+      - name: da
+        label: Dansk
+        type: file
+        path: data/da/sections/nav.yml
+        format: yaml
+        fields: *navFields
 
-      - name: hero
-        label: Hero
+  - name: hero
+    label: Hero
+    type: group
+    items:
+      - name: en
+        label: English
         type: file
         path: data/en/sections/hero.yml
         format: yaml
@@ -161,9 +185,19 @@ content:
                 fields:
                   - { name: src, type: image }
                   - { name: alt, type: string }
+      - name: da
+        label: Dansk
+        type: file
+        path: data/da/sections/hero.yml
+        format: yaml
+        fields: *heroFields
 
-      - name: video
-        label: Video section
+  - name: video
+    label: Video section
+    type: group
+    items:
+      - name: en
+        label: English
         type: file
         path: data/en/sections/video.yml
         format: yaml
@@ -181,9 +215,19 @@ content:
               - { name: id, type: string, label: "Video ID (e.g. znk-ssXoI64)" }
               - { name: title, type: string, label: "Iframe title (a11y)" }
               - { name: params, type: string, label: "URL params (e.g. rel=0&modestbranding=1)" }
+      - name: da
+        label: Dansk
+        type: file
+        path: data/da/sections/video.yml
+        format: yaml
+        fields: *videoFields
 
-      - name: pain
-        label: Pain / Problem section
+  - name: pain
+    label: Pain / Problem section
+    type: group
+    items:
+      - name: en
+        label: English
         type: file
         path: data/en/sections/pain.yml
         format: yaml
@@ -230,9 +274,19 @@ content:
               - { name: icon, type: string, label: "Emoji or unicode icon" }
               - { name: title, type: string, required: true }
               - { name: body, type: text, required: true }
+      - name: da
+        label: Dansk
+        type: file
+        path: data/da/sections/pain.yml
+        format: yaml
+        fields: *painFields
 
-      - name: features
-        label: Features section
+  - name: features
+    label: Features section
+    type: group
+    items:
+      - name: en
+        label: English
         type: file
         path: data/en/sections/features.yml
         format: yaml
@@ -272,9 +326,19 @@ content:
                   - { name: src, type: image }
                   - { name: alt, type: string }
               - { name: flipped, type: boolean, default: false, label: "Mirror illustration horizontally" }
+      - name: da
+        label: Dansk
+        type: file
+        path: data/da/sections/features.yml
+        format: yaml
+        fields: *featuresFields
 
-      - name: pricing
-        label: Pricing section
+  - name: pricing
+    label: Pricing section
+    type: group
+    items:
+      - name: en
+        label: English
         type: file
         path: data/en/sections/pricing.yml
         format: yaml
@@ -315,9 +379,19 @@ content:
                       values: [ghost, featured]
               - { name: featured, type: boolean, default: false, label: "Highlight as the recommended tier" }
               - { name: badge, type: string, required: false, label: "Optional badge text (e.g. Most Popular)" }
+      - name: da
+        label: Dansk
+        type: file
+        path: data/da/sections/pricing.yml
+        format: yaml
+        fields: *pricingFields
 
-      - name: subscribe
-        label: Subscribe / Trial section
+  - name: subscribe
+    label: Subscribe / Trial section
+    type: group
+    items:
+      - name: en
+        label: English
         type: file
         path: data/en/sections/subscribe.yml
         format: yaml
@@ -341,9 +415,19 @@ content:
                   - { name: label, type: string }
                   - { name: href, type: string }
               - { name: legalNote, type: text }
+      - name: da
+        label: Dansk
+        type: file
+        path: data/da/sections/subscribe.yml
+        format: yaml
+        fields: *subscribeFields
 
-      - name: footer
-        label: Footer
+  - name: footer
+    label: Footer
+    type: group
+    items:
+      - name: en
+        label: English
         type: file
         path: data/en/sections/footer.yml
         format: yaml
@@ -380,74 +464,8 @@ content:
             fields:
               - { name: copyright, type: string }
               - { name: tagline, type: string }
-
-  # ────────────────────────────────────────────────────────────────────────
-  # Danish homepage — re-uses every English schema via *anchor aliases.
-  # Editing the English schema above also changes these Danish forms.
-  # Danish content lives at data/da/sections/*.yml + content/_index.da.md.
-  # ────────────────────────────────────────────────────────────────────────
-  - name: danish
-    label: Dansk
-    type: group
-    items:
-      - name: home_da
-        label: Homepage metadata
-        type: file
-        path: content/_index.da.md
-        format: yaml-frontmatter
-        fields: *homeFields
-
-      - name: nav_da
-        label: Navigation
-        type: file
-        path: data/da/sections/nav.yml
-        format: yaml
-        fields: *navFields
-
-      - name: hero_da
-        label: Hero
-        type: file
-        path: data/da/sections/hero.yml
-        format: yaml
-        fields: *heroFields
-
-      - name: video_da
-        label: Video section
-        type: file
-        path: data/da/sections/video.yml
-        format: yaml
-        fields: *videoFields
-
-      - name: pain_da
-        label: Pain / Problem section
-        type: file
-        path: data/da/sections/pain.yml
-        format: yaml
-        fields: *painFields
-
-      - name: features_da
-        label: Features section
-        type: file
-        path: data/da/sections/features.yml
-        format: yaml
-        fields: *featuresFields
-
-      - name: pricing_da
-        label: Pricing section
-        type: file
-        path: data/da/sections/pricing.yml
-        format: yaml
-        fields: *pricingFields
-
-      - name: subscribe_da
-        label: Subscribe / Trial section
-        type: file
-        path: data/da/sections/subscribe.yml
-        format: yaml
-        fields: *subscribeFields
-
-      - name: footer_da
-        label: Footer
+      - name: da
+        label: Dansk
         type: file
         path: data/da/sections/footer.yml
         format: yaml
@@ -456,73 +474,69 @@ content:
   # ────────────────────────────────────────────────────────────────────────
   # Markdown content collections — bilingual. Danish files are recognised by
   # the .da.md filename suffix; both languages live in the same collection
-  # because file-level i18n in Hugo doesn't separate them by directory.
+  # because Hugo's file-based i18n doesn't separate them by directory.
   # ────────────────────────────────────────────────────────────────────────
-  - name: collections
-    label: Content
-    type: group
-    items:
-      - name: articles
-        label: Articles
-        type: collection
-        path: content/articles
-        filename: '{primary}.md'
-        exclude: ['_index.md']
-        format: yaml-frontmatter
-        view:
-          fields: [title, date, tags]
-          primary: title
-          sort: [date, title]
-          default:
-            sort: date
-            order: desc
-        fields:
-          - { name: title, type: string, required: true }
-          - { name: description, type: text, label: "Card / SEO description" }
-          - { name: date, type: date, required: true }
-          - { name: author, type: string }
-          - { name: tags, type: string, list: true }
-          - { name: image, type: image, media: share, label: "Social-share image (1200x630, optional — falls back to site default)", required: false }
-          - { name: body, type: rich-text, label: Article body }
+  - name: articles
+    label: Articles
+    type: collection
+    path: content/articles
+    filename: '{primary}.md'
+    exclude: ['_index.md']
+    format: yaml-frontmatter
+    view:
+      fields: [title, date, tags]
+      primary: title
+      sort: [date, title]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - { name: title, type: string, required: true }
+      - { name: description, type: text, label: "Card / SEO description" }
+      - { name: date, type: date, required: true }
+      - { name: author, type: string }
+      - { name: tags, type: string, list: true }
+      - { name: image, type: image, media: share, label: "Social-share image (1200x630, optional — falls back to site default)", required: false }
+      - { name: body, type: rich-text, label: Article body }
 
-      - name: posts
-        label: Blog posts
-        type: collection
-        path: content/posts
-        filename: '{primary}.md'
-        exclude: ['_index.md']
-        format: yaml-frontmatter
-        view:
-          fields: [title, date]
-          primary: title
-          sort: [date, title]
-          default:
-            sort: date
-            order: desc
-        fields:
-          - { name: title, type: string, required: true }
-          - { name: description, type: text, label: "Card / SEO description" }
-          - { name: date, type: date, required: true }
-          - { name: image, type: image, media: share, label: "Social-share image (1200x630, optional — falls back to site default)", required: false }
-          - { name: body, type: rich-text, label: Post body }
+  - name: posts
+    label: Blog posts
+    type: collection
+    path: content/posts
+    filename: '{primary}.md'
+    exclude: ['_index.md']
+    format: yaml-frontmatter
+    view:
+      fields: [title, date]
+      primary: title
+      sort: [date, title]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - { name: title, type: string, required: true }
+      - { name: description, type: text, label: "Card / SEO description" }
+      - { name: date, type: date, required: true }
+      - { name: image, type: image, media: share, label: "Social-share image (1200x630, optional — falls back to site default)", required: false }
+      - { name: body, type: rich-text, label: Post body }
 
-      - name: legal
-        label: Legal documents
-        type: collection
-        path: content/legal
-        filename: '{primary}.md'
-        exclude: ['_index.md']
-        format: yaml-frontmatter
-        view:
-          fields: [title, weight]
-          primary: title
-          sort: [weight, title]
-          default:
-            sort: weight
-            order: asc
-        fields:
-          - { name: title, type: string, required: true }
-          - { name: description, type: text }
-          - { name: date, type: date, label: "Last reviewed" }
-          - { name: weight, type: number, default: 99, label: "Sort order (1 = first)" }
-          - { name: body, type: rich-text, label: Document body }
+  - name: legal
+    label: Legal documents
+    type: collection
+    path: content/legal
+    filename: '{primary}.md'
+    exclude: ['_index.md']
+    format: yaml-frontmatter
+    view:
+      fields: [title, weight]
+      primary: title
+      sort: [weight, title]
+      default:
+        sort: weight
+        order: asc
+    fields:
+      - { name: title, type: string, required: true }
+      - { name: description, type: text }
+      - { name: date, type: date, label: "Last reviewed" }
+      - { name: weight, type: number, default: 99, label: "Sort order (1 = first)" }
+      - { name: body, type: rich-text, label: Document body }
