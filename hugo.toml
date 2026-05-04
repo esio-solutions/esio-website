@@ -3,6 +3,7 @@ title = "ESIO"
 theme = "esio-theme"
 defaultContentLanguage = "en"
 enableRobotsTXT = true
+enableGitInfo = true
 enableEmoji = true
 
 # Microsoft Clarity. Fill `id` with your Clarity Project ID (a short string from
