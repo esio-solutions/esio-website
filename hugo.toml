@@ -49,6 +49,15 @@ defaultContentLanguageInSubdir = false
   description = "Budgeting Software for Small Business & Startups"
   platformUrl = "https://budget.esio.dk/Login"
 
+  # Default Open Graph / Twitter Card image. Used on every page that doesn't
+  # set its own `image:` or `cover:` in front-matter. Should be 1200x630
+  # (1.91:1) so social platforms render the "large summary" card. Drop the
+  # file at static/assets/og-default.jpg (or change the path here).
+  ogImage = "/assets/og-default.jpg"
+
+  # Optional. If set, emits twitter:site and twitter:creator meta tags.
+  # twitterHandle = "@esio_dk"
+
   [params.colors]
     navy            = "#1B2B6B"
     navyDark        = "#111E4A"

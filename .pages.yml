@@ -337,6 +337,7 @@ content:
       - { name: date, type: date, required: true }
       - { name: author, type: string }
       - { name: tags, type: string, list: true }
+      - { name: image, type: image, label: "Social-share image (1200x630, optional — falls back to site default)", required: false }
       - { name: body, type: rich-text, label: Article body }
 
   - name: posts
@@ -357,6 +358,7 @@ content:
       - { name: title, type: string, required: true }
       - { name: description, type: text, label: "Card / SEO description" }
       - { name: date, type: date, required: true }
+      - { name: image, type: image, label: "Social-share image (1200x630, optional — falls back to site default)", required: false }
       - { name: body, type: rich-text, label: Post body }
 
   - name: legal

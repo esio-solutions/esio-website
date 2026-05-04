@@ -1,0 +1,85 @@
+{{- /*
+  Open Graph + Twitter Card + canonical + hreflang.
+
+  Image fallback chain (first match wins):
+    1. Page front-matter `image:` (treat the value as a URL — relative or absolute)
+    2. Page front-matter `cover:`
+    3. Site default `params.ogImage` (set in hugo.toml)
+
+  Cards expect ~1200x630 (1.91:1). Editors should size before upload — we
+  don't run Hugo Pipes here because images live in `static/`, not `assets/`.
+
+  Type: defaults to "website". Pages with a date in front-matter (posts /
+  articles) flip to "article" so social platforms render byline + date.
+*/ -}}
+
+{{- /* Title */ -}}
+{{- $title := .Title -}}
+{{- if .IsHome -}}{{- $title = site.Title -}}{{- end -}}
+
+{{- /* Description */ -}}
+{{- $description := site.Params.description -}}
+{{- with .Description -}}{{- $description = . -}}{{- end -}}
+
+{{- /* Type */ -}}
+{{- $ogType := "website" -}}
+{{- if and (not .IsHome) .Date (not .Date.IsZero) -}}{{- $ogType = "article" -}}{{- end -}}
+
+{{- /* Image (fallback chain) */ -}}
+{{- $imageURL := "" -}}
+{{- with .Params.image -}}{{- $imageURL = . | absURL -}}{{- end -}}
+{{- if not $imageURL -}}{{- with .Params.cover -}}{{- $imageURL = . | absURL -}}{{- end -}}{{- end -}}
+{{- if not $imageURL -}}{{- with site.Params.ogImage -}}{{- $imageURL = . | absURL -}}{{- end -}}{{- end -}}
+
+<!-- Canonical -->
+<link rel="canonical" href="{{ .Permalink }}" />
+
+{{- /* hreflang alternates for the bilingual site */ -}}
+{{- range .AllTranslations }}
+<link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Permalink }}" />
+{{- end }}
+
+<!-- Open Graph -->
+<meta property="og:title" content="{{ $title }}" />
+<meta property="og:description" content="{{ $description }}" />
+<meta property="og:url" content="{{ .Permalink }}" />
+<meta property="og:site_name" content="{{ site.Title }}" />
+<meta property="og:locale" content="{{ site.Language.Lang | replaceRE "-" "_" }}" />
+<meta property="og:type" content="{{ $ogType }}" />
+{{- if $imageURL }}
+<meta property="og:image" content="{{ $imageURL }}" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="{{ $title }}" />
+{{- end }}
+{{- if eq $ogType "article" }}
+  {{- with .Date }}
+<meta property="article:published_time" content="{{ .Format "2006-01-02T15:04:05Z07:00" }}" />
+  {{- end }}
+  {{- with .Lastmod }}
+    {{- if not (eq (.Format "2006-01-02") ($.Date.Format "2006-01-02")) }}
+<meta property="article:modified_time" content="{{ .Format "2006-01-02T15:04:05Z07:00" }}" />
+    {{- end }}
+  {{- end }}
+  {{- with .Params.author }}
+<meta property="article:author" content="{{ . }}" />
+  {{- end }}
+  {{- with .Params.tags }}
+    {{- range . }}
+<meta property="article:tag" content="{{ . }}" />
+    {{- end }}
+  {{- end }}
+{{- end }}
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="{{ if $imageURL }}summary_large_image{{ else }}summary{{ end }}" />
+<meta name="twitter:title" content="{{ $title }}" />
+<meta name="twitter:description" content="{{ $description }}" />
+{{- if $imageURL }}
+<meta name="twitter:image" content="{{ $imageURL }}" />
+<meta name="twitter:image:alt" content="{{ $title }}" />
+{{- end }}
+{{- with site.Params.twitterHandle }}
+<meta name="twitter:site" content="{{ . }}" />
+<meta name="twitter:creator" content="{{ . }}" />
+{{- end }}

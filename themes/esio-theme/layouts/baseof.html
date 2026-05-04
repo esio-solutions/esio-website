@@ -28,6 +28,7 @@
     {{ with .Description }}{{ $description = . }}{{ end }}
     <meta name="description" content="{{ $description }}" />
 
+    {{ partial "head/opengraph.html" . }}
     {{ partial "head/favicons.html" . }}
     {{ partial "head/fonts.html" . }}
     {{ partial "head/styles.html" . }}
