@@ -80,6 +80,12 @@ content:
         path: content/_index.da.md
         format: yaml-frontmatter
         fields: *homeFields
+      - name: hu
+        label: Magyar
+        type: file
+        path: content/_index.hu.md
+        format: yaml-frontmatter
+        fields: *homeFields
 
   # ────────────────────────────────────────────────────────────────────────
   # Page sections — listed in the order they render on the homepage.
@@ -128,6 +134,12 @@ content:
         label: Dansk
         type: file
         path: data/da/sections/nav.yml
+        format: yaml
+        fields: *navFields
+      - name: hu
+        label: Magyar
+        type: file
+        path: data/hu/sections/nav.yml
         format: yaml
         fields: *navFields
 
@@ -191,6 +203,12 @@ content:
         path: data/da/sections/hero.yml
         format: yaml
         fields: *heroFields
+      - name: hu
+        label: Magyar
+        type: file
+        path: data/hu/sections/hero.yml
+        format: yaml
+        fields: *heroFields
 
   - name: video
     label: Video section
@@ -219,6 +237,12 @@ content:
         label: Dansk
         type: file
         path: data/da/sections/video.yml
+        format: yaml
+        fields: *videoFields
+      - name: hu
+        label: Magyar
+        type: file
+        path: data/hu/sections/video.yml
         format: yaml
         fields: *videoFields
 
@@ -280,6 +304,12 @@ content:
         path: data/da/sections/pain.yml
         format: yaml
         fields: *painFields
+      - name: hu
+        label: Magyar
+        type: file
+        path: data/hu/sections/pain.yml
+        format: yaml
+        fields: *painFields
 
   - name: features
     label: Features section
@@ -330,6 +360,12 @@ content:
         label: Dansk
         type: file
         path: data/da/sections/features.yml
+        format: yaml
+        fields: *featuresFields
+      - name: hu
+        label: Magyar
+        type: file
+        path: data/hu/sections/features.yml
         format: yaml
         fields: *featuresFields
 
@@ -385,6 +421,12 @@ content:
         path: data/da/sections/pricing.yml
         format: yaml
         fields: *pricingFields
+      - name: hu
+        label: Magyar
+        type: file
+        path: data/hu/sections/pricing.yml
+        format: yaml
+        fields: *pricingFields
 
   - name: subscribe
     label: Subscribe / Trial section
@@ -419,6 +461,12 @@ content:
         label: Dansk
         type: file
         path: data/da/sections/subscribe.yml
+        format: yaml
+        fields: *subscribeFields
+      - name: hu
+        label: Magyar
+        type: file
+        path: data/hu/sections/subscribe.yml
         format: yaml
         fields: *subscribeFields
 
@@ -468,6 +516,12 @@ content:
         label: Dansk
         type: file
         path: data/da/sections/footer.yml
+        format: yaml
+        fields: *footerFields
+      - name: hu
+        label: Magyar
+        type: file
+        path: data/hu/sections/footer.yml
         format: yaml
         fields: *footerFields
 
