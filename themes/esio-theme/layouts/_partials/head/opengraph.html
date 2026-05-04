@@ -13,9 +13,17 @@
   articles) flip to "article" so social platforms render byline + date.
 */ -}}
 
-{{- /* Title */ -}}
+{{- /* Title — for the home page, compose brand + tagline so social cards
+       have a meaningful headline instead of just the 4-char brand name.
+       Mirrors the <title> tag in baseof.html. */ -}}
 {{- $title := .Title -}}
-{{- if .IsHome -}}{{- $title = site.Title -}}{{- end -}}
+{{- if .IsHome -}}
+  {{- with site.Params.description -}}
+    {{- $title = printf "%s — %s" site.Title . -}}
+  {{- else -}}
+    {{- $title = site.Title -}}
+  {{- end -}}
+{{- end -}}
 
 {{- /* Description */ -}}
 {{- $description := site.Params.description -}}

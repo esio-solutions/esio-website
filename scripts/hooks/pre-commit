@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# ─────────────────────────────────────────────────────────────────────────────
+# Git pre-commit hook: regenerate the OG card JPG whenever the SVG changes.
+#
+# Install (from repo root, run once):
+#     ln -sf ../../scripts/hooks/pre-commit .git/hooks/pre-commit
+#
+# Why a symlink: when this file is edited later, .git/hooks/pre-commit stays
+# in sync automatically — no need to re-copy. .git/hooks/* is not tracked by
+# Git, so the symlink trick is how we keep the canonical hook in the repo.
+# ─────────────────────────────────────────────────────────────────────────────
+
+set -euo pipefail
+
+# Only run if the OG SVG is part of this commit
+if git diff --cached --name-only | grep -q '^static/assets/og-default\.svg$'; then
+  REPO_ROOT="$(git rev-parse --show-toplevel)"
+  "$REPO_ROOT/scripts/render-og-image.sh"
+  git add "$REPO_ROOT/static/assets/og-default.jpg"
+fi

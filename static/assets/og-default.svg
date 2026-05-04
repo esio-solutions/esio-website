@@ -100,5 +100,6 @@
     <text x="80" y="380" font-size="62" class="og-white">Budget App for</text>
     <text x="80" y="455" font-size="62" class="og-terra">Small Business</text>
     <text x="80" y="530" font-size="62" class="og-white">&amp; Startups</text>
+    <text x="80" y="595" font-size="24" class="og-terra">See your runway, not your guesses →</text>
   </g>
 </svg>

@@ -72,7 +72,7 @@ content:
         path: content/_index.md
         format: yaml-frontmatter
         fields: &homeFields
-          - { name: title, label: Page title, type: string, required: true }
+          - { name: title, label: Page title, type: string, required: true, default: "ESIO" }
           - { name: description, label: Meta description, type: text }
       - name: da
         label: Dansk
@@ -161,6 +161,7 @@ content:
               - { name: alt, type: string }
               - { name: href, type: string, default: "/" }
           - { name: pills, type: string, list: true, label: "Pills (\"Budgeting\", \"Planning\", ...)" }
+          - { name: tagline, type: string, label: "Eyebrow tagline (sits above the headline, terra-tinted)" }
           - name: headline
             label: Headline
             type: object

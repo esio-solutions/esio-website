@@ -14,6 +14,9 @@
         <div class="pill"><span class="dot"></span>{{ . }}</div>
       {{- end }}
     </div>
+    {{- with $data.tagline }}
+      <span class="tag tag-t">{{ . }}</span>
+    {{- end }}
     <h1>{{ $data.headline.prefix }}<br><em>{{ $data.headline.emphasis }}</em><br>{{ $data.headline.suffix | safeHTML }}</h1>
     <p class="hero-p">{{ $data.paragraph }}</p>
     <div class="btns">
