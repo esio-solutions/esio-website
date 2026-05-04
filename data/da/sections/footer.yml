@@ -1,0 +1,39 @@
+decorations:
+  - /assets/footer-01.svg
+  - /assets/footer-02.svg
+  - /assets/footer-03.svg
+  - /assets/footer-04.svg
+  - /assets/footer-05.svg
+  - /assets/footer-06.svg
+
+brand:
+  logo:
+    src: /assets/esio-logo.svg
+    alt: ESIO
+  tagline: >-
+    Budget-app til små virksomheder og iværksættere. Klar økonomi, ingen
+    overraskelser.
+
+columns:
+  - heading: Produkt
+    links:
+      - { label: Funktioner,        href: "/da/#features" }
+      - { label: Priser,            href: "/da/#pricing" }
+      - { label: Sådan fungerer det, href: "/da/#how" }
+      - { label: Kom i gang,        href: "https://budget.esio.dk/Login" }
+  - heading: Virksomhed
+    links:
+      - { label: Om,       href: "/da/articles/" }
+      - { label: Blog,     href: "/da/posts/" }
+      - { label: Karriere, href: "#" }
+      - { label: Kontakt,  href: "#" }
+  - heading: Juridisk
+    links:
+      - { label: Privatlivspolitik, href: "/da/legal/privacy/" }
+      - { label: Brugsvilkår,       href: "/da/legal/terms/" }
+      - { label: Cookiepolitik,     href: "/da/legal/cookies/" }
+      - { label: GDPR,              href: "/da/legal/gdpr/" }
+
+bottom:
+  copyright: "© 2026 ESIO. Alle rettigheder forbeholdes. Priser ekskl. moms."
+  tagline: "Bygget af iværksættere, til iværksættere."

@@ -1,0 +1,23 @@
+[settings]
+other = "Indstillinger"
+
+[theme]
+other = "Tema"
+
+[theme_dark]
+other = "Mørkt"
+
+[theme_light]
+other = "Lyst"
+
+[language]
+other = "Sprog"
+
+[lang_english]
+other = "Engelsk"
+
+[lang_danish]
+other = "Dansk"
+
+[lang_danish_coming]
+other = "Dansk — kommer snart"

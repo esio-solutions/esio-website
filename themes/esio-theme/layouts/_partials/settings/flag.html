@@ -1,0 +1,21 @@
+{{- /*
+  Inline SVG flag glyphs for the language switcher. Take the language code
+  (.Lang) as the dot context. Adding a new language? Add a new branch.
+*/ -}}
+{{- $lang := . -}}
+{{- if eq $lang "en" -}}
+<svg viewBox="0 0 60 30" width="22" height="13" aria-hidden="true">
+  <clipPath id="lf-uk-cut-{{ $lang }}"><path d="M30,15 L60,30 V30 H60 V15 H60 L60,0 H60 V0 L30,15 L0,30 H0 V30 V15 H0 L0,0 H0 V0 L30,15z"/></clipPath>
+  <rect width="60" height="30" fill="#012169"/>
+  <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/>
+  <path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#lf-uk-cut-{{ $lang }})" stroke="#C8102E" stroke-width="4"/>
+  <path d="M30,0 V30 M0,15 H60" stroke="#fff" stroke-width="10"/>
+  <path d="M30,0 V30 M0,15 H60" stroke="#C8102E" stroke-width="6"/>
+</svg>
+{{- else if eq $lang "da" -}}
+<svg viewBox="0 0 56 42" width="22" height="16" aria-hidden="true">
+  <rect width="56" height="42" fill="#C8102E"/>
+  <rect x="16" y="0" width="6" height="42" fill="#fff"/>
+  <rect x="0" y="18" width="56" height="6" fill="#fff"/>
+</svg>
+{{- end -}}

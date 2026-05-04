@@ -12,11 +12,21 @@ enableEmoji = true
 [params.clarity]
   id = "wlre5xyz6c"
 
+# Each language gets a `/lang/` URL prefix for non-default languages and lives
+# at the root for the default. Section data lives under data/<lang>/sections/.
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = false
+
 [languages]
   [languages.en]
     locale = "en-us"
     label = "English"
     weight = 1
+
+  [languages.da]
+    locale = "da-dk"
+    label = "Dansk"
+    weight = 2
 
 [markup]
   [markup.goldmark]
@@ -59,3 +69,35 @@ enableEmoji = true
   [params.radii]
     base  = "16px"
     large = "24px"
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # Theme tokens (Material 3 semantic naming).
+  # Each value is the *name* of a brand color in [params.colors] above.
+  # styles.css resolves the lookup at build time so the brand palette stays
+  # the only place hex values live. Rebrand → edit [params.colors].
+  # Re-theme (e.g. tweak the dark→light mapping) → edit here.
+  # ──────────────────────────────────────────────────────────────────────────
+  [params.theme]
+    default = "dark"
+
+    [params.theme.dark]
+      surface              = "navy"      # default page surface (body, hero, pricing)
+      surfaceDim           = "navyDark"  # recessed sections (video, how, cta, footer)
+      surfaceContainerHigh = "navyMid"   # elevated (setup section, popovers)
+      onSurface            = "white"
+      primary              = "terra"
+      primaryContainer     = "terraDark"
+      onPrimary            = "white"
+      inverseSurface       = "white"
+      inverseOnSurface     = "navyDark"
+
+    [params.theme.light]
+      surface              = "white"
+      surfaceDim           = "terraPale" # subtle warm tint for recessed sections
+      surfaceContainerHigh = "white"
+      onSurface            = "navyDark"
+      primary              = "terra"
+      primaryContainer     = "terraPale"
+      onPrimary            = "white"
+      inverseSurface       = "navyDark"
+      inverseOnSurface     = "white"

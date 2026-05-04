@@ -3,7 +3,7 @@
   Panel index drives the `.fp-N` class for per-panel background colors and
   illustration transforms (defined in esio.css).
 */ -}}
-{{- $data := site.Data.sections.features -}}
+{{- $data := index site.Data site.Language.Lang "sections" "features" -}}
 <section id="features" class="feat-section">
 
   <!-- Panel 1 — Intro -->

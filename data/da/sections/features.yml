@@ -1,0 +1,62 @@
+intro:
+  tag: Funktioner
+  headline: |-
+    Alt
+    din virksomhed
+    har brug for
+    på ét sted
+  subtitle: >-
+    Intelligente værktøjer bygget til iværksættere, freelancere og voksende
+    teams, der ønsker overblik uden kompleksitet.
+  iconGrid:
+    - /assets/esio-icon02.svg
+    - /assets/esio-icon03.svg
+    - /assets/esio-icon01.svg
+    - /assets/esio-icon05.svg
+  illustration: /assets/features-02.svg
+
+panels:
+  - id: cashflow
+    title: |-
+      Pengestrømssimulering
+      og rapporter
+    body: >-
+      Se præcist hvor dine penge går hen — og hvor de kunne gå hen. ESIO
+      genererer interaktive pengestrømssimulationer baseret på dine faktiske
+      data, så du kan planlægge fremad med ro i sindet.
+    maskIcon: "05"
+    illustration: /assets/features-07.svg
+    flipped: true
+
+  - id: tax
+    title: |-
+      Intelligent
+      skatteforudsigelse
+    body: >-
+      Stop med at gætte hvad du skylder. ESIO beregner dine
+      skatteforpligtelser i realtid, holder styr på alle deadlines og
+      fremhæver fradrag, du ikke vidste fandtes.
+    maskIcon: "01"
+    illustration: /assets/footer-06.svg
+
+  - id: projections
+    title: |-
+      Finansielle
+      prognoser
+    body: >-
+      Modellér flere vækstscenarier og forstå de økonomiske konsekvenser, før
+      du forpligter dig. Planlæg ansættelser, investeringer og ekspansion med
+      data-baseret tryghed.
+    maskIcon: "02"
+    illustration: /assets/features-05.svg
+
+  - id: expenses
+    title: |-
+      Nem visning af
+      udgifter & indtægter
+    body: >-
+      Alle dine transaktioner ét sted: organiseret, søgbart og klar til
+      eksport. ESIO forbinder sig med platforme som Dinero og dine
+      e-handelsværktøjer, så dine økonomiske data automatisk holdes opdateret.
+    maskIcon: "03"
+    illustration: /assets/features-04.svg

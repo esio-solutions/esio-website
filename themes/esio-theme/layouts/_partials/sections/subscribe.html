@@ -1,7 +1,7 @@
 {{- /*
   Subscribe / trial CTA section.
 */ -}}
-{{- $data := site.Data.sections.subscribe -}}
+{{- $data := index site.Data site.Language.Lang "sections" "subscribe" -}}
 <section id="subscribe">
   <div class="si">
     <div class="sub-grid">

@@ -8,23 +8,74 @@
    Editing values in hugo.toml is the only place colors/typography
    should change.
    ────────────────────────────────────────────────────────────────────────── */
+{{- /*
+  Theme-token resolver. Each [params.theme.dark|light].<key> holds the
+  *name* of a brand color in [params.colors]; this template walks one
+  step of indirection at build time so we never write a hex literal
+  outside hugo.toml.
+*/ -}}
+{{- $colors := site.Params.colors -}}
+{{- $dark   := site.Params.theme.dark -}}
+{{- $light  := site.Params.theme.light -}}
+
 @theme {
-  --color-navy:        {{ site.Params.colors.navy }};
-  --color-navy-dark:   {{ site.Params.colors.navyDark }};
-  --color-navy-mid:    {{ site.Params.colors.navyMid }};
-  --color-purple:      {{ site.Params.colors.purple }};
-  --color-terra:       {{ site.Params.colors.terra }};
-  --color-terra-dark:  {{ site.Params.colors.terraDark }};
-  --color-terra-light: {{ site.Params.colors.terraLight }};
-  --color-terra-pale:  {{ site.Params.colors.terraPale }};
-  --color-teal:        {{ site.Params.colors.teal }};
-  --color-yellow:      {{ site.Params.colors.yellow }};
+  --color-navy:        {{ $colors.navy }};
+  --color-navy-dark:   {{ $colors.navyDark }};
+  --color-navy-mid:    {{ $colors.navyMid }};
+  --color-purple:      {{ $colors.purple }};
+  --color-terra:       {{ $colors.terra }};
+  --color-terra-dark:  {{ $colors.terraDark }};
+  --color-terra-light: {{ $colors.terraLight }};
+  --color-terra-pale:  {{ $colors.terraPale }};
+  --color-teal:        {{ $colors.teal }};
+  --color-yellow:      {{ $colors.yellow }};
+
+  /* Material 3 semantic tokens — defaults are the dark theme. */
+  --color-surface:                {{ index $colors $dark.surface }};
+  --color-surface-dim:            {{ index $colors $dark.surfaceDim }};
+  --color-surface-container-high: {{ index $colors $dark.surfaceContainerHigh }};
+  --color-on-surface:             {{ index $colors $dark.onSurface }};
+  --color-primary:                {{ index $colors $dark.primary }};
+  --color-primary-container:      {{ index $colors $dark.primaryContainer }};
+  --color-on-primary:             {{ index $colors $dark.onPrimary }};
+  --color-inverse-surface:        {{ index $colors $dark.inverseSurface }};
+  --color-inverse-on-surface:     {{ index $colors $dark.inverseOnSurface }};
 
   --font-display: "{{ site.Params.typography.fontFamily }}", sans-serif;
   --font-sans:    "{{ site.Params.typography.fontFamily }}", sans-serif;
 
   --radius-base:  {{ site.Params.radii.base }};
   --radius-large: {{ site.Params.radii.large }};
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   Theme overrides. Setting [data-theme] on <html> swaps every M3 token in
+   one step; brand tokens (--color-navy, --color-terra, ...) stay constant.
+   ────────────────────────────────────────────────────────────────────────── */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --color-surface:                {{ index $colors $dark.surface }};
+  --color-surface-dim:            {{ index $colors $dark.surfaceDim }};
+  --color-surface-container-high: {{ index $colors $dark.surfaceContainerHigh }};
+  --color-on-surface:             {{ index $colors $dark.onSurface }};
+  --color-primary:                {{ index $colors $dark.primary }};
+  --color-primary-container:      {{ index $colors $dark.primaryContainer }};
+  --color-on-primary:             {{ index $colors $dark.onPrimary }};
+  --color-inverse-surface:        {{ index $colors $dark.inverseSurface }};
+  --color-inverse-on-surface:     {{ index $colors $dark.inverseOnSurface }};
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --color-surface:                {{ index $colors $light.surface }};
+  --color-surface-dim:            {{ index $colors $light.surfaceDim }};
+  --color-surface-container-high: {{ index $colors $light.surfaceContainerHigh }};
+  --color-on-surface:             {{ index $colors $light.onSurface }};
+  --color-primary:                {{ index $colors $light.primary }};
+  --color-primary-container:      {{ index $colors $light.primaryContainer }};
+  --color-on-primary:             {{ index $colors $light.onPrimary }};
+  --color-inverse-surface:        {{ index $colors $light.inverseSurface }};
+  --color-inverse-on-surface:     {{ index $colors $light.inverseOnSurface }};
 }
 
 /* ──────────────────────────────────────────────────────────────────────────

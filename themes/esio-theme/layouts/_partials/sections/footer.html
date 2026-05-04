@@ -1,7 +1,7 @@
 {{- /*
   Site footer. Three link columns + decorative SVG row + bottom strip.
 */ -}}
-{{- $data := site.Data.sections.footer -}}
+{{- $data := index site.Data site.Language.Lang "sections" "footer" -}}
 <footer>
   <div class="footer-inner">
     <div class="foot-illos">

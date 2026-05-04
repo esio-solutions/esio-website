@@ -2,7 +2,7 @@
   Hero section. Headline composes prefix / emphasis / suffix from data so
   the <em>-styled mid-line stays semantic.
 */ -}}
-{{- $data := site.Data.sections.hero -}}
+{{- $data := index site.Data site.Language.Lang "sections" "hero" -}}
 <section id="hero">
   <div class="hero-left">
     <a href="{{ $data.logo.href | default "/" }}" class="logo-big">

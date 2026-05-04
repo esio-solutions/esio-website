@@ -1,7 +1,7 @@
 {{- /*
   Site navigation. All copy is sourced from data/sections/nav.yml.
 */ -}}
-{{- $data := site.Data.sections.nav -}}
+{{- $data := index site.Data site.Language.Lang "sections" "nav" -}}
 <nav>
   <a href="{{ $data.logo.href | default "/" }}" class="nav-logo">
     <img src="{{ $data.logo.src }}" alt="{{ $data.logo.alt }}" loading="eager" decoding="async" />
@@ -12,6 +12,7 @@
     {{- end }}
   </div>
   <div class="nav-right">
+    {{ partial "sections/settings.html" . }}
     {{- range $data.actions }}
       {{- $cls := cond (eq .style "solid") "btn-ns" "btn-ng" }}
       <a href="{{ .href }}" class="{{ $cls }}">{{ .label }}</a>

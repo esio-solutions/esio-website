@@ -1,0 +1,23 @@
+[settings]
+other = "Settings"
+
+[theme]
+other = "Theme"
+
+[theme_dark]
+other = "Dark"
+
+[theme_light]
+other = "Light"
+
+[language]
+other = "Language"
+
+[lang_english]
+other = "English"
+
+[lang_danish]
+other = "Danish"
+
+[lang_danish_coming]
+other = "Danish — coming soon"

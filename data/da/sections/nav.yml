@@ -1,0 +1,24 @@
+logo:
+  src: /assets/esio-logo.svg
+  alt: ESIO
+  href: /da/
+
+links:
+  - label: Hvorfor ESIO
+    href: "/da/#pain"
+  - label: Funktioner
+    href: "/da/#features"
+  - label: Priser
+    href: "/da/#pricing"
+  - label: Artikler
+    href: "/da/articles/"
+  - label: Blog
+    href: "/da/posts/"
+
+actions:
+  - label: Log ind
+    href: https://budget.esio.dk/Login
+    style: ghost
+  - label: Start gratis
+    href: https://budget.esio.dk/Login
+    style: solid

@@ -1,8 +1,20 @@
 <!doctype html>
-<html lang="{{ site.Language.Lang }}">
+<html lang="{{ site.Language.Lang }}" data-theme="{{ site.Params.theme.default | default "dark" }}">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      // Pre-paint theme bootstrap. Reads the user's saved choice and applies
+      // it before any CSS resolves, so there's no flash on subsequent visits.
+      (function () {
+        try {
+          var saved = localStorage.getItem('esio-theme');
+          if (saved === 'light' || saved === 'dark') {
+            document.documentElement.dataset.theme = saved;
+          }
+        } catch (_) {}
+      })();
+    </script>
 
     {{ if .IsHome }}
       <title>{{ site.Title }} — {{ site.Params.description }}</title>
@@ -21,7 +33,7 @@
     {{ partial "head/styles.html" . }}
     {{ partial "head/consent.html" . }}
   </head>
-  <body class="bg-navy text-white antialiased">
+  <body class="bg-surface text-on-surface antialiased">
     {{ block "main" . }}{{ end }}
     {{ partial "head/scripts.html" . }}
   </body>

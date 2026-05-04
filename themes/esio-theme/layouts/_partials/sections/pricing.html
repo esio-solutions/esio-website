@@ -3,7 +3,7 @@
   The toggle is wired with data attributes the inline <script> at the bottom
   reads at runtime — same contract as the original Astro version.
 */ -}}
-{{- $data := site.Data.sections.pricing -}}
+{{- $data := index site.Data site.Language.Lang "sections" "pricing" -}}
 <section id="pricing" class="sec">
   <div class="si">
     <div class="tc">

@@ -30,7 +30,7 @@ content:
     type: file
     path: content/_index.md
     format: yaml-frontmatter
-    fields:
+    fields: &homeFields
       - { name: title, label: Page title, type: string, required: true }
       - { name: description, label: Meta description, type: text }
 
@@ -40,9 +40,9 @@ content:
   - name: nav
     label: Navigation
     type: file
-    path: data/sections/nav.yml
+    path: data/en/sections/nav.yml
     format: yaml
-    fields:
+    fields: &navFields
       - name: logo
         type: object
         fields:
@@ -71,9 +71,9 @@ content:
   - name: hero
     label: Hero
     type: file
-    path: data/sections/hero.yml
+    path: data/en/sections/hero.yml
     format: yaml
-    fields:
+    fields: &heroFields
       - name: logo
         type: object
         fields:
@@ -117,9 +117,9 @@ content:
   - name: video
     label: Video section
     type: file
-    path: data/sections/video.yml
+    path: data/en/sections/video.yml
     format: yaml
-    fields:
+    fields: &videoFields
       - { name: tag, type: string }
       - { name: headline, type: string }
       - { name: subtitle, type: text }
@@ -137,9 +137,9 @@ content:
   - name: pain
     label: Pain / Problem section
     type: file
-    path: data/sections/pain.yml
+    path: data/en/sections/pain.yml
     format: yaml
-    fields:
+    fields: &painFields
       - { name: tag, type: string }
       - name: headline
         type: object
@@ -182,9 +182,9 @@ content:
   - name: features
     label: Features section
     type: file
-    path: data/sections/features.yml
+    path: data/en/sections/features.yml
     format: yaml
-    fields:
+    fields: &featuresFields
       - name: intro
         label: Intro panel
         type: object
@@ -213,9 +213,9 @@ content:
   - name: pricing
     label: Pricing section
     type: file
-    path: data/sections/pricing.yml
+    path: data/en/sections/pricing.yml
     format: yaml
-    fields:
+    fields: &pricingFields
       - { name: tag, type: string }
       - { name: headline, type: string }
       - { name: subtitle, type: text }
@@ -254,9 +254,9 @@ content:
   - name: subscribe
     label: Subscribe / Trial section
     type: file
-    path: data/sections/subscribe.yml
+    path: data/en/sections/subscribe.yml
     format: yaml
-    fields:
+    fields: &subscribeFields
       - { name: tag, type: string }
       - name: headline
         type: object
@@ -280,9 +280,9 @@ content:
   - name: footer
     label: Footer
     type: file
-    path: data/sections/footer.yml
+    path: data/en/sections/footer.yml
     format: yaml
-    fields:
+    fields: &footerFields
       - { name: decorations, type: image, list: true, label: "6 decorative SVGs" }
       - name: brand
         type: object
@@ -376,3 +376,76 @@ content:
       - { name: date, type: date, label: "Last reviewed" }
       - { name: weight, type: number, default: 99, label: "Sort order (1 = first)" }
       - { name: body, type: rich-text, label: Document body }
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # Danish (da) mirrors. Same field schemas as the English entries above —
+  # we re-use them via YAML anchors (&fooFields / *fooFields) so editing the
+  # English schema also updates the Danish form. Danish content lives at:
+  #   - data/da/sections/*.yml         (homepage section data)
+  #   - content/_index.da.md           (homepage page metadata)
+  #   - content/{posts,articles,legal}/*.da.md (markdown collections)
+  # The markdown collections are surfaced as a single list per type in the
+  # CMS — Danish files are recognisable by the .da.md filename suffix.
+  # ──────────────────────────────────────────────────────────────────────────
+  - name: home_da
+    label: Homepage metadata (Dansk)
+    type: file
+    path: content/_index.da.md
+    format: yaml-frontmatter
+    fields: *homeFields
+
+  - name: nav_da
+    label: Navigation (Dansk)
+    type: file
+    path: data/da/sections/nav.yml
+    format: yaml
+    fields: *navFields
+
+  - name: hero_da
+    label: Hero (Dansk)
+    type: file
+    path: data/da/sections/hero.yml
+    format: yaml
+    fields: *heroFields
+
+  - name: video_da
+    label: Video section (Dansk)
+    type: file
+    path: data/da/sections/video.yml
+    format: yaml
+    fields: *videoFields
+
+  - name: pain_da
+    label: Pain / Problem section (Dansk)
+    type: file
+    path: data/da/sections/pain.yml
+    format: yaml
+    fields: *painFields
+
+  - name: features_da
+    label: Features section (Dansk)
+    type: file
+    path: data/da/sections/features.yml
+    format: yaml
+    fields: *featuresFields
+
+  - name: pricing_da
+    label: Pricing section (Dansk)
+    type: file
+    path: data/da/sections/pricing.yml
+    format: yaml
+    fields: *pricingFields
+
+  - name: subscribe_da
+    label: Subscribe / Trial section (Dansk)
+    type: file
+    path: data/da/sections/subscribe.yml
+    format: yaml
+    fields: *subscribeFields
+
+  - name: footer_da
+    label: Footer (Dansk)
+    type: file
+    path: data/da/sections/footer.yml
+    format: yaml
+    fields: *footerFields

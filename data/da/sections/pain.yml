@@ -1,0 +1,45 @@
+tag: Problemet
+headline:
+  primary: "At drive en virksomhed er svært."
+  emphasis: "Økonomien behøver ikke at være det."
+
+subtitle: >-
+  De fleste små virksomheder mister tusindvis af kroner hvert år på grund af
+  undgåelige skattefejl, mistede fradrag og manglende overblik over
+  pengestrømmen. ESIO løser det — automatisk.
+
+illustration:
+  src: /assets/pain-01.svg
+  alt: ""
+
+badges:
+  - id: b1
+    label: Skat sparet
+    value: DKK 4.280
+    trend: "+32% dette kvartal"
+  - id: b2
+    label: Næste deadline
+    value: 14 dage
+    trend: Momsangivelse forfalden
+    trendVariant: deadline
+
+cards:
+  - icon: "😰"
+    title: Uventede skatteregninger
+    body: >-
+      Slut-på-året-skatteregninger der overrasker dig fuldstændig. ESIO
+      tracker dine forpligtelser i realtid, så der aldrig kommer
+      overraskelser — du ved altid præcis hvad du skylder og hvornår.
+  - icon: "🌫️"
+    title: Intet klart overblik
+    body: >-
+      Regneark, kontoudtog og kvitteringer spredt på tværs af et dusin
+      værktøjer. ESIO samler alt på ét sted og forvandler rå tal til
+      krystalklare indsigter, du faktisk kan handle på.
+  - icon: "⏰"
+    title: Konstant tvivl
+    body: >-
+      At gætte sig frem til hvornår man skal investere, eller om virksomheden
+      er på vej mod overskud, kan være overvældende. ESIO giver dig klare,
+      pålidelige svar, så du altid ved, hvor din virksomhed står, og kan
+      træffe de bedste finansielle beslutninger for din virksomhed.

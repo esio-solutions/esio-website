@@ -3,7 +3,7 @@
   Badge `id` controls the absolute-position class (.b1 / .b2) the existing
   CSS uses for staggered floating animation.
 */ -}}
-{{- $data := site.Data.sections.pain -}}
+{{- $data := index site.Data site.Language.Lang "sections" "pain" -}}
 <section id="pain" class="sec">
   <div class="si">
     <div class="pain-layout">
