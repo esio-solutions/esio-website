@@ -1,0 +1,99 @@
+{{- /*
+  JSON-LD structured data.
+
+  Three schema types, conditionally emitted:
+    - Organization: every page. Identifies the brand for Google's knowledge
+      panel on brand searches.
+    - WebSite:      homepage only. Site identity vs. page identity.
+    - BlogPosting / Article: dated content (posts and articles). Powers rich
+      article cards in Google Discover and SERP.
+
+  Author is intentionally Organization across all dated content — no per-post
+  bylines exist in front-matter today. Add `author:` in front-matter and a
+  matching branch here when that changes.
+
+  Logo references logo-blue.jpg (raster, not the SVG variant) because Google's
+  Organization.logo guidance recommends raster formats for knowledge-panel
+  rendering.
+
+  Image fallback chain mirrors head/opengraph.html so the social card image
+  and the schema image stay consistent.
+*/ -}}
+
+{{- $logo := absURL "assets/logo-blue.jpg" -}}
+
+{{- /* Organization — every page */ -}}
+{{- $org := dict
+    "@context" "https://schema.org"
+    "@type" "Organization"
+    "name" site.Title
+    "url" site.BaseURL
+    "logo" $logo
+    "description" site.Params.description
+-}}
+<script type="application/ld+json">
+{{ $org | jsonify (dict "indent" "  ") | safeJS }}
+</script>
+
+{{- /* WebSite — homepage only */ -}}
+{{- if .IsHome }}
+{{- $website := dict
+    "@context" "https://schema.org"
+    "@type" "WebSite"
+    "name" site.Title
+    "url" site.BaseURL
+    "description" site.Params.description
+    "inLanguage" site.Language.Lang
+-}}
+<script type="application/ld+json">
+{{ $website | jsonify (dict "indent" "  ") | safeJS }}
+</script>
+{{- end }}
+
+{{- /* BlogPosting / Article — only for content sections that are actually
+     articles. Whitelist by section so legal/utility pages with a `date:`
+     field don't get mis-typed as articles. */ -}}
+{{- $articleSections := slice "posts" "articles" -}}
+{{- if and .Date (not .Date.IsZero) (in $articleSections .Section) }}
+  {{- $articleType := "Article" -}}
+  {{- if eq .Section "posts" -}}{{- $articleType = "BlogPosting" -}}{{- end -}}
+
+  {{- /* Image fallback chain — front-matter image → cover → site default */ -}}
+  {{- $imageURL := "" -}}
+  {{- with .Params.image -}}{{- $imageURL = . | absURL -}}{{- end -}}
+  {{- if not $imageURL -}}{{- with .Params.cover -}}{{- $imageURL = . | absURL -}}{{- end -}}{{- end -}}
+  {{- if not $imageURL -}}{{- with site.Params.ogImage -}}{{- $imageURL = . | absURL -}}{{- end -}}{{- end -}}
+
+  {{- $description := site.Params.description -}}
+  {{- with .Description -}}{{- $description = . -}}{{- end -}}
+
+  {{- $article := dict
+      "@context" "https://schema.org"
+      "@type" $articleType
+      "headline" .Title
+      "description" $description
+      "datePublished" (.Date.Format "2006-01-02T15:04:05Z07:00")
+      "dateModified" (.Lastmod.Format "2006-01-02T15:04:05Z07:00")
+      "author" (dict
+        "@type" "Organization"
+        "name" site.Title
+        "url" site.BaseURL
+      )
+      "publisher" (dict
+        "@type" "Organization"
+        "name" site.Title
+        "logo" (dict
+          "@type" "ImageObject"
+          "url" $logo
+        )
+      )
+      "mainEntityOfPage" .Permalink
+      "inLanguage" site.Language.Lang
+  -}}
+  {{- if $imageURL -}}
+    {{- $article = merge $article (dict "image" $imageURL) -}}
+  {{- end }}
+<script type="application/ld+json">
+{{ $article | jsonify (dict "indent" "  ") | safeJS }}
+</script>
+{{- end }}
