@@ -1,0 +1,126 @@
+{{- /*
+  Cookie consent + Microsoft Clarity.
+
+  Klaro (https://klaro.org) shows the consent UI and decides whether the
+  Clarity snippet below — written as <script type="text/plain"> so the browser
+  ignores it on first paint — gets rewritten to a live <script> tag after
+  the visitor accepts. Don't wrap the Clarity <script> in {{ if }}: it must
+  always render so Klaro can find and activate it.
+
+  Configure Clarity in hugo.toml:
+    [params.clarity]
+      id = "xxxxxxxxxx"
+
+  The <style> block overrides Klaro's default CSS to match the site's design
+  tokens (colors, typography, radii from [params]). 8-digit hex (#RRGGBBAA)
+  is used wherever a transparent-overlay color is needed, so we keep
+  referencing the same hex tokens defined in hugo.toml.
+*/ -}}
+
+{{- $c := site.Params.colors -}}
+{{- $font := site.Params.typography.fontFamily -}}
+{{- $radius := site.Params.radii.large -}}
+{{- $btnRadius := site.Params.radii.base -}}
+
+<link rel="stylesheet" href="https://cdn.kiprotect.com/klaro/v0.7/klaro.css" />
+<style>
+  .klaro .cookie-modal .cm-modal,
+  .klaro .cookie-notice {
+    background-color: {{ $c.navyDark }} !important;
+    color: {{ $c.white }} !important;
+    font-family: "{{ $font }}", system-ui, sans-serif !important;
+    border-radius: {{ $radius }} !important;
+    border: 1px solid {{ $c.navyMid }} !important;
+  }
+  .klaro .cookie-modal .cm-modal h1,
+  .klaro .cookie-modal .cm-modal .cm-header h1,
+  .klaro .cookie-notice h1,
+  .klaro .cookie-modal .cm-list-title,
+  .klaro .cookie-notice .cm-list-title {
+    font-family: "{{ $font }}", system-ui, sans-serif !important;
+    color: {{ $c.white }} !important;
+    font-weight: 700 !important;
+  }
+  .klaro .cookie-notice .cn-body p,
+  .klaro .cookie-modal .cm-modal .cm-body p,
+  .klaro .cookie-modal .cm-list-description,
+  .klaro .cookie-notice .cm-list-description {
+    color: {{ $c.white }} !important;
+    opacity: 0.85;
+  }
+
+  /* Backdrop behind the modal — navyDark at ~85% */
+  .klaro .cookie-modal .cm-bg {
+    background-color: {{ $c.navyDark }}D9 !important;
+  }
+
+  /* Primary action ("Accept") — terra orange */
+  .klaro .cm-btn.cm-btn-success,
+  .klaro .cookie-notice .cm-btn.cm-btn-success,
+  .klaro .cookie-modal .cm-btn.cm-btn-success {
+    background-color: {{ $c.terra }} !important;
+    color: {{ $c.white }} !important;
+    border: 1px solid {{ $c.terra }} !important;
+    border-radius: {{ $btnRadius }} !important;
+    font-family: "{{ $font }}", system-ui, sans-serif !important;
+    font-weight: 600 !important;
+    padding: 0.5rem 1.25rem !important;
+    transition: background-color 0.2s ease, border-color 0.2s ease !important;
+  }
+  .klaro .cm-btn.cm-btn-success:hover {
+    background-color: {{ $c.terraDark }} !important;
+    border-color: {{ $c.terraDark }} !important;
+  }
+
+  /* Secondary actions ("No thanks", "Accept selected") — outline on navy */
+  .klaro .cm-btn.cm-btn-danger,
+  .klaro .cm-btn.cm-btn-info,
+  .klaro .cm-btn.cm-btn-decline {
+    background-color: transparent !important;
+    color: {{ $c.white }} !important;
+    border: 1px solid {{ $c.white }}66 !important;
+    border-radius: {{ $btnRadius }} !important;
+    font-family: "{{ $font }}", system-ui, sans-serif !important;
+    font-weight: 600 !important;
+    padding: 0.5rem 1.25rem !important;
+    transition: background-color 0.2s ease, border-color 0.2s ease !important;
+  }
+  .klaro .cm-btn.cm-btn-danger:hover,
+  .klaro .cm-btn.cm-btn-info:hover,
+  .klaro .cm-btn.cm-btn-decline:hover {
+    background-color: {{ $c.white }}14 !important;
+    border-color: {{ $c.white }} !important;
+  }
+
+  /* Links inside the banner (privacy policy, "Learn more") */
+  .klaro .cookie-notice a,
+  .klaro .cookie-modal a {
+    color: {{ $c.terra }} !important;
+    text-decoration: underline !important;
+  }
+  .klaro .cookie-notice a:hover,
+  .klaro .cookie-modal a:hover {
+    color: {{ $c.terraLight }} !important;
+  }
+
+  /* Service toggle (per-service opt in/out) */
+  .klaro .cm-list-input:checked + .cm-list-label .slider {
+    background-color: {{ $c.terra }} !important;
+  }
+  .klaro .cm-list-label .slider {
+    background-color: {{ $c.navyMid }} !important;
+  }
+</style>
+
+<script defer src="{{ "js/klaro-config.js" | relURL }}"></script>
+<script defer src="https://cdn.kiprotect.com/klaro/v0.7/klaro.js"></script>
+
+{{- with site.Params.clarity.id }}
+  <script type="text/plain" data-name="microsoftClarity">
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "{{ . }}");
+  </script>
+{{- end }}

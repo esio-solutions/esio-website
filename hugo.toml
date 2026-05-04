@@ -5,6 +5,13 @@ defaultContentLanguage = "en"
 enableRobotsTXT = true
 enableEmoji = true
 
+# Microsoft Clarity. Fill `id` with your Clarity Project ID (a short string from
+# clarity.microsoft.com → Settings → Setup). Loaded via Klaro consent (see
+# themes/esio-theme/layouts/_partials/head/consent.html). Leaving `id` empty
+# disables Clarity entirely; the consent banner still renders.
+[params.clarity]
+  id = "wlre5xyz6c"
+
 [languages]
   [languages.en]
     locale = "en-us"
