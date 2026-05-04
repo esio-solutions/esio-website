@@ -407,7 +407,7 @@ footer{background:var(--footer-bg);padding:60px 0 36px}
 .foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:32px;margin-bottom:40px}
 .brand-logo{display:block;width:min(220px,100%);height:auto}
 .foot-brand p{font-size:13px;color:color-mix(in srgb, var(--color-on-surface), transparent 55%);line-height:1.7;max-width:220px;font-weight:500;margin-top:12px}
-.foot-col h5{font-size:11px;font-weight:800;color:var(--footer-muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:16px}
+.foot-col h2{font-size:11px;font-weight:800;color:var(--footer-muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:16px}
 .foot-col a{display:block;font-size:13px;color:var(--footer-text);text-decoration:none;margin-bottom:10px;transition:color .15s;font-weight:500}
 .foot-col a:hover{color:var(--color-on-surface)}
 .foot-bottom{border-top:1px solid color-mix(in srgb, var(--color-on-surface), transparent 93%);padding-top:22px;display:flex;justify-content:space-between;align-items:center}
