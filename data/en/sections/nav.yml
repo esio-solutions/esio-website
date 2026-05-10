@@ -15,6 +15,8 @@ links:
     href: "/articles/"
   - label: Blog
     href: "/posts/"
+  - label: Legal
+    href: "/legal/"
 
 actions:
   - label: Log In

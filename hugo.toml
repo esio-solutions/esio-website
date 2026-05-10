@@ -91,6 +91,65 @@ defaultContentLanguageInSubdir = false
     panelSteel      = "#3A5A8C"
     panelPeriwinkle = "#9CC5DF"
 
+    # Alternative palettes. Each block adds the four named colors from the
+    # palette as flat keys (prefixed by palette initials) so the [params.theme]
+    # resolver can `index` them. Unused colors stay emitted as CSS vars — that's
+    # harmless and keeps the system flat.
+
+    # "Modern Professional"
+    mpNavy          = "#002B4D"  # navy blue
+    mpTeal          = "#0A5F6E"  # deep teal
+    mpCoral         = "#EF525B"  # coral red
+    mpGold          = "#F3C775"  # soft gold
+
+    # "Tech-Forward"
+    tfSlate         = "#374785"  # dark slate blue
+    tfCyan          = "#3ABEFF"  # bright cyan
+    tfPink          = "#EF019F"  # vibrant pink
+    tfPurple        = "#8200FF"  # electric purple
+
+    # "Cultivated Warmth"
+    cwOlive         = "#5C6B51"  # deep olive
+    cwBeige         = "#CCBAA3"  # warm beige
+    cwCoral         = "#DF745E"  # muted coral
+    cwSage          = "#B1CCA3"  # soft sage
+
+    # "Timeless Confidence"
+    tcNavy          = "#1F2937"  # navy blue
+    tcSteel         = "#4B5B75"  # steel blue
+    tcRed           = "#B92B27"  # deep red
+    tcSlate         = "#7C8B99"  # slate gray
+
+    # "Refreshing Summer Fun"
+    sfSky           = "#8ECAE6"  # sky blue (light)
+    sfBlue          = "#219EBC"  # blue green
+    sfNavy          = "#023047"  # deep space blue
+    sfAmber         = "#FFB703"  # amber flame
+    sfOrange        = "#FB8500"  # tiger orange
+
+    # "Sunrise Glow"
+    sgCharcoal      = "#233D4D"  # charcoal blue
+    sgPumpkin       = "#FE7F2D"  # pumpkin spice
+    sgPollen        = "#FCCA46"  # golden pollen
+    sgOlive         = "#A1C181"  # muted olive
+    sgSeagrass      = "#619B8A"  # seagrass
+
+    # "Twilight Comfort"
+    twPrussian      = "#14213D"  # prussian blue
+    twBanana        = "#FFF06D"  # banana cream
+    twIndigo        = "#424969"  # twilight indigo
+    twPowder        = "#BFC9DD"  # powder blue
+    twOrange        = "#FCA311"  # orange
+
+    # "Electric Citrus"
+    ecBlack         = "#071824"  # deep blue-black
+    ecNavy          = "#0D3145"  # dark navy
+    ecLime          = "#DFFF72"  # electric lime
+    ecCyan          = "#4FD1FF"  # bright cyan
+    ecAmber         = "#FFC857"  # warm amber
+    ecOff           = "#F5FAFC"  # off-white
+    ecSlate         = "#A8BBC7"  # slate gray
+
   [params.typography]
     fontFamily   = "Plus Jakarta Sans"
     fontWeights  = "400;500;600;700;800;900"
@@ -110,6 +169,8 @@ defaultContentLanguageInSubdir = false
     default = "dark"
 
     [params.theme.dark]
+      colorScheme          = "dark"      # browser hint for native form controls / scrollbars
+      label                = "theme_dark"
       surface              = "navy"      # default page surface (body, hero, pricing)
       surfaceDim           = "navyDark"  # recessed sections (video, how, cta, footer)
       surfaceContainerHigh = "navyMid"   # elevated (setup section, popovers)
@@ -130,6 +191,8 @@ defaultContentLanguageInSubdir = false
         fp5 = "panelPeriwinkle"
 
     [params.theme.light]
+      colorScheme          = "light"
+      label                = "theme_light"
       surface              = "white"
       surfaceDim           = "terraPale" # subtle warm tint for recessed sections
       surfaceContainerHigh = "white"
@@ -150,3 +213,168 @@ defaultContentLanguageInSubdir = false
         fp3 = "panelLavender"
         fp4 = "navyMid"
         fp5 = "panelPeriwinkle"
+
+    # ─── Alternative palettes ───────────────────────────────────────────────
+    # Each block mirrors the dark/light structure. Panel mappings keep
+    # fp1/fp4 dark and fp2/fp3/fp5 mid-light so the existing
+    # `.fp-2/3/5 .fp-title{color:var(--color-navy-dark)}` rules still read OK.
+
+    [params.theme."modern-pro"]
+      colorScheme          = "dark"
+      label                = "theme_modern_pro"
+      surface              = "mpNavy"
+      surfaceDim           = "mpTeal"
+      surfaceContainerHigh = "mpTeal"
+      onSurface            = "white"
+      primary              = "mpCoral"
+      primaryContainer     = "mpGold"
+      onPrimary            = "white"
+      inverseSurface       = "white"
+      inverseOnSurface     = "mpNavy"
+
+      [params.theme."modern-pro".panels]
+        fp1 = "mpNavy"
+        fp2 = "mpGold"
+        fp3 = "mpCoral"
+        fp4 = "mpTeal"
+        fp5 = "mpGold"
+
+    [params.theme."tech-forward"]
+      colorScheme          = "dark"
+      label                = "theme_tech_forward"
+      surface              = "tfSlate"
+      surfaceDim           = "navyDark"
+      surfaceContainerHigh = "tfSlate"
+      onSurface            = "white"
+      primary              = "tfPink"
+      primaryContainer     = "tfPurple"
+      onPrimary            = "white"
+      inverseSurface       = "white"
+      inverseOnSurface     = "tfSlate"
+
+      [params.theme."tech-forward".panels]
+        fp1 = "tfSlate"
+        fp2 = "tfCyan"
+        fp3 = "tfPink"
+        fp4 = "tfPurple"
+        fp5 = "tfCyan"
+
+    [params.theme."cultivated-warmth"]
+      colorScheme          = "light"
+      label                = "theme_cultivated_warmth"
+      surface              = "cwBeige"
+      surfaceDim           = "cwSage"
+      surfaceContainerHigh = "white"
+      onSurface            = "cwOlive"
+      primary              = "cwCoral"
+      primaryContainer     = "cwSage"
+      onPrimary            = "white"
+      inverseSurface       = "cwOlive"
+      inverseOnSurface     = "cwBeige"
+
+      [params.theme."cultivated-warmth".panels]
+        fp1 = "cwOlive"
+        fp2 = "cwBeige"
+        fp3 = "cwCoral"
+        fp4 = "cwOlive"
+        fp5 = "cwSage"
+
+    [params.theme."timeless-confidence"]
+      colorScheme          = "dark"
+      label                = "theme_timeless_confidence"
+      surface              = "tcNavy"
+      surfaceDim           = "tcSteel"
+      surfaceContainerHigh = "tcSteel"
+      onSurface            = "white"
+      primary              = "tcRed"
+      primaryContainer     = "tcSlate"
+      onPrimary            = "white"
+      inverseSurface       = "white"
+      inverseOnSurface     = "tcNavy"
+
+      [params.theme."timeless-confidence".panels]
+        fp1 = "tcNavy"
+        fp2 = "tcSlate"
+        fp3 = "tcSlate"
+        fp4 = "tcSteel"
+        fp5 = "tcSlate"
+
+    [params.theme."summer-fun"]
+      colorScheme          = "light"
+      label                = "theme_summer_fun"
+      surface              = "sfSky"
+      surfaceDim           = "sfBlue"
+      surfaceContainerHigh = "white"
+      onSurface            = "sfNavy"
+      primary              = "sfOrange"
+      primaryContainer     = "sfAmber"
+      onPrimary            = "white"
+      inverseSurface       = "sfNavy"
+      inverseOnSurface     = "sfSky"
+
+      [params.theme."summer-fun".panels]
+        fp1 = "sfNavy"
+        fp2 = "sfSky"
+        fp3 = "sfAmber"
+        fp4 = "sfBlue"
+        fp5 = "sfSky"
+
+    [params.theme."sunrise-glow"]
+      colorScheme          = "dark"
+      label                = "theme_sunrise_glow"
+      surface              = "sgCharcoal"
+      surfaceDim           = "sgCharcoal"
+      surfaceContainerHigh = "sgSeagrass"
+      onSurface            = "white"
+      primary              = "sgPumpkin"
+      primaryContainer     = "sgPollen"
+      onPrimary            = "white"
+      inverseSurface       = "white"
+      inverseOnSurface     = "sgCharcoal"
+
+      [params.theme."sunrise-glow".panels]
+        fp1 = "sgCharcoal"
+        fp2 = "sgPollen"
+        fp3 = "sgOlive"
+        fp4 = "sgSeagrass"
+        fp5 = "sgPollen"
+
+    [params.theme."twilight-comfort"]
+      colorScheme          = "dark"
+      label                = "theme_twilight_comfort"
+      surface              = "twPrussian"
+      surfaceDim           = "twPrussian"
+      surfaceContainerHigh = "twIndigo"
+      onSurface            = "white"
+      primary              = "twOrange"
+      primaryContainer     = "twBanana"
+      onPrimary            = "white"
+      inverseSurface       = "twPowder"
+      inverseOnSurface     = "twPrussian"
+
+      [params.theme."twilight-comfort".panels]
+        fp1 = "twPrussian"
+        fp2 = "twBanana"
+        fp3 = "twPowder"
+        fp4 = "twIndigo"
+        fp5 = "twBanana"
+
+    [params.theme."electric-citrus"]
+      colorScheme          = "dark"
+      label                = "theme_electric_citrus"
+      surface              = "ecBlack"
+      surfaceDim           = "ecBlack"
+      surfaceContainerHigh = "ecNavy"
+      onSurface            = "ecOff"
+      primary              = "ecCyan"
+      primaryContainer     = "ecLime"
+      onPrimary            = "ecBlack"
+      inverseSurface       = "ecOff"
+      inverseOnSurface     = "ecBlack"
+
+      [params.theme."electric-citrus".panels]
+        fp1 = "ecBlack"
+        fp2 = "ecLime"
+        fp3 = "ecSlate"
+        fp4 = "ecNavy"
+        fp5 = "ecAmber"

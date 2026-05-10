@@ -1,34 +1,30 @@
 {{ define "main" }}
   {{ partial "sections/nav.html" . }}
 
-  <article class="bg-[var(--color-navy)] pt-[120px] pb-[90px] px-[6%]">
+  <article class="bg-surface pt-[120px] pb-[90px] px-[6%]">
     <div class="max-w-[760px] mx-auto">
       <header class="mb-10 text-center">
         <time datetime='{{ .Date.Format "2006-01-02" }}'
-              class="block text-xs text-white/50 font-bold uppercase tracking-widest mb-3">
+              class="block text-xs text-on-surface/50 font-bold uppercase tracking-widest mb-3">
           {{ .Date.Format "January 2, 2006" }}
           {{ with .Params.author }}<span class="ml-2">· {{ . }}</span>{{ end }}
         </time>
-        <h1 class="text-white text-[clamp(32px,4vw,52px)] font-black tracking-tight leading-[1.05] mb-5">
+        <h1 class="text-on-surface text-[clamp(32px,4vw,52px)] font-black tracking-tight leading-[1.05] mb-5">
           {{ .Title }}
         </h1>
         {{ with .Params.description }}
-          <p class="text-white/70 text-[clamp(15px,1.3vw,18px)] leading-relaxed max-w-[600px] mx-auto">{{ . }}</p>
+          <p class="text-on-surface/70 text-[clamp(15px,1.3vw,18px)] leading-relaxed max-w-[600px] mx-auto">{{ . }}</p>
         {{ end }}
         {{ with .Params.tags }}
           <div class="mt-5 flex flex-wrap justify-center gap-2">
             {{ range . }}
-              <span class="bg-[var(--color-terra)]/15 text-[var(--color-terra-light)] text-[10px] font-extrabold uppercase tracking-wider rounded-full px-3 py-1">{{ . }}</span>
+              <span class="bg-primary/15 text-primary text-[10px] font-extrabold uppercase tracking-wider rounded-full px-3 py-1">{{ . }}</span>
             {{ end }}
           </div>
         {{ end }}
       </header>
 
-      <div class="prose prose-invert prose-lg max-w-none
-                  prose-headings:text-white prose-headings:font-black
-                  prose-a:text-[var(--color-terra-light)] hover:prose-a:text-[var(--color-terra)]
-                  prose-strong:text-white prose-code:text-[var(--color-terra-light)]
-                  prose-blockquote:border-[var(--color-terra)]">
+      <div class="prose prose-lg max-w-none">
         {{ .Content }}
       </div>
     </div>

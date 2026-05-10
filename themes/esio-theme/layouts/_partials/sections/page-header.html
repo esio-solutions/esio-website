@@ -1,15 +1,16 @@
 {{- /*
   Reusable page header for content pages (articles, posts, legal). Mirrors
   the homepage nav so brand chrome stays consistent across the site.
+  Surface/text use M3 tokens so the header flips with the active theme.
 */ -}}
 {{ partial "sections/nav.html" . }}
-<header class="bg-[var(--color-navy-dark)] pt-[120px] pb-12 px-[6%]">
+<header class="bg-surface-dim pt-[120px] pb-12 px-[6%]">
   <div class="max-w-[1120px] mx-auto text-center">
-    <h1 class="text-white text-[clamp(28px,3.5vw,48px)] font-black tracking-tight leading-[1.08] mb-3">
+    <h1 class="text-on-surface text-[clamp(28px,3.5vw,48px)] font-black tracking-tight leading-[1.08] mb-3">
       {{ .Title }}
     </h1>
     {{ with .Params.description }}
-      <p class="text-white/65 text-[clamp(14px,1.3vw,16px)] leading-[1.7] max-w-[640px] mx-auto">{{ . }}</p>
+      <p class="text-on-surface/65 text-[clamp(14px,1.3vw,16px)] leading-[1.7] max-w-[640px] mx-auto">{{ . }}</p>
     {{ end }}
   </div>
 </header>

@@ -10,6 +10,30 @@ other = "Dark"
 [theme_light]
 other = "Light"
 
+[theme_modern_pro]
+other = "Modern Professional"
+
+[theme_tech_forward]
+other = "Tech-Forward"
+
+[theme_cultivated_warmth]
+other = "Cultivated Warmth"
+
+[theme_timeless_confidence]
+other = "Timeless Confidence"
+
+[theme_summer_fun]
+other = "Refreshing Summer Fun"
+
+[theme_sunrise_glow]
+other = "Sunrise Glow"
+
+[theme_twilight_comfort]
+other = "Twilight Comfort"
+
+[theme_electric_citrus]
+other = "Electric Citrus"
+
 [language]
 other = "Language"
 

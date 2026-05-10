@@ -9,14 +9,17 @@
    should change.
    ────────────────────────────────────────────────────────────────────────── */
 {{- /*
-  Theme-token resolver. Each [params.theme.dark|light].<key> holds the
-  *name* of a brand color in [params.colors]; this template walks one
-  step of indirection at build time so we never write a hex literal
-  outside hugo.toml.
+  Theme-token resolver. Each [params.theme.<name>].<key> holds the *name* of
+  a brand color in [params.colors]; this template walks one step of
+  indirection at build time so we never write a hex literal outside
+  hugo.toml. Themes are emitted as :root[data-theme="<kebab-name>"] blocks
+  by ranging over [params.theme]; adding a palette in hugo.toml lights up
+  here automatically.
 */ -}}
-{{- $colors := site.Params.colors -}}
-{{- $dark   := site.Params.theme.dark -}}
-{{- $light  := site.Params.theme.light -}}
+{{- $colors      := site.Params.colors -}}
+{{- $themes      := site.Params.theme -}}
+{{- $defaultName := default "dark" $themes.default -}}
+{{- $default     := index $themes $defaultName -}}
 
 @theme {
   --color-navy:             {{ $colors.navy }};
@@ -33,23 +36,23 @@
   --color-panel-steel:      {{ $colors.panelSteel }};
   --color-panel-periwinkle: {{ $colors.panelPeriwinkle }};
 
-  /* Material 3 semantic tokens — defaults are the dark theme. */
-  --color-surface:                {{ index $colors $dark.surface }};
-  --color-surface-dim:            {{ index $colors $dark.surfaceDim }};
-  --color-surface-container-high: {{ index $colors $dark.surfaceContainerHigh }};
-  --color-on-surface:             {{ index $colors $dark.onSurface }};
-  --color-primary:                {{ index $colors $dark.primary }};
-  --color-primary-container:      {{ index $colors $dark.primaryContainer }};
-  --color-on-primary:             {{ index $colors $dark.onPrimary }};
-  --color-inverse-surface:        {{ index $colors $dark.inverseSurface }};
-  --color-inverse-on-surface:     {{ index $colors $dark.inverseOnSurface }};
+  /* Material 3 semantic tokens — defaults map to {{ $defaultName }}. */
+  --color-surface:                {{ index $colors $default.surface }};
+  --color-surface-dim:            {{ index $colors $default.surfaceDim }};
+  --color-surface-container-high: {{ index $colors $default.surfaceContainerHigh }};
+  --color-on-surface:             {{ index $colors $default.onSurface }};
+  --color-primary:                {{ index $colors $default.primary }};
+  --color-primary-container:      {{ index $colors $default.primaryContainer }};
+  --color-on-primary:             {{ index $colors $default.onPrimary }};
+  --color-inverse-surface:        {{ index $colors $default.inverseSurface }};
+  --color-inverse-on-surface:     {{ index $colors $default.inverseOnSurface }};
 
   /* Feature-panel surfaces — flip per theme (see :root[data-theme=*] below). */
-  --color-panel-1: {{ index $colors $dark.panels.fp1 }};
-  --color-panel-2: {{ index $colors $dark.panels.fp2 }};
-  --color-panel-3: {{ index $colors $dark.panels.fp3 }};
-  --color-panel-4: {{ index $colors $dark.panels.fp4 }};
-  --color-panel-5: {{ index $colors $dark.panels.fp5 }};
+  --color-panel-1: {{ index $colors $default.panels.fp1 }};
+  --color-panel-2: {{ index $colors $default.panels.fp2 }};
+  --color-panel-3: {{ index $colors $default.panels.fp3 }};
+  --color-panel-4: {{ index $colors $default.panels.fp4 }};
+  --color-panel-5: {{ index $colors $default.panels.fp5 }};
 
   --font-display: "{{ site.Params.typography.fontFamily }}", sans-serif;
   --font-sans:    "{{ site.Params.typography.fontFamily }}", sans-serif;
@@ -61,42 +64,33 @@
 /* ──────────────────────────────────────────────────────────────────────────
    Theme overrides. Setting [data-theme] on <html> swaps every M3 token in
    one step; brand tokens (--color-navy, --color-terra, ...) stay constant.
+   One :root[data-theme="…"] block is emitted per [params.theme.<name>]
+   entry in hugo.toml. Theme names are camelCase in TOML but rendered
+   kebab-case in CSS (modernPro → modern-pro) so the data-theme attribute
+   stays HTML-idiomatic.
    ────────────────────────────────────────────────────────────────────────── */
-:root[data-theme="dark"] {
-  color-scheme: dark;
-  --color-surface:                {{ index $colors $dark.surface }};
-  --color-surface-dim:            {{ index $colors $dark.surfaceDim }};
-  --color-surface-container-high: {{ index $colors $dark.surfaceContainerHigh }};
-  --color-on-surface:             {{ index $colors $dark.onSurface }};
-  --color-primary:                {{ index $colors $dark.primary }};
-  --color-primary-container:      {{ index $colors $dark.primaryContainer }};
-  --color-on-primary:             {{ index $colors $dark.onPrimary }};
-  --color-inverse-surface:        {{ index $colors $dark.inverseSurface }};
-  --color-inverse-on-surface:     {{ index $colors $dark.inverseOnSurface }};
-  --color-panel-1: {{ index $colors $dark.panels.fp1 }};
-  --color-panel-2: {{ index $colors $dark.panels.fp2 }};
-  --color-panel-3: {{ index $colors $dark.panels.fp3 }};
-  --color-panel-4: {{ index $colors $dark.panels.fp4 }};
-  --color-panel-5: {{ index $colors $dark.panels.fp5 }};
+{{- range $name, $cfg := $themes }}
+{{- /* skip scalar keys like `default = "dark"` */ -}}
+{{- if reflect.IsMap $cfg }}
+:root[data-theme="{{ $name }}"] {
+  color-scheme: {{ default "dark" $cfg.colorScheme }};
+  --color-surface:                {{ index $colors $cfg.surface }};
+  --color-surface-dim:            {{ index $colors $cfg.surfaceDim }};
+  --color-surface-container-high: {{ index $colors $cfg.surfaceContainerHigh }};
+  --color-on-surface:             {{ index $colors $cfg.onSurface }};
+  --color-primary:                {{ index $colors $cfg.primary }};
+  --color-primary-container:      {{ index $colors $cfg.primaryContainer }};
+  --color-on-primary:             {{ index $colors $cfg.onPrimary }};
+  --color-inverse-surface:        {{ index $colors $cfg.inverseSurface }};
+  --color-inverse-on-surface:     {{ index $colors $cfg.inverseOnSurface }};
+  --color-panel-1: {{ index $colors $cfg.panels.fp1 }};
+  --color-panel-2: {{ index $colors $cfg.panels.fp2 }};
+  --color-panel-3: {{ index $colors $cfg.panels.fp3 }};
+  --color-panel-4: {{ index $colors $cfg.panels.fp4 }};
+  --color-panel-5: {{ index $colors $cfg.panels.fp5 }};
 }
-
-:root[data-theme="light"] {
-  color-scheme: light;
-  --color-surface:                {{ index $colors $light.surface }};
-  --color-surface-dim:            {{ index $colors $light.surfaceDim }};
-  --color-surface-container-high: {{ index $colors $light.surfaceContainerHigh }};
-  --color-on-surface:             {{ index $colors $light.onSurface }};
-  --color-primary:                {{ index $colors $light.primary }};
-  --color-primary-container:      {{ index $colors $light.primaryContainer }};
-  --color-on-primary:             {{ index $colors $light.onPrimary }};
-  --color-inverse-surface:        {{ index $colors $light.inverseSurface }};
-  --color-inverse-on-surface:     {{ index $colors $light.inverseOnSurface }};
-  --color-panel-1: {{ index $colors $light.panels.fp1 }};
-  --color-panel-2: {{ index $colors $light.panels.fp2 }};
-  --color-panel-3: {{ index $colors $light.panels.fp3 }};
-  --color-panel-4: {{ index $colors $light.panels.fp4 }};
-  --color-panel-5: {{ index $colors $light.panels.fp5 }};
-}
+{{- end }}
+{{- end }}
 
 /* ──────────────────────────────────────────────────────────────────────────
    Base layer

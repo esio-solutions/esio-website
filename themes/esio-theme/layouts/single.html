@@ -1,17 +1,14 @@
 {{ define "main" }}
   {{ partial "sections/nav.html" . }}
 
-  <article class="bg-[var(--color-navy)] pt-[120px] pb-[90px] px-[6%]">
+  <article class="bg-surface pt-[120px] pb-[90px] px-[6%]">
     <div class="max-w-[760px] mx-auto">
       <header class="mb-10">
-        <h1 class="text-white text-[clamp(28px,3.5vw,46px)] font-black leading-[1.1] tracking-tight">{{ .Title }}</h1>
-        {{ with .Params.description }}<p class="mt-4 text-white/70 text-lg">{{ . }}</p>{{ end }}
+        <h1 class="text-on-surface text-[clamp(28px,3.5vw,46px)] font-black leading-[1.1] tracking-tight">{{ .Title }}</h1>
+        {{ with .Params.description }}<p class="mt-4 text-on-surface/70 text-lg">{{ . }}</p>{{ end }}
       </header>
 
-      <div class="prose prose-invert prose-lg max-w-none
-                  prose-headings:text-white prose-headings:font-black
-                  prose-a:text-[var(--color-terra-light)] hover:prose-a:text-[var(--color-terra)]
-                  prose-strong:text-white prose-blockquote:border-[var(--color-terra)]">
+      <div class="prose prose-lg max-w-none">
         {{ .Content }}
       </div>
     </div>

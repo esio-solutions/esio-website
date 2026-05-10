@@ -6,10 +6,11 @@
     <script>
       // Pre-paint theme bootstrap. Reads the user's saved choice and applies
       // it before any CSS resolves, so there's no flash on subsequent visits.
+      // Validated against the kebab-case slug pattern emitted by styles.css.
       (function () {
         try {
           var saved = localStorage.getItem('esio-theme');
-          if (saved === 'light' || saved === 'dark') {
+          if (saved && /^[a-z][a-z0-9-]*$/.test(saved)) {
             document.documentElement.dataset.theme = saved;
           }
         } catch (_) {}

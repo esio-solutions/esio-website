@@ -1,25 +1,25 @@
 {{ define "main" }}
   {{ partial "sections/page-header.html" . }}
 
-  <section class="bg-[var(--color-navy)] py-[90px] px-[6%]">
+  <section class="bg-surface py-[90px] px-[6%]">
     <div class="max-w-[1120px] mx-auto">
       {{ if .Pages }}
         <ul class="flex flex-col gap-3">
           {{ range .Pages.ByDate.Reverse }}
             <li>
               <a href="{{ .RelPermalink }}"
-                 class="group flex items-center justify-between bg-white/5 hover:bg-white/10 border border-white/12 hover:border-white/30 rounded-[var(--radius-base)] p-6 transition-all">
+                 class="group flex items-center justify-between bg-on-surface/5 hover:bg-on-surface/10 border border-on-surface/12 hover:border-on-surface/30 rounded-[var(--radius-base)] p-6 transition-all">
                 <div>
-                  <h3 class="text-white text-lg font-extrabold group-hover:text-[var(--color-terra-light)] transition-colors">{{ .Title }}</h3>
-                  {{ with .Params.description }}<p class="text-white/55 text-sm mt-1">{{ . }}</p>{{ end }}
+                  <h3 class="text-on-surface text-lg font-extrabold group-hover:text-primary transition-colors">{{ .Title }}</h3>
+                  {{ with .Params.description }}<p class="text-on-surface/55 text-sm mt-1">{{ . }}</p>{{ end }}
                 </div>
-                <span class="text-[var(--color-terra-light)] text-xl font-bold ml-4">→</span>
+                <span class="text-primary text-xl font-bold ml-4">→</span>
               </a>
             </li>
           {{ end }}
         </ul>
       {{ else }}
-        <p class="text-white/65 text-center">Nothing here yet.</p>
+        <p class="text-on-surface/65 text-center">Nothing here yet.</p>
       {{ end }}
     </div>
   </section>

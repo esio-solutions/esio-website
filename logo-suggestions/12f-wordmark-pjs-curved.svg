@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 529.75 191.14">
+    <defs>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@900&amp;display=swap');
+        </style>
+        <mask id="cv-pjs" maskUnits="userSpaceOnUse" x="345" y="6" width="176" height="176">
+            <rect x="345" y="6" width="176" height="176" fill="white"/>
+            <path d="M 377 145 C 405 143, 425 136, 440 122 C 455 108, 464 88, 470 70"
+                  fill="none" stroke="black" stroke-width="12" stroke-linecap="round"/>
+            <polygon points="477,49 482,74 458,66" fill="black"/>
+        </mask>
+    </defs>
+    <text x="340" y="160" text-anchor="end"
+          font-family="'Plus Jakarta Sans', system-ui, sans-serif"
+          font-weight="900"
+          font-size="180"
+          letter-spacing="-10"
+          fill="#1B2B6B">esi</text>
+    <path fill="#1B2B6B" mask="url(#cv-pjs)" d="M430.38,174.13l-5.34-.47A74.83,74.83,0,0,1,386.63,159c-16-11.88-26.09-27.62-30-47.14a73.79,73.79,0,0,1,5.85-47.58c10.41-21.56,27.19-36,50.47-41.8,29.11-7.22,54.51.35,75.51,21.77a72,72,0,0,1,19.75,39c3.95,23.22-1.42,44.22-16.32,62.52a75,75,0,0,1-44.67,26.76c-4,.8-8.07.95-12.11,1.41a4,4,0,0,0-.66.17Z"/>
+</svg>
