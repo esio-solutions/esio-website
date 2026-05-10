@@ -1,42 +1,34 @@
 intro:
-  tag: "Lorem ipsum"
-  headline: "Lorem ipsum dolor sit amet"
+  tag: "Who we are"
+  headline: "Two people who get how small businesses really work"
   body: >-
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-    consequat.
+    We're not trying to build the next big thing. We made ESIO because the
+    tools out there are built for big companies, accountants charging by the
+    hour, or hobby spreadsheets — not for the shop, the workshop, the café
+    or the family business that just wants their numbers to make sense.
 
 members:
-  - name: "Lorem Ipsum"
-    role: "Dolor sit amet"
-    photo: ""
+  - name: "Elod Sandor"
+    role: "Co-founder · Accountant"
+    photo: "/assets/team/elod.jpeg"
     bio: >-
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat.
-    quote: "Duis aute irure dolor in reprehenderit in voluptate."
-
-  - name: "Dolor Sit"
-    role: "Amet consectetur"
-    photo: ""
-    bio: >-
-      Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-      deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste
-      natus error sit voluptatem accusantium doloremque laudantium.
+      Elod has spent years helping small businesses keep their books in
+      order — the kind of places where the owner does the invoicing in the
+      evening and worries about VAT on a Sunday. He knows what actually
+      matters when money is tight and time is tighter.
     quote: ""
 
-  - name: "Amet Consectetur"
-    role: "Adipiscing elit"
-    photo: ""
+  - name: "Iustinian Olaru"
+    role: "Co-founder · Software engineer"
+    photo: "/assets/team/iustinian.png"
     bio: >-
-      Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut
-      fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem
-      sequi nesciunt. Neque porro quisquam est qui dolorem ipsum.
-    quote: "Sed quia non numquam eius modi tempora incidunt."
+      Iustinian builds the software. He's worked on systems for everyone
+      from one-person operations to large companies, and he's seen how
+      often the small ones get left behind. ESIO is his answer to that —
+      tools that respect your time and don't pretend you're a corporation.
+    quote: ""
 
 cta:
-  text: "Lorem ipsum dolor sit amet, consectetur adipiscing?"
-  link_label: "Lorem ipsum →"
+  text: "Got a question? Write to us — we read every message ourselves."
+  link_label: "hello@esio.dk →"
   link_href: "mailto:hello@esio.dk"
