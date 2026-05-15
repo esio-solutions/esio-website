@@ -14,7 +14,7 @@ window.klaroConfig = {
 
     privacyPolicy: '/legal/cookies/',
 
-    default: true,
+    default: false,
     mustConsent: true,
     acceptAll: true,
     hideDeclineAll: false,
@@ -68,7 +68,7 @@ window.klaroConfig = {
             ],
             required: false,
             optOut: false,
-            default: true,
+            default: false,
             onlyOnce: false,
         },
     ],
