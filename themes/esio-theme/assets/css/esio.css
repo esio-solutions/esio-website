@@ -506,6 +506,16 @@ footer{background:var(--footer-bg);padding:60px 0 36px}
 .form-sub-center{text-align:center;font-size:16px;line-height:1.7}
 .btn-sub-link{text-decoration:none;display:inline-block;text-align:center;font-size:18px;padding:18px 48px;border-radius:50px}
 
+/* NEWSLETTER FORM — actual <input> styling inside .form-box on /newsletter/.
+   The site's other "form" sections (subscribe.html) are text + link, so input
+   styling didn't exist; this matches the glassmorphic aesthetic of .form-box. */
+.newsletter-form{display:flex;flex-direction:column;gap:14px;width:100%;max-width:420px}
+.newsletter-form .form-label{font-size:13px;color:rgba(255,255,255,.85);font-weight:600;align-self:flex-start;margin-bottom:-8px}
+.newsletter-form .form-input{width:100%;padding:14px 18px;border-radius:var(--radius-base);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#fff;font-size:15px;font-family:var(--font-display);transition:border-color .2s,background .2s}
+.newsletter-form .form-input::placeholder{color:rgba(255,255,255,.45)}
+.newsletter-form .form-input:focus{outline:none;border-color:var(--color-terra);background:rgba(255,255,255,.12)}
+.newsletter-form altcha-widget{align-self:stretch;margin-top:6px;--altcha-color-base:rgba(255,255,255,.08);--altcha-color-border:rgba(255,255,255,.18);--altcha-color-text:#fff;--altcha-border-radius:var(--radius-base)}
+
 /* PROSE — long-form content typography (legal, articles, posts, about, contact).
    Hand-rolled because @tailwindcss/typography v0.5.x only partially supports
    Tailwind v4: it emits the prose-* variant modifiers (prose-headings:, prose-a:,
