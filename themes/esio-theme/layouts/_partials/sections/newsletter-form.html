@@ -1,13 +1,8 @@
 {{- /*
   Newsletter subscribe form. POSTs directly to Listmonk's public
-  /subscription/form endpoint, which is intercepted by altcha-verify
-  (infra/captcha/captcha.yml) on the monitoring host — that service
-  validates the PoW proof in the "altcha" field, then proxies to Listmonk.
-
-  The widget below does the client-side PoW (~1-3s on a typical laptop)
-  with auto="onsubmit", so the work happens when the visitor clicks
-  Subscribe rather than on page load. The altcha hidden field is auto-
-  injected by the widget once the puzzle is solved.
+  /subscription/form endpoint. The Altcha captcha widget (rendered via the
+  shared sections/captcha-widget.html partial) does a client-side PoW
+  before submission; the altcha proof is injected into the form body.
 
   Copy: data/<lang>/sections/newsletter.yml
   Config: hugo.toml [params.newsletter] + [params.captcha]
@@ -15,12 +10,6 @@
 {{- $data := index site.Data site.Language.Lang "sections" "newsletter" -}}
 {{- $endpoint := site.Params.newsletter.endpoint -}}
 {{- $listUuid := site.Params.newsletter.listUuid -}}
-{{- $captchaBase := site.Params.captcha.challengeUrl -}}
-{{- $captchaKey := site.Params.captcha.apiKey -}}
-{{- $challengeUrl := "" -}}
-{{- if and $captchaBase $captchaKey -}}
-  {{- $challengeUrl = printf "%s?apiKey=%s" $captchaBase $captchaKey -}}
-{{- end -}}
 <section id="newsletter" class="sec">
   <div class="si">
     <div class="tc">
@@ -51,12 +40,7 @@
                autocomplete="email"
                placeholder="{{ $data.fields.email.placeholder }}" />
 
-        {{- with $challengeUrl }}
-        <altcha-widget
-            challengeurl="{{ . }}"
-            auto="onsubmit"
-            hidefooter></altcha-widget>
-        {{- end }}
+        {{ partial "sections/captcha-widget.html" . }}
 
         <button type="submit"
                 class="btn-sub btn-sub-link"
@@ -65,9 +49,6 @@
         <p class="form-note">{{ $data.legalNote }}</p>
       </form>
     </div>
-    {{- with $challengeUrl }}
-    <script async defer src="https://eu.altcha.org/js/v1.x/altcha.min.js" type="module"></script>
-    {{- end }}
     {{- else }}
     {{- /* listUuid not configured — fall back to Listmonk's hosted form so the
        page is always functional. Replace this with the inline embedded form

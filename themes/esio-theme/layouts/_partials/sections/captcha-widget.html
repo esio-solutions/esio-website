@@ -1,0 +1,33 @@
+{{- /*
+  Altcha PoW captcha widget. Drop inside any <form> to enable client-side
+  proof-of-work before submission. Must be called with the page context:
+
+      {{ partial "sections/captcha-widget.html" . }}
+
+  Reads from hugo.toml [params.captcha]:
+    challengeUrl  — Sentinel's /v1/challenge endpoint
+    apiKey        — public form-identifier from Sentinel admin (NOT secret;
+                    same role as a reCAPTCHA / Turnstile "site key")
+
+  The partial emits two things:
+    1. an <altcha-widget> element bound to the configured challenge URL
+    2. the altcha.min.js loader script — but only once per rendered page
+       (dedup via Page.Store) so reusing this partial in multiple forms on
+       one page doesn't load the script twice.
+
+  Renders nothing when challengeUrl or apiKey is empty, so unconfigured
+  forms degrade silently rather than break the page.
+*/ -}}
+{{- $page := . -}}
+{{- $base := site.Params.captcha.challengeUrl -}}
+{{- $key := site.Params.captcha.apiKey -}}
+{{- if and $base $key -}}
+<altcha-widget
+    challengeurl="{{ $base }}?apiKey={{ $key }}"
+    auto="onsubmit"
+    hidefooter></altcha-widget>
+  {{- if not ($page.Store.Get "altchaScriptLoaded") -}}
+    {{- $page.Store.Set "altchaScriptLoaded" true }}
+<script async defer src="https://eu.altcha.org/js/v2.x/altcha.min.js" type="module"></script>
+  {{- end }}
+{{- end -}}
