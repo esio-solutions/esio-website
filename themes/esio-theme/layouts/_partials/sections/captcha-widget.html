@@ -6,11 +6,15 @@
 
   Reads from hugo.toml [params.captcha]:
     challengeUrl  — Sentinel's /v1/challenge endpoint
+    verifyUrl     — Sentinel's /v1/verify endpoint (REQUIRED for Sentinel —
+                    its presence is how the widget detects Sentinel-shape
+                    nested challenge JSON; omit and the widget tries to
+                    parse flat-shape and crashes)
     apiKey        — public form-identifier from Sentinel admin (NOT secret;
                     same role as a reCAPTCHA / Turnstile "site key")
 
   The partial emits two things:
-    1. an <altcha-widget> element bound to the configured challenge URL
+    1. an <altcha-widget> element bound to challenge + verify URLs
     2. the altcha.min.js loader script — but only once per rendered page
        (dedup via Page.Store) so reusing this partial in multiple forms on
        one page doesn't load the script twice.
@@ -20,10 +24,12 @@
 */ -}}
 {{- $page := . -}}
 {{- $base := site.Params.captcha.challengeUrl -}}
+{{- $verify := site.Params.captcha.verifyUrl -}}
 {{- $key := site.Params.captcha.apiKey -}}
 {{- if and $base $key -}}
 <altcha-widget
     challengeurl="{{ $base }}?apiKey={{ $key }}"
+    verifyurl="{{ $verify }}"
     auto="onsubmit"
     hidefooter></altcha-widget>
   {{- if not ($page.Store.Get "altchaScriptLoaded") -}}

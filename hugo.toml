@@ -35,6 +35,7 @@ enableEmoji = true
 # ?apiKey=<key> automatically when apiKey is set below.
 [params.captcha]
   challengeUrl = "https://captcha.esio.dk/v1/challenge"
+  verifyUrl    = "https://captcha.esio.dk/v1/verify"   # tells widget to parse Sentinel-shape (nested) challenge
   apiKey       = "key_1jop5nvpf00c2v5ej5p"   # paste from Sentinel admin; empty disables the widget
 
 # Each language gets a `/lang/` URL prefix for non-default languages and lives
