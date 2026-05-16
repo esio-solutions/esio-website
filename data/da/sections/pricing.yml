@@ -26,12 +26,9 @@ tiers:
       - Skattehjælper
       - Op til 1 budget per konto
     cta:
-      label: Kommer snart
-      disabled: true
-      style: ghost
-    notify:
-      label: Få besked når vi lancerer
+      label: Få besked når vi lancerer →
       href: /da/newsletter/
+      style: ghost
       event: cta-notify-pricing-trial
     featured: false
 
@@ -52,12 +49,9 @@ tiers:
       - Skattehjælper
       - Op til 3 budgetter per konto
     cta:
-      label: Kommer snart
-      disabled: true
-      style: featured
-    notify:
-      label: Få besked når vi lancerer
+      label: Få besked når vi lancerer →
       href: /da/newsletter/
+      style: featured
       event: cta-notify-pricing-small-business
     featured: true
     badge: Mest populære
@@ -77,11 +71,8 @@ tiers:
       - Skattehjælper
       - Op til 1 budget per konto
     cta:
-      label: Kommer snart
-      disabled: true
-      style: ghost
-    notify:
-      label: Få besked når vi lancerer
+      label: Få besked når vi lancerer →
       href: /da/newsletter/
+      style: ghost
       event: cta-notify-pricing-startup
     featured: false

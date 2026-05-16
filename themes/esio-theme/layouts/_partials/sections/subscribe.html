@@ -18,14 +18,7 @@
       <div class="form-box form-box-center">
         <div class="form-title form-title-lg">{{ $data.formBox.title }}</div>
         <div class="form-sub-t form-sub-center">{{ delimit (split (trim $data.formBox.subtitle "\n") "\n") "<br>" | safeHTML }}</div>
-        {{- if $data.formBox.cta.disabled }}
-        <button type="button" class="btn-sub btn-sub-link is-disabled" disabled aria-disabled="true">{{ $data.formBox.cta.label }}</button>
-        {{- else }}
-        <a href="{{ $data.formBox.cta.href }}" target="_blank" class="btn-sub btn-sub-link"{{ with $data.formBox.cta.event }} data-umami-event="{{ . }}"{{ end }}>{{ $data.formBox.cta.label }}</a>
-        {{- end }}
-        {{- with $data.formBox.notify }}
-        <a href="{{ .href }}" class="btn-sub-notify"{{ with .event }} data-umami-event="{{ . }}"{{ end }}>{{ .label }}</a>
-        {{- end }}
+        <a href="{{ $data.formBox.cta.href }}" class="btn-sub btn-sub-link"{{ with $data.formBox.cta.event }} data-umami-event="{{ . }}"{{ end }}>{{ $data.formBox.cta.label }}</a>
         <p class="form-note">{{ $data.formBox.legalNote }}</p>
       </div>
     </div>

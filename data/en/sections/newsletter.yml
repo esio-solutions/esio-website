@@ -19,7 +19,7 @@ legalNote: >-
   You can unsubscribe at any time with one click. We don't share your
   address with anyone.
 
-missingConfig:
-  title: Newsletter coming soon
+fallback:
   body: >-
-    The signup form isn't configured yet. Check back shortly.
+    Subscribe via our newsletter platform — opens in a new tab.
+  cta: Subscribe on newsletter.esio.dk →

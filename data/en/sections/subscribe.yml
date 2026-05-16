@@ -17,10 +17,7 @@ formBox:
     Set up in under 60 seconds.
     No credit card needed.
   cta:
-    label: Coming soon
-    disabled: true
-  notify:
-    label: Notify me at launch
+    label: Notify me at launch →
     href: /newsletter/
     event: cta-notify-subscribe
   legalNote: >-

@@ -17,10 +17,7 @@ formBox:
     Klar på under 60 sekunder.
     Intet kreditkort nødvendigt.
   cta:
-    label: Kommer snart
-    disabled: true
-  notify:
-    label: Få besked når vi lancerer
+    label: Få besked når vi lancerer →
     href: /da/newsletter/
     event: cta-notify-subscribe
   legalNote: >-

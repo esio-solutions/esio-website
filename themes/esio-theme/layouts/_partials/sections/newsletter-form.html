@@ -1,14 +1,21 @@
 {{- /*
   Newsletter subscribe form. POSTs directly to Listmonk's public
-  /subscription/form endpoint. No JavaScript required; on submit the
-  browser navigates to Listmonk's hosted confirmation page.
+  /subscription/form endpoint, which is intercepted by altcha-verify
+  (infra/captcha/captcha.yml) on the monitoring host — that service
+  validates the PoW proof in the "altcha" field, then proxies to Listmonk.
+
+  The widget below does the client-side PoW (~1-3s on a typical laptop)
+  with auto="onsubmit", so the work happens when the visitor clicks
+  Subscribe rather than on page load. The altcha hidden field is auto-
+  injected by the widget once the puzzle is solved.
 
   Copy: data/<lang>/sections/newsletter.yml
-  Config: hugo.toml [params.newsletter] — endpoint + listUuid
+  Config: hugo.toml [params.newsletter] + [params.captcha]
 */ -}}
 {{- $data := index site.Data site.Language.Lang "sections" "newsletter" -}}
 {{- $endpoint := site.Params.newsletter.endpoint -}}
 {{- $listUuid := site.Params.newsletter.listUuid -}}
+{{- $challengeUrl := site.Params.captcha.challengeUrl -}}
 <section id="newsletter" class="sec">
   <div class="si">
     <div class="tc">
@@ -39,6 +46,13 @@
                autocomplete="email"
                placeholder="{{ $data.fields.email.placeholder }}" />
 
+        {{- with $challengeUrl }}
+        <altcha-widget
+            challengeurl="{{ . }}"
+            auto="onsubmit"
+            hidefooter></altcha-widget>
+        {{- end }}
+
         <button type="submit"
                 class="btn-sub btn-sub-link"
                 data-umami-event="cta-newsletter-submit">{{ $data.cta.label }}</button>
@@ -46,10 +60,20 @@
         <p class="form-note">{{ $data.legalNote }}</p>
       </form>
     </div>
+    {{- with $challengeUrl }}
+    <script async defer src="https://eu.altcha.org/js/v1.x/altcha.min.js" type="module"></script>
+    {{- end }}
     {{- else }}
+    {{- /* listUuid not configured — fall back to Listmonk's hosted form so the
+       page is always functional. Replace this with the inline embedded form
+       by setting hugo.toml [params.newsletter] listUuid = "<uuid-from-listmonk>". */ -}}
     <div class="form-box form-box-center newsletter-form-wrap">
-      <div class="form-title form-title-lg">{{ $data.missingConfig.title }}</div>
-      <p class="form-note">{{ $data.missingConfig.body }}</p>
+      <p class="form-note">{{ $data.fallback.body }}</p>
+      <a href="{{ $endpoint }}"
+         class="btn-sub btn-sub-link"
+         target="_blank"
+         rel="noopener"
+         data-umami-event="cta-newsletter-external">{{ $data.fallback.cta }}</a>
     </div>
     {{- end }}
   </div>

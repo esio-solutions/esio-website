@@ -26,7 +26,15 @@ enableEmoji = true
 # at Settings → Lists → click the target list → "UUID" field at the top.
 [params.newsletter]
   endpoint  = "https://newsletter.esio.dk/subscription/form"
-  listUuid  = ""   # paste from Listmonk admin; empty value disables the form
+  listUuid  = "0c9b3c13-a789-480b-a365-120feca25898"   # paste from Listmonk admin; empty value disables the form
+
+# Altcha proof-of-work captcha. The captcha stack (infra/captcha/captcha.yml on
+# the monitoring host) intercepts Listmonk's subscribe paths via Traefik and
+# requires a valid PoW proof in the form field "altcha". Set challengeUrl to
+# empty to disable the widget client-side (server will still 403 submissions
+# without a proof, so disable only when iterating locally).
+[params.captcha]
+  challengeUrl = "https://captcha.esio.dk/altcha/challenge"
 
 # Each language gets a `/lang/` URL prefix for non-default languages and lives
 # at the root for the default. Section data lives under data/<lang>/sections/.

@@ -26,12 +26,9 @@ tiers:
       - Tax Helper
       - Up to 1 budget per account
     cta:
-      label: Coming soon
-      disabled: true
-      style: ghost
-    notify:
-      label: Notify me at launch
+      label: Notify me at launch →
       href: /newsletter/
+      style: ghost
       event: cta-notify-pricing-trial
     featured: false
 
@@ -52,12 +49,9 @@ tiers:
       - Tax Helper
       - Up to 3 budgets per account
     cta:
-      label: Coming soon
-      disabled: true
-      style: featured
-    notify:
-      label: Notify me at launch
+      label: Notify me at launch →
       href: /newsletter/
+      style: featured
       event: cta-notify-pricing-small-business
     featured: true
     badge: Most Popular
@@ -77,11 +71,8 @@ tiers:
       - Tax Helper
       - Up to 1 budget per account
     cta:
-      label: Coming soon
-      disabled: true
-      style: ghost
-    notify:
-      label: Notify me at launch
+      label: Notify me at launch →
       href: /newsletter/
+      style: ghost
       event: cta-notify-pricing-startup
     featured: false

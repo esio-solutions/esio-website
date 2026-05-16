@@ -19,8 +19,7 @@ legalNote: >-
   Du kan afmelde dig når som helst med ét klik. Vi deler ikke din adresse
   med andre.
 
-missingConfig:
-  title: Nyhedsbrev kommer snart
+fallback:
   body: >-
-    Tilmeldingsformularen er ikke konfigureret endnu. Kig forbi igen om
-    lidt.
+    Tilmeld dig via vores nyhedsbrevsplatform — åbner i ny fane.
+  cta: Tilmeld på newsletter.esio.dk →
