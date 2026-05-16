@@ -23,11 +23,11 @@
 {{- $key := site.Params.captcha.apiKey -}}
 {{- if and $base $key -}}
 <altcha-widget
-    challengeurl="{{ $base }}?apiKey={{ $key }}"
+    challenge="{{ $base }}?apiKey={{ $key }}"
     auto="onsubmit"
     hidefooter></altcha-widget>
   {{- if not ($page.Store.Get "altchaScriptLoaded") -}}
     {{- $page.Store.Set "altchaScriptLoaded" true }}
-<script async defer src="https://eu.altcha.org/js/v2.x/altcha.min.js" type="module"></script>
+<script async defer src="https://cdn.jsdelivr.net/gh/altcha-org/altcha/dist/altcha.min.js" type="module"></script>
   {{- end }}
 {{- end -}}
