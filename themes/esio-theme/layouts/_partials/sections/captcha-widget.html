@@ -23,7 +23,7 @@
 {{- $key := site.Params.captcha.apiKey -}}
 {{- if and $base $key -}}
 <altcha-widget
-    challenge="{{ $base }}?apiKey={{ $key }}"
+    challengeurl="{{ $base }}?apiKey={{ $key }}"
     auto="onsubmit"
     hidefooter></altcha-widget>
   {{- if not ($page.Store.Get "altchaScriptLoaded") -}}
