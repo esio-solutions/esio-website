@@ -26,10 +26,13 @@ tiers:
       - Tax Helper
       - Up to 1 budget per account
     cta:
-      label: Get Started
-      href: https://budget.esio.dk/Login
+      label: Coming soon
+      disabled: true
       style: ghost
-      event: cta-pricing-trial
+    notify:
+      label: Notify me at launch
+      href: /newsletter/
+      event: cta-notify-pricing-trial
     featured: false
 
   - id: small-business
@@ -49,10 +52,13 @@ tiers:
       - Tax Helper
       - Up to 3 budgets per account
     cta:
-      label: Get Started
-      href: https://budget.esio.dk/Login
+      label: Coming soon
+      disabled: true
       style: featured
-      event: cta-pricing-small-business
+    notify:
+      label: Notify me at launch
+      href: /newsletter/
+      event: cta-notify-pricing-small-business
     featured: true
     badge: Most Popular
 
@@ -71,8 +77,11 @@ tiers:
       - Tax Helper
       - Up to 1 budget per account
     cta:
-      label: Get Started
-      href: https://budget.esio.dk/Login
+      label: Coming soon
+      disabled: true
       style: ghost
-      event: cta-pricing-startup
+    notify:
+      label: Notify me at launch
+      href: /newsletter/
+      event: cta-notify-pricing-startup
     featured: false

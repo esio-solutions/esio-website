@@ -42,7 +42,14 @@
               <li>{{ . }}</li>
             {{- end }}
           </ul>
+          {{- if .cta.disabled }}
+          <button type="button" class="{{ $ctaCls }} is-disabled" disabled aria-disabled="true">{{ .cta.label }}</button>
+          {{- else }}
           <a href="{{ .cta.href }}" class="{{ $ctaCls }}"{{ with .cta.event }} data-umami-event="{{ . }}"{{ end }}>{{ .cta.label }}</a>
+          {{- end }}
+          {{- with .notify }}
+          <a href="{{ .href }}" class="pcta-notify"{{ with .event }} data-umami-event="{{ . }}"{{ end }}>{{ .label }}</a>
+          {{- end }}
         </div>
       {{- end }}
     </div>

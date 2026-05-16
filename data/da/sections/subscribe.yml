@@ -17,9 +17,12 @@ formBox:
     Klar på under 60 sekunder.
     Intet kreditkort nødvendigt.
   cta:
-    label: Gå til platformen →
-    href: https://budget.esio.dk/Login
-    event: cta-trial-subscribe
+    label: Kommer snart
+    disabled: true
+  notify:
+    label: Få besked når vi lancerer
+    href: /da/newsletter/
+    event: cta-notify-subscribe
   legalNote: >-
     Ved tilmelding accepterer du vores vilkår & privatlivspolitik. Priser
     er ekskl. moms.

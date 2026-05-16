@@ -17,9 +17,12 @@ formBox:
     Set up in under 60 seconds.
     No credit card needed.
   cta:
-    label: Go to Platform →
-    href: https://budget.esio.dk/Login
-    event: cta-trial-subscribe
+    label: Coming soon
+    disabled: true
+  notify:
+    label: Notify me at launch
+    href: /newsletter/
+    event: cta-notify-subscribe
   legalNote: >-
     By signing up you agree to our Terms & Privacy Policy. Prices exclude
     taxes.

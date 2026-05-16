@@ -26,10 +26,13 @@ tiers:
       - Skattehjælper
       - Op til 1 budget per konto
     cta:
-      label: Kom i gang
-      href: https://budget.esio.dk/Login
+      label: Kommer snart
+      disabled: true
       style: ghost
-      event: cta-pricing-trial
+    notify:
+      label: Få besked når vi lancerer
+      href: /da/newsletter/
+      event: cta-notify-pricing-trial
     featured: false
 
   - id: small-business
@@ -49,10 +52,13 @@ tiers:
       - Skattehjælper
       - Op til 3 budgetter per konto
     cta:
-      label: Kom i gang
-      href: https://budget.esio.dk/Login
+      label: Kommer snart
+      disabled: true
       style: featured
-      event: cta-pricing-small-business
+    notify:
+      label: Få besked når vi lancerer
+      href: /da/newsletter/
+      event: cta-notify-pricing-small-business
     featured: true
     badge: Mest populære
 
@@ -71,8 +77,11 @@ tiers:
       - Skattehjælper
       - Op til 1 budget per konto
     cta:
-      label: Kom i gang
-      href: https://budget.esio.dk/Login
+      label: Kommer snart
+      disabled: true
       style: ghost
-      event: cta-pricing-startup
+    notify:
+      label: Få besked når vi lancerer
+      href: /da/newsletter/
+      event: cta-notify-pricing-startup
     featured: false
