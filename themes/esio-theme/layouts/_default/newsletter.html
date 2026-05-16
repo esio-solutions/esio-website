@@ -1,0 +1,10 @@
+{{ define "main" }}
+  {{ partial "sections/nav.html" . }}
+  <main class="bg-surface pt-[120px] pb-[90px] px-[6%]">
+    {{ partial "sections/newsletter-form.html" . }}
+    {{ with .Content }}
+      <article class="max-w-[760px] mx-auto prose prose-lg mt-12">{{ . }}</article>
+    {{ end }}
+  </main>
+  {{ partial "sections/footer.html" . }}
+{{ end }}

@@ -26,7 +26,7 @@ columns:
     links:
       - { label: About,       href: "/about/" }
       - { label: Blog,        href: "/posts/" }
-      - { label: Newsletter,  href: "https://newsletter.esio.dk/subscription/form", event: "cta-newsletter" }
+      - { label: Newsletter,  href: "/newsletter/", event: "cta-newsletter" }
       - { label: Careers,     href: "#" }
       - { label: Contact,     href: "/contact/" }
   - heading: Legal

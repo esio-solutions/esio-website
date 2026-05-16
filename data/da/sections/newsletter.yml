@@ -1,0 +1,26 @@
+tag: Nyhedsbrev
+headline: Hold dig opdateret
+subtitle: >-
+  Produktopdateringer, økonomiske tips til stiftere og lejlighedsvise
+  cases. Udsendes hver par uger. Ingen spam.
+
+fields:
+  name:
+    label: Dit navn (valgfrit)
+    placeholder: Jane Doe
+  email:
+    label: E-mail
+    placeholder: jane@eksempel.dk
+
+cta:
+  label: Tilmeld →
+
+legalNote: >-
+  Du kan afmelde dig når som helst med ét klik. Vi deler ikke din adresse
+  med andre.
+
+missingConfig:
+  title: Nyhedsbrev kommer snart
+  body: >-
+    Tilmeldingsformularen er ikke konfigureret endnu. Kig forbi igen om
+    lidt.

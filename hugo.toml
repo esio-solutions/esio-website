@@ -21,6 +21,13 @@ enableEmoji = true
 [params.umami]
   websiteId = "b19c9f98-890b-4325-91be-1d39f3080369"
 
+# Self-hosted Listmonk newsletter. The /newsletter/ page POSTs directly to
+# the public subscribe endpoint. Get listUuid from analytics.esio.dk's admin
+# at Settings → Lists → click the target list → "UUID" field at the top.
+[params.newsletter]
+  endpoint  = "https://newsletter.esio.dk/subscription/form"
+  listUuid  = ""   # paste from Listmonk admin; empty value disables the form
+
 # Each language gets a `/lang/` URL prefix for non-default languages and lives
 # at the root for the default. Section data lives under data/<lang>/sections/.
 defaultContentLanguage = "en"
