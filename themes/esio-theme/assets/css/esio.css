@@ -515,6 +515,10 @@ footer{background:var(--footer-bg);padding:60px 0 36px}
 .newsletter-form .form-input::placeholder{color:rgba(255,255,255,.45)}
 .newsletter-form .form-input:focus{outline:none;border-color:var(--color-terra);background:rgba(255,255,255,.12)}
 .newsletter-form altcha-widget{align-self:stretch;margin-top:6px;--altcha-color-base:rgba(255,255,255,.08);--altcha-color-border:rgba(255,255,255,.18);--altcha-color-text:#fff;--altcha-border-radius:var(--radius-base)}
+.newsletter-status{font-size:14px;font-weight:600;text-align:center;margin:8px 0 0;min-height:1.4em;line-height:1.4}
+.newsletter-status.is-pending{color:rgba(255,255,255,.75)}
+.newsletter-status.is-success{color:#a7f3a3}
+.newsletter-status.is-error{color:#ffb4a8}
 
 /* PROSE — long-form content typography (legal, articles, posts, about, contact).
    Hand-rolled because @tailwindcss/typography v0.5.x only partially supports

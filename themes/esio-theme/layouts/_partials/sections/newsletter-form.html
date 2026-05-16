@@ -1,8 +1,11 @@
 {{- /*
-  Newsletter subscribe form. POSTs directly to Listmonk's public
-  /subscription/form endpoint. The Altcha captcha widget (rendered via the
-  shared sections/captcha-widget.html partial) does a client-side PoW
-  before submission; the altcha proof is injected into the form body.
+  Newsletter subscribe form. AJAX-submits to Listmonk's JSON API at
+  /api/public/subscription (proxied through altcha-verify which validates
+  the captcha proof before forwarding). The visitor stays on /newsletter/
+  and gets inline status feedback rather than a redirect.
+
+  The submit-intercept JS lives in assets/js/shared/newsletter-form.js;
+  the form passes its config to the JS via data-* attributes.
 
   Copy: data/<lang>/sections/newsletter.yml
   Config: hugo.toml [params.newsletter] + [params.captcha]
@@ -10,6 +13,11 @@
 {{- $data := index site.Data site.Language.Lang "sections" "newsletter" -}}
 {{- $endpoint := site.Params.newsletter.endpoint -}}
 {{- $listUuid := site.Params.newsletter.listUuid -}}
+{{- /* JSON API endpoint derived from form endpoint host. */ -}}
+{{- $apiEndpoint := "" -}}
+{{- with $endpoint -}}
+  {{- $apiEndpoint = replace . "/subscription/form" "/api/public/subscription" -}}
+{{- end -}}
 <section id="newsletter" class="sec">
   <div class="si">
     <div class="tc">
@@ -20,7 +28,16 @@
 
     {{- if $listUuid }}
     <div class="form-box form-box-center newsletter-form-wrap">
-      <form class="newsletter-form" action="{{ $endpoint }}" method="post">
+      <form class="newsletter-form"
+            action="{{ $endpoint }}"
+            method="post"
+            data-endpoint="{{ $apiEndpoint }}"
+            data-list-uuid="{{ $listUuid }}"
+            data-msg-submitting="{{ $data.status.submitting }}"
+            data-msg-success="{{ $data.status.success }}"
+            data-msg-error="{{ $data.status.errorGeneric }}"
+            data-msg-error-network="{{ $data.status.errorNetwork }}"
+            data-msg-error-captcha="{{ $data.status.waitingForCaptcha }}">
         <input type="hidden" name="l" value="{{ $listUuid }}" />
 
         <label for="newsletter-name" class="form-label">{{ $data.fields.name.label }}</label>
@@ -45,6 +62,8 @@
         <button type="submit"
                 class="btn-sub btn-sub-link"
                 data-umami-event="cta-newsletter-submit">{{ $data.cta.label }}</button>
+
+        <p class="newsletter-status" role="status" aria-live="polite"></p>
 
         <p class="form-note">{{ $data.legalNote }}</p>
       </form>

@@ -21,9 +21,13 @@
 {{- $page := . -}}
 {{- $url := site.Params.captcha.challengeUrl -}}
 {{- if $url -}}
+{{- /* auto="onload": PoW runs in background when the widget renders, so the
+   altcha hidden field is populated before the user clicks submit. This lets
+   the form's submit handler do an AJAX POST cleanly without the widget
+   intercepting the submit event itself. */ -}}
 <altcha-widget
     challengeurl="{{ $url }}"
-    auto="onsubmit"
+    auto="onload"
     hidefooter></altcha-widget>
   {{- if not ($page.Store.Get "altchaScriptLoaded") -}}
     {{- $page.Store.Set "altchaScriptLoaded" true }}

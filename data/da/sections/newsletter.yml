@@ -23,3 +23,15 @@ fallback:
   body: >-
     Tilmeld dig via vores nyhedsbrevsplatform — åbner i ny fane.
   cta: Tilmeld på newsletter.esio.dk →
+
+status:
+  submitting: Tilmelder…
+  success: >-
+    Tak! Tjek din e-mail — vi har sendt et bekræftelseslink for at fuldføre
+    din tilmelding.
+  errorGeneric: >-
+    Hov, noget gik galt hos os. Prøv igen om et øjeblik.
+  errorNetwork: >-
+    Kunne ikke nå serveren. Tjek din forbindelse og prøv igen.
+  waitingForCaptcha: >-
+    Vent et øjeblik — vi bekræfter, at du ikke er en bot.
