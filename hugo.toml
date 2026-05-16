@@ -13,6 +13,14 @@ enableEmoji = true
 [params.clarity]
   id = "wlre5xyz6c"
 
+# Umami self-hosted analytics. Cookieless, first-party — no consent required
+# under the CNIL/EDPB audience-measurement exemption (Datatilsynet follows).
+# Loaded unconditionally via themes/esio-theme/layouts/_partials/head/tracking.html.
+# Get the UUID from analytics.esio.dk (Settings → Websites → Add → copy "Website ID").
+# Empty websiteId = partial emits nothing.
+[params.umami]
+  websiteId = "b19c9f98-890b-4325-91be-1d39f3080369"
+
 # Each language gets a `/lang/` URL prefix for non-default languages and lives
 # at the root for the default. Section data lives under data/<lang>/sections/.
 defaultContentLanguage = "en"

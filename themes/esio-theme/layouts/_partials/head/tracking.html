@@ -1,0 +1,15 @@
+{{- /*
+  Umami analytics. Cookieless, first-party — no consent banner required
+  under the CNIL/EDPB "audience measurement" exemption that Datatilsynet
+  follows. Loaded unconditionally; data never leaves analytics.esio.dk.
+
+  Configure in hugo.toml:
+    [params.umami]
+      websiteId = "uuid-from-analytics.esio.dk"
+      src       = "https://analytics.esio.dk/script.js"   # optional
+*/ -}}
+{{- with site.Params.umami }}
+  {{- if .websiteId }}
+    <script defer src="{{ .src | default "https://analytics.esio.dk/script.js" }}" data-website-id="{{ .websiteId }}"></script>
+  {{- end }}
+{{- end }}

@@ -24,10 +24,11 @@ columns:
       - { label: Kom i gang,        href: "https://budget.esio.dk/Login" }
   - heading: Virksomhed
     links:
-      - { label: Om,       href: "/da/about/" }
-      - { label: Blog,     href: "/da/posts/" }
-      - { label: Karriere, href: "#" }
-      - { label: Kontakt,  href: "/da/contact/" }
+      - { label: Om,          href: "/da/about/" }
+      - { label: Blog,        href: "/da/posts/" }
+      - { label: Nyhedsbrev,  href: "https://newsletter.esio.dk/subscription/form" }
+      - { label: Karriere,    href: "#" }
+      - { label: Kontakt,     href: "/da/contact/" }
   - heading: Juridisk
     links:
       - { label: Privatlivspolitik, href: "/da/legal/privacy/" }
