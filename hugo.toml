@@ -28,15 +28,11 @@ enableEmoji = true
   endpoint  = "https://newsletter.esio.dk/subscription/form"
   listUuid  = "0c9b3c13-a789-480b-a365-120feca25898"   # paste from Listmonk admin; empty value disables the form
 
-# Altcha Sentinel captcha server (ghcr.io/altcha-org/sentinel). Hosted on
-# captcha.esio.dk by the monitoring stack. Sentinel's /v1/challenge requires
-# a per-form API key — get it from Sentinel admin → Forms → create a form →
-# copy "API key" from the form's detail page. The widget appends it as
-# ?apiKey=<key> automatically when apiKey is set below.
+# Self-hosted Altcha PoW captcha. Endpoint served by altcha-verify (Go service
+# in infra/captcha/altcha-verify/ on the esiobudget repo, runs as part of the
+# monitoring-server stack). Empty challengeUrl disables the widget.
 [params.captcha]
-  challengeUrl = "https://captcha.esio.dk/v1/challenge"
-  verifyUrl    = "https://captcha.esio.dk/v1/verify"   # tells widget to parse Sentinel-shape (nested) challenge
-  apiKey       = "key_1jop5nvpf00c2v5ej5p"   # paste from Sentinel admin; empty disables the widget
+  challengeUrl = "https://captcha.esio.dk/altcha/challenge"
 
 # Each language gets a `/lang/` URL prefix for non-default languages and lives
 # at the root for the default. Section data lives under data/<lang>/sections/.

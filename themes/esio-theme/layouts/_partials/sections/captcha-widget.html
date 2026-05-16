@@ -5,35 +5,28 @@
       {{ partial "sections/captcha-widget.html" . }}
 
   Reads from hugo.toml [params.captcha]:
-    challengeUrl  — Sentinel's /v1/challenge endpoint
-    verifyUrl     — Sentinel's /v1/verify endpoint (REQUIRED for Sentinel —
-                    its presence is how the widget detects Sentinel-shape
-                    nested challenge JSON; omit and the widget tries to
-                    parse flat-shape and crashes)
-    apiKey        — public form-identifier from Sentinel admin (NOT secret;
-                    same role as a reCAPTCHA / Turnstile "site key")
+    challengeUrl  — endpoint served by the altcha-verify Go service
+                    (in esiobudget repo at infra/captcha/altcha-verify/),
+                    typically https://captcha.<domain>/altcha/challenge
 
   The partial emits two things:
-    1. an <altcha-widget> element bound to challenge + verify URLs
+    1. an <altcha-widget> element bound to the challenge URL
     2. the altcha.min.js loader script — but only once per rendered page
        (dedup via Page.Store) so reusing this partial in multiple forms on
        one page doesn't load the script twice.
 
-  Renders nothing when challengeUrl or apiKey is empty, so unconfigured
-  forms degrade silently rather than break the page.
+  Renders nothing when challengeUrl is empty, so unconfigured forms
+  degrade silently rather than break the page.
 */ -}}
 {{- $page := . -}}
-{{- $base := site.Params.captcha.challengeUrl -}}
-{{- $verify := site.Params.captcha.verifyUrl -}}
-{{- $key := site.Params.captcha.apiKey -}}
-{{- if and $base $key -}}
+{{- $url := site.Params.captcha.challengeUrl -}}
+{{- if $url -}}
 <altcha-widget
-    challengeurl="{{ $base }}?apiKey={{ $key }}"
-    verifyurl="{{ $verify }}"
+    challengeurl="{{ $url }}"
     auto="onsubmit"
     hidefooter></altcha-widget>
   {{- if not ($page.Store.Get "altchaScriptLoaded") -}}
     {{- $page.Store.Set "altchaScriptLoaded" true }}
-<script async defer src="https://cdn.jsdelivr.net/gh/altcha-org/altcha/dist/altcha.min.js" type="module"></script>
+<script async defer src="https://eu.altcha.org/js/v1.x/altcha.min.js" type="module"></script>
   {{- end }}
 {{- end -}}
