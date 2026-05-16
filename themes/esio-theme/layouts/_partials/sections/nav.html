@@ -17,7 +17,7 @@
     {{ partial "sections/lang-toggle.html" . }}
     {{- range $data.actions }}
       {{- $cls := cond (eq .style "solid") "btn-ns" "btn-ng" }}
-      <a href="{{ .href }}" class="{{ $cls }}">{{ .label }}</a>
+      <a href="{{ .href }}" class="{{ $cls }}"{{ with .event }} data-umami-event="{{ . }}"{{ end }}>{{ .label }}</a>
     {{- end }}
   </div>
 </nav>

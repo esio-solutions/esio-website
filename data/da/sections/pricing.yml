@@ -29,6 +29,7 @@ tiers:
       label: Kom i gang
       href: https://budget.esio.dk/Login
       style: ghost
+      event: cta-pricing-trial
     featured: false
 
   - id: small-business
@@ -51,6 +52,7 @@ tiers:
       label: Kom i gang
       href: https://budget.esio.dk/Login
       style: featured
+      event: cta-pricing-small-business
     featured: true
     badge: Mest populære
 
@@ -72,4 +74,5 @@ tiers:
       label: Kom i gang
       href: https://budget.esio.dk/Login
       style: ghost
+      event: cta-pricing-startup
     featured: false

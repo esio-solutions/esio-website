@@ -21,12 +21,12 @@ columns:
       - { label: Features,     href: "#features" }
       - { label: Pricing,      href: "#pricing" }
       - { label: How it Works, href: "#how" }
-      - { label: Get Started,  href: "https://budget.esio.dk/Login" }
+      - { label: Get Started,  href: "https://budget.esio.dk/Login", event: "cta-trial-footer" }
   - heading: Company
     links:
       - { label: About,       href: "/about/" }
       - { label: Blog,        href: "/posts/" }
-      - { label: Newsletter,  href: "https://newsletter.esio.dk/subscription/form" }
+      - { label: Newsletter,  href: "https://newsletter.esio.dk/subscription/form", event: "cta-newsletter" }
       - { label: Careers,     href: "#" }
       - { label: Contact,     href: "/contact/" }
   - heading: Legal

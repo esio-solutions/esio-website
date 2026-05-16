@@ -6,10 +6,14 @@
   Configure in hugo.toml:
     [params.umami]
       websiteId = "uuid-from-analytics.esio.dk"
-      src       = "https://analytics.esio.dk/script.js"   # optional
+      src       = "https://analytics.esio.dk/stats.js"   # optional
+
+  The /stats.js (not /script.js) path matches Umami's TRACKER_SCRIPT_NAME
+  override on the monitoring server — chosen to dodge common adblock rules
+  that pattern-match "script.js" on analytics.* hosts.
 */ -}}
 {{- with site.Params.umami }}
   {{- if .websiteId }}
-    <script defer src="{{ .src | default "https://analytics.esio.dk/script.js" }}" data-website-id="{{ .websiteId }}"></script>
+    <script defer src="{{ .src | default "https://analytics.esio.dk/stats.js" }}" data-website-id="{{ .websiteId }}"></script>
   {{- end }}
 {{- end }}

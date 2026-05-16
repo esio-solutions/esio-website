@@ -20,7 +20,7 @@
         <div class="foot-col">
           <h2>{{ .heading }}</h2>
           {{- range .links }}
-            <a href="{{ .href }}">{{ .label }}</a>
+            <a href="{{ .href }}"{{ with .event }} data-umami-event="{{ . }}"{{ end }}>{{ .label }}</a>
           {{- end }}
         </div>
       {{- end }}

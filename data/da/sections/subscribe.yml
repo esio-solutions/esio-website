@@ -19,6 +19,7 @@ formBox:
   cta:
     label: Gå til platformen →
     href: https://budget.esio.dk/Login
+    event: cta-trial-subscribe
   legalNote: >-
     Ved tilmelding accepterer du vores vilkår & privatlivspolitik. Priser
     er ekskl. moms.

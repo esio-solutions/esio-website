@@ -42,7 +42,7 @@
               <li>{{ . }}</li>
             {{- end }}
           </ul>
-          <a href="{{ .cta.href }}" class="{{ $ctaCls }}">{{ .cta.label }}</a>
+          <a href="{{ .cta.href }}" class="{{ $ctaCls }}"{{ with .cta.event }} data-umami-event="{{ . }}"{{ end }}>{{ .cta.label }}</a>
         </div>
       {{- end }}
     </div>

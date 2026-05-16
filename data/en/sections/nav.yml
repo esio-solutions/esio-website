@@ -22,6 +22,8 @@ actions:
   - label: Log In
     href: https://budget.esio.dk/Login
     style: ghost
+    event: cta-login
   - label: Start Free
     href: https://budget.esio.dk/Login
     style: solid
+    event: cta-trial-nav

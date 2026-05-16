@@ -21,12 +21,12 @@ columns:
       - { label: Funktioner,        href: "/da/#features" }
       - { label: Priser,            href: "/da/#pricing" }
       - { label: Sådan fungerer det, href: "/da/#how" }
-      - { label: Kom i gang,        href: "https://budget.esio.dk/Login" }
+      - { label: Kom i gang,        href: "https://budget.esio.dk/Login", event: "cta-trial-footer" }
   - heading: Virksomhed
     links:
       - { label: Om,          href: "/da/about/" }
       - { label: Blog,        href: "/da/posts/" }
-      - { label: Nyhedsbrev,  href: "https://newsletter.esio.dk/subscription/form" }
+      - { label: Nyhedsbrev,  href: "https://newsletter.esio.dk/subscription/form", event: "cta-newsletter" }
       - { label: Karriere,    href: "#" }
       - { label: Kontakt,     href: "/da/contact/" }
   - heading: Juridisk
