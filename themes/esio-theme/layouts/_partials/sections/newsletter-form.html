@@ -15,7 +15,12 @@
 {{- $data := index site.Data site.Language.Lang "sections" "newsletter" -}}
 {{- $endpoint := site.Params.newsletter.endpoint -}}
 {{- $listUuid := site.Params.newsletter.listUuid -}}
-{{- $challengeUrl := site.Params.captcha.challengeUrl -}}
+{{- $captchaBase := site.Params.captcha.challengeUrl -}}
+{{- $captchaKey := site.Params.captcha.apiKey -}}
+{{- $challengeUrl := "" -}}
+{{- if and $captchaBase $captchaKey -}}
+  {{- $challengeUrl = printf "%s?apiKey=%s" $captchaBase $captchaKey -}}
+{{- end -}}
 <section id="newsletter" class="sec">
   <div class="si">
     <div class="tc">
