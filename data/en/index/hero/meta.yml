@@ -25,5 +25,5 @@ illustrations:
     src: /assets/illustrations/chart-bg.svg
     alt: ''
   foreground:
-    src: /assets/characters/characters-01.svg
+    src: /assets/characters/characters-01-gradient.svg
     alt: Founder reviewing a budget plan with ESIO

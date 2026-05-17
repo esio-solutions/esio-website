@@ -1,10 +1,10 @@
 decorations:
-- /assets/characters/characters-03.svg
-- /assets/characters/characters-02.svg
-- /assets/characters/characters-04.svg
-- /assets/characters/characters-01.svg
-- /assets/characters/characters-05.svg
-- /assets/characters/characters-06.svg
+- /assets/characters/characters-03-gradient.svg
+- /assets/characters/characters-02-gradient.svg
+- /assets/characters/characters-04-gradient.svg
+- /assets/characters/characters-01-gradient.svg
+- /assets/characters/characters-05-gradient.svg
+- /assets/characters/characters-06-gradient.svg
 brand:
   logo:
     src: /assets/logos/logo-white.svg

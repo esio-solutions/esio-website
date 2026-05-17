@@ -5,6 +5,6 @@ title: |-
 body: See exactly where your money is going — and where it could go. ESIO generates interactive cashflow simulations based on your real data, helping you plan ahead with confidence.
 icon: currency_exchange
 illustration:
-  src: /assets/characters/characters-02.svg
+  src: /assets/characters/characters-02-gradient.svg
   alt: Cashflow simulation illustration
 flipped: true

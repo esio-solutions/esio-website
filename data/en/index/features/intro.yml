@@ -11,5 +11,5 @@ iconGrid:
 - trending_up           # → panel 03: Projections
 - wallet                # → panel 04: Expenses
 illustration:
-  src: /assets/characters/characters-04.svg
+  src: /assets/characters/characters-04-gradient.svg
   alt: ESIO feature suite overview illustration

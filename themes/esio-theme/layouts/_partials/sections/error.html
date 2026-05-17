@@ -1,0 +1,21 @@
+{{- /*
+  Shared error display. Called from layouts/404.html (Hugo's auto-404)
+  and layouts/errors/single.html (content-driven 403/500/502/503).
+
+  Args (passed via `dict`):
+    code    — the HTTP status code, e.g. "404"
+    title   — the human-readable heading, e.g. "Page not found"
+    body    — short explanation paragraph
+*/ -}}
+<section class="sec error-section">
+  <div class="si">
+    <div class="tc">
+      <span class="error-code" aria-hidden="true">{{ .code }}</span>
+      <h1 class="stitle">{{ .title }}</h1>
+      <p class="ssub">{{ .body }}</p>
+      <div class="error-actions">
+        {{ partial "button.html" (dict "label" "Back to home" "href" "/" "variant" "primary") }}
+      </div>
+    </div>
+  </div>
+</section>

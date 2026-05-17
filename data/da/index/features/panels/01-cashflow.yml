@@ -5,6 +5,6 @@ title: |-
 body: Se præcist hvor dine penge går hen — og hvor de kunne gå hen. ESIO genererer interaktive pengestrømssimulationer baseret på dine faktiske data, så du kan planlægge fremad med ro i sindet.
 icon: currency_exchange
 illustration:
-  src: /assets/characters/characters-02.svg
+  src: /assets/characters/characters-02-gradient.svg
   alt: Illustration af pengestrømssimulering
 flipped: true

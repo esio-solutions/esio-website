@@ -1,0 +1,9 @@
+{{ define "main" }}
+  {{ partial "sections/nav.html" . }}
+  {{ partial "sections/error.html" (dict
+      "code"  .Params.status
+      "title" .Title
+      "body"  .Params.body)
+  }}
+  {{ partial "sections/footer.html" . }}
+{{ end }}

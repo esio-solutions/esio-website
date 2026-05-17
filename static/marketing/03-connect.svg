@@ -1,10 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" fill="none" role="img" aria-label="Connect your accounting tool to ESIO">
-  <!-- Left card: existing accounting tool with ledger rows -->
+  <!-- Left card: existing accounting tool with ledger rows.
+       Header strip = single <path> with rounded top corners + square
+       bottom corners, inset 1.25 inside the outer rect's stroke so it
+       hugs the inner edge of the stroke exactly. Inner corner radius
+       = outer rx (12) − stroke half-width (1.25) = 10.75. -->
   <rect x="20" y="56" width="100" height="128" rx="12" fill="#FFFFFF" stroke="#1B2B6B" stroke-width="2.5"/>
-  <rect x="20" y="56" width="100" height="20" fill="#FAE8DF"/>
-  <rect x="20" y="56" width="100" height="20" rx="12" fill="#FAE8DF"/>
-  <rect x="20" y="64" width="100" height="12" fill="#FAE8DF"/>
-  <line x1="20" y1="76" x2="120" y2="76" stroke="#1B2B6B" stroke-width="2.5"/>
+  <path d="M 21.25 68 A 10.75 10.75 0 0 1 32 57.25 L 108 57.25 A 10.75 10.75 0 0 1 118.75 68 L 118.75 76 L 21.25 76 Z" fill="#FAE8DF"/>
+  <line x1="21.25" y1="76" x2="118.75" y2="76" stroke="#1B2B6B" stroke-width="2.5"/>
 
   <rect x="32" y="88" width="36" height="6" rx="3" fill="#1B2B6B" opacity="0.6"/>
   <rect x="80" y="88" width="28" height="6" rx="3" fill="#E07B5B"/>
@@ -19,17 +21,20 @@
   <rect x="32" y="168" width="36" height="6" rx="3" fill="#1B2B6B" opacity="0.6"/>
   <rect x="80" y="168" width="20" height="6" rx="3" fill="#E07B5B"/>
 
-  <!-- Right card: ESIO clock-O -->
-  <rect x="200" y="56" width="100" height="128" rx="12" fill="#1B2B6B"/>
-  <circle cx="250" cy="120" r="36" fill="none" stroke="#FFFFFF" stroke-width="9"/>
-  <!-- Clock hands inside the O -->
-  <line x1="250" y1="120" x2="250" y2="100" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
-  <line x1="250" y1="120" x2="266" y2="120" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
-  <circle cx="250" cy="120" r="2.5" fill="#FFFFFF"/>
+  <!-- Right card: ESIO square logo (replaces previous clock-O placeholder).
+       Fills point at --color-inverse-surface / --color-inverse-on-surface
+       so the mark always renders as the opposite of the active theme:
+       dark theme → white bg + navy O; light theme → navy bg + white O.
+       Works because this SVG is inlined via svg/inline.html — page CSS
+       context applies. -->
+  <svg x="200" y="70" width="100" height="100" viewBox="345 6 176 176">
+    <rect x="345" y="6" width="176" height="176" rx="6" fill="var(--color-inverse-surface)"/>
+    <path fill="var(--color-inverse-on-surface)" fill-rule="evenodd" d="M430.38,174.13l-5.34-.47A74.83,74.83,0,0,1,386.63,159c-16-11.88-26.09-27.62-30-47.14a73.79,73.79,0,0,1,5.85-47.58c10.41-21.56,27.19-36,50.47-41.8,29.11-7.22,54.51.35,75.51,21.77a72,72,0,0,1,19.75,39c3.95,23.22-1.42,44.22-16.32,62.52a75,75,0,0,1-44.67,26.76c-4,.8-8.07.95-12.11,1.41a4,4,0,0,0-.66.17Zm41.36-30.28,10-10.69L445,96.45l36.1-36.06a58.05,58.05,0,0,0-8.84-9.46L425.5,97.66C440.76,112.89,456.1,128.22,471.74,143.85Z"/>
+  </svg>
 
-  <!-- Sync arrows between the two cards -->
-  <path d="M124 98 Q160 78 196 98" stroke="#E07B5B" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-  <path d="M189 92 L196 98 L191 106" stroke="#E07B5B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <path d="M196 144 Q160 164 124 144" stroke="#4DBFB8" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-  <path d="M131 150 L124 144 L129 136" stroke="#4DBFB8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- Single straight sync line: left card → right card. svg/inline.html
+       rewrites #E07B5B to var(--color-primary) so the arrow follows the
+       active theme. Thicker stroke + reduced opacity for a softer read. -->
+  <line x1="124" y1="120" x2="194" y2="120" stroke="#E07B5B" stroke-width="5" stroke-linecap="round" opacity="0.85"/>
+  <path d="M186 110 L196 120 L186 130" stroke="#E07B5B" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.85"/>
 </svg>

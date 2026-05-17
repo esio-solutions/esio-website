@@ -1,6 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" fill="none" role="img" aria-label="Build your budget from a chart of accounts">
-  <!-- Hierarchy connector lines -->
-  <path d="M160 76 V 104 M64 104 H 256 M64 104 V 132 M160 104 V 132 M256 104 V 132" stroke="#1B2B6B" stroke-width="2" fill="none"/>
+  <!-- Hierarchy connector lines — sit in the open card area (not inside a
+       white-filled interior), so the stroke uses --color-on-surface
+       directly. svg/inline.html keeps literal #1B2B6B navy, which would
+       blend into navyMid card bg in dark theme. -->
+  <path d="M160 76 V 104 M64 104 H 256 M64 104 V 132 M160 104 V 132 M256 104 V 132" stroke="var(--color-on-surface)" stroke-width="2" fill="none" opacity="0.55"/>
 
   <!-- Root node: budget -->
   <rect x="116" y="44" width="88" height="32" rx="8" fill="#1B2B6B"/>
@@ -32,8 +35,8 @@
   <rect x="40" y="192" width="48" height="20" rx="5" fill="#FAE8DF"/>
   <rect x="136" y="192" width="48" height="20" rx="5" fill="#FAE8DF"/>
   <rect x="232" y="192" width="48" height="20" rx="5" fill="#FAE8DF"/>
-  <!-- thin connectors -->
-  <line x1="64" y1="176" x2="64" y2="192" stroke="#1B2B6B" stroke-width="1.5" opacity="0.4"/>
-  <line x1="160" y1="176" x2="160" y2="192" stroke="#1B2B6B" stroke-width="1.5" opacity="0.4"/>
-  <line x1="256" y1="176" x2="256" y2="192" stroke="#1B2B6B" stroke-width="1.5" opacity="0.4"/>
+  <!-- thin connectors — same reasoning as the hierarchy lines above. -->
+  <line x1="64" y1="176" x2="64" y2="192" stroke="var(--color-on-surface)" stroke-width="1.5" opacity="0.4"/>
+  <line x1="160" y1="176" x2="160" y2="192" stroke="var(--color-on-surface)" stroke-width="1.5" opacity="0.4"/>
+  <line x1="256" y1="176" x2="256" y2="192" stroke="var(--color-on-surface)" stroke-width="1.5" opacity="0.4"/>
 </svg>

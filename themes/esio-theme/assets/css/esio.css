@@ -1,4 +1,12 @@
 
+/* Global design tokens that aren't theme-conditional. Lives at :root so
+   any descendant can consume it. Per-theme overrides (--color-*) live in
+   styles.css; this is reserved for cross-theme constants like the soft
+   illustration shadow that lifts character SVGs off the page. */
+:root{
+  --illo-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
 /* Theme-aware logo swap.
    Each logo callsite renders both variants (.logo-dark + .logo-light); CSS
    hides whichever doesn't match the active [data-theme] on <html>. Keeping
@@ -118,14 +126,18 @@ section[id]{scroll-margin-top:88px}
    Three-column grid layout (1fr | auto | 1fr) so the .nav-menu always sits
    in the visual centre regardless of how wide the logo or burger are. */
 body > nav{position:fixed;top:0;left:0;right:0;z-index:200;height:68px;background:var(--nav-bg);backdrop-filter:blur(16px);border-bottom:1px solid var(--nav-border);padding:0 6%;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;column-gap:24px}
-.nav-logo{justify-self:start}
+/* Pin each child to its own grid column so the layout doesn't reshuffle
+   when .nav-menu becomes display:none at the mobile breakpoint. Without
+   this, the burger (third DOM child) slides into cell 2 and ends up
+   centered instead of right-aligned. */
+.nav-logo{grid-column:1;justify-self:start}
 .nav-logo svg,.nav-logo img{height:28px;width:auto;display:block}
 /* Nav menu wrapper. Desktop: just .nav-links visible inline; the
    .nav-menu-settings dropdown (theme/language + the CTA) is an absolute
    popover anchored to the nav's right edge, revealed when the burger
    toggles .is-menu-open. Mobile: .nav-menu becomes a full-width drawer
    containing both children stacked vertically. */
-.nav-menu{display:flex;align-items:center;justify-self:center}
+.nav-menu{grid-column:2;display:flex;align-items:center;justify-self:center}
 .nav-links{display:flex;gap:30px}
 .nav-links a{font-size:14px;font-weight:600;color:var(--nav-text);text-decoration:none;transition:color .15s}
 .nav-links a:hover{color:var(--nav-text-hover)}
@@ -133,7 +145,7 @@ body > nav{position:fixed;top:0;left:0;right:0;z-index:200;height:68px;backgroun
 /* Burger toggle — always visible, occupies the right cell of the nav grid.
    Click flips .is-menu-open on the nav, revealing the settings popover
    (desktop) or the full drawer (mobile). */
-.nav-burger{justify-self:end;display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;border:1px solid var(--color-on-surface);background:transparent;color:var(--color-on-surface);cursor:pointer;transition:background .18s,color .18s,border-color .18s;padding:0}
+.nav-burger{grid-column:3;justify-self:end;display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;border:1px solid var(--color-on-surface);background:transparent;color:var(--color-on-surface);cursor:pointer;transition:background .18s,color .18s,border-color .18s;padding:0}
 .nav-burger:hover{background:var(--color-on-surface);color:var(--color-surface)}
 
 /* In-menu CTA — the "Get early access" button sits at the bottom of the
@@ -321,7 +333,7 @@ body > nav.is-menu-open .nav-menu-settings{opacity:1;visibility:visible;transfor
 .hero-chart-bg svg,.hero-chart-bg img{width:100%;height:100%}
 .hero-illo{position:relative;z-index:2;width:100%;max-width:760px;margin-left:0;animation:float 6s ease-in-out infinite}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
-.hero-illo svg,.hero-illo img{width:100%;height:auto}
+.hero-illo svg,.hero-illo img{width:100%;height:auto;filter:drop-shadow(var(--illo-shadow))}
 .hero-illo img{transform:scaleX(-1)}
 
 @media(min-width:901px){
@@ -406,10 +418,27 @@ body > nav.is-menu-open .nav-menu-settings{opacity:1;visibility:visible;transfor
 /* PAIN */
 .sec{padding:90px 6%}
 .si{max-width:1120px;margin:0 auto}
+
+/* HTTP ERROR PAGES — shared layout used by Hugo's auto-404 and the
+   content-driven /403, /500, /502, /503 pages (see layouts/404.html and
+   layouts/errors/single.html). Tall section centred vertically between
+   nav + footer so the error stays at eye-level on any viewport. */
+.error-section{min-height:calc(100vh - 220px);display:flex;align-items:center;justify-content:center;padding-top:140px;padding-bottom:60px}
+.error-section .tc{max-width:600px;margin:0 auto}
+.error-code{
+  display:block;
+  font-size:clamp(80px, 14vw, 180px);
+  font-weight:900;
+  line-height:0.95;
+  letter-spacing:-4px;
+  color:var(--color-primary);
+  margin-bottom:8px;
+}
+.error-actions{margin-top:32px;display:flex;justify-content:center}
 #pain{background:var(--pain-bg)}
 #pain .pain-intro{max-width:760px;margin:0 auto 40px}
 .pain-illo{position:relative;max-width:500px;margin:0 auto 56px}
-.pain-illo svg,.pain-illo img{width:100%;max-width:500px;filter:drop-shadow(0 20px 60px rgba(0,0,0,.15))}
+.pain-illo svg,.pain-illo img{width:100%;max-width:500px;filter:drop-shadow(var(--illo-shadow))}
 .badge{position:absolute;background:color-mix(in srgb, var(--color-white), transparent 5%);border-radius:14px;padding:12px 16px;box-shadow:0 8px 30px rgba(0,0,0,.15)}
 .b1{top:8%;right:-16px;animation:fb1 4s ease-in-out infinite}
 .b2{bottom:8%;left:-16px;animation:fb2 5s ease-in-out infinite}
@@ -433,7 +462,7 @@ body > nav.is-menu-open .nav-menu-settings{opacity:1;visibility:visible;transfor
 .fp-left{display:flex;flex-direction:column;gap:16px}
 .fp-left .tag{align-self:flex-start;width:auto;margin-bottom:4px}
 .fp-right{display:flex;align-items:flex-end;justify-content:flex-end;position:relative}
-.fp-illo{width:100%;max-width:520px;height:auto;display:block}
+.fp-illo{width:100%;max-width:520px;height:auto;display:block;filter:drop-shadow(var(--illo-shadow))}
 .fp-flip{transform:scaleX(-1)}
 .fp-heading-intro{font-size:clamp(32px,4vw,52px);font-weight:900;color:var(--color-on-surface);line-height:1.08;letter-spacing:-1px}
 .fp-sub{font-size:clamp(13px,1.2vw,15px);line-height:1.8;font-weight:500;max-width:380px}
@@ -631,7 +660,7 @@ body > nav.is-menu-open .nav-menu-settings{opacity:1;visibility:visible;transfor
 /* SETUP */
 #setup{background:var(--setup-bg)}
 .setup-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
-.setup-grid svg,.setup-grid img{width:100%;max-width:460px}
+.setup-grid svg,.setup-grid img{width:100%;max-width:460px;filter:drop-shadow(var(--illo-shadow))}
 .ssteps{display:flex;flex-direction:column;gap:24px;margin-top:32px}
 .sstep{display:flex;gap:18px;align-items:flex-start}
 .ss-n{width:40px;height:40px;border-radius:50%;background:var(--setup-accent);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:var(--color-on-primary);flex-shrink:0}
@@ -675,7 +704,7 @@ footer{background:var(--footer-bg);padding:60px 0 36px}
 .footer-inner{max-width:1200px;width:min(1200px,calc(100% - clamp(32px,6vw,96px)));margin:0 auto}
 .foot-illos{display:flex;justify-content:center;align-items:flex-end;margin-bottom:48px;padding-bottom:40px;border-bottom:1px solid color-mix(in srgb, var(--color-on-surface), transparent 93%)}
 .foot-illos>div{width:calc(100%/6);flex-shrink:0}
-.foot-illos svg,.foot-illos img{width:100%;height:auto}
+.foot-illos svg,.foot-illos img{width:100%;height:auto;filter:drop-shadow(var(--illo-shadow))}
 .foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:32px;margin-bottom:40px}
 .brand-logo{display:block;width:min(220px,100%);height:auto}
 .foot-brand p{font-size:13px;color:color-mix(in srgb, var(--color-on-surface), transparent 55%);line-height:1.7;max-width:220px;font-weight:500;margin-top:12px}

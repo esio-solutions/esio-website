@@ -1,24 +1,30 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" fill="none" role="img" aria-label="The platform calculates cashflow, liquidity, tax, debt, and balance sheet">
-  <!-- Big gear -->
-  <g transform="translate(80 120)">
-    <path d="M 0 -48 L 8 -44 L 16 -46 L 22 -38 L 32 -36 L 34 -28 L 42 -24 L 40 -16 L 46 -8 L 42 0 L 46 8 L 40 16 L 42 24 L 34 28 L 32 36 L 22 38 L 16 46 L 8 44 L 0 48 L -8 44 L -16 46 L -22 38 L -32 36 L -34 28 L -42 24 L -40 16 L -46 8 L -42 0 L -46 -8 L -40 -16 L -42 -24 L -34 -28 L -32 -36 L -22 -38 L -16 -46 L -8 -44 Z" fill="#1B2B6B"/>
-    <circle r="20" fill="#FFFFFF"/>
-    <circle r="6" fill="#E07B5B"/>
-  </g>
+  <!-- ESIO square logo — single mark centred in the engine area (replaces
+       the previous two-gear placeholder). Fills point at --color-inverse-
+       surface / --color-inverse-on-surface so the mark always renders as
+       the opposite of the active theme: dark theme → white bg + navy O;
+       light theme → navy bg + white O. -->
+  <svg x="32" y="72" width="96" height="96" viewBox="345 6 176 176">
+    <rect x="345" y="6" width="176" height="176" rx="6" fill="var(--color-inverse-surface)"/>
+    <path fill="var(--color-inverse-on-surface)" fill-rule="evenodd" d="M430.38,174.13l-5.34-.47A74.83,74.83,0,0,1,386.63,159c-16-11.88-26.09-27.62-30-47.14a73.79,73.79,0,0,1,5.85-47.58c10.41-21.56,27.19-36,50.47-41.8,29.11-7.22,54.51.35,75.51,21.77a72,72,0,0,1,19.75,39c3.95,23.22-1.42,44.22-16.32,62.52a75,75,0,0,1-44.67,26.76c-4,.8-8.07.95-12.11,1.41a4,4,0,0,0-.66.17Zm41.36-30.28,10-10.69L445,96.45l36.1-36.06a58.05,58.05,0,0,0-8.84-9.46L425.5,97.66C440.76,112.89,456.1,128.22,471.74,143.85Z"/>
+  </svg>
 
-  <!-- Small gear -->
-  <g transform="translate(140 64)">
-    <path d="M 0 -22 L 5 -20 L 9 -22 L 12 -16 L 18 -14 L 18 -8 L 22 -4 L 20 2 L 22 8 L 18 12 L 18 18 L 12 18 L 9 22 L 5 20 L 0 22 L -5 20 L -9 22 L -12 18 L -18 18 L -18 12 L -22 8 L -20 2 L -22 -4 L -18 -8 L -18 -14 L -12 -16 L -9 -22 L -5 -20 Z" fill="#4DBFB8"/>
-    <circle r="9" fill="#FFFFFF"/>
-    <circle r="3" fill="#4DBFB8"/>
-  </g>
-
-  <!-- Output flow lines into tiles -->
-  <path d="M 128 110 Q 180 100 220 60"  stroke="#1B2B6B" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.45"/>
-  <path d="M 132 116 Q 180 110 220 96"  stroke="#1B2B6B" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.45"/>
-  <path d="M 132 122 Q 180 130 220 132" stroke="#1B2B6B" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.45"/>
-  <path d="M 132 128 Q 180 144 220 168" stroke="#1B2B6B" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.45"/>
-  <path d="M 128 134 Q 180 162 220 204" stroke="#1B2B6B" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.45"/>
+  <!-- Output flow lines — branching orthogonal arrows from the logo to
+       each tile. Each path: short trunk right from logo (128,120) →
+       rounded corner at x=170 → vertical along the manifold → rounded
+       corner at the tile's y → short branch right into the tile.
+       Rounded corners use Q (radius 6) for soft 90° turns. Stroke is
+       --color-on-surface so it reads against any theme. -->
+  <path d="M 128 120 L 164 120 Q 170 120 170 114 L 170 66 Q 170 60 176 60 L 220 60"
+        stroke="var(--color-on-surface)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.55"/>
+  <path d="M 128 120 L 164 120 Q 170 120 170 114 L 170 102 Q 170 96 176 96 L 220 96"
+        stroke="var(--color-on-surface)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.55"/>
+  <path d="M 128 120 L 164 120 Q 170 120 170 126 Q 170 132 176 132 L 220 132"
+        stroke="var(--color-on-surface)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.55"/>
+  <path d="M 128 120 L 164 120 Q 170 120 170 126 L 170 162 Q 170 168 176 168 L 220 168"
+        stroke="var(--color-on-surface)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.55"/>
+  <path d="M 128 120 L 164 120 Q 170 120 170 126 L 170 198 Q 170 204 176 204 L 220 204"
+        stroke="var(--color-on-surface)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.55"/>
 
   <!-- Tile 1: Cashflow (wavy line) -->
   <rect x="220" y="44" width="80" height="32" rx="8" fill="#FFFFFF" stroke="#1B2B6B" stroke-width="2"/>

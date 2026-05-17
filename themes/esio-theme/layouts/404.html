@@ -1,6 +1,9 @@
 {{ define "main" }}
-  <div class="flex h-full flex-col items-center justify-center">
-    <h1 class="text-8xl">404</h1>
-    <p class="">Page Not Found</p>
-  </div>
+  {{ partial "sections/nav.html" . }}
+  {{ partial "sections/error.html" (dict
+      "code"  "404"
+      "title" "Page not found"
+      "body"  "The page you were looking for doesn't exist or has been moved. Check the URL or head back to the home page.")
+  }}
+  {{ partial "sections/footer.html" . }}
 {{ end }}
