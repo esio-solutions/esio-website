@@ -924,3 +924,122 @@ footer{background:var(--footer-bg);padding:60px 0 36px}
   .how-num{left:20px}
 }
 
+/* ─────────────────────────────────────────────────────────────────────────
+   MOTION + INTERACTIVE POLISH
+   ─────────────────────────────────────────────────────────────────────────
+   All visual movement lives in this block. Everything below the
+   prefers-reduced-motion gate is opt-in animation; the page renders
+   identically without it for visitors who've opted out.
+   See assets/js/shared/motion.js for the IntersectionObserver and the
+   hero cursor-tracker that drive these. */
+
+/* Branded focus ring — replaces the browser default outline with a soft
+   terra glow. :focus-visible only triggers for keyboard users so mouse
+   clicks never show it. outline-offset gives breathing room from rounded
+   button edges. */
+:focus-visible{
+  outline:3px solid color-mix(in srgb, var(--color-primary), transparent 55%);
+  outline-offset:3px;
+  border-radius:inherit;
+}
+
+/* Theme transition — primary path uses the View Transitions API
+   (document.startViewTransition in theme.js). The browser takes one
+   snapshot of the page, applies the theme swap, snapshots again, then
+   crossfades the two bitmaps. We just customise the timing here. */
+::view-transition-old(root),
+::view-transition-new(root){
+  animation-duration: 760ms;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Fallback for older Firefox / Safari that don't support View
+   Transitions. theme.js adds .theme-transitioning to <html> for ~420ms
+   around the swap; every element eases between colours during that
+   window only. Higher specificity than .btn-style transitions so it
+   actually overrides them temporarily. */
+html.theme-transitioning,
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after{
+  transition:
+    background-color .76s cubic-bezier(0.4, 0, 0.2, 1),
+    background-image .76s cubic-bezier(0.4, 0, 0.2, 1),
+    color .76s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color .76s cubic-bezier(0.4, 0, 0.2, 1),
+    fill .76s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow .76s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+@media (prefers-reduced-motion: no-preference){
+  /* ── Scroll reveal ──────────────────────────────────────────────────
+     Elements start with opacity 0 + a 16-20px downward offset; the
+     IntersectionObserver adds .is-visible when they enter the viewport
+     and the transition eases them into place. Targets are deliberately
+     curated: section title blocks, feature subsections, and grid
+     containers whose children stagger. */
+
+  /* Section title blocks — eyebrow + headline + subtitle group. */
+  .tc{
+    opacity:0;
+    transform:translateY(16px);
+    transition: opacity .55s ease, transform .55s ease;
+  }
+  .tc.is-visible{opacity:1;transform:none}
+
+  /* Feature subsections — each renders independently as the visitor
+     scrolls. A slightly longer travel (20px) reads as a heavier
+     "section arriving" than a small chip. */
+  .fp-subsection{
+    opacity:0;
+    transform:translateY(20px);
+    transition: opacity .65s ease, transform .65s ease;
+  }
+  .fp-subsection.is-visible{opacity:1;transform:none}
+
+  /* Stagger — grid children animate in one after another when the parent
+     gets .is-visible. transition-delay scales by child index so the
+     pattern reads as a wave rather than a snap. */
+  .price-grid > .pcard,
+  .pain-cards > .pc,
+  .how-grid > .how-step,
+  .fp-bullets > li{
+    opacity:0;
+    transform:translateY(12px);
+    transition: opacity .5s ease, transform .5s ease;
+  }
+  .price-grid.is-visible > .pcard,
+  .pain-cards.is-visible > .pc,
+  .how-grid.is-visible > .how-step,
+  .fp-bullets.is-visible > li{
+    opacity:1;
+    transform:none;
+  }
+  .price-grid.is-visible > .pcard:nth-child(2),
+  .pain-cards.is-visible > .pc:nth-child(2),
+  .how-grid.is-visible > .how-step:nth-child(2),
+  .fp-bullets.is-visible > li:nth-child(2){transition-delay:.08s}
+  .price-grid.is-visible > .pcard:nth-child(3),
+  .pain-cards.is-visible > .pc:nth-child(3),
+  .how-grid.is-visible > .how-step:nth-child(3),
+  .fp-bullets.is-visible > li:nth-child(3){transition-delay:.16s}
+  .how-grid.is-visible > .how-step:nth-child(4),
+  .fp-bullets.is-visible > li:nth-child(4){transition-delay:.24s}
+  .how-grid.is-visible > .how-step:nth-child(5){transition-delay:.32s}
+  .how-grid.is-visible > .how-step:nth-child(6){transition-delay:.40s}
+  .how-grid.is-visible > .how-step:nth-child(7){transition-delay:.48s}
+}
+
+/* Reduced-motion fallback — neutralise scroll reveal so visitors who opt
+   out get a fully static page. The IntersectionObserver short-circuits
+   in JS; this rule belt-and-braces the CSS too in case the script
+   doesn't run. */
+@media (prefers-reduced-motion: reduce){
+  .tc, .fp-subsection,
+  .price-grid > .pcard, .pain-cards > .pc, .how-grid > .how-step, .fp-bullets > li{
+    opacity:1 !important;
+    transform:none !important;
+    transition:none !important;
+  }
+}
+

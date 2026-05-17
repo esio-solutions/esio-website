@@ -9,11 +9,37 @@
 const KEY = 'esio-theme';
 
 function apply(theme) {
-  document.documentElement.dataset.theme = theme;
-  try { localStorage.setItem(KEY, theme); } catch (_) {}
-  document.querySelectorAll('[data-theme-set]').forEach((el) => {
-    el.classList.toggle('is-active', el.dataset.themeSet === theme);
-  });
+  const swap = () => {
+    document.documentElement.dataset.theme = theme;
+    try { localStorage.setItem(KEY, theme); } catch (_) {}
+    document.querySelectorAll('[data-theme-set]').forEach((el) => {
+      el.classList.toggle('is-active', el.dataset.themeSet === theme);
+    });
+  };
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion) {
+    swap();
+    return;
+  }
+
+  // Modern path: View Transitions API. Browser snapshots the page,
+  // applies the swap, snapshots again, then crossfades the two bitmaps
+  // on the GPU. Customised via ::view-transition-old/new(root) in CSS.
+  if (typeof document.startViewTransition === 'function') {
+    document.startViewTransition(swap);
+    return;
+  }
+
+  // Fallback for older Firefox / Safari: a temporary class on <html>
+  // scopes a global color transition to the moment of the swap. Less
+  // smooth than the API but better than a hard cut. Window matches the
+  // CSS transition duration in esio.css (760ms) plus a small buffer.
+  document.documentElement.classList.add('theme-transitioning');
+  swap();
+  window.setTimeout(() => {
+    document.documentElement.classList.remove('theme-transitioning');
+  }, 820);
 }
 
 export function initTheme() {
