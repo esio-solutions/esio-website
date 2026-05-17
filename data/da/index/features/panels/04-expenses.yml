@@ -1,0 +1,9 @@
+id: expenses
+title: |-
+  Nem visning af
+  udgifter & indtægter
+body: 'Alle dine transaktioner ét sted: organiseret, søgbart og klar til eksport. ESIO forbinder sig med værktøjer som Dinero og din e-handelsopsætning, så dine økonomiske data automatisk holdes opdateret.'
+icon: wallet
+illustration:
+  src: /assets/characters/characters-03.svg
+  alt: Illustration af udgifts- og indtægtsoversigt

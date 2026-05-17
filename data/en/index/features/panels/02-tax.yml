@@ -1,0 +1,9 @@
+id: tax
+title: |-
+  Intelligent Tax
+  Forecasting
+body: Stop guessing what you owe. ESIO calculates your tax obligations in real-time, tracks every deadline, and surfaces deductions you didn't know existed.
+icon: receipt_long
+illustration:
+  src: /assets/characters/characters-06.svg
+  alt: Tax forecasting illustration

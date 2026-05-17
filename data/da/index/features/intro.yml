@@ -1,0 +1,15 @@
+tag: Sådan virker det
+headline: |-
+  Alt
+  din virksomhed
+  har brug for
+  på ét sted
+subtitle: Værktøjer bygget til enkeltmandsvirksomheder, caféer og små teams, der ønsker overblik uden kompleksitet.
+iconGrid:
+- currency_exchange     # → panel 01: Pengestrøm
+- receipt_long          # → panel 02: Skat
+- trending_up           # → panel 03: Prognoser
+- wallet                # → panel 04: Udgifter
+illustration:
+  src: /assets/characters/characters-04.svg
+  alt: Oversigtsillustration af ESIOs funktioner

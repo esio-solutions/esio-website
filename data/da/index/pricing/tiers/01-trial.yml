@@ -1,0 +1,19 @@
+id: trial
+name: Prøveperiode
+currency: DKK
+yearlyPrice: '0'
+monthlyPrice: '0'
+yearlyPeriod: første 14 dage gratis
+monthlyPeriod: første 14 dage gratis
+description: Start med en gratis 14-dages prøveperiode og udforsk kerneværktøjerne, før du vælger en betalt plan.
+features:
+- Likviditetsprognose
+- Integration med regnskabssoftware (E-conomic/Dinero)
+- Skattehjælper
+- Op til 1 budget per konto
+cta:
+  label: Få besked når vi lancerer →
+  href: /da/newsletter/
+  style: ghost
+  event: cta-notify-pricing-trial
+featured: false

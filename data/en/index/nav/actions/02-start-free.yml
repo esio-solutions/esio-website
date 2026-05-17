@@ -1,0 +1,6 @@
+label: Get early access
+# href omitted on purpose — primary CTAs default to #pricing via the
+# button partial. Don't add href here unless this CTA should land
+# somewhere other than the pricing section.
+style: primary
+event: cta-trial-nav

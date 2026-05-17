@@ -1,8 +1,9 @@
 {{- /*
-  Video section. Currently embeds YouTube via iframe (matches Astro source).
+  Video section. Currently embeds YouTube via iframe.
   Builds the embed URL from the provider + id + params in data.
+  Data: data/<lang>/index/video/meta.yml
 */ -}}
-{{- $data := index site.Data site.Language.Lang "sections" "video" -}}
+{{- $data := (index site.Data site.Language.Lang "index" "video").meta -}}
 {{- $params := default "" $data.embed.params -}}
 {{- $sep := cond (eq $params "") "" "?" -}}
 {{- $url := printf "https://www.youtube.com/embed/%s%s%s" $data.embed.id $sep $params -}}

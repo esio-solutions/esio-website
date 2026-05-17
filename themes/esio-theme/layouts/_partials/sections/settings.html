@@ -1,0 +1,65 @@
+{{- /*
+  Theme + language picker content. Rendered inside the nav burger panel
+  (see sections/nav.html). Previously this partial also rendered its own
+  gear trigger and popover wrapper; the gear was removed in favor of a
+  single burger entry-point on the nav, so this file is now just the
+  two inner sections (theme swatches, language flags).
+
+  Theme keys are camelCase in TOML (`modernPro`) but rendered kebab-case
+  in the data-theme attribute (`modern-pro`); assets/js/shared/theme.js
+  handles the swap on click and persists the choice to localStorage.
+
+  Each language flag links to the equivalent page in that language; when
+  a translation is missing for the current page, falls back to that
+  language's home page so the link is never dead.
+*/ -}}
+{{- $currentLang := site.Language.Lang -}}
+{{- $colors      := site.Params.colors -}}
+{{- $themes      := site.Params.theme -}}
+{{- $defaultLang := site.Home.Site.Language.Lang -}}
+
+<div class="settings-section">
+  <span class="settings-section__label">{{ i18n "theme" }}</span>
+  <div class="settings-section__items">
+    {{- range $name, $cfg := $themes }}
+      {{- if reflect.IsMap $cfg }}
+        {{- $surface := index $colors $cfg.surface -}}
+        {{- $primary := index $colors $cfg.primary -}}
+        {{- $accent  := index $colors $cfg.surfaceContainerHigh -}}
+        {{- $label   := i18n (default "theme" $cfg.label) -}}
+        <button type="button"
+                class="theme-swatch"
+                data-theme-set="{{ $name }}"
+                aria-label="{{ $label }}"
+                title="{{ $label }}"
+                style="--sw-1: {{ $surface }}; --sw-2: {{ $accent }}; --sw-3: {{ $primary }};">
+          <span class="theme-swatch__dot" aria-hidden="true"></span>
+        </button>
+      {{- end }}
+    {{- end }}
+  </div>
+</div>
+
+<div class="settings-section">
+  <span class="settings-section__label">{{ i18n "language" }}</span>
+  <div class="settings-section__items">
+    {{- range site.Languages }}
+      {{- $lang := .Lang -}}
+      {{- $isCurrent := eq $lang $currentLang -}}
+      {{- $href := cond (eq $lang $defaultLang) "/" (printf "/%s/" $lang) -}}
+      {{- with index (where $.Translations "Language.Lang" $lang) 0 -}}
+        {{- $href = .RelPermalink -}}
+      {{- end -}}
+      {{- $aria := i18n (printf "lang_%s" (cond (eq $lang "en") "english" "danish")) -}}
+      {{- if $isCurrent }}
+        <span class="lang-flag is-active" aria-label="{{ $aria }}" title="{{ $aria }}" aria-current="true">
+          {{- partial "settings/flag.html" $lang -}}
+        </span>
+      {{- else }}
+        <a href="{{ $href }}" class="lang-flag" aria-label="{{ $aria }}" title="{{ $aria }}">
+          {{- partial "settings/flag.html" $lang -}}
+        </a>
+      {{- end }}
+    {{- end }}
+  </div>
+</div>

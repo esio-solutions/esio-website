@@ -5,42 +5,76 @@
 # This config is the interface contract between the repo and editors using
 # pagescms.org. It describes:
 #   - where uploaded media lands (static/assets/ + share-cards subfolder)
-#   - the homepage section data files (data/<lang>/sections/*.yml) as
-#     individual editable forms
+#   - the homepage section data (split per-section under data/<lang>/index/<section>/)
 #   - the three markdown content collections (articles, posts, legal)
 #
-# Sidebar layout mirrors the actual page layout — Navigation appears at
-# the top because it renders at the top of the site; Footer at the
-# bottom for the same reason. Each section is a `type: group` containing
-# two file entries — English (en) and Dansk (da) — so an editor first
-# picks WHAT they want to edit (Hero, Pain, …) and then chooses the
-# language as a sub-step. Editing a single language without scrolling
-# past the other language's nine forms is the goal.
+# Data layout (since the index-folder refactor):
+#   data/<lang>/index/<section>/meta.yml         — section header (tag, headline, …)
+#   data/<lang>/index/<section>/<sub>/<N>-*.yml  — split-out list items (tiers,
+#                                                  panels, cards, members, …),
+#                                                  ordered alphabetically by
+#                                                  filename. Hugo's range over a
+#                                                  data folder iterates by key.
+#   data/<lang>/index/how/                       — special-case: step files live
+#                                                  alongside meta.yml (no sub-folder),
+#                                                  so the steps collection excludes
+#                                                  meta.yml below.
 #
-# Field schemas are defined once on the English entry via YAML anchors
-# (&navFields, &heroFields, …) and re-used on the Danish entry via
-# *anchor aliases. Editing the English schema cascades to Danish.
+# Sidebar layout mirrors the homepage flow — Navigation at the top, Footer at
+# the bottom. Each section is a `type: group` containing the header file(s) and
+# any collection(s) of list items, with EN/DA/HU split inside the group so an
+# editor first picks WHAT to edit and then the language.
 #
-# List items inside forms use `list.collapsible.summary` so editors see
-# meaningful labels (e.g. "Surprise Tax Bills") instead of generic
-# "Item #1, Item #2…". Summary supports `{fieldname}` interpolation.
+# Field schemas use YAML anchors (&navHeader, &tierFields, …) so editing the EN
+# entry cascades to DA/HU via *alias.
 #
-# Editing this file changes what editors see and how the form looks.
-# It does NOT change the data model — that lives in `data/<lang>/sections/*.yml`
-# and the markdown front-matter. Keep this config in sync with those.
+# Editing this file changes what editors see and how the form looks. It does
+# NOT change the data model — that lives in data/<lang>/index/<section>/ and
+# the markdown front-matter. Keep this config in sync with those.
 # ──────────────────────────────────────────────────────────────────────────────
 
 media:
+  # Each named bucket below maps to a sub-folder of static/assets/. Splitting
+  # them out gives editors a clearer "where does this belong" picker in the
+  # CMS uploader instead of one flat folder containing every kind of file.
+  - name: illustrations
+    label: Section illustrations (graphic — charts, UI mocks, abstract scenes)
+    input: static/assets/illustrations
+    output: /assets/illustrations
+    extensions: [svg, png, jpg, jpeg, webp]
+  - name: characters
+    label: Character illustrations (figures of people — kept separate so they
+      can be excluded from the theme-templating pass)
+    input: static/assets/characters
+    output: /assets/characters
+    extensions: [svg, png, jpg, jpeg, webp]
+  - name: logos
+    label: Logos (brand wordmarks, square marks, favicons)
+    input: static/assets/logos
+    output: /assets/logos
+    extensions: [svg, png, jpg, jpeg, webp, ico]
+  - name: icons
+    label: Icon glyphs (esio-icon01..05 — used as CSS masks)
+    input: static/assets/icons
+    output: /assets/icons
+    extensions: [svg]
+  - name: share
+    label: Social-share cards (per-post 1200x630 OG images + source artwork)
+    input: static/assets/share
+    output: /assets/share
+    extensions: [svg, jpg, jpeg, png, webp]
+  - name: marketing
+    label: Marketing illustrations (how-it-works SVGs)
+    input: static/marketing
+    output: /marketing
+    extensions: [svg]
+  # Catch-all kept last so editors can still reach anything stray under
+  # static/assets/ that doesn't fit the buckets above (e.g. team/).
   - name: assets
-    label: Assets (illustrations, logos, etc.)
+    label: Other assets (catch-all under static/assets/)
     input: static/assets
     output: /assets
     extensions: [svg, png, jpg, jpeg, webp, ico]
-  - name: share
-    label: Social-share cards (per-post 1200x630 OG images)
-    input: static/assets/share
-    output: /assets/share
-    extensions: [jpg, jpeg, png, webp]
 
 content:
   # ────────────────────────────────────────────────────────────────────────
@@ -88,8 +122,7 @@ content:
         fields: *homeFields
 
   # ────────────────────────────────────────────────────────────────────────
-  # About page — standalone Markdown content at /about/. Body is rich-text
-  # so editors can rewrite it through the CMS without touching the file.
+  # About page — standalone Markdown content at /about/.
   # ────────────────────────────────────────────────────────────────────────
   - name: about
     label: About page
@@ -137,38 +170,23 @@ content:
         fields: *contactFields
 
   # ────────────────────────────────────────────────────────────────────────
-  # Team section — appears at the bottom of the About page. One YAML file
-  # per language so editors can rewrite individual bios per locale.
+  # Team section — renders at the bottom of the About page. The intro block
+  # plus a collection of member cards. Member files are ordered by filename
+  # (e.g. 01-elod.yml before 02-iustinian.yml).
   # ────────────────────────────────────────────────────────────────────────
   - name: team
     label: Team section
     type: group
     items:
-      - name: en
-        label: English
+      - name: intro-en
+        label: "Intro (English)"
         type: file
-        path: data/en/sections/team.yml
+        path: data/en/index/team/intro.yml
         format: yaml
-        fields: &teamFields
-          - name: intro
-            label: "Section intro"
-            type: object
-            fields:
-              - { name: tag, type: string, label: "Eyebrow tag (small uppercase)" }
-              - { name: headline, type: string }
-              - { name: body, type: text }
-          - name: members
-            label: "Team members"
-            type: object
-            list:
-              collapsible:
-                summary: "{name} — {role}"
-            fields:
-              - { name: name, type: string, required: true }
-              - { name: role, type: string }
-              - { name: photo, type: image, required: false, label: "Photo (square; falls back to initials when empty)" }
-              - { name: bio, type: text }
-              - { name: quote, type: string, required: false, label: "Optional pull quote" }
+        fields: &teamIntroFields
+          - { name: tag, type: string, label: "Eyebrow tag (small uppercase)" }
+          - { name: headline, type: string }
+          - { name: body, type: text }
           - name: cta
             label: "Closing CTA"
             type: object
@@ -176,27 +194,57 @@ content:
               - { name: text, type: string, label: "Lead-in line above the link" }
               - { name: link_label, type: string }
               - { name: link_href, type: string, label: "Link target (mailto:, /contact/, etc.)" }
-      - name: da
-        label: Dansk
+      - name: intro-da
+        label: "Intro (Dansk)"
         type: file
-        path: data/da/sections/team.yml
+        path: data/da/index/team/intro.yml
         format: yaml
-        fields: *teamFields
+        fields: *teamIntroFields
+      - name: members-en
+        label: "Members (English)"
+        type: collection
+        path: data/en/index/team/members
+        filename: '{primary}.yml'
+        format: yaml
+        view:
+          primary: name
+          fields: [name, role]
+          sort: [name]
+        fields: &teamMemberFields
+          - { name: name, type: string, required: true }
+          - { name: role, type: string }
+          - { name: photo, type: image, required: false, label: "Photo (square; falls back to initials when empty)" }
+          - { name: bio, type: text }
+          - { name: quote, type: string, required: false, label: "Optional pull quote" }
+      - name: members-da
+        label: "Members (Dansk)"
+        type: collection
+        path: data/da/index/team/members
+        filename: '{primary}.yml'
+        format: yaml
+        view:
+          primary: name
+          fields: [name, role]
+          sort: [name]
+        fields: *teamMemberFields
 
-  # ────────────────────────────────────────────────────────────────────────
-  # Page sections — listed in the order they render on the homepage.
-  # Each is a group containing the English and Danish data files.
-  # ────────────────────────────────────────────────────────────────────────
+  # ════════════════════════════════════════════════════════════════════════
+  # Homepage sections — listed in the order they render on the homepage.
+  # Each section is one top-level group containing a header file (meta.yml
+  # or intro.yml) and any list-collection sub-folders, with per-language
+  # entries inside each.
+  # ════════════════════════════════════════════════════════════════════════
+
   - name: nav
     label: Navigation
     type: group
     items:
-      - name: en
-        label: English
+      - name: header-en
+        label: "Header (English)"
         type: file
-        path: data/en/sections/nav.yml
+        path: data/en/index/nav/meta.yml
         format: yaml
-        fields: &navFields
+        fields: &navHeaderFields
           - name: logo
             type: object
             fields:
@@ -204,40 +252,61 @@ content:
               - { name: srcLight, type: image, label: "Logo (light theme — usually navy-on-transparent)", required: false }
               - { name: alt, type: string, label: Alt text }
               - { name: href, type: string, label: Link target, default: "/" }
-          - name: links
-            label: Top-bar links
-            type: object
-            list:
-              collapsible:
-                summary: "{label} → {href}"
-            fields:
-              - { name: label, type: string, required: true }
-              - { name: href, type: string, required: true }
-          - name: actions
-            label: Right-side buttons
-            type: object
-            list:
-              collapsible:
-                summary: "{label} ({style})"
-            fields:
-              - { name: label, type: string, required: true }
-              - { name: href, type: string, required: true }
-              - name: style
-                type: select
-                options:
-                  values: [ghost, solid]
-      - name: da
-        label: Dansk
+      - name: header-da
+        label: "Header (Dansk)"
         type: file
-        path: data/da/sections/nav.yml
+        path: data/da/index/nav/meta.yml
         format: yaml
-        fields: *navFields
-      - name: hu
-        label: Magyar
-        type: file
-        path: data/hu/sections/nav.yml
+        fields: *navHeaderFields
+      - name: links-en
+        label: "Top-bar links (English)"
+        type: collection
+        path: data/en/index/nav/links
+        filename: '{primary}.yml'
         format: yaml
-        fields: *navFields
+        view:
+          primary: label
+          fields: [label, href]
+        fields: &navLinkFields
+          - { name: label, type: string, required: true }
+          - { name: href, type: string, required: true }
+      - name: links-da
+        label: "Top-bar links (Dansk)"
+        type: collection
+        path: data/da/index/nav/links
+        filename: '{primary}.yml'
+        format: yaml
+        view:
+          primary: label
+          fields: [label, href]
+        fields: *navLinkFields
+      - name: actions-en
+        label: "Right-side buttons (English)"
+        type: collection
+        path: data/en/index/nav/actions
+        filename: '{primary}.yml'
+        format: yaml
+        view:
+          primary: label
+          fields: [label, style]
+        fields: &navActionFields
+          - { name: label, type: string, required: true }
+          - { name: href, type: string, required: true }
+          - { name: event, type: string, required: false, label: "Umami event name (analytics)" }
+          - name: style
+            type: select
+            options:
+              values: [ghost, solid]
+      - name: actions-da
+        label: "Right-side buttons (Dansk)"
+        type: collection
+        path: data/da/index/nav/actions
+        filename: '{primary}.yml'
+        format: yaml
+        view:
+          primary: label
+          fields: [label, style]
+        fields: *navActionFields
 
   - name: hero
     label: Hero
@@ -246,7 +315,7 @@ content:
       - name: en
         label: English
         type: file
-        path: data/en/sections/hero.yml
+        path: data/en/index/hero/meta.yml
         format: yaml
         fields: &heroFields
           - name: logo
@@ -297,24 +366,30 @@ content:
       - name: da
         label: Dansk
         type: file
-        path: data/da/sections/hero.yml
+        path: data/da/index/hero/meta.yml
         format: yaml
         fields: *heroFields
       - name: hu
         label: Magyar
         type: file
-        path: data/hu/sections/hero.yml
+        path: data/hu/index/hero/meta.yml
         format: yaml
         fields: *heroFields
 
+  # ──────────────────────────────────────────────────────────────────────
+  # Video section — currently commented out of home.html in favour of the
+  # How-it-works section. Kept in CMS so the data can still be edited while
+  # the panel is dark; uncomment {{ partial "sections/video.html" . }} in
+  # themes/esio-theme/layouts/home.html to bring it back.
+  # ──────────────────────────────────────────────────────────────────────
   - name: video
-    label: Video section
+    label: Video section (currently disabled on home)
     type: group
     items:
       - name: en
         label: English
         type: file
-        path: data/en/sections/video.yml
+        path: data/en/index/video/meta.yml
         format: yaml
         fields: &videoFields
           - { name: tag, type: string }
@@ -333,26 +408,76 @@ content:
       - name: da
         label: Dansk
         type: file
-        path: data/da/sections/video.yml
+        path: data/da/index/video/meta.yml
         format: yaml
         fields: *videoFields
       - name: hu
         label: Magyar
         type: file
-        path: data/hu/sections/video.yml
+        path: data/hu/index/video/meta.yml
         format: yaml
         fields: *videoFields
+
+  # ──────────────────────────────────────────────────────────────────────
+  # How it works — section header + N step cards. Steps live directly
+  # alongside meta.yml inside how/ (not under a sub-folder), so the steps
+  # collection excludes meta.yml.
+  # ──────────────────────────────────────────────────────────────────────
+  - name: how
+    label: How it works
+    type: group
+    items:
+      - name: header-en
+        label: "Header (English)"
+        type: file
+        path: data/en/index/how/meta.yml
+        format: yaml
+        fields: &howHeaderFields
+          - { name: tag, type: string }
+          - { name: headline, type: string }
+          - { name: subtitle, type: text }
+      - name: header-da
+        label: "Header (Dansk)"
+        type: file
+        path: data/da/index/how/meta.yml
+        format: yaml
+        fields: *howHeaderFields
+      - name: steps-en
+        label: "Steps (English)"
+        type: collection
+        path: data/en/index/how
+        filename: '{primary}.yml'
+        format: yaml
+        exclude: ['meta.yml']
+        view:
+          primary: title
+          fields: [title]
+        fields: &howStepFields
+          - { name: icon, type: image, label: "Illustration SVG (under /marketing/)" }
+          - { name: title, type: string, required: true }
+          - { name: body, type: string, list: true, label: "Bullet body (one line per bullet)" }
+      - name: steps-da
+        label: "Steps (Dansk)"
+        type: collection
+        path: data/da/index/how
+        filename: '{primary}.yml'
+        format: yaml
+        exclude: ['meta.yml']
+        view:
+          primary: title
+          fields: [title]
+        fields: *howStepFields
 
   - name: pain
     label: Pain / Problem section
     type: group
     items:
-      - name: en
-        label: English
+      - name: header-en
+        label: "Header (English)"
         type: file
-        path: data/en/sections/pain.yml
+        path: data/en/index/pain/meta.yml
         format: yaml
-        fields: &painFields
+        fields: &painHeaderFields
           - { name: tag, type: string }
           - name: headline
             type: object
@@ -365,117 +490,140 @@ content:
             fields:
               - { name: src, type: image }
               - { name: alt, type: string }
-          - name: badges
-            label: Floating badges
-            type: object
-            list:
-              collapsible:
-                summary: "{label}: {value}"
-            fields:
-              - name: id
-                type: select
-                label: Badge slot
-                options:
-                  values: [b1, b2]
-              - { name: label, type: string }
-              - { name: value, type: string }
-              - { name: trend, type: string }
-              - name: trendVariant
-                type: select
-                required: false
-                options:
-                  values: [deadline]
-          - name: cards
-            label: Pain cards
-            type: object
-            list:
-              collapsible:
-                summary: "{icon} {title}"
-            fields:
-              - { name: icon, type: string, label: "Emoji or unicode icon" }
-              - { name: title, type: string, required: true }
-              - { name: body, type: text, required: true }
-      - name: da
-        label: Dansk
+      - name: header-da
+        label: "Header (Dansk)"
         type: file
-        path: data/da/sections/pain.yml
+        path: data/da/index/pain/meta.yml
         format: yaml
-        fields: *painFields
-      - name: hu
-        label: Magyar
-        type: file
-        path: data/hu/sections/pain.yml
+        fields: *painHeaderFields
+      - name: cards-en
+        label: "Pain cards (English)"
+        type: collection
+        path: data/en/index/pain/cards
+        filename: '{primary}.yml'
         format: yaml
-        fields: *painFields
+        view:
+          primary: title
+          fields: [title]
+        fields: &painCardFields
+          - { name: icon, type: string, label: "Emoji or unicode icon" }
+          - { name: title, type: string, required: true }
+          - { name: body, type: text, required: true }
+      - name: cards-da
+        label: "Pain cards (Dansk)"
+        type: collection
+        path: data/da/index/pain/cards
+        filename: '{primary}.yml'
+        format: yaml
+        view:
+          primary: title
+          fields: [title]
+        fields: *painCardFields
+      - name: badges-en
+        label: "Floating badges (English)"
+        type: collection
+        path: data/en/index/pain/badges
+        filename: '{primary}.yml'
+        format: yaml
+        view:
+          primary: label
+          fields: [label, value]
+        fields: &painBadgeFields
+          - name: id
+            type: select
+            label: Badge slot
+            options:
+              values: [b1, b2]
+          - { name: label, type: string }
+          - { name: value, type: string }
+          - { name: trend, type: string }
+          - name: trendVariant
+            type: select
+            required: false
+            options:
+              values: [deadline]
+      - name: badges-da
+        label: "Floating badges (Dansk)"
+        type: collection
+        path: data/da/index/pain/badges
+        filename: '{primary}.yml'
+        format: yaml
+        view:
+          primary: label
+          fields: [label, value]
+        fields: *painBadgeFields
 
   - name: features
     label: Features section
     type: group
     items:
-      - name: en
-        label: English
+      - name: intro-en
+        label: "Intro panel (English)"
         type: file
-        path: data/en/sections/features.yml
+        path: data/en/index/features/intro.yml
         format: yaml
-        fields: &featuresFields
-          - name: intro
-            label: Intro panel
+        fields: &featuresIntroFields
+          - { name: tag, type: string }
+          - { name: headline, type: text, label: "Headline (newline = <br>)" }
+          - { name: subtitle, type: text }
+          - { name: iconGrid, type: image, list: true, label: "4 icon SVGs" }
+          - name: illustration
+            label: "Right-side illustration"
             type: object
             fields:
-              - { name: tag, type: string }
-              - { name: headline, type: text, label: "Headline (newline = <br>)" }
-              - { name: subtitle, type: text }
-              - { name: iconGrid, type: image, list: true, label: "4 icon SVGs" }
-              - name: illustration
-                label: "Right-side illustration"
-                type: object
-                fields:
-                  - { name: src, type: image }
-                  - { name: alt, type: string }
-          - name: panels
-            label: Feature panels
+              - { name: src, type: image }
+              - { name: alt, type: string }
+      - name: intro-da
+        label: "Intro panel (Dansk)"
+        type: file
+        path: data/da/index/features/intro.yml
+        format: yaml
+        fields: *featuresIntroFields
+      - name: panels-en
+        label: "Feature panels (English)"
+        type: collection
+        path: data/en/index/features/panels
+        filename: '{primary}.yml'
+        format: yaml
+        view:
+          primary: id
+          fields: [id, title]
+        fields: &featuresPanelFields
+          - { name: id, type: string, label: "Slug (cashflow, tax, ...)" }
+          - { name: title, type: text, label: "Title (newline = <br>)" }
+          - { name: body, type: text, required: true }
+          - name: maskIcon
+            type: select
+            label: "Mask icon (numeric ID, must match esio-iconNN.svg)"
+            options:
+              values: ["01", "02", "03", "05"]
+          - name: illustration
             type: object
-            list:
-              collapsible:
-                summary: "{id}"
             fields:
-              - { name: id, type: string, label: "Slug (cashflow, tax, ...)" }
-              - { name: title, type: text, label: "Title (newline = <br>)" }
-              - { name: body, type: text, required: true }
-              - name: maskIcon
-                type: select
-                label: "Mask icon (numeric ID, must match esio-iconNN.svg)"
-                options:
-                  values: ["01", "02", "03", "05"]
-              - name: illustration
-                type: object
-                fields:
-                  - { name: src, type: image }
-                  - { name: alt, type: string }
-              - { name: flipped, type: boolean, default: false, label: "Mirror illustration horizontally" }
-      - name: da
-        label: Dansk
-        type: file
-        path: data/da/sections/features.yml
+              - { name: src, type: image }
+              - { name: alt, type: string }
+          - { name: flipped, type: boolean, default: false, label: "Mirror illustration horizontally" }
+      - name: panels-da
+        label: "Feature panels (Dansk)"
+        type: collection
+        path: data/da/index/features/panels
+        filename: '{primary}.yml'
         format: yaml
-        fields: *featuresFields
-      - name: hu
-        label: Magyar
-        type: file
-        path: data/hu/sections/features.yml
-        format: yaml
-        fields: *featuresFields
+        view:
+          primary: id
+          fields: [id, title]
+        fields: *featuresPanelFields
 
   - name: pricing
     label: Pricing section
     type: group
     items:
-      - name: en
-        label: English
+      - name: header-en
+        label: "Header (English)"
         type: file
-        path: data/en/sections/pricing.yml
+        path: data/en/index/pricing/meta.yml
         format: yaml
-        fields: &pricingFields
+        fields: &pricingHeaderFields
           - { name: tag, type: string }
           - { name: headline, type: string }
           - { name: subtitle, type: text }
@@ -485,45 +633,53 @@ content:
               - { name: yearlyLabel, type: string }
               - { name: monthlyLabel, type: string }
               - { name: ariaLabel, type: string }
-          - name: tiers
-            label: Pricing tiers
+      - name: header-da
+        label: "Header (Dansk)"
+        type: file
+        path: data/da/index/pricing/meta.yml
+        format: yaml
+        fields: *pricingHeaderFields
+      - name: tiers-en
+        label: "Tiers (English)"
+        type: collection
+        path: data/en/index/pricing/tiers
+        filename: '{primary}.yml'
+        format: yaml
+        view:
+          primary: name
+          fields: [name, featured]
+        fields: &pricingTierFields
+          - { name: id, type: string, required: true }
+          - { name: name, type: string, required: true }
+          - { name: currency, type: string, default: "DKK" }
+          - { name: yearlyPrice, type: string, label: "Yearly price (digits only)" }
+          - { name: monthlyPrice, type: string, label: "Monthly price (digits only)" }
+          - { name: yearlyPeriod, type: string }
+          - { name: monthlyPeriod, type: string }
+          - { name: description, type: text }
+          - { name: features, type: string, list: true, label: "Included features" }
+          - name: cta
             type: object
-            list:
-              collapsible:
-                summary: "{name}"
             fields:
-              - { name: id, type: string, required: true }
-              - { name: name, type: string, required: true }
-              - { name: currency, type: string, default: "DKK" }
-              - { name: yearlyPrice, type: string, label: "Yearly price (digits only)" }
-              - { name: monthlyPrice, type: string, label: "Monthly price (digits only)" }
-              - { name: yearlyPeriod, type: string }
-              - { name: monthlyPeriod, type: string }
-              - { name: description, type: text }
-              - { name: features, type: string, list: true, label: "Included features" }
-              - name: cta
-                type: object
-                fields:
-                  - { name: label, type: string }
-                  - { name: href, type: string }
-                  - name: style
-                    type: select
-                    options:
-                      values: [ghost, featured]
-              - { name: featured, type: boolean, default: false, label: "Highlight as the recommended tier" }
-              - { name: badge, type: string, required: false, label: "Optional badge text (e.g. Most Popular)" }
-      - name: da
-        label: Dansk
-        type: file
-        path: data/da/sections/pricing.yml
+              - { name: label, type: string }
+              - { name: href, type: string }
+              - { name: event, type: string, required: false, label: "Umami event name (analytics)" }
+              - name: style
+                type: select
+                options:
+                  values: [ghost, featured]
+          - { name: featured, type: boolean, default: false, label: "Highlight as the recommended tier" }
+          - { name: badge, type: string, required: false, label: "Optional badge text (e.g. Most Popular)" }
+      - name: tiers-da
+        label: "Tiers (Dansk)"
+        type: collection
+        path: data/da/index/pricing/tiers
+        filename: '{primary}.yml'
         format: yaml
-        fields: *pricingFields
-      - name: hu
-        label: Magyar
-        type: file
-        path: data/hu/sections/pricing.yml
-        format: yaml
-        fields: *pricingFields
+        view:
+          primary: name
+          fields: [name, featured]
+        fields: *pricingTierFields
 
   - name: subscribe
     label: Subscribe / Trial section
@@ -532,7 +688,7 @@ content:
       - name: en
         label: English
         type: file
-        path: data/en/sections/subscribe.yml
+        path: data/en/index/subscribe/meta.yml
         format: yaml
         fields: &subscribeFields
           - { name: tag, type: string }
@@ -553,30 +709,87 @@ content:
                 fields:
                   - { name: label, type: string }
                   - { name: href, type: string }
+                  - { name: event, type: string, required: false, label: "Umami event name (analytics)" }
               - { name: legalNote, type: text }
       - name: da
         label: Dansk
         type: file
-        path: data/da/sections/subscribe.yml
+        path: data/da/index/subscribe/meta.yml
         format: yaml
         fields: *subscribeFields
       - name: hu
         label: Magyar
         type: file
-        path: data/hu/sections/subscribe.yml
+        path: data/hu/index/subscribe/meta.yml
         format: yaml
         fields: *subscribeFields
 
-  - name: footer
-    label: Footer
+  # ──────────────────────────────────────────────────────────────────────
+  # Newsletter page section — appears on /newsletter/, not the home page.
+  # ──────────────────────────────────────────────────────────────────────
+  - name: newsletter
+    label: Newsletter page section
     type: group
     items:
       - name: en
         label: English
         type: file
-        path: data/en/sections/footer.yml
+        path: data/en/index/newsletter/meta.yml
         format: yaml
-        fields: &footerFields
+        fields: &newsletterFields
+          - { name: tag, type: string }
+          - { name: headline, type: string }
+          - { name: subtitle, type: text }
+          - name: fields
+            type: object
+            fields:
+              - name: name
+                type: object
+                fields:
+                  - { name: label, type: string }
+                  - { name: placeholder, type: string }
+              - name: email
+                type: object
+                fields:
+                  - { name: label, type: string }
+                  - { name: placeholder, type: string }
+          - name: cta
+            type: object
+            fields:
+              - { name: label, type: string }
+          - { name: legalNote, type: text }
+          - name: fallback
+            label: "Fallback (when no listUuid configured)"
+            type: object
+            fields:
+              - { name: body, type: text }
+              - { name: cta, type: string }
+          - name: status
+            label: "Inline status messages"
+            type: object
+            fields:
+              - { name: submitting, type: text }
+              - { name: success, type: text }
+              - { name: errorGeneric, type: text }
+              - { name: errorNetwork, type: text }
+              - { name: waitingForCaptcha, type: text }
+      - name: da
+        label: Dansk
+        type: file
+        path: data/da/index/newsletter/meta.yml
+        format: yaml
+        fields: *newsletterFields
+
+  - name: footer
+    label: Footer
+    type: group
+    items:
+      - name: header-en
+        label: "Brand & bottom strip (English)"
+        type: file
+        path: data/en/index/footer/meta.yml
+        format: yaml
+        fields: &footerHeaderFields
           - { name: decorations, type: image, list: true, label: "6 decorative SVGs" }
           - name: brand
             type: object
@@ -588,39 +801,47 @@ content:
                   - { name: srcLight, type: image, label: "Logo (light theme)", required: false }
                   - { name: alt, type: string }
               - { name: tagline, type: text }
-          - name: columns
-            label: Footer columns
-            type: object
-            list:
-              collapsible:
-                summary: "{heading}"
-            fields:
-              - { name: heading, type: string, required: true }
-              - name: links
-                type: object
-                list:
-                  collapsible:
-                    summary: "{label}"
-                fields:
-                  - { name: label, type: string, required: true }
-                  - { name: href, type: string, required: true }
           - name: bottom
             type: object
             fields:
               - { name: copyright, type: string }
               - { name: tagline, type: string }
-      - name: da
-        label: Dansk
+      - name: header-da
+        label: "Brand & bottom strip (Dansk)"
         type: file
-        path: data/da/sections/footer.yml
+        path: data/da/index/footer/meta.yml
         format: yaml
-        fields: *footerFields
-      - name: hu
-        label: Magyar
-        type: file
-        path: data/hu/sections/footer.yml
+        fields: *footerHeaderFields
+      - name: columns-en
+        label: "Footer columns (English)"
+        type: collection
+        path: data/en/index/footer/columns
+        filename: '{primary}.yml'
         format: yaml
-        fields: *footerFields
+        view:
+          primary: heading
+          fields: [heading]
+        fields: &footerColumnFields
+          - { name: heading, type: string, required: true }
+          - name: links
+            type: object
+            list:
+              collapsible:
+                summary: "{label}"
+            fields:
+              - { name: label, type: string, required: true }
+              - { name: href, type: string, required: true }
+              - { name: event, type: string, required: false, label: "Umami event name (analytics)" }
+      - name: columns-da
+        label: "Footer columns (Dansk)"
+        type: collection
+        path: data/da/index/footer/columns
+        filename: '{primary}.yml'
+        format: yaml
+        view:
+          primary: heading
+          fields: [heading]
+        fields: *footerColumnFields
 
   # ────────────────────────────────────────────────────────────────────────
   # Markdown content collections — bilingual. Danish files are recognised by

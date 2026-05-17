@@ -1,0 +1,19 @@
+id: startup
+name: Startup
+currency: DKK
+yearlyPrice: '79'
+monthlyPrice: '99'
+yearlyPeriod: pr. måned, faktureres årligt
+monthlyPeriod: pr. måned, faktureres månedligt
+description: Perfekt til freelancere og tidlige startups, der får styr på økonomien for første gang.
+features:
+- Likviditetsprognose
+- Integration med regnskabssoftware (E-conomic/Dinero)
+- Skattehjælper
+- Op til 1 budget per konto
+cta:
+  label: Få besked når vi lancerer →
+  href: /da/newsletter/
+  style: ghost
+  event: cta-notify-pricing-startup
+featured: false

@@ -7,10 +7,10 @@
   The submit-intercept JS lives in assets/js/shared/newsletter-form.js;
   the form passes its config to the JS via data-* attributes.
 
-  Copy: data/<lang>/sections/newsletter.yml
+  Copy: data/<lang>/index/newsletter/meta.yml
   Config: hugo.toml [params.newsletter] + [params.captcha]
 */ -}}
-{{- $data := index site.Data site.Language.Lang "sections" "newsletter" -}}
+{{- $data := (index site.Data site.Language.Lang "index" "newsletter").meta -}}
 {{- $endpoint := site.Params.newsletter.endpoint -}}
 {{- $listUuid := site.Params.newsletter.listUuid -}}
 {{- /* JSON API endpoint derived from form endpoint host. */ -}}
@@ -21,6 +21,9 @@
 <section id="newsletter" class="sec">
   <div class="si">
     <div class="tc">
+      {{- /* Same header structure as every home-page section: eyebrow
+         chip + headline + subtitle. The chip uses the translucent .tag-t
+         styling so it reads as a label, not a button. */ -}}
       <span class="tag tag-t">{{ $data.tag }}</span>
       <h1 class="stitle">{{ $data.headline }}</h1>
       <p class="ssub">{{ $data.subtitle }}</p>
@@ -59,9 +62,7 @@
 
         {{ partial "sections/captcha-widget.html" . }}
 
-        <button type="submit"
-                class="btn-sub btn-sub-link"
-                data-umami-event="cta-newsletter-submit">{{ $data.cta.label }}</button>
+        {{ partial "button.html" (dict "type" "submit" "label" $data.cta.label "variant" "primary" "size" "lg" "event" "cta-newsletter-submit") }}
 
         <p class="newsletter-status" role="status" aria-live="polite"></p>
 
@@ -74,11 +75,7 @@
        by setting hugo.toml [params.newsletter] listUuid = "<uuid-from-listmonk>". */ -}}
     <div class="form-box form-box-center newsletter-form-wrap">
       <p class="form-note">{{ $data.fallback.body }}</p>
-      <a href="{{ $endpoint }}"
-         class="btn-sub btn-sub-link"
-         target="_blank"
-         rel="noopener"
-         data-umami-event="cta-newsletter-external">{{ $data.fallback.cta }}</a>
+      {{ partial "button.html" (dict "href" $endpoint "label" $data.fallback.cta "variant" "primary" "size" "lg" "event" "cta-newsletter-external") }}
     </div>
     {{- end }}
   </div>

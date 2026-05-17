@@ -2,6 +2,9 @@
   Site fonts.
   Configured via `[params.typography]` in hugo.toml so the family/weights
   can be changed without touching templates.
+  Also loads Material Symbols Rounded (filled) — subset to just the icons
+  the intro grid uses, so the font payload is a tiny per-glyph slice
+  rather than the full ~500 KB variable font.
 */ -}}
 {{ $family := site.Params.typography.fontFamily | default "Plus Jakarta Sans" }}
 {{ $weights := site.Params.typography.fontWeights | default "400;500;600;700;800;900" }}
@@ -10,3 +13,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 {{ $href := printf "https://fonts.googleapis.com/css2?family=%s:wght@%s&display=swap" $familyURL $weights }}
 <link href="{{ $href | safeURL }}" rel="stylesheet" />
+{{- /* Material Symbols Rounded — filled, weight 400, optical-size 24, grade 0.
+   icon_names= subsets the font to only these glyphs. Add a name here when
+   adding an icon to data/<lang>/index/features/intro.yml iconGrid. */ -}}
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0&icon_names=currency_exchange,receipt_long,trending_up,wallet&display=block" rel="stylesheet" />

@@ -1,0 +1,21 @@
+id: small-business
+name: Lille virksomhed
+currency: DKK
+yearlyPrice: '139'
+monthlyPrice: '159'
+yearlyPeriod: pr. måned, faktureres årligt
+monthlyPeriod: pr. måned, faktureres månedligt
+description: Det komplette værktøjssæt til etablerede små virksomheder, der er klar til at tage fuld kontrol over deres økonomi.
+features:
+- Likviditetsprognose
+- Integration med regnskabssoftware (E-conomic/Dinero)
+- Visualisering af både historiske kontodata og fremtidige prognosedata
+- Skattehjælper
+- Op til 3 budgetter per konto
+cta:
+  label: Få besked når vi lancerer →
+  href: /da/newsletter/
+  style: featured
+  event: cta-notify-pricing-small-business
+featured: true
+badge: Mest populære

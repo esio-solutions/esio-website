@@ -1,33 +1,37 @@
 {{- /*
   Site footer. Three link columns + decorative SVG row + bottom strip.
+  Data: data/<lang>/index/footer/
+    meta.yml        — decorations, brand, bottom
+    columns/*.yml   — footer columns (alphabetical by filename = column order)
 */ -}}
-{{- $data := index site.Data site.Language.Lang "sections" "footer" -}}
+{{- $data := index site.Data site.Language.Lang "index" "footer" -}}
+{{- $meta := $data.meta -}}
 <footer>
   <div class="footer-inner">
     <div class="foot-illos">
-      {{- range $i, $svg := $data.decorations }}
+      {{- range $i, $svg := $meta.decorations }}
         {{- $cls := printf "i%d-st%d" (add $i 1) $i }}
         <div><img src="{{ $svg }}" alt="" class="{{ $cls }}" loading="lazy" decoding="async" /></div>
       {{- end }}
     </div>
     <div class="foot-grid">
       <div class="foot-brand">
-        <img src="{{ $data.brand.logo.src }}" alt="{{ $data.brand.logo.alt }}" class="brand-logo logo-dark" loading="lazy" decoding="async" />
-        <img src="{{ $data.brand.logo.srcLight | default $data.brand.logo.src }}" alt="{{ $data.brand.logo.alt }}" class="brand-logo logo-light" loading="lazy" decoding="async" />
-        <p>{{ $data.brand.tagline }}</p>
+        <img src="{{ $meta.brand.logo.src }}" alt="{{ $meta.brand.logo.alt }}" class="brand-logo logo-dark" loading="lazy" decoding="async" />
+        <img src="{{ $meta.brand.logo.srcLight | default $meta.brand.logo.src }}" alt="{{ $meta.brand.logo.alt }}" class="brand-logo logo-light" loading="lazy" decoding="async" />
+        <p>{{ $meta.brand.tagline }}</p>
       </div>
-      {{- range $data.columns }}
+      {{- range $k, $col := $data.columns }}
         <div class="foot-col">
-          <h2>{{ .heading }}</h2>
-          {{- range .links }}
+          <h2>{{ $col.heading }}</h2>
+          {{- range $col.links }}
             <a href="{{ .href }}"{{ with .event }} data-umami-event="{{ . }}"{{ end }}>{{ .label }}</a>
           {{- end }}
         </div>
       {{- end }}
     </div>
     <div class="foot-bottom">
-      <p>{{ $data.bottom.copyright }}</p>
-      <p>{{ $data.bottom.tagline }}</p>
+      <p>{{ $meta.bottom.copyright }}</p>
+      <p>{{ $meta.bottom.tagline }}</p>
     </div>
   </div>
 </footer>

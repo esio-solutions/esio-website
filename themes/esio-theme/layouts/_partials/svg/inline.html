@@ -1,0 +1,41 @@
+{{- /*
+  svg/inline.html — Inline an SVG file with brand-accent hex literals
+  rewritten to theme tokens so the focal accents follow the active
+  [data-theme] at runtime (works only when inlined — `<img src>` won't
+  pick up the host CSS context).
+
+  Usage:
+    {{ partial "svg/inline.html" "/assets/illustrations/chart-bg.svg" }}
+
+  The argument is the *public* path (matches what `<img src>` would use).
+  The file is read from `static/<path>` at build time.
+
+  Substitution map — only brand-ACCENT colours follow the theme.
+  Structural-dark colours (#1B2B6B, #464E58) stay literal because they
+  represent "dark ink on the illustration's own white interior" — they
+  must stay dark across themes regardless of what --color-on-surface
+  resolves to. In Dark theme, --color-on-surface is white, which would
+  make structural lines disappear into the illustration's white-filled
+  browser-frame interiors.
+
+    #E07B5B → var(--color-primary)                          (terra focal accent / CTAs)
+    #F37C5A → var(--color-primary)                          (chart-bg's terra variant)
+    #FAE8DF → color-mix(in srgb, primary, white 85%)        (soft primary tint — form-field/pill backgrounds)
+
+  KEPT LITERAL (do not substitute):
+    #1B2B6B (navy structural lines + dark-bg fills inside SVGs)
+    #464E58 (chart-bg dark slate — chart axes/labels)
+    #FFFFFF (browser-frame interior fills, contrast strokes on coloured CTAs)
+    #4DBFB8, #F5C842, #6B5B9E etc. (creative accents — fixed brand flecks)
+    Chart-bg's grays / cyan / gold (incidental palette flavour)
+
+  Caller is responsible for not pointing at a character SVG; the
+  substitution rules here would mis-recolour a figure if these hex
+  codes happen to appear in a portrait.
+*/ -}}
+{{- $path := . -}}
+{{- $svg := readFile (printf "static%s" $path) -}}
+{{- $svg = replaceRE "(?i)#E07B5B" "var(--color-primary)" $svg -}}
+{{- $svg = replaceRE "(?i)#F37C5A" "var(--color-primary)" $svg -}}
+{{- $svg = replaceRE "(?i)#FAE8DF" "color-mix(in srgb, var(--color-primary), white 85%)" $svg -}}
+{{- $svg | safeHTML -}}

@@ -1,0 +1,7 @@
+tag: Pricing
+headline: Simple, transparent pricing
+subtitle: These are the plans you'll see at launch. No hidden fees, no surprise invoices, cancel anytime. Prices exclude taxes.
+billingToggle:
+  yearlyLabel: Billed yearly
+  monthlyLabel: Billed monthly
+  ariaLabel: Toggle between yearly and monthly billing

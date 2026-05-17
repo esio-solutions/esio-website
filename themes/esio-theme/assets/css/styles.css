@@ -32,9 +32,17 @@
   --color-terra-pale:       {{ $colors.terraPale }};
   --color-teal:             {{ $colors.teal }};
   --color-yellow:           {{ $colors.yellow }};
-  --color-panel-lavender:   {{ $colors.panelLavender }};
-  --color-panel-steel:      {{ $colors.panelSteel }};
-  --color-panel-periwinkle: {{ $colors.panelPeriwinkle }};
+  /* Status colours sourced from EsioBudget.WebApp/wwwroot/css/site.css.
+     CSS-direct (not assigned to any theme slot) — a positive number should
+     always look positive, regardless of which theme is active. */
+  --color-success:          {{ $colors.success }};
+  --color-danger:           {{ $colors.danger }};
+  --color-warning:          {{ $colors.warning }};
+  --color-info:             {{ $colors.info }};
+  /* Panel pastel tokens were removed when feature panels collapsed to a
+     two-tone alternation derived from the surface system. If a future panel
+     needs a non-surface accent, re-introduce a token in hugo.toml and emit
+     it here. */
 
   /* Material 3 semantic tokens — defaults map to {{ $defaultName }}. */
   --color-surface:                {{ index $colors $default.surface }};
@@ -89,6 +97,17 @@
   --color-panel-4: {{ index $colors $cfg.panels.fp4 }};
   --color-panel-5: {{ index $colors $cfg.panels.fp5 }};
 }
+{{- end }}
+{{- end }}
+
+/* Logo variant swap — driven by each theme's declared `colorScheme` so any
+   new light/dark theme picks the correct logo file without a CSS edit. The
+   :root[data-theme="…"] specificity (1,1,0) beats the default `.logo-dark`
+   class rules elsewhere. */
+{{- range $name, $cfg := $themes }}
+{{- if reflect.IsMap $cfg }}
+{{- $isLight := eq (default "dark" $cfg.colorScheme) "light" }}
+:root[data-theme="{{ $name }}"] .{{ if $isLight }}logo-dark{{ else }}logo-light{{ end }} { display: none; }
 {{- end }}
 {{- end }}
 

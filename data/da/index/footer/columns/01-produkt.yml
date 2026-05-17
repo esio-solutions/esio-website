@@ -1,0 +1,11 @@
+heading: Produkt
+links:
+- label: Sådan virker det
+  href: /da/#features
+- label: Priser
+  href: /da/#pricing
+- label: Løsningen
+  href: /da/#how
+- label: Kom i gang
+  href: https://budget.esio.dk/Login
+  event: cta-trial-footer

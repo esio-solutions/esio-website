@@ -1,0 +1,7 @@
+tag: Priser
+headline: Enkle, gennemskuelige priser
+subtitle: Det er de planer, du vil se ved lanceringen. Ingen skjulte gebyrer, ingen uventede fakturaer, opsig når som helst. Priser er ekskl. moms.
+billingToggle:
+  yearlyLabel: Årlig fakturering
+  monthlyLabel: Månedlig fakturering
+  ariaLabel: Skift mellem årlig og månedlig fakturering

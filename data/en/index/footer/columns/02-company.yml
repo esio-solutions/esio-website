@@ -1,0 +1,13 @@
+heading: Company
+links:
+- label: About
+  href: /about/
+- label: Blog
+  href: /posts/
+- label: Newsletter
+  href: /newsletter/
+  event: cta-newsletter
+- label: Careers
+  href: '#'
+- label: Contact
+  href: /contact/

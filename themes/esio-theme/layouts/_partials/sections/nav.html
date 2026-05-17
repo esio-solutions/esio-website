@@ -1,23 +1,51 @@
 {{- /*
-  Site navigation. All copy is sourced from data/sections/nav.yml.
+  Site navigation. Data lives under data/<lang>/index/nav/:
+    meta.yml        — logo
+    links/*.yml     — top-bar links (alphabetical by filename = display order)
+    actions/*.yml   — right-side buttons (alphabetical by filename = display order)
+
+  Structure: the burger button is the single entry-point to the menu — it
+  toggles `.is-menu-open` on the nav, which controls:
+    • Desktop: opens the theme/language popover (.nav-menu-settings)
+      anchored under the burger. Top-bar links stay visible.
+    • Mobile:  opens a full-width drawer (.nav-menu) containing the
+      links AND the theme/language picker stacked vertically.
 */ -}}
-{{- $data := index site.Data site.Language.Lang "sections" "nav" -}}
+{{- $data := index site.Data site.Language.Lang "index" "nav" -}}
+{{- $meta := $data.meta -}}
 <nav>
-  <a href="{{ $data.logo.href | default "/" }}" class="nav-logo">
-    <img src="{{ $data.logo.src }}" alt="{{ $data.logo.alt }}" class="logo-dark" loading="eager" decoding="async" />
-    <img src="{{ $data.logo.srcLight | default $data.logo.src }}" alt="{{ $data.logo.alt }}" class="logo-light" loading="eager" decoding="async" />
+  <a href="{{ $meta.logo.href | default "/" }}" class="nav-logo">
+    <img src="{{ $meta.logo.src }}" alt="{{ $meta.logo.alt }}" class="logo-dark" loading="eager" decoding="async" />
+    <img src="{{ $meta.logo.srcLight | default $meta.logo.src }}" alt="{{ $meta.logo.alt }}" class="logo-light" loading="eager" decoding="async" />
   </a>
-  <div class="nav-links">
-    {{- range $data.links }}
-      <a href="{{ .href }}">{{ .label }}</a>
-    {{- end }}
+  <div class="nav-menu">
+    <div class="nav-links">
+      {{- range $k, $v := $data.links }}
+        <a href="{{ $v.href }}">{{ $v.label }}</a>
+      {{- end }}
+    </div>
+    <div class="nav-menu-settings" role="menu">
+      {{ partial "sections/settings.html" . }}
+      {{- /* CTA action(s) live inside the burger dropdown so the top bar
+         stays clean. The button partial owns the styling + routing — same
+         system used everywhere else on the site. */ -}}
+      {{- range $k, $v := $data.actions }}
+        <div class="nav-menu-cta">
+          {{ partial "button.html" (dict "href" $v.href "label" $v.label "variant" $v.style "event" $v.event) }}
+        </div>
+      {{- end }}
+    </div>
   </div>
-  <div class="nav-right">
-    {{ partial "sections/theme-toggle.html" . }}
-    {{ partial "sections/lang-toggle.html" . }}
-    {{- range $data.actions }}
-      {{- $cls := cond (eq .style "solid") "btn-ns" "btn-ng" }}
-      <a href="{{ .href }}" class="{{ $cls }}"{{ with .event }} data-umami-event="{{ . }}"{{ end }}>{{ .label }}</a>
-    {{- end }}
-  </div>
+  {{- /* Burger toggle — always visible (used on desktop and mobile).
+     Clicking flips `.is-menu-open` on `body > nav`, which CSS uses to
+     reveal the theme/language popover (desktop) or the full drawer
+     (mobile). No bespoke JS required — driven by toggler.js. */ -}}
+  <button type="button" class="nav-burger" aria-label="Menu" aria-haspopup="true"
+          data-toggle-target="body > nav" data-toggle-class="is-menu-open">
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <line x1="3" y1="6"  x2="21" y2="6"/>
+      <line x1="3" y1="12" x2="21" y2="12"/>
+      <line x1="3" y1="18" x2="21" y2="18"/>
+    </svg>
+  </button>
 </nav>

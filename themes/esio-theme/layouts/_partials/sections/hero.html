@@ -1,8 +1,9 @@
 {{- /*
   Hero section. Headline composes prefix / emphasis / suffix from data so
   the <em>-styled mid-line stays semantic.
+  Data: data/<lang>/index/hero/meta.yml
 */ -}}
-{{- $data := index site.Data site.Language.Lang "sections" "hero" -}}
+{{- $data := (index site.Data site.Language.Lang "index" "hero").meta -}}
 <section id="hero">
   <div class="hero-left">
     <a href="{{ $data.logo.href | default "/" }}" class="logo-big">
@@ -16,20 +17,19 @@
     </div>
     <h1>{{ $data.headline.prefix }}<br><em>{{ $data.headline.emphasis }}</em><br>{{ $data.headline.suffix | safeHTML }}</h1>
     {{- with $data.tagline }}
-      <span class="tag tag-t">{{ . }}</span>
+      <span class="tagline">{{ . }}</span>
     {{- end }}
     <p class="hero-p">{{ $data.paragraph }}</p>
     <div class="btns">
       {{- range $data.actions }}
-        {{- $cls := cond (eq .style "primary") "btn-p" "btn-s" }}
-        <a href="{{ .href }}" class="{{ $cls }}">{{ .label }}</a>
+        {{ partial "button.html" (dict "href" .href "label" .label "variant" .style) }}
       {{- end }}
     </div>
     <div class="trust"><div class="avs"></div></div>
   </div>
   <div class="hero-right">
-    <div class="hero-chart-bg">
-      <img src="{{ $data.illustrations.background.src }}" alt="{{ $data.illustrations.background.alt }}" class="bg1-st1" loading="lazy" decoding="async" />
+    <div class="hero-chart-bg" aria-hidden="true">
+      {{- partial "svg/inline.html" $data.illustrations.background.src }}
     </div>
     <div class="hero-illo">
       <img src="{{ $data.illustrations.foreground.src }}" alt="{{ $data.illustrations.foreground.alt }}" class="i4-cls-4" loading="lazy" decoding="async" />

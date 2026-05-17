@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" fill="none" role="img" aria-label="Adjust your budget and instantly see the impact">
+  <!-- Slider track -->
+  <rect x="48" y="46" width="160" height="6" rx="3" fill="#1B2B6B" opacity="0.18"/>
+  <rect x="48" y="46" width="108" height="6" rx="3" fill="#E07B5B"/>
+
+  <!-- Slider thumb -->
+  <circle cx="156" cy="49" r="11" fill="#FFFFFF" stroke="#E07B5B" stroke-width="3"/>
+  <circle cx="156" cy="49" r="3" fill="#E07B5B"/>
+
+  <!-- Ticks -->
+  <line x1="48"  y1="64" x2="48"  y2="68" stroke="#1B2B6B" stroke-width="1.5" opacity="0.4"/>
+  <line x1="88"  y1="64" x2="88"  y2="68" stroke="#1B2B6B" stroke-width="1.5" opacity="0.4"/>
+  <line x1="128" y1="64" x2="128" y2="68" stroke="#1B2B6B" stroke-width="1.5" opacity="0.4"/>
+  <line x1="168" y1="64" x2="168" y2="68" stroke="#1B2B6B" stroke-width="1.5" opacity="0.4"/>
+  <line x1="208" y1="64" x2="208" y2="68" stroke="#1B2B6B" stroke-width="1.5" opacity="0.4"/>
+
+  <!-- Drag indicator (two-headed arrow) above thumb -->
+  <path d="M 138 30 L 174 30 M 144 24 L 138 30 L 144 36 M 168 24 L 174 30 L 168 36" stroke="#4DBFB8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <!-- Instant/lightning accent -->
+  <path d="M 246 32 L 234 58 L 246 58 L 238 80 L 256 50 L 244 50 Z" fill="#F5C842" stroke="#1B2B6B" stroke-width="1.5" stroke-linejoin="round"/>
+
+  <!-- Chart card -->
+  <rect x="32" y="100" width="256" height="112" rx="12" fill="#FFFFFF" stroke="#1B2B6B" stroke-width="2.5"/>
+
+  <!-- Axes -->
+  <line x1="56" y1="120" x2="56"  y2="192" stroke="#1B2B6B" stroke-width="1.5" opacity="0.5"/>
+  <line x1="56" y1="192" x2="272" y2="192" stroke="#1B2B6B" stroke-width="1.5" opacity="0.5"/>
+
+  <!-- "Before" ghost line (dashed navy) -->
+  <path d="M 64 178 L 100 174 L 136 168 L 172 162 L 208 156 L 244 150" stroke="#1B2B6B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4 4" opacity="0.35" fill="none"/>
+
+  <!-- "After" active line (terra) -->
+  <path d="M 64 178 L 100 168 L 136 152 L 172 138 L 208 124 L 244 110" stroke="#E07B5B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="244" cy="110" r="3.5" fill="#E07B5B"/>
+
+  <!-- Improvement delta arrow -->
+  <path d="M 258 150 L 258 116 M 253 122 L 258 116 L 263 122" stroke="#4DBFB8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</svg>

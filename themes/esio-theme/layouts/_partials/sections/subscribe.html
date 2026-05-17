@@ -1,7 +1,8 @@
 {{- /*
   Subscribe / trial CTA section.
+  Data: data/<lang>/index/subscribe/meta.yml
 */ -}}
-{{- $data := index site.Data site.Language.Lang "sections" "subscribe" -}}
+{{- $data := (index site.Data site.Language.Lang "index" "subscribe").meta -}}
 <section id="subscribe">
   <div class="si">
     <div class="sub-grid">
@@ -18,7 +19,7 @@
       <div class="form-box form-box-center">
         <div class="form-title form-title-lg">{{ $data.formBox.title }}</div>
         <div class="form-sub-t form-sub-center">{{ delimit (split (trim $data.formBox.subtitle "\n") "\n") "<br>" | safeHTML }}</div>
-        <a href="{{ $data.formBox.cta.href }}" class="btn-sub btn-sub-link"{{ with $data.formBox.cta.event }} data-umami-event="{{ . }}"{{ end }}>{{ $data.formBox.cta.label }}</a>
+        {{ partial "button.html" (dict "href" $data.formBox.cta.href "label" $data.formBox.cta.label "variant" "primary" "size" "lg" "event" $data.formBox.cta.event) }}
         <p class="form-note">{{ $data.formBox.legalNote }}</p>
       </div>
     </div>

@@ -1,0 +1,16 @@
+decorations:
+- /assets/characters/characters-03.svg
+- /assets/characters/characters-02.svg
+- /assets/characters/characters-04.svg
+- /assets/characters/characters-01.svg
+- /assets/characters/characters-05.svg
+- /assets/characters/characters-06.svg
+brand:
+  logo:
+    src: /assets/logos/logo-white.svg
+    srcLight: /assets/logos/logo-blue.svg
+    alt: ESIO
+  tagline: Budget-app til små virksomheder og iværksættere. Klar økonomi, ingen overraskelser.
+bottom:
+  copyright: © 2026 ESIO. Alle rettigheder forbeholdes. Priser ekskl. moms.
+  tagline: Bygget til folk, der driver små virksomheder.

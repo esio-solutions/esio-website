@@ -1,0 +1,13 @@
+heading: Virksomhed
+links:
+- label: Om
+  href: /da/about/
+- label: Blog
+  href: /da/posts/
+- label: Nyhedsbrev
+  href: /da/newsletter/
+  event: cta-newsletter
+- label: Karriere
+  href: '#'
+- label: Kontakt
+  href: /da/contact/

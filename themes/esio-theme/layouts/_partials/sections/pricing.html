@@ -2,47 +2,55 @@
   Pricing section. Three tiers with a yearly/monthly toggle.
   The toggle is wired with data attributes the inline <script> at the bottom
   reads at runtime — same contract as the original Astro version.
+  Data: data/<lang>/index/pricing/
+    meta.yml      — tag, headline, subtitle, billingToggle
+    tiers/*.yml   — pricing tiers (alphabetical by filename = display order)
 */ -}}
-{{- $data := index site.Data site.Language.Lang "sections" "pricing" -}}
+{{- $data := index site.Data site.Language.Lang "index" "pricing" -}}
+{{- $meta := $data.meta -}}
 <section id="pricing" class="sec">
   <div class="si">
     <div class="tc">
-      <span class="tag tag-t">{{ $data.tag }}</span>
-      <h2 class="stitle">{{ $data.headline }}</h2>
-      <p class="ssub">{{ $data.subtitle }}</p>
+      <span class="tag tag-t">{{ $meta.tag }}</span>
+      <h2 class="stitle">{{ $meta.headline }}</h2>
+      <p class="ssub">{{ $meta.subtitle }}</p>
     </div>
     <div class="billing-toggle" aria-label="Billing frequency switch">
-      <span class="billing-label is-active" data-billing-label="yearly">{{ $data.billingToggle.yearlyLabel }}</span>
+      <span class="billing-label is-active" data-billing-label="yearly">{{ $meta.billingToggle.yearlyLabel }}</span>
       <button
         type="button"
         class="billing-switch"
         role="switch"
         aria-checked="false"
-        aria-label="{{ $data.billingToggle.ariaLabel }}"
+        aria-label="{{ $meta.billingToggle.ariaLabel }}"
       >
         <span class="billing-switch__thumb"></span>
       </button>
-      <span class="billing-label" data-billing-label="monthly">{{ $data.billingToggle.monthlyLabel }}</span>
+      <span class="billing-label" data-billing-label="monthly">{{ $meta.billingToggle.monthlyLabel }}</span>
     </div>
     <div class="price-grid">
-      {{- range $data.tiers }}
-        {{- $cardCls := cond .featured "pcard feat" "pcard" }}
-        {{- $ctaCls := cond (eq .cta.style "featured") "pcta cta-f" "pcta cta-g" }}
+      {{- range $k, $t := $data.tiers }}
+        {{- $cardCls := cond $t.featured "pcard feat" "pcard" }}
+        {{- /* featured tier → primary button (solid; inverts to white-bg
+           when sitting on the featured card's primary surface, same way
+           it inverts inside #subscribe). ghost tier → secondary button
+           (outlined). Same .btn system used everywhere else on the site. */ -}}
+        {{- $variant := cond (eq $t.cta.style "featured") "primary" "secondary" }}
         <div class="{{ $cardCls }}">
-          {{- with .badge }}<div class="fbadge">{{ . }}</div>{{ end }}
-          <div class="pname">{{ .name }}</div>
+          {{- with $t.badge }}<div class="fbadge">{{ . }}</div>{{ end }}
+          <div class="pname">{{ $t.name }}</div>
           <div class="pprice">
-            <span class="pcurrency">{{ .currency }}</span>
-            <span class="price-value" data-yearly-price="{{ .yearlyPrice }}" data-monthly-price="{{ .monthlyPrice }}">{{ .yearlyPrice }}</span>
+            <span class="pcurrency">{{ $t.currency }}</span>
+            <span class="price-value" data-yearly-price="{{ $t.yearlyPrice }}" data-monthly-price="{{ $t.monthlyPrice }}">{{ $t.yearlyPrice }}</span>
           </div>
-          <div class="pperiod" data-yearly-period="{{ .yearlyPeriod }}" data-monthly-period="{{ .monthlyPeriod }}">{{ .yearlyPeriod }}</div>
-          <div class="pdesc">{{ .description }}</div>
+          <div class="pperiod" data-yearly-period="{{ $t.yearlyPeriod }}" data-monthly-period="{{ $t.monthlyPeriod }}">{{ $t.yearlyPeriod }}</div>
+          <div class="pdesc">{{ $t.description }}</div>
           <ul class="pfeats">
-            {{- range .features }}
+            {{- range $t.features }}
               <li>{{ . }}</li>
             {{- end }}
           </ul>
-          <a href="{{ .cta.href }}" class="{{ $ctaCls }}"{{ with .cta.event }} data-umami-event="{{ . }}"{{ end }}>{{ .cta.label }}</a>
+          {{ partial "button.html" (dict "href" $t.cta.href "label" $t.cta.label "variant" $variant "event" $t.cta.event) }}
         </div>
       {{- end }}
     </div>

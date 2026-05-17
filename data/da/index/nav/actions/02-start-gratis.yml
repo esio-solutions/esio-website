@@ -1,0 +1,6 @@
+label: Få tidlig adgang
+# href udeladt med vilje — primære CTA'er sendes som standard til #pricing
+# via button partialen. Tilføj kun href her, hvis denne CTA skal lande
+# andetsteds end på prissektionen.
+style: primary
+event: cta-trial-nav

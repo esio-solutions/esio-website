@@ -1,0 +1,10 @@
+id: cashflow
+title: |-
+  Pengestrømssimulering
+  og rapporter
+body: Se præcist hvor dine penge går hen — og hvor de kunne gå hen. ESIO genererer interaktive pengestrømssimulationer baseret på dine faktiske data, så du kan planlægge fremad med ro i sindet.
+icon: currency_exchange
+illustration:
+  src: /assets/characters/characters-02.svg
+  alt: Illustration af pengestrømssimulering
+flipped: true

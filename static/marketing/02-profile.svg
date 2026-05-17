@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" fill="none" role="img" aria-label="Fill in details about your business">
+  <!-- Card -->
+  <rect x="56" y="32" width="208" height="176" rx="14" fill="#FFFFFF" stroke="#1B2B6B" stroke-width="2.5"/>
+
+  <!-- Business info document (replaces the avatar): clipboard with detail lines -->
+  <rect x="70" y="54" width="48" height="58" rx="5" fill="#FAE8DF" stroke="#1B2B6B" stroke-width="2.5"/>
+  <rect x="83" y="48" width="22" height="10" rx="3" fill="#1B2B6B"/>
+  <rect x="78" y="70" width="32" height="4" rx="2" fill="#1B2B6B"/>
+  <rect x="78" y="80" width="24" height="3" rx="1.5" fill="#1B2B6B" opacity="0.5"/>
+  <rect x="78" y="88" width="30" height="3" rx="1.5" fill="#1B2B6B" opacity="0.5"/>
+  <rect x="78" y="96" width="22" height="3" rx="1.5" fill="#1B2B6B" opacity="0.5"/>
+  <rect x="78" y="104" width="28" height="3" rx="1.5" fill="#1B2B6B" opacity="0.5"/>
+
+  <!-- Business building (kept) -->
+  <rect x="140" y="52" width="56" height="48" rx="4" fill="#FAE8DF" stroke="#1B2B6B" stroke-width="2.5"/>
+  <rect x="148" y="62" width="8" height="10" fill="#1B2B6B"/>
+  <rect x="164" y="62" width="8" height="10" fill="#1B2B6B"/>
+  <rect x="180" y="62" width="8" height="10" fill="#1B2B6B"/>
+  <rect x="148" y="78" width="8" height="10" fill="#1B2B6B"/>
+  <rect x="164" y="78" width="8" height="10" fill="#1B2B6B" opacity="0.4"/>
+  <rect x="180" y="78" width="8" height="10" fill="#1B2B6B" opacity="0.4"/>
+
+  <!-- Connector pen-stroke from doc to building (info flowing into the business profile) -->
+  <path d="M120 80 Q 130 80 138 76" stroke="#E07B5B" stroke-width="2" stroke-linecap="round" stroke-dasharray="3 3" opacity="0.7" fill="none"/>
+
+  <!-- Form rows being filled (kept) -->
+  <rect x="80" y="124" width="36" height="6" rx="3" fill="#1B2B6B" opacity="0.55"/>
+  <rect x="80" y="136" width="160" height="14" rx="4" fill="#FAE8DF"/>
+  <circle cx="232" cy="143" r="8" fill="#4DBFB8"/>
+  <path d="M228 143 L231 146 L236 140" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <rect x="80" y="160" width="48" height="6" rx="3" fill="#1B2B6B" opacity="0.55"/>
+  <rect x="80" y="172" width="160" height="14" rx="4" fill="#FAE8DF"/>
+  <circle cx="232" cy="179" r="8" fill="#4DBFB8"/>
+  <path d="M228 179 L231 182 L236 176" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</svg>

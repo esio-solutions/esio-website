@@ -1,0 +1,21 @@
+id: small-business
+name: Small Business
+currency: DKK
+yearlyPrice: '139'
+monthlyPrice: '159'
+yearlyPeriod: per month, billed annually
+monthlyPeriod: per month, billed monthly
+description: The complete toolkit for established small businesses ready to take full control of their finances.
+features:
+- Liquidity Forecasting
+- Accounting software integration (E-conomic/Dinero)
+- Visualisation of both past account data and future forecasting data
+- Tax Helper
+- Up to 3 budgets per account
+cta:
+  label: Notify me at launch →
+  href: /newsletter/
+  style: featured
+  event: cta-notify-pricing-small-business
+featured: true
+badge: Most Popular

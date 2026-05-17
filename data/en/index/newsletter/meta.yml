@@ -1,0 +1,22 @@
+tag: Newsletter
+headline: Stay in the loop
+subtitle: Product updates, financial tips for founders, and the occasional case study. Sent every few weeks. No spam.
+fields:
+  name:
+    label: Your name (optional)
+    placeholder: Jane Doe
+  email:
+    label: Email
+    placeholder: jane@example.com
+cta:
+  label: Subscribe →
+legalNote: You can unsubscribe at any time with one click. We don't share your address with anyone.
+fallback:
+  body: Subscribe via our newsletter platform — opens in a new tab.
+  cta: Subscribe on newsletter.esio.dk →
+status:
+  submitting: Subscribing…
+  success: Thanks! Check your email — we sent a confirmation link to complete your subscription.
+  errorGeneric: Hmm, something went wrong on our end. Please try again in a moment.
+  errorNetwork: Couldn't reach the server. Check your connection and try again.
+  waitingForCaptcha: Please wait a second — we're verifying you're not a bot.

@@ -10,29 +10,8 @@ other = "Mørkt"
 [theme_light]
 other = "Lyst"
 
-[theme_modern_pro]
-other = "Moderne professionelt"
-
-[theme_tech_forward]
-other = "Teknologisk"
-
-[theme_cultivated_warmth]
-other = "Jordnær varme"
-
-[theme_timeless_confidence]
-other = "Tidløs selvsikkerhed"
-
-[theme_summer_fun]
-other = "Forfriskende sommer"
-
-[theme_sunrise_glow]
-other = "Solopgang"
-
-[theme_twilight_comfort]
-other = "Skumringsro"
-
-[theme_electric_citrus]
-other = "Elektrisk citrus"
+[theme_app_preview]
+other = "App-forhåndsvisning"
 
 [language]
 other = "Sprog"

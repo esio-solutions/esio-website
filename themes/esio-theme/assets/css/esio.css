@@ -4,9 +4,9 @@
    hides whichever doesn't match the active [data-theme] on <html>. Keeping
    both in the DOM avoids a flicker on theme toggle and a layout shift on
    first paint. */
-:root[data-theme="dark"] .logo-light,
-:root:not([data-theme="light"]) .logo-light { display: none; }
-:root[data-theme="light"] .logo-dark { display: none; }
+/* Logo swap (light/dark variant). The actual `display: none` rule for the
+   wrong variant is emitted per theme by styles.css, driven by each theme's
+   `colorScheme` in hugo.toml. New themes pick up the right logo automatically. */
 
 /* Panel Color Wheels.
    Sections that hold "page chrome" (nav, hero, video, how, pricing, setup,
@@ -31,11 +31,11 @@ body > nav{
   --hero-bg:var(--color-surface);
   --hero-text:var(--color-on-surface);
   --hero-muted:color-mix(in srgb, var(--color-on-surface), transparent 35%);
-  --hero-accent:var(--color-terra);
-  --hero-accent-strong:var(--color-terra-dark);
-  --hero-pill-bg:color-mix(in srgb, var(--color-terra), transparent 80%);
-  --hero-pill-border:color-mix(in srgb, var(--color-terra), transparent 60%);
-  --hero-pill-text:var(--color-terra-light);
+  --hero-accent:var(--color-primary);
+  --hero-accent-strong:color-mix(in srgb, var(--color-primary), black 15%);
+  --hero-pill-bg:color-mix(in srgb, var(--color-primary), transparent 80%);
+  --hero-pill-border:color-mix(in srgb, var(--color-primary), transparent 60%);
+  --hero-pill-text:color-mix(in srgb, var(--color-primary), white 30%);
   --hero-outline:color-mix(in srgb, var(--color-on-surface), transparent 70%);
 }
 
@@ -44,30 +44,31 @@ body > nav{
   --video-title:var(--color-on-surface);
   --video-muted:color-mix(in srgb, var(--color-on-surface), transparent 40%);
   --video-stat-muted:color-mix(in srgb, var(--color-on-surface), transparent 50%);
-  --video-accent:var(--color-terra);
+  --video-accent:var(--color-primary);
 }
 
 #pain{
-  --pain-bg:var(--color-terra);
-  --pain-title:#fff;
-  --pain-muted:rgba(255,255,255,.82);
-  --pain-card-bg:rgba(255,255,255,.12);
-  --pain-card-border:rgba(255,255,255,.18);
+  --pain-bg:var(--color-primary);
+  /* Text colors derive from --color-on-primary so they auto-swap if the
+     brand pair is ever re-tuned. Cards stay white-tinted on the orange
+     section so they read as raised panels regardless of theme. */
+  --pain-title:var(--color-on-primary);
+  --pain-muted:color-mix(in srgb, var(--color-on-primary), transparent 22%);
+  --pain-card-bg:color-mix(in srgb, var(--color-white), transparent 88%);
+  --pain-card-border:color-mix(in srgb, var(--color-white), transparent 82%);
 }
 
-#features{
-  --features-bg:var(--color-purple);
-  --features-title:#fff;
-  --features-muted:rgba(255,255,255,.72);
-  --features-card-bg:rgba(255,255,255,.08);
-  --features-card-border:rgba(255,255,255,.14);
-}
+/* (Removed: `#features` scoped vars were a brand-lock to purple plus four
+   alpha-overlay accents that no rule consumed. The features section now
+   draws its backgrounds straight from the surface system via the per-theme
+   .panels mapping; text colours come from --color-on-surface so they flip
+   with the theme.) */
 
 #how{
   --how-bg:var(--color-surface-dim);
   --how-title:var(--color-on-surface);
   --how-muted:color-mix(in srgb, var(--color-on-surface), transparent 40%);
-  --how-accent:var(--color-terra);
+  --how-accent:var(--color-primary);
 }
 
 #pricing{
@@ -76,14 +77,14 @@ body > nav{
   --pricing-muted:color-mix(in srgb, var(--color-on-surface), transparent 35%);
   --pricing-card-bg:color-mix(in srgb, var(--color-on-surface), transparent 96%);
   --pricing-card-border:color-mix(in srgb, var(--color-on-surface), transparent 88%);
-  --pricing-feature-bg:var(--color-terra);
+  --pricing-feature-bg:var(--color-primary);
 }
 
 #setup{
   --setup-bg:var(--color-surface-container-high);
   --setup-title:var(--color-on-surface);
   --setup-muted:color-mix(in srgb, var(--color-on-surface), transparent 35%);
-  --setup-accent:var(--color-terra);
+  --setup-accent:var(--color-primary);
 }
 
 #cta{
@@ -93,9 +94,11 @@ body > nav{
 }
 
 #subscribe{
-  --subscribe-bg:var(--color-terra);
-  --subscribe-title:#fff;
-  --subscribe-muted:rgba(255,255,255,.85);
+  --subscribe-bg:var(--color-primary);
+  /* See #pain block — text colors derive from the on-primary token so they
+     auto-swap with the brand pair. */
+  --subscribe-title:var(--color-on-primary);
+  --subscribe-muted:color-mix(in srgb, var(--color-on-primary), transparent 15%);
 }
 
 footer{
@@ -104,54 +107,192 @@ footer{
   --footer-muted:color-mix(in srgb, var(--color-on-surface), transparent 65%);
 }
 
-/* NAV — scoped to the direct-body-child site nav only (see comment above). */
-body > nav{position:fixed;top:0;left:0;right:0;z-index:200;height:68px;background:var(--nav-bg);backdrop-filter:blur(16px);border-bottom:1px solid var(--nav-border);padding:0 6%;display:flex;align-items:center;justify-content:space-between}
+/* Section anchor offset. The fixed navbar (68px) covers the top of any
+   section a visitor scrolls to or jumps to via an anchor link (#pain,
+   #features, etc.). scroll-margin-top tells the browser to land 88px
+   before the section's box edge — 68px navbar + 20px breathing room —
+   so the eyebrow tag and headline aren't hidden behind the navbar. */
+section[id]{scroll-margin-top:88px}
+
+/* NAV — scoped to the direct-body-child site nav only (see comment above).
+   Three-column grid layout (1fr | auto | 1fr) so the .nav-menu always sits
+   in the visual centre regardless of how wide the logo or burger are. */
+body > nav{position:fixed;top:0;left:0;right:0;z-index:200;height:68px;background:var(--nav-bg);backdrop-filter:blur(16px);border-bottom:1px solid var(--nav-border);padding:0 6%;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;column-gap:24px}
+.nav-logo{justify-self:start}
 .nav-logo svg,.nav-logo img{height:28px;width:auto;display:block}
+/* Nav menu wrapper. Desktop: just .nav-links visible inline; the
+   .nav-menu-settings dropdown (theme/language + the CTA) is an absolute
+   popover anchored to the nav's right edge, revealed when the burger
+   toggles .is-menu-open. Mobile: .nav-menu becomes a full-width drawer
+   containing both children stacked vertically. */
+.nav-menu{display:flex;align-items:center;justify-self:center}
 .nav-links{display:flex;gap:30px}
 .nav-links a{font-size:14px;font-weight:600;color:var(--nav-text);text-decoration:none;transition:color .15s}
 .nav-links a:hover{color:var(--nav-text-hover)}
-.nav-right{display:flex;gap:10px;align-items:center}
-.btn-ng{padding:9px 20px;border-radius:24px;font-size:14px;font-weight:700;color:var(--color-on-surface);border:1.5px solid color-mix(in srgb, var(--color-on-surface), transparent 72%);background:transparent;cursor:pointer;text-decoration:none;transition:all .18s;font-family:var(--font-display)}
-.btn-ng:hover{border-color:var(--color-on-surface)}
-.btn-ns{padding:9px 22px;border-radius:24px;font-size:14px;font-weight:800;color:var(--color-inverse-on-surface);background:var(--color-inverse-surface);cursor:pointer;text-decoration:none;transition:all .18s;font-family:var(--font-display)}
-.btn-ns:hover{background:var(--color-terra-pale);color:var(--color-terra-dark);transform:translateY(-1px)}
 
-/* THEME SWITCH — palette-icon button reveals a popover containing one
-   gradient swatch per theme registered in [params.theme]. The active
-   theme's swatch gets a ring via .is-active applied by theme.js.
-   Visual structure mirrors .lang-switch (same trigger size + popover
-   pattern) so the two controls feel cohesive in the navbar. */
-.theme-switch{position:relative;display:flex;align-items:center}
-.theme-trigger{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;border:1px solid var(--color-on-surface);background:transparent;color:var(--color-on-surface);cursor:pointer;transition:background .18s,color .18s,border-color .18s}
-.theme-trigger:hover{background:var(--color-on-surface);color:var(--color-surface)}
-.theme-panel{position:absolute;top:calc(100% + 10px);right:0;display:inline-flex;gap:8px;align-items:center;padding:8px 10px;border-radius:var(--radius-base);background:var(--color-surface-container-high);color:var(--color-on-surface);border:1px solid var(--color-on-surface);box-shadow:0 18px 40px rgba(0,0,0,.25);opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .15s,transform .15s,visibility .15s;z-index:300}
-.theme-switch:hover .theme-panel,.theme-switch:focus-within .theme-panel{opacity:1;visibility:visible;transform:translateY(0)}
-.theme-swatch{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;padding:0;border-radius:50%;border:2px solid transparent;background:transparent;cursor:pointer;line-height:0;transition:transform .15s,border-color .15s}
-.theme-swatch:hover{transform:scale(1.08)}
-.theme-swatch.is-active{border-color:var(--color-primary)}
+/* Burger toggle — always visible, occupies the right cell of the nav grid.
+   Click flips .is-menu-open on the nav, revealing the settings popover
+   (desktop) or the full drawer (mobile). */
+.nav-burger{justify-self:end;display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;border:1px solid var(--color-on-surface);background:transparent;color:var(--color-on-surface);cursor:pointer;transition:background .18s,color .18s,border-color .18s;padding:0}
+.nav-burger:hover{background:var(--color-on-surface);color:var(--color-surface)}
+
+/* In-menu CTA — the "Get early access" button sits at the bottom of the
+   burger dropdown (desktop) and at the bottom of the mobile drawer.
+   Stretches full-width so it reads as a clear conversion action. */
+.nav-menu-cta{margin-top:6px}
+.nav-menu-cta .btn{width:100%;display:flex;justify-content:center}
+
+/* Theme + language popover. Desktop default: absolute popover anchored to
+   the nav's right edge, hidden until .is-menu-open. */
+.nav-menu-settings{
+  position:absolute;top:calc(100% + 10px);right:6%;
+  display:flex;flex-direction:column;gap:14px;
+  padding:14px 16px;
+  border-radius:var(--radius-base);
+  background:var(--color-surface-container-high);
+  color:var(--color-on-surface);
+  border:1px solid var(--color-on-surface);
+  box-shadow:0 18px 40px rgba(0,0,0,.25);
+  opacity:0;visibility:hidden;transform:translateY(-6px);
+  transition:opacity .15s,transform .15s,visibility .15s;
+  z-index:300;min-width:210px;
+}
+body > nav.is-menu-open .nav-menu-settings{opacity:1;visibility:visible;transform:translateY(0)}
+
+@media (max-width:900px){
+  /* Mobile breakpoint: hide the inline menu in the top bar. The nav-right
+     CTA is gone (moved into the burger), so only the inline-menu rule is
+     needed here. */
+  body > nav .nav-menu{display:none}
+
+  /* When the burger opens, .nav-menu becomes the full-width drawer
+     below the navbar, holding the link list and the settings picker
+     stacked vertically. */
+  body > nav.is-menu-open .nav-menu{
+    display:flex;flex-direction:column;align-items:stretch;
+    position:fixed;top:68px;left:0;right:0;
+    padding:18px 6% 24px;gap:16px;
+    background:var(--color-surface);
+    border-bottom:1px solid var(--nav-border);
+    box-shadow:0 18px 40px rgba(0,0,0,.25);
+    z-index:199;
+  }
+  body > nav.is-menu-open .nav-links{
+    display:flex;flex-direction:column;align-items:stretch;gap:4px;
+  }
+  body > nav.is-menu-open .nav-links a{
+    font-size:17px;font-weight:600;padding:14px 0;color:var(--color-on-surface);
+    border-bottom:1px solid color-mix(in srgb,var(--color-on-surface),transparent 92%);
+  }
+  body > nav.is-menu-open .nav-links a:last-child{border-bottom:none}
+
+  /* Strip the popover chrome on mobile — the drawer already provides
+     the surface; the settings picker just flows inline inside it. */
+  body > nav.is-menu-open .nav-menu-settings{
+    position:static;
+    opacity:1;visibility:visible;transform:none;
+    padding:0;background:transparent;border:none;box-shadow:none;
+    min-width:0;
+  }
+}
+/* Removed: .btn-ng / .btn-ns. Nav buttons now use the same .btn system
+   as the hero (see BUTTONS section below), with the .btn--sm modifier for
+   the compact nav size. Single source of truth — one partial, one class. */
+
+/* Theme + language picker — the two sections are rendered inside
+   .nav-menu-settings (see NAV block above). The .settings-section /
+   .theme-swatch / .lang-flag rules below still style the inner content;
+   only the outer trigger + panel chrome moved up to .nav-menu-settings. */
+.settings-section{display:flex;flex-direction:column;gap:8px}
+.settings-section__label{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:color-mix(in srgb, var(--color-on-surface), transparent 45%)}
+.settings-section__items{display:inline-flex;gap:8px;align-items:center;flex-wrap:wrap}
+
+.theme-swatch{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;padding:0;border-radius:50%;border:2px solid transparent;background:transparent;cursor:pointer;line-height:0;transition:transform .15s,border-color .15s,box-shadow .15s}
+.theme-swatch:hover{transform:scale(1.15);border-color:color-mix(in srgb,var(--color-on-surface),transparent 60%);box-shadow:0 0 0 4px color-mix(in srgb,var(--color-on-surface),transparent 92%)}
+.theme-swatch:active{transform:scale(1.05)}
+.theme-swatch.is-active{border-color:var(--color-primary);box-shadow:0 0 0 3px color-mix(in srgb,var(--color-primary),transparent 75%)}
 .theme-swatch__dot{display:block;width:18px;height:18px;border-radius:50%;background:conic-gradient(from 210deg, var(--sw-1) 0 33%, var(--sw-2) 33% 66%, var(--sw-3) 66% 100%);box-shadow:inset 0 0 0 1px rgba(0,0,0,.18)}
 
 /* LANGUAGE SWITCHER — narrow popover with just flags. Smaller than the old
    combined settings panel so it doesn't overflow on mobile. */
-.lang-switch{position:relative;display:flex;align-items:center}
-.lang-trigger{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;border:1px solid var(--color-on-surface);background:transparent;color:var(--color-on-surface);cursor:pointer;transition:background .18s,color .18s,border-color .18s}
-.lang-trigger:hover{background:var(--color-on-surface);color:var(--color-surface)}
-.lang-panel{position:absolute;top:calc(100% + 10px);right:0;display:inline-flex;gap:6px;align-items:center;padding:8px 10px;border-radius:var(--radius-base);background:var(--color-surface-container-high);color:var(--color-on-surface);border:1px solid var(--color-on-surface);box-shadow:0 18px 40px rgba(0,0,0,.25);opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .15s,transform .15s,visibility .15s;z-index:300}
-.lang-switch:hover .lang-panel,.lang-switch:focus-within .lang-panel{opacity:1;visibility:visible;transform:translateY(0)}
-.lang-flag{display:inline-flex;align-items:center;justify-content:center;padding:3px;border-radius:4px;border:1px solid transparent;background:transparent;cursor:pointer;line-height:0}
-.lang-flag:not(.is-active):not([disabled]):hover{border-color:var(--color-on-surface)}
-.lang-flag.is-active{border-color:var(--color-primary)}
+/* (Removed: .lang-switch wrapper + .lang-trigger button + .lang-panel popover.
+   The language flags are now nested inside the .settings-panel as one of
+   its two sections. The .lang-flag rule below still applies — it's the
+   only piece of the old lang-toggle that survives because the new partial
+   reuses it inside the settings popover. */
+.lang-flag{display:inline-flex;align-items:center;justify-content:center;padding:4px;border-radius:6px;border:1px solid transparent;background:transparent;cursor:pointer;line-height:0;transition:border-color .15s,background .15s,transform .15s}
+.lang-flag:not(.is-active):not([disabled]):hover{border-color:var(--color-on-surface);background:color-mix(in srgb,var(--color-on-surface),transparent 90%);transform:translateY(-1px)}
+.lang-flag:active{transform:translateY(0)}
+.lang-flag.is-active{border-color:var(--color-primary);background:color-mix(in srgb,var(--color-primary),transparent 88%)}
 .lang-flag[disabled]{opacity:.4;cursor:not-allowed}
 .lang-flag svg{display:block;border-radius:2px}
 
 /* BUTTONS */
-.btn-p{display:inline-flex;align-items:center;gap:8px;background:var(--hero-accent,var(--color-terra));color:#fff;padding:14px 28px;border-radius:28px;font-size:15px;font-weight:800;text-decoration:none;transition:all .2s;border:none;cursor:pointer;font-family:var(--font-display)}
-.btn-p:hover{background:var(--hero-accent-strong,var(--color-terra-dark));transform:translateY(-2px);box-shadow:0 14px 36px rgba(224,123,91,.35)}
-.btn-s{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--color-on-surface);padding:14px 26px;border-radius:28px;font-size:15px;font-weight:700;text-decoration:none;border:2px solid var(--hero-outline);transition:all .2s;cursor:pointer;font-family:var(--font-display)}
-.btn-s:hover{border-color:color-mix(in srgb, var(--color-on-surface), transparent 30%);background:color-mix(in srgb, var(--color-on-surface), transparent 94%)}
+/* BUTTONS — single system used by every CTA on the site. The `button.html`
+   partial is the sole call site; everything renders through it so a tweak
+   here propagates to nav, hero, CTA section, etc. Two variants
+   (primary / secondary) and one size modifier (--sm) cover all usages. */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:14px 28px;border-radius:28px;
+  font-size:15px;font-weight:800;
+  font-family:var(--font-display);
+  text-decoration:none;cursor:pointer;
+  border:2px solid transparent;
+  transition:all .2s;
+}
+.btn--primary{
+  background:var(--color-primary);
+  color:var(--color-on-primary);
+}
+.btn--primary:hover{
+  background:color-mix(in srgb, var(--color-primary), black 15%);
+  transform:translateY(-2px);
+  box-shadow:0 14px 36px color-mix(in srgb, var(--color-primary), transparent 65%);
+}
+.btn--secondary{
+  background:transparent;
+  color:var(--color-on-surface);
+  border-color:color-mix(in srgb, var(--color-on-surface), transparent 70%);
+  font-weight:700;
+}
+.btn--secondary:hover{
+  border-color:color-mix(in srgb, var(--color-on-surface), transparent 30%);
+  background:color-mix(in srgb, var(--color-on-surface), transparent 94%);
+}
+/* When a primary CTA sits on a primary-colored surface, the default
+   fill would blend in. Invert here: white surface, primary text. Same
+   `.btn--primary` semantic, contextual visual — no new class needed for
+   callers. Mirrors the form-chrome override pattern.
+   Contexts that trigger the inversion:
+     • #subscribe — section background is --color-primary.
+     • .pcard.feat — the featured pricing card's background is
+       --pricing-feature-bg (= --color-primary). */
+#subscribe .btn--primary,
+.pcard.feat .btn--primary{
+  background:var(--color-white);
+  color:var(--color-primary);
+}
+#subscribe .btn--primary:hover,
+.pcard.feat .btn--primary:hover{
+  background:color-mix(in srgb, var(--color-white), var(--color-primary) 12%);
+}
+
+/* Compact size — used in the nav where the 68px bar can't fit the full
+   button. Same colors + treatment as default, just trimmed padding. */
+.btn--sm{padding:9px 20px;font-size:14px}
+/* Large size — used where the button is the page's main CTA and gets
+   visual emphasis (newsletter signup submit / fallback, subscribe section
+   on the home page). Same colors as default, scaled up on monitors. On
+   small screens the page is already narrow, so the lg padding crowds the
+   button; we fall back to the default .btn size below the breakpoint. */
+.btn--lg{padding:16px 40px;font-size:17px}
+@media (max-width:900px){
+  .btn--lg{padding:14px 28px;font-size:15px}
+}
 
 /* HERO */
-#hero{min-height:100vh;background:var(--hero-bg);padding:64px 0 36px;display:grid;grid-template-columns:2fr 3fr;column-gap:clamp(8px,1.4vw,22px);align-items:center;justify-content:center;position:relative;overflow:hidden;max-width:1360px;width:min(1360px,calc(100% - clamp(28px,5vw,72px)));margin:0 auto}
+#hero{min-height:100vh;background:var(--hero-bg);padding:108px 0 36px;display:grid;grid-template-columns:2fr 3fr;column-gap:clamp(8px,1.4vw,22px);align-items:center;justify-content:center;position:relative;overflow:hidden;max-width:1360px;width:min(1360px,calc(100% - clamp(28px,5vw,72px)));margin:0 auto}
 .hero-left{position:relative;z-index:3;padding-top:20px;max-width:530px;justify-self:start;display:flex;flex-direction:column;align-items:center;text-align:center}
 .logo-big{display:block;margin-bottom:28px;width:min(100%,clamp(240px,28vw,520px))}
 .logo-big svg,.logo-big img{display:block;width:100%;height:auto;max-width:100%}
@@ -166,7 +307,7 @@ body > nav{position:fixed;top:0;left:0;right:0;z-index:200;height:68px;backgroun
 .btns{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
 .trust{margin-top:28px;display:flex;align-items:center;gap:12px}
 .avs{display:flex}
-.av{width:30px;height:30px;border-radius:50%;border:2px solid var(--color-surface);margin-left:-7px;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;color:#fff;background:var(--color-terra)}
+.av{width:30px;height:30px;border-radius:50%;border:2px solid var(--color-surface);margin-left:-7px;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;color:var(--color-white);background:var(--color-terra)}
 .av:first-child{margin-left:0}
 .av:nth-child(2){background:var(--color-purple)}
 .av:nth-child(3){background:var(--color-teal)}
@@ -193,11 +334,48 @@ body > nav{position:fixed;top:0;left:0;right:0;z-index:200;height:68px;backgroun
 /* VIDEO SECTION */
 #video{background:var(--video-bg);padding:90px 6%}
 .video-inner{max-width:1000px;margin:0 auto;text-align:center}
-.tag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:5px 16px;border-radius:20px;margin-bottom:14px}
-.tag-t{background:rgba(224,123,91,.15);color:var(--color-terra-light)}
-.tag-w{background:color-mix(in srgb, var(--color-on-surface), transparent 90%);color:color-mix(in srgb, var(--color-on-surface), transparent 20%)}
+/* Section-header eyebrow. Sits above each section's H2 and announces the
+   section's purpose. Sized to read as a section marker, not a decorative
+   chip — visitors scanning the page register it as the start of a new
+   beat.
+
+   Two variants:
+     .tag-t — solid brand-orange chip with on-primary text. Used on most
+              sections (white/navy/peach surfaces) where the brand pop is
+              the visual lead. Solid (rather than translucent) so it never
+              dissolves into a same-family surface — in particular the
+              light-theme `surfaceDim` (terraPale peach) where the
+              previous transparent tint had vanished.
+     .tag-w — translucent-white chip with on-primary text. Used on sections
+              whose background is `--color-primary` itself (#pain,
+              #subscribe), where the H2 is also on-primary. */
+.tag{
+  display:inline-block;
+  font-size:clamp(16px, 1.6vw, 22px);
+  font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  padding:10px 24px;border-radius:24px;margin-bottom:20px;
+}
+/* Translucent fill (not solid) keeps the chip clearly distinct from the
+   primary button (.btn--primary), which uses the same color pair but
+   solid. The chip reads as a label/badge; the button reads as clickable. */
+.tag-t{background:color-mix(in srgb, var(--color-primary), transparent 80%);color:var(--color-primary)}
+.tag-w{background:color-mix(in srgb, var(--color-on-primary), transparent 80%);color:var(--color-on-primary)}
+
+/* Hero tagline — a decorative strapline sitting under the H1 ("Stop
+   guessing, start knowing"). Distinct from .tag because the role is
+   different: a section eyebrow marks "what section comes next", whereas
+   the tagline is a brand line accompanying the headline. Smaller, lighter
+   tint, no button-like solid fill. */
+.tagline{
+  display:inline-block;
+  font-size:14px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  padding:7px 20px;border-radius:24px;margin-bottom:18px;
+  background:color-mix(in srgb, var(--color-primary), transparent 85%);
+  color:color-mix(in srgb, var(--color-primary), white 25%);
+}
 .stitle{font-size:clamp(26px,3.2vw,44px);font-weight:900;line-height:1.1;letter-spacing:-1px;margin-bottom:14px;color:var(--color-on-surface)}
 .ssub{font-size:clamp(14px,1.3vw,16px);line-height:1.8;font-weight:500;color:color-mix(in srgb, var(--color-on-surface), transparent 40%)}
+.ssub-lead{font-size:clamp(17px,1.7vw,22px);line-height:1.5;font-weight:600;color:var(--color-on-surface);margin-bottom:14px}
 #video .stitle{color:var(--video-title)}
 #video .ssub{color:var(--video-muted)}
 #pain .stitle{color:var(--pain-title)}
@@ -213,12 +391,12 @@ body > nav{position:fixed;top:0;left:0;right:0;z-index:200;height:68px;backgroun
 #setup .ss-c p{color:var(--setup-muted)}
 .video-wrap{margin-top:40px;position:relative;border-radius:20px;overflow:hidden;background:#000;aspect-ratio:16/9;box-shadow:0 30px 80px rgba(0,0,0,.5)}
 .video-wrap video{width:100%;height:100%;object-fit:cover;display:block}
-.video-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(27,43,107,.7),rgba(107,91,158,.4));display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .3s;z-index:2}
+.video-overlay{position:absolute;inset:0;background:linear-gradient(135deg, color-mix(in srgb, var(--color-navy), transparent 30%), color-mix(in srgb, var(--color-purple), transparent 60%));display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .3s;z-index:2}
 .video-overlay.hidden{opacity:0;pointer-events:none}
-.play-btn{width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,.95);display:flex;align-items:center;justify-content:center;margin-bottom:18px;transition:transform .2s;box-shadow:0 8px 32px rgba(0,0,0,.3)}
+.play-btn{width:80px;height:80px;border-radius:50%;background:color-mix(in srgb, var(--color-white), transparent 5%);display:flex;align-items:center;justify-content:center;margin-bottom:18px;transition:transform .2s;box-shadow:0 8px 32px rgba(0,0,0,.3)}
 .play-btn:hover{transform:scale(1.1)}
 .play-btn svg{width:28px;height:28px;margin-left:4px}
-.video-overlay p{font-size:16px;font-weight:700;color:#fff;opacity:.9}
+.video-overlay p{font-size:16px;font-weight:700;color:var(--color-white);opacity:.9}
 .video-stats{display:flex;justify-content:center;gap:40px;margin-top:36px}
 .vstat{text-align:center}
 .vstat-num{font-size:32px;font-weight:900;color:var(--color-on-surface);letter-spacing:-1px}
@@ -229,23 +407,23 @@ body > nav{position:fixed;top:0;left:0;right:0;z-index:200;height:68px;backgroun
 .sec{padding:90px 6%}
 .si{max-width:1120px;margin:0 auto}
 #pain{background:var(--pain-bg)}
-.pain-layout{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-bottom:56px}
-.pain-illo{position:relative}
+#pain .pain-intro{max-width:760px;margin:0 auto 40px}
+.pain-illo{position:relative;max-width:500px;margin:0 auto 56px}
 .pain-illo svg,.pain-illo img{width:100%;max-width:500px;filter:drop-shadow(0 20px 60px rgba(0,0,0,.15))}
-.badge{position:absolute;background:rgba(255,255,255,.95);border-radius:14px;padding:12px 16px;box-shadow:0 8px 30px rgba(0,0,0,.15)}
+.badge{position:absolute;background:color-mix(in srgb, var(--color-white), transparent 5%);border-radius:14px;padding:12px 16px;box-shadow:0 8px 30px rgba(0,0,0,.15)}
 .b1{top:8%;right:-16px;animation:fb1 4s ease-in-out infinite}
 .b2{bottom:8%;left:-16px;animation:fb2 5s ease-in-out infinite}
 @keyframes fb1{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 @keyframes fb2{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-.bl{font-size:10px;color:#999;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
+.bl{font-size:10px;color:color-mix(in srgb, var(--color-navy-dark), transparent 45%);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
 .bv{font-size:18px;font-weight:900;color:var(--color-navy)}
-.bt{font-size:11px;font-weight:700;color:#22c55e;margin-top:2px}
+.bt{font-size:11px;font-weight:700;color:var(--color-success);margin-top:2px}
 .pain-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .pc{background:var(--pain-card-bg);border:1px solid var(--pain-card-border);border-radius:var(--radius-large);padding:28px 24px;transition:all .22s}
-.pc:hover{background:rgba(255,255,255,.2);transform:translateY(-5px)}
+.pc:hover{background:color-mix(in srgb, var(--color-white), transparent 80%);transform:translateY(-5px)}
 .pc-icon{font-size:32px;margin-bottom:14px;display:block}
-.pc h3{font-size:17px;font-weight:800;margin-bottom:10px;color:#fff}
-.pc p{font-size:14px;color:rgba(255,255,255,.82);line-height:1.75;font-weight:500}
+.pc h3{font-size:17px;font-weight:800;margin-bottom:10px;color:var(--pain-title)}
+.pc p{font-size:14px;color:var(--pain-muted);line-height:1.75;font-weight:500}
 
 /* FEATURES */
 .feat-section{padding:0;background:none}
@@ -257,25 +435,116 @@ body > nav{position:fixed;top:0;left:0;right:0;z-index:200;height:68px;backgroun
 .fp-right{display:flex;align-items:flex-end;justify-content:flex-end;position:relative}
 .fp-illo{width:100%;max-width:520px;height:auto;display:block}
 .fp-flip{transform:scaleX(-1)}
-.fp-heading-intro{font-size:clamp(32px,4vw,52px);font-weight:900;color:#fff;line-height:1.08;letter-spacing:-1px}
-.fp-sub{font-size:clamp(13px,1.2vw,15px);color:rgba(255,255,255,.7);line-height:1.8;font-weight:500;max-width:380px}
-.fp-title{font-size:clamp(28px,3.5vw,46px);font-weight:900;line-height:1.08;letter-spacing:-1px}
+.fp-heading-intro{font-size:clamp(32px,4vw,52px);font-weight:900;color:var(--color-on-surface);line-height:1.08;letter-spacing:-1px}
+.fp-sub{font-size:clamp(13px,1.2vw,15px);line-height:1.8;font-weight:500;max-width:380px}
+/* Feature-panel title — sized smaller than the section H2 (.stitle, which
+   clamps 26-44px) so the parent section's header stays the dominant beat
+   and these read as subsections nested inside it. */
+.fp-title{font-size:clamp(22px,2.6vw,34px);font-weight:900;line-height:1.1;letter-spacing:-1px}
+
+/* Subsection marker — small uppercase eyebrow above each feature panel's
+   H3. Echoes the parent section's eyebrow ("How it works") + a step
+   number so visitors clearly see they're still inside the parent. */
+.fp-step{
+  display:inline-block;
+  font-size:12px;font-weight:800;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:color-mix(in srgb, var(--color-on-surface), transparent 35%);
+  margin-bottom:14px;
+}
+.fp-step::before{
+  content:'';display:inline-block;
+  width:24px;height:1px;
+  background:var(--color-primary);
+  vertical-align:middle;
+  margin-right:10px;
+}
+
+/* Intro panel's feature list — replaces the decorative icon grid with a
+   navigable bullet list. Each item links to a lower feature panel. */
+.fp-bullets{list-style:none;display:flex;flex-direction:column;gap:0;padding:0;margin:0}
+.fp-bullets li{border-bottom:1px solid color-mix(in srgb, var(--color-on-surface), transparent 88%)}
+.fp-bullets li:first-child{border-top:1px solid color-mix(in srgb, var(--color-on-surface), transparent 88%)}
+.fp-bullets a{
+  display:flex;align-items:center;gap:14px;
+  padding:14px 4px;
+  font-size:clamp(15px,1.3vw,17px);font-weight:600;
+  color:var(--color-on-surface);
+  text-decoration:none;
+  transition:color .15s, transform .15s, padding .15s;
+}
+.fp-bullets a:hover{color:var(--color-primary);padding-left:8px}
+.fp-bullet-icon{
+  font-family:'Material Symbols Rounded';font-weight:normal;
+  font-size:24px;line-height:1;flex-shrink:0;
+  color:var(--color-primary);
+  font-variation-settings:'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+.fp-bullet-label{flex:1}
+.fp-bullet-arrow{
+  font-size:18px;font-weight:800;
+  color:color-mix(in srgb, var(--color-on-surface), transparent 55%);
+  transition:color .15s, transform .15s;
+}
+.fp-bullets a:hover .fp-bullet-arrow{color:var(--color-primary);transform:translateX(4px)}
 .fp-desc{font-size:clamp(13px,1.2vw,15px);line-height:1.85;font-weight:500;max-width:420px}
 .fp-icon-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:240px;margin-top:8px}
 .fp-icon-grid img{width:100%;height:auto;display:block}
-.fp-icon-grid-intro{max-width:340px;gap:24px;align-self:center;justify-self:center}
-.fp-right-duo{gap:0;align-items:flex-end;justify-content:flex-end}
-.fp-right-duo .fp-illo{position:relative;z-index:2}
-/* illustration stack — icon absolutely behind feature SVG, same pattern as hero-01 behind hero-02 */
-.fp-illo-stack{position:relative;width:100%;max-width:520px}
-.fp-illo-stack .fp-illo{position:relative;z-index:2;width:100%;max-width:100%}
-.fp-icon-sm{position:absolute;width:100%;height:100%;flex:none;margin:0;z-index:1;top:0px;left:0px}
+/* Intro-grid icons rendered as Material Symbols Rounded glyphs (variable
+   font loaded in head/fonts.html, subset to just these names). Each <span>
+   contains the icon's name as text; the font's ligature feature renders
+   it as a glyph. Theming via standard `color:` — no mask/background dance.
+   `font-variation-settings` keeps Fill=1 for solid glyphs (closer to the
+   original Illustrator scenes' visual heft than thin outlines).
+   font-size IS the glyph height; pair with a sane grid-cell size and skip
+   the legacy nth-child scale() transforms below — those were calibrated
+   for tiny intrinsic-sized <img> elements and would now compound the
+   font's already-explicit pixel size into oversized chaos. */
+.fp-grid-icon{font-family:'Material Symbols Rounded';font-weight:normal;font-style:normal;font-size:72px;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;text-align:center;white-space:nowrap;word-wrap:normal;direction:ltr;color:var(--color-primary);-webkit-font-smoothing:antialiased;font-feature-settings:'liga';font-variation-settings:'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48}
+/* Per-panel background silhouette — large Material Symbols glyph centred
+   behind each character illustration. Replaces the legacy `.fp-mask-icon`
+   role (which used per-panel hand-tuned SVG silhouettes that were stylistically
+   inconsistent across the set). All panels share the same positioning rule
+   because the silhouette is now a font glyph rendered at a fixed size — no
+   per-panel offset table needed. */
+/* Background silhouette glyph behind each feature panel's character
+   illustration. Positioned left-of-center on .fp-right (was left:50%; now
+   left:25%) so the glyph sits more towards the panel's middle rather than
+   tucked behind the illustration. Color is set per-panel below — see the
+   .fp-N .fp-panel-bg-icon block for the alternate-tone logic. */
+.fp-panel-bg-icon{font-family:'Material Symbols Rounded';font-weight:normal;font-style:normal;font-size:360px;line-height:1;letter-spacing:normal;text-transform:none;white-space:nowrap;direction:ltr;position:absolute;top:50%;left:25%;transform:translate(-50%,-50%);z-index:1;pointer-events:none;-webkit-font-smoothing:antialiased;font-feature-settings:'liga';font-variation-settings:'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48}
 
-/* ── Panel 1 icon grid — translate px = position offset, scale = size (1 = 100%, 0.8 = 80%) ── */
-.fp-icon-grid-intro img:nth-child(1){transform:translate(0px,-25px) scale(2.3)}   /* esio-icon02 */
-.fp-icon-grid-intro img:nth-child(2){transform:translate(0px,-25px) scale(2.5)}   /* esio-icon03 */
-.fp-icon-grid-intro img:nth-child(3){transform:translate(0px,10px) scale(2.2)}   /* esio-icon01 */
-.fp-icon-grid-intro img:nth-child(4){transform:translate(0px,10px) scale(2)}   /* esio-icon05 */
+/* Each panel's background alternates between two surface tones
+   (fp-1/3/5 use --color-panel-1; fp-2/4 use --color-panel-2). The bg
+   silhouette flips to the other tone so it reads as a subtle watermark
+   in the same colour family as the panel — dark blue panel → light blue
+   glyph, light blue panel → dark blue glyph. Works in every theme because
+   --color-panel-N is theme-mapped in hugo.toml [params.theme.*.panels]. */
+.fp-1 .fp-panel-bg-icon,
+.fp-3 .fp-panel-bg-icon,
+.fp-5 .fp-panel-bg-icon{color:var(--color-panel-2)}
+.fp-2 .fp-panel-bg-icon,
+.fp-4 .fp-panel-bg-icon{color:var(--color-panel-1)}
+.fp-right .fp-illo{position:relative;z-index:2}
+.fp-icon-grid-intro{max-width:340px;gap:24px;align-self:center;justify-self:center}
+/* (Removed: `.fp-right-duo`, `.fp-illo-stack`, `.fp-icon-sm` and the per-panel
+   `.fp-N .fp-icon-sm` positioning rules. They composed a CSS-mask silhouette
+   *behind* each feature-panel character — but stretching a 24×24 Lucide icon
+   to ~600×600 produced ~50px-wide strokes that bore no resemblance to the
+   crisp icon in the source file. The role wasn't repairable without
+   commissioning purpose-drawn decorative shapes, so the silhouette is gone
+   and each feature panel renders its character illustration without a
+   mystery glyph behind it. The intro-grid `.fp-grid-icon` use case stays —
+   that one renders the same SVGs at proper icon scale (110×110). */
+
+/* (Removed: `.fp-icon-grid-intro > :nth-child(N)` translate+scale transforms.
+   They were calibrated to blow up intrinsically-tiny <img> elements
+   (where the SVG renderer collapsed the 1920×1080 viewBox to a small
+   default box). With Material Symbols font glyphs, font-size IS the
+   pixel size — multiplying by 2-2.5× via transform produces the
+   overlapping mess from the screenshot. Cells are now sized purely by
+   the grid (max-width 340px / 2 cols = ~158px each) and the 72px glyph
+   sits comfortably inside with margin to spare. */
 /* ── Panel 1 SVG (features-02) — translate px = position offset, scale = size ── */
 .fp-1 .fp-illo{transform:translate(0px,0px) scale(1)}
 
@@ -290,45 +559,34 @@ body > nav{position:fixed;top:0;left:0;right:0;z-index:200;height:68px;backgroun
 
 /* ── Panel 5 SVG (features-04) — translate px = position offset, scale = size ── */
 .fp-5 .fp-illo{transform:translate(0px,0px) scale(1)}
-/* ── Panel 2 icon (esio-icon05) — top / left px = position | width / height % = size ── */
-.fp-2 .fp-icon-sm{top:-50px;left:-155px;width:80%;height:80%}
-/* ── Panel 3 icon (esio-icon01) — top / left px = position | width / height % = size ── */
-.fp-3 .fp-icon-sm{top:-110px;left:-160px;width:90%;height:100%}
-/* ── Panel 4 icon (esio-icon02) — top / left px = position | width / height % = size ── */
-.fp-4 .fp-icon-sm{top:-100px;left:-160px;width:90%;height:100%}
-/* ── Panel 5 icon (esio-icon03) — top / left px = position | width / height % = size ── */
-.fp-5 .fp-icon-sm{top:-100px;left:-200px;width:100%;height:100%}
-.fp-mask-icon{display:block;background:var(--color-terra)}
-.fp-icon-01{-webkit-mask:url('/assets/esio-icon01.svg') center/contain no-repeat;mask:url('/assets/esio-icon01.svg') center/contain no-repeat}
-.fp-icon-02{-webkit-mask:url('/assets/esio-icon02.svg') center/contain no-repeat;mask:url('/assets/esio-icon02.svg') center/contain no-repeat}
-.fp-icon-03{-webkit-mask:url('/assets/esio-icon03.svg') center/contain no-repeat;mask:url('/assets/esio-icon03.svg') center/contain no-repeat}
-.fp-icon-05{-webkit-mask:url('/assets/esio-icon05.svg') center/contain no-repeat;mask:url('/assets/esio-icon05.svg') center/contain no-repeat}
+/* (Removed: per-panel `.fp-N .fp-icon-sm` positioning + four `.fp-icon-0N`
+   mask URL rules + `.fp-mask-icon` background-paint rule. The icons have
+   moved under assets/icons/ (Hugo asset pipeline, fingerprinted), and the
+   only remaining consumer is the intro-grid `.fp-grid-icon` spans whose
+   mask URL is set inline via Hugo's resources.Get in features.html.) */
 
 /* Panel colours.
-   Backgrounds come from theme-aware --color-panel-N tokens (set in styles.css
-   per [data-theme]). Text on dark-bg panels uses on-surface so it flips
-   alongside the theme; text on always-light panels stays anchored to navy
-   for legibility regardless of mode. */
+   Backgrounds come from theme-aware --color-panel-N tokens (emitted by
+   styles.css per [data-theme]). Each theme's panels alternate between two
+   surface tones (see [params.theme.*.panels] in hugo.toml): a calm rhythm,
+   not 5 distinct colours. Text colour is uniformly --color-on-surface
+   because both alternating tones are paired with the same on-surface
+   contrast in every theme. */
 .fp-1{background:var(--color-panel-1)}
-.fp-1 .fp-title,.fp-1 .fp-sub{color:var(--color-on-surface)}
-.fp-1 .fp-sub{color:color-mix(in srgb, var(--color-on-surface), transparent 35%)}
 .fp-2{background:var(--color-panel-2)}
-.fp-2 .fp-title,.fp-2 .fp-desc{color:var(--color-navy-dark)}
 .fp-3{background:var(--color-panel-3)}
-.fp-3 .fp-title,.fp-3 .fp-desc{color:var(--color-navy-dark)}
 .fp-4{background:var(--color-panel-4)}
-.fp-4 .fp-title{color:#fff}
-.fp-4 .fp-desc{color:rgba(255,255,255,.78)}
 .fp-5{background:var(--color-panel-5)}
-.fp-5 .fp-title,.fp-5 .fp-desc{color:var(--color-navy-dark)}
+.fp-title,.fp-desc{color:var(--color-on-surface)}
+.fp-sub{color:color-mix(in srgb, var(--color-on-surface), transparent 35%)}
 
 /* HOW */
 #how{background:var(--how-bg)}
 .how-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;margin-top:52px;position:relative}
 .how-steps::before{content:'';position:absolute;top:36px;left:16.5%;right:16.5%;height:2px;background:linear-gradient(90deg,var(--how-accent),var(--color-purple));opacity:.4}
 .step{text-align:center;position:relative;z-index:1}
-.step-num{width:72px;height:72px;border-radius:50%;background:var(--how-accent);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;color:#fff;margin:0 auto 22px;position:relative}
-.step-num::after{content:'';position:absolute;inset:-5px;border-radius:50%;border:2px solid rgba(224,123,91,.3)}
+.step-num{width:72px;height:72px;border-radius:50%;background:var(--how-accent);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;color:var(--color-on-primary);margin:0 auto 22px;position:relative}
+.step-num::after{content:'';position:absolute;inset:-5px;border-radius:50%;border:2px solid color-mix(in srgb, var(--color-terra), transparent 70%)}
 .step h3{font-size:17px;font-weight:800;color:var(--color-on-surface);margin-bottom:10px}
 .step p{font-size:14px;color:color-mix(in srgb, var(--color-on-surface), transparent 40%);line-height:1.8;font-weight:500;max-width:240px;margin:0 auto}
 .how-bottom{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-top:70px;padding-top:60px;border-top:1px solid color-mix(in srgb, var(--color-on-surface), transparent 92%)}
@@ -350,24 +608,25 @@ body > nav{position:fixed;top:0;left:0;right:0;z-index:200;height:68px;backgroun
 .pcard.feat{background:var(--pricing-feature-bg);border-color:var(--pricing-feature-bg)}
 .fbadge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--color-yellow);color:var(--color-navy);font-size:11px;font-weight:800;padding:5px 18px;border-radius:20px;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
 .pname{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:color-mix(in srgb, var(--color-on-surface), transparent 45%);margin-bottom:12px}
-.pcard.feat .pname{color:rgba(255,255,255,.85)}
+.pcard.feat .pname{color:color-mix(in srgb, var(--color-on-primary), transparent 15%)}
 .pprice{font-size:50px;font-weight:900;color:var(--color-on-surface);line-height:1;margin-bottom:6px}
-.pcard.feat .pprice{color:#fff}
+.pcard.feat .pprice{color:var(--color-on-primary)}
 .pcurrency{font-size:18px;font-weight:600;vertical-align:top;margin-top:8px;display:inline-block;opacity:.7}
 .pperiod{font-size:13px;color:color-mix(in srgb, var(--color-on-surface), transparent 55%);margin-bottom:22px;font-weight:600}
-.pcard.feat .pperiod{color:rgba(255,255,255,.75)}
+.pcard.feat .pperiod{color:color-mix(in srgb, var(--color-on-primary), transparent 25%)}
 .pdesc{font-size:14px;color:color-mix(in srgb, var(--color-on-surface), transparent 35%);line-height:1.7;margin-bottom:24px;font-weight:500;border-bottom:1px solid color-mix(in srgb, var(--color-on-surface), transparent 90%);padding-bottom:24px}
-.pcard.feat .pdesc{color:rgba(255,255,255,.88);border-color:rgba(255,255,255,.2)}
+.pcard.feat .pdesc{color:color-mix(in srgb, var(--color-on-primary), transparent 12%);border-color:color-mix(in srgb, var(--color-on-primary), transparent 80%)}
 .pfeats{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:30px;flex:1}
 .pfeats li{font-size:14px;color:color-mix(in srgb, var(--color-on-surface), transparent 28%);font-weight:500;display:flex;align-items:flex-start;gap:10px;line-height:1.5}
-.pcard.feat .pfeats li{color:rgba(255,255,255,.92)}
+.pcard.feat .pfeats li{color:color-mix(in srgb, var(--color-on-primary), transparent 8%)}
 .pfeats li::before{content:'\2713';color:var(--color-teal);font-weight:900;font-size:14px;flex-shrink:0;margin-top:1px}
-.pcard.feat .pfeats li::before{color:#fff}
-.pcta{display:block;text-align:center;padding:14px 24px;border-radius:28px;font-size:15px;font-weight:800;text-decoration:none;transition:all .2s;font-family:var(--font-display);margin-top:auto}
-.cta-g{background:transparent;color:var(--color-on-surface);border:2px solid color-mix(in srgb, var(--color-on-surface), transparent 72%)}
-.cta-g:hover{border-color:var(--color-on-surface);background:color-mix(in srgb, var(--color-on-surface), transparent 92%)}
-.cta-f{background:#fff;color:var(--color-terra-dark);border:2px solid transparent}
-.cta-f:hover{background:var(--color-terra-pale)}
+.pcard.feat .pfeats li::before{color:var(--color-on-primary)}
+/* Pricing cards use the unified .btn system. Layout-only rule: stretch
+   to card width and push to the card's bottom edge. The button's color
+   treatment comes from .btn--primary / .btn--secondary; the featured
+   card's primary-bg context triggers the same inversion as #subscribe
+   (see BUTTONS block — .pcard.feat .btn--primary is listed there). */
+.pcard .btn{display:flex;justify-content:center;width:100%;margin-top:auto}
 
 /* SETUP */
 #setup{background:var(--setup-bg)}
@@ -375,9 +634,9 @@ body > nav{position:fixed;top:0;left:0;right:0;z-index:200;height:68px;backgroun
 .setup-grid svg,.setup-grid img{width:100%;max-width:460px}
 .ssteps{display:flex;flex-direction:column;gap:24px;margin-top:32px}
 .sstep{display:flex;gap:18px;align-items:flex-start}
-.ss-n{width:40px;height:40px;border-radius:50%;background:var(--setup-accent);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff;flex-shrink:0}
+.ss-n{width:40px;height:40px;border-radius:50%;background:var(--setup-accent);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:var(--color-on-primary);flex-shrink:0}
 .ss-c h4{font-size:16px;font-weight:800;color:var(--color-on-surface);margin-bottom:6px}
-.ss-c p{font-size:14px;color:rgba(255,255,255,.65);line-height:1.75;font-weight:500}
+.ss-c p{font-size:14px;color:color-mix(in srgb, var(--color-on-surface), transparent 35%);line-height:1.75;font-weight:500}
 
 /* CTA */
 #cta{background:var(--cta-bg);padding:100px 6%;text-align:center}
@@ -392,21 +651,24 @@ body > nav{position:fixed;top:0;left:0;right:0;z-index:200;height:68px;backgroun
 .sub-text h2{color:var(--subscribe-title);font-size:clamp(28px,3vw,42px);font-weight:900;letter-spacing:-1px;margin-bottom:16px}
 .sub-text p{color:var(--subscribe-muted);font-size:16px;line-height:1.8;font-weight:500;margin-bottom:28px}
 .sub-benefits{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:32px}
-.sub-benefits li{display:flex;align-items:center;gap:10px;font-size:14px;color:rgba(255,255,255,.9);font-weight:600}
-.sub-benefits li::before{content:'\2713';width:22px;height:22px;background:rgba(255,255,255,.2);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0}
-.form-box{background:rgba(255,255,255,.12);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.2);border-radius:var(--radius-large);padding:40px}
-.form-title{font-size:20px;font-weight:800;color:#fff;margin-bottom:6px}
-.form-sub-t{font-size:14px;color:rgba(255,255,255,.72);margin-bottom:28px;font-weight:500}
-.fg{margin-bottom:16px}
-.fg label{display:block;font-size:11px;font-weight:800;color:rgba(255,255,255,.75);margin-bottom:6px;letter-spacing:.06em;text-transform:uppercase}
-.fg input,.fg select{width:100%;padding:13px 16px;border-radius:12px;border:1.5px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);color:#fff;font-size:14px;font-family:var(--font-display);font-weight:500;outline:none;transition:border-color .18s;-webkit-appearance:none}
-.fg input::placeholder{color:rgba(255,255,255,.4)}
-.fg input:focus,.fg select:focus{border-color:rgba(255,255,255,.6)}
-.fg select option{color:var(--color-navy);background:#fff}
+.sub-benefits li{display:flex;align-items:center;gap:10px;font-size:14px;color:color-mix(in srgb, var(--color-on-primary), transparent 10%);font-weight:600}
+.sub-benefits li::before{content:'\2713';width:22px;height:22px;background:color-mix(in srgb, var(--color-white), transparent 80%);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0;color:var(--color-on-primary)}
+/* Form chrome — defaults assume the form sits on a surface (the /newsletter/
+   page wraps in <main class="bg-surface">). The #subscribe section below
+   overrides these defaults because that section's background is the
+   primary color, where text/contrast pair flips to on-primary. */
+.form-box{background:color-mix(in srgb, var(--color-on-surface), transparent 92%);backdrop-filter:blur(16px);border:1px solid color-mix(in srgb, var(--color-on-surface), transparent 80%);border-radius:var(--radius-large);padding:40px}
+.form-title{font-size:20px;font-weight:800;color:var(--color-on-surface);margin-bottom:6px}
+.form-sub-t{font-size:14px;color:color-mix(in srgb, var(--color-on-surface), transparent 28%);margin-bottom:28px;font-weight:500}
 .frow{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.btn-sub{width:100%;padding:15px;border-radius:28px;font-size:16px;font-weight:800;background:#fff;color:var(--color-terra-dark);border:none;cursor:pointer;font-family:var(--font-display);transition:all .2s;margin-top:6px}
-.btn-sub:hover{background:var(--color-terra-pale);transform:translateY(-2px)}
-.form-note{font-size:12px;color:rgba(255,255,255,.55);text-align:center;margin-top:14px;font-weight:500}
+.form-note{font-size:12px;color:color-mix(in srgb, var(--color-on-surface), transparent 45%);text-align:center;margin-top:14px;font-weight:500}
+
+/* #subscribe context — section background is --color-primary, so the
+   form chrome flips to the on-primary contrast pair. */
+#subscribe .form-box{background:color-mix(in srgb, var(--color-white), transparent 88%);border-color:color-mix(in srgb, var(--color-white), transparent 80%)}
+#subscribe .form-title{color:var(--color-on-primary)}
+#subscribe .form-sub-t{color:color-mix(in srgb, var(--color-on-primary), transparent 28%)}
+#subscribe .form-note{color:color-mix(in srgb, var(--color-on-primary), transparent 45%)}
 
 /* FOOTER */
 footer{background:var(--footer-bg);padding:60px 0 36px}
@@ -436,11 +698,9 @@ footer{background:var(--footer-bg);padding:60px 0 36px}
   .hero-right{width:min(100%,560px);justify-self:center;align-self:center;margin-top:14px}
   .hero-chart-bg{width:600px;height:600px;top:46%;left:50%}
   .hero-illo{max-width:560px}
-  .pain-layout,.setup-grid,.sub-grid,.how-bottom{grid-template-columns:1fr}
+  .setup-grid,.sub-grid,.how-bottom{grid-template-columns:1fr}
   .pain-cards,.fl,.how-steps,.price-grid{grid-template-columns:1fr}
-  .pain-layout>div:last-child{display:flex;flex-direction:column;align-items:center;text-align:center}
-  .pain-layout>div:last-child .ssub{margin:0 auto}
-  .pain-illo{width:min(100%,560px);margin:0 auto}
+  .pain-illo{width:min(100%,500px);margin:0 auto 40px}
   .pain-illo svg,.pain-illo img{display:block;margin:0 auto}
   .b1{top:10%;right:clamp(8px,4vw,18px)}
   .b2{left:clamp(8px,4vw,18px)}
@@ -489,7 +749,22 @@ footer{background:var(--footer-bg);padding:60px 0 36px}
 .video-inner-compact{max-width:960px;margin:0 auto;text-align:center}
 .video-sub{max-width:520px;margin:0 auto 40px}
 .video-frame{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:20px}
-.bt-deadline{color:var(--color-terra-dark)}
+.bt-deadline{color:var(--color-primary)}
+
+/* Status utility classes — apply the in-app palette (see hugo.toml [params.colors])
+   to inline status text, badge variants, variance indicators, and any future
+   "what does this number mean" surface. The classes also pin the tokens against
+   Tailwind v4's tree-shaking so they stay available for direct `var(--color-*)`
+   reference too.
+   Note: --color-warning is a pale citrus (#e8e971) — fails WCAG AA as text
+   on white. Use it as a *background* for caution badges (with dark text via
+   --color-on-surface), not as text on light surfaces. The deeper variant
+   (--rz-warning-dark #918908 in the app) would be needed for caution-text;
+   import it if/when that role appears. */
+.status-success{color:var(--color-success)}
+.status-danger {color:var(--color-danger)}
+.status-warning{color:var(--color-warning)}
+.status-info   {color:var(--color-info)}
 .smart-title{font-size:clamp(22px,2.6vw,36px)}
 .smart-sub{margin-top:14px}
 .smart-actions{margin-top:28px;display:flex;gap:12px;flex-wrap:wrap}
@@ -500,25 +775,27 @@ footer{background:var(--footer-bg);padding:60px 0 36px}
 .sub-avatars{margin-bottom:10px}
 .av-purple{background:var(--color-purple)}
 .av-teal{background:var(--color-teal)}
-.trust-eu{font-size:13px;color:rgba(255,255,255,.7);font-weight:600}
+.trust-eu{font-size:13px;color:color-mix(in srgb, var(--color-on-primary), transparent 30%);font-weight:600}
 .form-box-center{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:48px 40px}
 .form-title-lg{font-size:26px}
 .form-sub-center{text-align:center;font-size:16px;line-height:1.7}
-.btn-sub-link{text-decoration:none;display:inline-block;text-align:center;font-size:18px;padding:18px 48px;border-radius:50px}
+/* (Removed: .btn-sub / .btn-sub-link. The subscribe section's CTA and the
+   newsletter form's submit + fallback now all render through the unified
+   .btn / .btn--primary system via the button partial.) */
 
 /* NEWSLETTER FORM — actual <input> styling inside .form-box on /newsletter/.
    The site's other "form" sections (subscribe.html) are text + link, so input
    styling didn't exist; this matches the glassmorphic aesthetic of .form-box. */
 .newsletter-form{display:flex;flex-direction:column;gap:14px;width:100%;max-width:420px}
-.newsletter-form .form-label{font-size:13px;color:rgba(255,255,255,.85);font-weight:600;align-self:flex-start;margin-bottom:-8px}
-.newsletter-form .form-input{width:100%;padding:14px 18px;border-radius:var(--radius-base);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#fff;font-size:15px;font-family:var(--font-display);transition:border-color .2s,background .2s}
-.newsletter-form .form-input::placeholder{color:rgba(255,255,255,.45)}
-.newsletter-form .form-input:focus{outline:none;border-color:var(--color-terra);background:rgba(255,255,255,.12)}
-.newsletter-form altcha-widget{align-self:stretch;margin-top:6px;--altcha-color-base:rgba(255,255,255,.08);--altcha-color-border:rgba(255,255,255,.18);--altcha-color-text:#fff;--altcha-border-radius:var(--radius-base)}
+.newsletter-form .form-label{font-size:13px;color:color-mix(in srgb, var(--color-on-surface), transparent 15%);font-weight:600;align-self:flex-start;margin-bottom:-8px}
+.newsletter-form .form-input{width:100%;padding:14px 18px;border-radius:var(--radius-base);background:color-mix(in srgb, var(--color-on-surface), transparent 92%);border:1px solid color-mix(in srgb, var(--color-on-surface), transparent 80%);color:var(--color-on-surface);font-size:15px;font-family:var(--font-display);transition:border-color .2s,background .2s}
+.newsletter-form .form-input::placeholder{color:color-mix(in srgb, var(--color-on-surface), transparent 50%)}
+.newsletter-form .form-input:focus{outline:none;border-color:var(--color-primary);background:color-mix(in srgb, var(--color-on-surface), transparent 88%)}
+.newsletter-form altcha-widget{align-self:stretch;margin-top:6px;--altcha-color-base:color-mix(in srgb, var(--color-on-surface), transparent 92%);--altcha-color-border:color-mix(in srgb, var(--color-on-surface), transparent 80%);--altcha-color-text:var(--color-on-surface);--altcha-border-radius:var(--radius-base)}
 .newsletter-status{font-size:14px;font-weight:600;text-align:center;margin:8px 0 0;min-height:1.4em;line-height:1.4}
-.newsletter-status.is-pending{color:rgba(255,255,255,.75)}
-.newsletter-status.is-success{color:#a7f3a3}
-.newsletter-status.is-error{color:#ffb4a8}
+.newsletter-status.is-pending{color:color-mix(in srgb, var(--color-on-surface), transparent 25%)}
+.newsletter-status.is-success{color:color-mix(in srgb, var(--color-success), white 35%)}
+.newsletter-status.is-error{color:color-mix(in srgb, var(--color-danger), white 50%)}
 
 /* PROSE — long-form content typography (legal, articles, posts, about, contact).
    Hand-rolled because @tailwindcss/typography v0.5.x only partially supports
@@ -558,12 +835,16 @@ footer{background:var(--footer-bg);padding:60px 0 36px}
   .prose-lg h2{font-size:1.625em}
   .prose-lg h3{font-size:1.375em}
 
-  /* prose-invert — light text on the navy surface */
-  .prose-invert{color:#fff}
-  .prose-invert h1,.prose-invert h2,.prose-invert h3,.prose-invert h4,.prose-invert strong{color:#fff}
+  /* prose-invert — light text on a fixed-dark surface (used on legal/article
+     pages embedded in navy sections). Container `color` is set explicitly so
+     inherited-color descendants get the right value; the @tailwindcss/
+     typography plugin's own selectors (h1/p/etc.) consume the --tw-prose-*
+     vars bound below, which are theme-responsive. */
+  .prose-invert{color:var(--color-white)}
+  .prose-invert h1,.prose-invert h2,.prose-invert h3,.prose-invert h4,.prose-invert strong{color:var(--color-white)}
   .prose-invert a{color:var(--color-terra-light)}
-  .prose-invert blockquote{color:rgba(255,255,255,.85)}
-  .prose-invert code{background:rgba(255,255,255,.08)}
+  .prose-invert blockquote{color:color-mix(in srgb, var(--color-white), transparent 15%)}
+  .prose-invert code{background:color-mix(in srgb, var(--color-white), transparent 92%)}
 }
 
 /* Bind @tailwindcss/typography's internal CSS variables to our M3 tokens.
@@ -624,4 +905,22 @@ footer{background:var(--footer-bg);padding:60px 0 36px}
 .team-cta p{font-size:16px;color:color-mix(in srgb,var(--color-on-surface),transparent 25%);margin:0 0 12px}
 .team-cta-link{display:inline-flex;align-items:center;gap:8px;color:var(--color-primary);font-weight:700;font-size:16px;text-decoration:none;border-bottom:2px solid var(--color-primary);padding-bottom:2px;transition:color .2s ease,border-color .2s ease}
 .team-cta-link:hover{color:var(--color-terra-light);border-bottom-color:var(--color-terra-light)}
+
+/* ── How it works ────────────────────────────────────────────────────────── */
+.how-section{background:var(--color-surface-dim)}
+.how-section .tc{max-width:760px;margin:0 auto 56px;text-align:center}
+.how-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px}
+.how-step{position:relative;background:var(--color-surface-container-high);border:1px solid color-mix(in srgb,var(--color-on-surface),transparent 90%);border-radius:var(--radius-large);padding:32px 24px 26px;display:flex;flex-direction:column;align-items:flex-start;gap:14px;transition:border-color .2s ease,transform .2s ease}
+.how-step:hover{border-color:color-mix(in srgb,var(--color-on-surface),transparent 75%);transform:translateY(-2px)}
+.how-num{position:absolute;top:-14px;left:24px;width:32px;height:32px;border-radius:50%;background:var(--color-primary);color:var(--color-on-primary);font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px color-mix(in srgb,var(--color-primary),transparent 60%)}
+.how-illo{width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--color-on-surface),transparent 95%);border-radius:var(--radius-base);overflow:hidden;margin-top:4px}
+.how-illo img,.how-illo svg{width:100%;height:100%;object-fit:contain;display:block}
+.how-title{font-size:clamp(17px,1.5vw,20px);font-weight:800;color:var(--color-on-surface);margin:6px 0 0;line-height:1.25;letter-spacing:-.2px}
+.how-body{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;font-size:14px;line-height:1.55;color:color-mix(in srgb,var(--color-on-surface),transparent 30%)}
+.how-body li{position:relative;padding-left:16px}
+.how-body li::before{content:"";position:absolute;left:0;top:.65em;width:6px;height:6px;border-radius:50%;background:var(--color-primary);opacity:.85}
+@media (max-width:520px){
+  .how-grid{grid-template-columns:1fr;gap:28px}
+  .how-num{left:20px}
+}
 

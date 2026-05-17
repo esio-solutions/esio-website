@@ -1,0 +1,19 @@
+id: trial
+name: Trial
+currency: DKK
+yearlyPrice: '0'
+monthlyPrice: '0'
+yearlyPeriod: first 14 days free
+monthlyPeriod: first 14 days free
+description: Start with a free 14-day trial and explore the core tools before choosing a paid plan.
+features:
+- Liquidity Forecasting
+- Accounting software integration (E-conomic/Dinero)
+- Tax Helper
+- Up to 1 budget per account
+cta:
+  label: Notify me at launch →
+  href: /newsletter/
+  style: ghost
+  event: cta-notify-pricing-trial
+featured: false

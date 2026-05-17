@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" fill="none" role="img" aria-label="The platform calculates cashflow, liquidity, tax, debt, and balance sheet">
+  <!-- Big gear -->
+  <g transform="translate(80 120)">
+    <path d="M 0 -48 L 8 -44 L 16 -46 L 22 -38 L 32 -36 L 34 -28 L 42 -24 L 40 -16 L 46 -8 L 42 0 L 46 8 L 40 16 L 42 24 L 34 28 L 32 36 L 22 38 L 16 46 L 8 44 L 0 48 L -8 44 L -16 46 L -22 38 L -32 36 L -34 28 L -42 24 L -40 16 L -46 8 L -42 0 L -46 -8 L -40 -16 L -42 -24 L -34 -28 L -32 -36 L -22 -38 L -16 -46 L -8 -44 Z" fill="#1B2B6B"/>
+    <circle r="20" fill="#FFFFFF"/>
+    <circle r="6" fill="#E07B5B"/>
+  </g>
+
+  <!-- Small gear -->
+  <g transform="translate(140 64)">
+    <path d="M 0 -22 L 5 -20 L 9 -22 L 12 -16 L 18 -14 L 18 -8 L 22 -4 L 20 2 L 22 8 L 18 12 L 18 18 L 12 18 L 9 22 L 5 20 L 0 22 L -5 20 L -9 22 L -12 18 L -18 18 L -18 12 L -22 8 L -20 2 L -22 -4 L -18 -8 L -18 -14 L -12 -16 L -9 -22 L -5 -20 Z" fill="#4DBFB8"/>
+    <circle r="9" fill="#FFFFFF"/>
+    <circle r="3" fill="#4DBFB8"/>
+  </g>
+
+  <!-- Output flow lines into tiles -->
+  <path d="M 128 110 Q 180 100 220 60"  stroke="#1B2B6B" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.45"/>
+  <path d="M 132 116 Q 180 110 220 96"  stroke="#1B2B6B" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.45"/>
+  <path d="M 132 122 Q 180 130 220 132" stroke="#1B2B6B" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.45"/>
+  <path d="M 132 128 Q 180 144 220 168" stroke="#1B2B6B" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.45"/>
+  <path d="M 128 134 Q 180 162 220 204" stroke="#1B2B6B" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.45"/>
+
+  <!-- Tile 1: Cashflow (wavy line) -->
+  <rect x="220" y="44" width="80" height="32" rx="8" fill="#FFFFFF" stroke="#1B2B6B" stroke-width="2"/>
+  <path d="M 228 60 Q 232 54 236 60 T 244 60 T 252 60" stroke="#E07B5B" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <rect x="258" y="54" width="34" height="4" rx="2" fill="#1B2B6B"/>
+  <rect x="258" y="62" width="22" height="3" rx="1.5" fill="#1B2B6B" opacity="0.5"/>
+
+  <!-- Tile 2: Liquidity (droplet) -->
+  <rect x="220" y="80" width="80" height="32" rx="8" fill="#FFFFFF" stroke="#1B2B6B" stroke-width="2"/>
+  <path d="M 240 86 Q 230 98 240 104 Q 250 98 240 86 Z" fill="#4DBFB8"/>
+  <rect x="258" y="90" width="34" height="4" rx="2" fill="#1B2B6B"/>
+  <rect x="258" y="98" width="22" height="3" rx="1.5" fill="#1B2B6B" opacity="0.5"/>
+
+  <!-- Tile 3: Tax (percent) -->
+  <rect x="220" y="116" width="80" height="32" rx="8" fill="#FFFFFF" stroke="#1B2B6B" stroke-width="2"/>
+  <circle cx="232" cy="126" r="3" fill="none" stroke="#F5C842" stroke-width="2"/>
+  <line x1="228" y1="140" x2="244" y2="124" stroke="#F5C842" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="244" cy="138" r="3" fill="none" stroke="#F5C842" stroke-width="2"/>
+  <rect x="258" y="126" width="34" height="4" rx="2" fill="#1B2B6B"/>
+  <rect x="258" y="134" width="22" height="3" rx="1.5" fill="#1B2B6B" opacity="0.5"/>
+
+  <!-- Tile 4: Debt (linked circles) -->
+  <rect x="220" y="152" width="80" height="32" rx="8" fill="#FFFFFF" stroke="#1B2B6B" stroke-width="2"/>
+  <circle cx="234" cy="167" r="7" fill="none" stroke="#6B5B9E" stroke-width="2"/>
+  <circle cx="246" cy="167" r="7" fill="none" stroke="#6B5B9E" stroke-width="2"/>
+  <rect x="258" y="162" width="34" height="4" rx="2" fill="#1B2B6B"/>
+  <rect x="258" y="170" width="22" height="3" rx="1.5" fill="#1B2B6B" opacity="0.5"/>
+
+  <!-- Tile 5: Balance (stacked columns) -->
+  <rect x="220" y="188" width="80" height="32" rx="8" fill="#FFFFFF" stroke="#1B2B6B" stroke-width="2"/>
+  <rect x="228" y="196" width="6" height="16" rx="1" fill="#E07B5B"/>
+  <rect x="238" y="200" width="6" height="12" rx="1" fill="#E07B5B" opacity="0.7"/>
+  <rect x="248" y="204" width="6" height="8" rx="1" fill="#E07B5B" opacity="0.5"/>
+  <rect x="258" y="200" width="34" height="4" rx="2" fill="#1B2B6B"/>
+  <rect x="258" y="208" width="22" height="3" rx="1.5" fill="#1B2B6B" opacity="0.5"/>
+</svg>

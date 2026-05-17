@@ -88,88 +88,62 @@ defaultContentLanguageInSubdir = false
   # Default Open Graph / Twitter Card image. Used on every page that doesn't
   # set its own `image:` or `cover:` in front-matter. Should be 1200x630
   # (1.91:1) so social platforms render the "large summary" card. Drop the
-  # file at static/assets/og-default.jpg (or change the path here).
-  ogImage = "/assets/og-default.jpg"
+  # file at static/assets/share/og-default.jpg (or change the path here).
+  ogImage = "/assets/share/og-default.jpg"
 
   # Optional. If set, emits twitter:site and twitter:creator meta tags.
   # twitterHandle = "@esio_dk"
 
   [params.colors]
-    navy            = "#1B2B6B"
-    navyDark        = "#111E4A"
-    navyMid         = "#243580"
-    purple          = "#6B5B9E"
-    terra           = "#E07B5B"
-    terraDark       = "#C46340"
-    terraLight      = "#F09070"
-    terraPale       = "#FAE8DF"
-    teal            = "#4DBFB8"
-    yellow          = "#F5C842"
-    white           = "#FFFFFF"
-    # Feature-panel pastels (originally hardcoded in esio.css; tokenised here so
-    # they participate in the theme system and can be remapped per mode below).
-    panelLavender   = "#C4B5DE"
-    panelSteel      = "#3A5A8C"
-    panelPeriwinkle = "#9CC5DF"
+    # ESIO brand palette — used by both the Dark theme (default brand) and
+    # Light theme (daytime variant of the same brand).
+    # Signature: navy + terra + white + a panel accent (4 colors that define
+    # the brand's identity). The remaining tokens are functional derivatives:
+    # navy* shades create layered depth, terra* shades cover hover/container
+    # states, and the panel pastels give the feature strip its variety.
+    navy            = "#1B2B6B"  # signature — primary surface (Dark)
+    navyDark        = "#111E4A"  # depth — recessed surfaces
+    navyMid         = "#243580"  # depth — elevated surfaces
+    terra           = "#E07B5B"  # signature — primary accent (both themes)
+    terraDark       = "#C46340"  # state — Dark theme's primaryContainer / hover
+    terraLight      = "#F09070"  # state — Light theme's primaryContainer
+    terraPale       = "#FAE8DF"  # state — Light theme's surfaceDim
+    white           = "#FFFFFF"  # signature — text on dark / surface on light
+    teal            = "#4DBFB8"  # accent — used by marketing SVGs as creative fleck
+    yellow          = "#F5C842"  # accent — "Most Popular" pricing badge (CSS-direct,
+                                 # a saturated attention yellow distinct from
+                                 # status `warning` which is paler / more citrus)
+    purple          = "#6B5B9E"  # accent — decorative avatars + how-steps gradient
+                                 # (CSS-direct, no longer used as a section bg)
 
-    # Alternative palettes. Each block adds the four named colors from the
-    # palette as flat keys (prefixed by palette initials) so the [params.theme]
-    # resolver can `index` them. Unused colors stay emitted as CSS vars — that's
-    # harmless and keeps the system flat.
+    # ─── Status colours ─────────────────────────────────────────────────────
+    # Sourced verbatim from EsioBudget.WebApp/wwwroot/css/site.css (--rz-*
+    # tokens). These are domain-level "what does this number mean" colours
+    # used by both the marketing site (illustrations, status badges) and
+    # the live product (variance indicators, alerts). They're CSS-direct
+    # tokens — not assigned to any theme slot — because a positive number
+    # should always look "positive" regardless of which theme is active.
+    success         = "#386A20"  # forest green — positive variance, on-track, growth
+    danger          = "#b3261e"  # deep red — losses, overdue, error states
+    warning         = "#e8e971"  # citrus yellow — caution, VAT deadlines, review
+    info            = "#085786"  # deep blue — neutral notices, informational banners
 
-    # "Modern Professional"
-    mpNavy          = "#002B4D"  # navy blue
-    mpTeal          = "#0A5F6E"  # deep teal
-    mpCoral         = "#EF525B"  # coral red
-    mpGold          = "#F3C775"  # soft gold
-
-    # "Tech-Forward"
-    tfSlate         = "#374785"  # dark slate blue
-    tfCyan          = "#3ABEFF"  # bright cyan
-    tfPink          = "#EF019F"  # vibrant pink
-    tfPurple        = "#8200FF"  # electric purple
-
-    # "Cultivated Warmth"
-    cwOlive         = "#5C6B51"  # deep olive
-    cwBeige         = "#CCBAA3"  # warm beige
-    cwCoral         = "#DF745E"  # muted coral
-    cwSage          = "#B1CCA3"  # soft sage
-
-    # "Timeless Confidence"
-    tcNavy          = "#1F2937"  # navy blue
-    tcSteel         = "#4B5B75"  # steel blue
-    tcRed           = "#B92B27"  # deep red
-    tcSlate         = "#7C8B99"  # slate gray
-
-    # "Refreshing Summer Fun"
-    sfSky           = "#8ECAE6"  # sky blue (light)
-    sfBlue          = "#219EBC"  # blue green
-    sfNavy          = "#023047"  # deep space blue
-    sfAmber         = "#FFB703"  # amber flame
-    sfOrange        = "#FB8500"  # tiger orange
-
-    # "Sunrise Glow"
-    sgCharcoal      = "#233D4D"  # charcoal blue
-    sgPumpkin       = "#FE7F2D"  # pumpkin spice
-    sgPollen        = "#FCCA46"  # golden pollen
-    sgOlive         = "#A1C181"  # muted olive
-    sgSeagrass      = "#619B8A"  # seagrass
-
-    # "Twilight Comfort"
-    twPrussian      = "#14213D"  # prussian blue
-    twBanana        = "#FFF06D"  # banana cream
-    twIndigo        = "#424969"  # twilight indigo
-    twPowder        = "#BFC9DD"  # powder blue
-    twOrange        = "#FCA311"  # orange
-
-    # "Electric Citrus"
-    ecBlack         = "#071824"  # deep blue-black
-    ecNavy          = "#0D3145"  # dark navy
-    ecLime          = "#DFFF72"  # electric lime
-    ecCyan          = "#4FD1FF"  # bright cyan
-    ecAmber         = "#FFC857"  # warm amber
-    ecOff           = "#F5FAFC"  # off-white
-    ecSlate         = "#A8BBC7"  # slate gray
+    # "App preview" — mirrors the in-app Radzen palette so the marketing
+    # site can preview the actual product UI. Source: EsioBudget.WebApp/
+    # wwwroot/css/site.css (--rz-* tokens). The `eb` prefix is historical —
+    # it documents the source (Esio Budget app) and stays even though the
+    # theme key is now `app-preview`.
+    # Signature: ebPrimary + ebSecondary + ebBaseLight + ebOnBase (4 colors
+    # that define this theme's identity). The rest are functional derivatives
+    # for depth/containers/inverse surfaces.
+    ebPrimary         = "#3481e5"  # bright blue (signature — primary accent)
+    ebPrimaryLight    = "#bcd8ff"  # soft blue (primaryContainer)
+    ebPrimaryDarker   = "#00215d"  # deep navy (inverseSurface / panel fp1)
+    ebSecondary       = "#5b6471"  # slate grey (signature — panel fp4)
+    ebSecondaryLight  = "#c2cddc"  # light slate (panel fp3)
+    ebBase            = "#dfe5ec"  # neutral base (surfaceDim)
+    ebBaseLight       = "#f8fafb"  # almost-white (signature — default surface)
+    ebOnBase          = "#1b1d20"  # near-black (signature — text on surface)
 
   [params.typography]
     fontFamily   = "Plus Jakarta Sans"
@@ -198,18 +172,23 @@ defaultContentLanguageInSubdir = false
       onSurface            = "white"
       primary              = "terra"
       primaryContainer     = "terraDark"
-      onPrimary            = "white"
+      # Dark navy on terra ≈ 5.5:1 contrast (AA body text); white-on-terra was
+      # only ~3:1 (AA large-text only). navy + terra is the brand signature
+      # pair, so the flip also reads as more on-brand.
+      onPrimary            = "navyDark"
       inverseSurface       = "white"
       inverseOnSurface     = "navyDark"
 
-      # Feature-panel backgrounds. Each .fp-N reads its bg from --color-panel-N;
-      # values here are the *names* of brand colors in [params.colors] above.
+      # Feature-panel backgrounds. The intro panel (fp1) uses the elevated
+      # `surfaceContainerHigh` tone (navyMid); the four feature cards alternate
+      # between the page surface (navy) and the elevated tone — a calm
+      # two-tone rhythm rather than 5 distinct colours.
       [params.theme.dark.panels]
-        fp1 = "navy"
-        fp2 = "teal"
-        fp3 = "panelLavender"
-        fp4 = "panelSteel"
-        fp5 = "panelPeriwinkle"
+        fp1 = "navyMid"
+        fp2 = "navy"
+        fp3 = "navyMid"
+        fp4 = "navy"
+        fp5 = "navyMid"
 
     [params.theme.light]
       colorScheme          = "light"
@@ -219,183 +198,49 @@ defaultContentLanguageInSubdir = false
       surfaceContainerHigh = "white"
       onSurface            = "navyDark"
       primary              = "terra"
-      primaryContainer     = "terraPale"
-      onPrimary            = "white"
+      primaryContainer     = "terraLight"  # softer-than-primary tinted bg for
+                                           # chips/hover — distinct from
+                                           # surfaceDim (terraPale)
+      # See dark theme comment — navy text on terra is the higher-contrast,
+      # more on-brand pairing. App-preview theme keeps onPrimary=white
+      # because its primary is bright blue (#3481e5), where white works.
+      onPrimary            = "navyDark"
       inverseSurface       = "navyDark"
       inverseOnSurface     = "white"
 
-      # Light-mode panel mappings. Starting values are conservative — keep
-      # already-pastel panels (lavender, periwinkle, teal) as-is; flip the
-      # dark-bg panels (navy, steel) to lighter tones so the strip stays
-      # readable on a white body.
+      # Two-tone alternation: fp1/3/5 use terraPale (the warm recessed
+      # surface), fp2/4 use white (the default surface). The intro panel
+      # leads with the warm tone; feature cards alternate.
       [params.theme.light.panels]
         fp1 = "terraPale"
-        fp2 = "teal"
-        fp3 = "panelLavender"
-        fp4 = "navyMid"
-        fp5 = "panelPeriwinkle"
+        fp2 = "white"
+        fp3 = "terraPale"
+        fp4 = "white"
+        fp5 = "terraPale"
 
-    # ─── Alternative palettes ───────────────────────────────────────────────
-    # Each block mirrors the dark/light structure. Panel mappings keep
-    # fp1/fp4 dark and fp2/fp3/fp5 mid-light so the existing
-    # `.fp-2/3/5 .fp-title{color:var(--color-navy-dark)}` rules still read OK.
-
-    [params.theme."modern-pro"]
-      colorScheme          = "dark"
-      label                = "theme_modern_pro"
-      surface              = "mpNavy"
-      surfaceDim           = "mpTeal"
-      surfaceContainerHigh = "mpTeal"
-      onSurface            = "white"
-      primary              = "mpCoral"
-      primaryContainer     = "mpGold"
-      onPrimary            = "white"
-      inverseSurface       = "white"
-      inverseOnSurface     = "mpNavy"
-
-      [params.theme."modern-pro".panels]
-        fp1 = "mpNavy"
-        fp2 = "mpGold"
-        fp3 = "mpCoral"
-        fp4 = "mpTeal"
-        fp5 = "mpGold"
-
-    [params.theme."tech-forward"]
-      colorScheme          = "dark"
-      label                = "theme_tech_forward"
-      surface              = "tfSlate"
-      surfaceDim           = "navyDark"
-      surfaceContainerHigh = "tfSlate"
-      onSurface            = "white"
-      primary              = "tfPink"
-      primaryContainer     = "tfPurple"
-      onPrimary            = "white"
-      inverseSurface       = "white"
-      inverseOnSurface     = "tfSlate"
-
-      [params.theme."tech-forward".panels]
-        fp1 = "tfSlate"
-        fp2 = "tfCyan"
-        fp3 = "tfPink"
-        fp4 = "tfPurple"
-        fp5 = "tfCyan"
-
-    [params.theme."cultivated-warmth"]
+    # ─── App preview ────────────────────────────────────────────────────────
+    # Mirrors the in-app palette (EsioBudget.WebApp). Picking this theme on
+    # the marketing site previews the actual product UI: bright-blue primary
+    # on near-white surfaces with slate accents. Light-mode by design.
+    [params.theme."app-preview"]
       colorScheme          = "light"
-      label                = "theme_cultivated_warmth"
-      surface              = "cwBeige"
-      surfaceDim           = "cwSage"
+      label                = "theme_app_preview"
+      surface              = "ebBaseLight"     # almost-white (app default)
+      surfaceDim           = "ebBase"          # slightly darker base
       surfaceContainerHigh = "white"
-      onSurface            = "cwOlive"
-      primary              = "cwCoral"
-      primaryContainer     = "cwSage"
+      onSurface            = "ebOnBase"        # near-black text
+      primary              = "ebPrimary"       # bright blue
+      primaryContainer     = "ebPrimaryLight"  # soft blue
       onPrimary            = "white"
-      inverseSurface       = "cwOlive"
-      inverseOnSurface     = "cwBeige"
+      inverseSurface       = "ebPrimaryDarker" # deep navy
+      inverseOnSurface     = "ebBaseLight"
 
-      [params.theme."cultivated-warmth".panels]
-        fp1 = "cwOlive"
-        fp2 = "cwBeige"
-        fp3 = "cwCoral"
-        fp4 = "cwOlive"
-        fp5 = "cwSage"
-
-    [params.theme."timeless-confidence"]
-      colorScheme          = "dark"
-      label                = "theme_timeless_confidence"
-      surface              = "tcNavy"
-      surfaceDim           = "tcSteel"
-      surfaceContainerHigh = "tcSteel"
-      onSurface            = "white"
-      primary              = "tcRed"
-      primaryContainer     = "tcSlate"
-      onPrimary            = "white"
-      inverseSurface       = "white"
-      inverseOnSurface     = "tcNavy"
-
-      [params.theme."timeless-confidence".panels]
-        fp1 = "tcNavy"
-        fp2 = "tcSlate"
-        fp3 = "tcSlate"
-        fp4 = "tcSteel"
-        fp5 = "tcSlate"
-
-    [params.theme."summer-fun"]
-      colorScheme          = "light"
-      label                = "theme_summer_fun"
-      surface              = "sfSky"
-      surfaceDim           = "sfBlue"
-      surfaceContainerHigh = "white"
-      onSurface            = "sfNavy"
-      primary              = "sfOrange"
-      primaryContainer     = "sfAmber"
-      onPrimary            = "white"
-      inverseSurface       = "sfNavy"
-      inverseOnSurface     = "sfSky"
-
-      [params.theme."summer-fun".panels]
-        fp1 = "sfNavy"
-        fp2 = "sfSky"
-        fp3 = "sfAmber"
-        fp4 = "sfBlue"
-        fp5 = "sfSky"
-
-    [params.theme."sunrise-glow"]
-      colorScheme          = "dark"
-      label                = "theme_sunrise_glow"
-      surface              = "sgCharcoal"
-      surfaceDim           = "sgCharcoal"
-      surfaceContainerHigh = "sgSeagrass"
-      onSurface            = "white"
-      primary              = "sgPumpkin"
-      primaryContainer     = "sgPollen"
-      onPrimary            = "white"
-      inverseSurface       = "white"
-      inverseOnSurface     = "sgCharcoal"
-
-      [params.theme."sunrise-glow".panels]
-        fp1 = "sgCharcoal"
-        fp2 = "sgPollen"
-        fp3 = "sgOlive"
-        fp4 = "sgSeagrass"
-        fp5 = "sgPollen"
-
-    [params.theme."twilight-comfort"]
-      colorScheme          = "dark"
-      label                = "theme_twilight_comfort"
-      surface              = "twPrussian"
-      surfaceDim           = "twPrussian"
-      surfaceContainerHigh = "twIndigo"
-      onSurface            = "white"
-      primary              = "twOrange"
-      primaryContainer     = "twBanana"
-      onPrimary            = "white"
-      inverseSurface       = "twPowder"
-      inverseOnSurface     = "twPrussian"
-
-      [params.theme."twilight-comfort".panels]
-        fp1 = "twPrussian"
-        fp2 = "twBanana"
-        fp3 = "twPowder"
-        fp4 = "twIndigo"
-        fp5 = "twBanana"
-
-    [params.theme."electric-citrus"]
-      colorScheme          = "dark"
-      label                = "theme_electric_citrus"
-      surface              = "ecBlack"
-      surfaceDim           = "ecBlack"
-      surfaceContainerHigh = "ecNavy"
-      onSurface            = "ecOff"
-      primary              = "ecCyan"
-      primaryContainer     = "ecLime"
-      onPrimary            = "ecBlack"
-      inverseSurface       = "ecOff"
-      inverseOnSurface     = "ecBlack"
-
-      [params.theme."electric-citrus".panels]
-        fp1 = "ecBlack"
-        fp2 = "ecLime"
-        fp3 = "ecSlate"
-        fp4 = "ecNavy"
-        fp5 = "ecAmber"
+      # Two-tone alternation: fp1/3/5 use ebBase (the slightly-darker neutral),
+      # fp2/4 use ebBaseLight (the default near-white surface). Mirrors the
+      # in-app section banding.
+      [params.theme."app-preview".panels]
+        fp1 = "ebBase"
+        fp2 = "ebBaseLight"
+        fp3 = "ebBase"
+        fp4 = "ebBaseLight"
+        fp5 = "ebBase"

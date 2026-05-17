@@ -1,43 +1,73 @@
 {{- /*
-  Features section: intro panel + N feature panels (5 total currently).
+  Features section: intro panel + N feature panels.
   Panel index drives the `.fp-N` class for per-panel background colors and
   illustration transforms (defined in esio.css).
+  Data: data/<lang>/index/features/
+    intro.yml       — intro panel (tag, headline, subtitle, iconGrid, illustration)
+    panels/*.yml    — feature panels (alphabetical by filename = panel order)
 */ -}}
-{{- $data := index site.Data site.Language.Lang "sections" "features" -}}
+{{- $data := index site.Data site.Language.Lang "index" "features" -}}
+{{- $intro := $data.intro -}}
 <section id="features" class="feat-section">
 
-  <!-- Panel 1 — Intro -->
+  <!-- Panel 1 — Intro. The center column now holds a bullet list of the
+       features below; each bullet links to the matching subsection panel
+       via `#features-<id>` anchors. Replaces the decorative .fp-icon-grid
+       which duplicated the same information without being navigable. -->
   <div class="feat-panel fp-1">
     <div class="fp-inner fp-inner-intro">
       <div class="fp-left">
-        <span class="tag tag-t">{{ $data.intro.tag }}</span>
-        <h2 class="fp-heading-intro">{{ delimit (split (trim $data.intro.headline "\n") "\n") "<br>" | safeHTML }}</h2>
-        <p class="fp-sub">{{ $data.intro.subtitle }}</p>
+        <span class="tag tag-t">{{ $intro.tag }}</span>
+        <h2 class="fp-heading-intro">{{ delimit (split (trim $intro.headline "\n") "\n") "<br>" | safeHTML }}</h2>
+        <p class="fp-sub">{{ $intro.subtitle }}</p>
       </div>
-      <div class="fp-icon-grid fp-icon-grid-intro" aria-hidden="true">
-        {{- range $data.intro.iconGrid }}
-          <img src="{{ . }}" alt="" loading="lazy" />
+      <ul class="fp-bullets">
+        {{- range $data.panels }}
+          <li>
+            <a href="#features-{{ .id }}">
+              <span class="fp-bullet-icon" aria-hidden="true">{{ .icon }}</span>
+              <span class="fp-bullet-label">{{ delimit (split (trim .title "\n") "\n") " " }}</span>
+              <span class="fp-bullet-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
         {{- end }}
-      </div>
+      </ul>
       <div class="fp-right">
-        <img src="{{ $data.intro.illustration.src }}" alt="{{ $data.intro.illustration.alt }}" class="fp-illo" loading="lazy" />
+        <img src="{{ $intro.illustration.src }}" alt="{{ $intro.illustration.alt }}" class="fp-illo" loading="lazy" />
       </div>
     </div>
   </div>
 
-  {{- range $i, $p := $data.panels }}
-    {{- $n := add $i 2 }}
-    <div class="feat-panel fp-{{ $n }}">
+  {{- /* Feature panels — rendered as subsections of the parent intro.
+     Each panel gets:
+       • id="features-<slug>" so the intro bullets can jump to it.
+       • a .fp-step marker echoing the parent eyebrow + step number
+         so the visitor sees they're still inside "How it works".
+       • H3 title (sized smaller than .stitle so the parent section's
+         H2 stays the dominant header in the hierarchy). */ -}}
+  {{- $i := 1 }}
+  {{- range $k, $p := $data.panels }}
+    {{- $i = add $i 1 }}
+    {{- /* $i counts panel slots starting at 2 (intro is fp-1). Step number
+       = panel index within the feature subsections = $i - 1. Panels are
+       keyed by filename, so $k is a string, not usable for arithmetic. */ -}}
+    {{- $stepNum := sub $i 1 }}
+    <div class="feat-panel fp-{{ $i }} fp-subsection" id="features-{{ $p.id }}">
       <div class="fp-inner">
         <div class="fp-left">
+          <span class="fp-step">{{ $intro.tag }} · 0{{ $stepNum }}</span>
           <h3 class="fp-title">{{ delimit (split (trim $p.title "\n") "\n") "<br>" | safeHTML }}</h3>
           <p class="fp-desc">{{ $p.body }}</p>
         </div>
-        <div class="fp-right fp-right-duo">
-          <div class="fp-illo-stack">
-            <span class="fp-mask-icon fp-icon-sm fp-icon-{{ $p.maskIcon }}" aria-hidden="true"></span>
-            <img src="{{ $p.illustration.src }}" alt="{{ $p.illustration.alt }}" class="fp-illo{{ if $p.flipped }} fp-flip{{ end }}" loading="lazy" />
-          </div>
+        <div class="fp-right">
+          {{- /* Background-silhouette icon — large Material Symbols glyph
+             sitting behind the character illustration. Same glyph the
+             intro-grid uses for this feature, just rendered big as a
+             decorative backdrop. Coloured by var(--color-primary) so it
+             follows the active theme. The character image sits on top via
+             explicit z-index (.fp-illo position:relative z-index:2). */ -}}
+          {{- with $p.icon }}<span class="fp-panel-bg-icon" aria-hidden="true">{{ . }}</span>{{- end }}
+          <img src="{{ $p.illustration.src }}" alt="{{ $p.illustration.alt }}" class="fp-illo{{ if $p.flipped }} fp-flip{{ end }}" loading="lazy" />
         </div>
       </div>
     </div>

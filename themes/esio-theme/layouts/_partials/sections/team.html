@@ -3,41 +3,45 @@
   initials fallback when no photo set), name, role, bio, optional pull quote.
   Closes with a contact CTA so the section answers "who built this and how
   do I talk to them" in one continuous beat.
+  Data: data/<lang>/index/team/
+    intro.yml       — tag, headline, body, cta {text, link_label, link_href}
+    members/*.yml   — team members (alphabetical by filename = display order)
 */ -}}
-{{- $data := index site.Data site.Language.Lang "sections" "team" -}}
+{{- $data := index site.Data site.Language.Lang "index" "team" -}}
 {{- if $data }}
+{{- $intro := $data.intro -}}
 <section class="team-section">
   <div class="team-inner">
 
     <div class="team-intro">
-      {{- with $data.intro.tag }}<span class="tag tag-t">{{ . }}</span>{{- end }}
-      {{- with $data.intro.headline }}<h2 class="team-headline">{{ . }}</h2>{{- end }}
-      {{- with $data.intro.body }}<p class="team-body">{{ . }}</p>{{- end }}
+      {{- with $intro.tag }}<span class="tag tag-t">{{ . }}</span>{{- end }}
+      {{- with $intro.headline }}<h2 class="team-headline">{{ . }}</h2>{{- end }}
+      {{- with $intro.body }}<p class="team-body">{{ . }}</p>{{- end }}
     </div>
 
     {{- with $data.members }}
     <ul class="team-grid">
-      {{- range . }}
+      {{- range $k, $m := . }}
         <li class="team-card">
           <div class="team-photo">
-            {{- if .photo }}
-              <img src="{{ .photo }}" alt="{{ .name }}" loading="lazy" decoding="async" />
+            {{- if $m.photo }}
+              <img src="{{ $m.photo }}" alt="{{ $m.name }}" loading="lazy" decoding="async" />
             {{- else }}
-              <span class="team-initials" aria-hidden="true">{{ substr .name 0 1 | upper }}</span>
+              <span class="team-initials" aria-hidden="true">{{ substr $m.name 0 1 | upper }}</span>
             {{- end }}
           </div>
           <div class="team-content">
-            <h3 class="team-name">{{ .name }}</h3>
-            {{- with .role }}<p class="team-role">{{ . }}</p>{{- end }}
-            {{- with .bio }}<p class="team-bio">{{ . }}</p>{{- end }}
-            {{- with .quote }}<blockquote class="team-quote">&ldquo;{{ . }}&rdquo;</blockquote>{{- end }}
+            <h3 class="team-name">{{ $m.name }}</h3>
+            {{- with $m.role }}<p class="team-role">{{ . }}</p>{{- end }}
+            {{- with $m.bio }}<p class="team-bio">{{ . }}</p>{{- end }}
+            {{- with $m.quote }}<blockquote class="team-quote">&ldquo;{{ . }}&rdquo;</blockquote>{{- end }}
           </div>
         </li>
       {{- end }}
     </ul>
     {{- end }}
 
-    {{- with $data.cta }}
+    {{- with $intro.cta }}
       <div class="team-cta">
         {{- with .text }}<p>{{ . }}</p>{{- end }}
         {{- if and .link_label .link_href }}

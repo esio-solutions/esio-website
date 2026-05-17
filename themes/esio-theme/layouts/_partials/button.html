@@ -1,0 +1,40 @@
+{{- /*
+  Button partial — renders an anchor or submit button styled as a CTA.
+  Single source of truth for every primary/secondary action across the
+  site, including where the primary CTA lands.
+
+  Args (passed via `dict`):
+    href     — link target. For variant="primary" with no href passed, the
+               partial defaults to #pricing on the current language's home
+               page. Pass an explicit href to override (e.g. the newsletter
+               fallback that links to the external hosted form).
+    label    — visible text (required)
+    variant  — "primary" | "secondary"   (default "primary")
+    size     — "sm" | "default"          (default "default")
+    type     — "link" | "submit"         (default "link" → renders <a>;
+                                          "submit" renders <button type="submit">)
+    event    — optional umami event name for tracking
+
+  Usage:
+    {{ partial "button.html" (dict "label" "Get early access" "variant" "primary" "size" "sm") }}
+    {{ partial "button.html" (dict "href" "#video" "label" "Learn more" "variant" "secondary") }}
+    {{ partial "button.html" (dict "type" "submit" "label" "Subscribe" "variant" "primary") }}
+*/ -}}
+{{- $variant := default "primary" .variant -}}
+{{- $size    := default "default" .size -}}
+{{- $type    := default "link" .type -}}
+{{- $href    := .href -}}
+{{- if and (eq $variant "primary") (not $href) -}}
+  {{- /* Default primary destination: #pricing on the current language's
+     home page. site.Home resolves to /  in EN and /da/ in DA. */ -}}
+  {{- $href = printf "%s#pricing" site.Home.RelPermalink -}}
+{{- end -}}
+{{- $cls := printf "btn btn--%s" $variant -}}
+{{- if ne $size "default" -}}
+  {{- $cls = printf "%s btn--%s" $cls $size -}}
+{{- end -}}
+{{- if eq $type "submit" -}}
+<button type="submit" class="{{ $cls }}"{{ with .event }} data-umami-event="{{ . }}"{{ end }}>{{ .label }}</button>
+{{- else -}}
+<a href="{{ $href }}" class="{{ $cls }}"{{ with .event }} data-umami-event="{{ . }}"{{ end }}>{{ .label }}</a>
+{{- end -}}

@@ -1,0 +1,38 @@
+{{- /*
+  How-it-works section. Numbered step cards walking through the workflow
+  from sign-up to ongoing forecast adjustment.
+  Data: data/<lang>/index/how/
+    meta.yml       — tag, headline, subtitle
+    NN-slug.yml    — one step per file (alphabetical by filename = step order)
+*/ -}}
+{{- $data := index site.Data site.Language.Lang "index" "how" -}}
+{{- $meta := $data.meta -}}
+<section id="how" class="sec how-section">
+  <div class="si">
+    <div class="tc">
+      <span class="tag tag-t">{{ $meta.tag }}</span>
+      <h2 class="stitle">{{ $meta.headline }}</h2>
+      <p class="ssub">{{ $meta.subtitle }}</p>
+    </div>
+    <ol class="how-grid">
+      {{- $i := 0 }}
+      {{- range $key, $step := $data }}
+        {{- if ne $key "meta" }}
+          {{- $i = add $i 1 }}
+          <li class="how-step">
+            <span class="how-num" aria-hidden="true">{{ $i }}</span>
+            <div class="how-illo" aria-hidden="true">
+              {{- partial "svg/inline.html" $step.icon }}
+            </div>
+            <h3 class="how-title">{{ $step.title }}</h3>
+            <ul class="how-body">
+              {{- range $step.body }}
+                <li>{{ . }}</li>
+              {{- end }}
+            </ul>
+          </li>
+        {{- end }}
+      {{- end }}
+    </ol>
+  </div>
+</section>
