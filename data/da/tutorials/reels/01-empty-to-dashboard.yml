@@ -1,0 +1,28 @@
+id: empty-to-dashboard
+title: Fra en tom arbejdsplads til et fyldt dashboard
+duration: "0:42"
+lead: "[DA — translate] One continuous run-through, in real time, of the moves a new user makes in their first ten minutes — open the seeded budget, fill a year of revenue, adjust a value, bookmark it, and let the dashboard come alive."
+masterVideo:
+  webm: /videos/tutorials/reels/empty-to-dashboard.webm
+  alt: Full reel, empty workspace to populated dashboard
+shots:
+  - index: 1
+    caption: "[DA — translate] Open the seeded Starter Budget, right-click January's Consulting cell, and pick \"Fill forward\". February through December hydrate to 12,000 in a single frame — and the row total ticks from 12k to 144k while the Balance panel snaps in lockstep."
+    clip:
+      webm: /videos/tutorials/reels/empty-to-dashboard/01-fill-forward.webm
+      alt: Opening the Starter Budget and filling Consulting forward across the year
+  - index: 2
+    caption: "[DA — translate] Click February to bump it to 15,000 — bulk fills are a starting point, not a one-way commit. The item dialog opens focused on the cell; save and the row recomputes against the override."
+    clip:
+      webm: /videos/tutorials/reels/empty-to-dashboard/02-edit-cell.webm
+      alt: Editing the February value to 15,000 in the item dialog
+  - index: 3
+    caption: "[DA — translate] Back on the Budgets list, tap the star — Starter Budget is now your favourite and the destination the dashboard resolves to."
+    clip:
+      webm: /videos/tutorials/reels/empty-to-dashboard/03-bookmark.webm
+      alt: Toggling the bookmark star on Starter Budget
+  - index: 4
+    caption: "[DA — translate] Jump to /dashboard. The KPI strip, the metric charts, and the upcoming-deadline calendar all populate against the budget you just filled. Empty workspace to a working financial picture in under a minute."
+    clip:
+      webm: /videos/tutorials/reels/empty-to-dashboard/04-dashboard.webm
+      alt: Dashboard landing with KPIs, charts, and calendar widget visible

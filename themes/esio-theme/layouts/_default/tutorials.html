@@ -1,0 +1,10 @@
+{{- /*
+  Tutorials-page layout. Selected via the `layout: tutorials` front-matter key
+  on content/tutorials.md and content/tutorials.da.md. Wraps the tutorials
+  section partial with the standard nav + footer chrome.
+*/ -}}
+{{ define "main" }}
+  {{ partial "sections/nav.html" . }}
+  {{ partial "sections/tutorials.html" . }}
+  {{ partial "sections/footer.html" . }}
+{{ end }}

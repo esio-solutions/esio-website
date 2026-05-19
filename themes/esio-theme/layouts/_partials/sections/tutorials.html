@@ -1,0 +1,75 @@
+{{- /*
+  Tutorials section. Page intro (tag, headline, subtitle) + a TOC of category
+  anchor links, then each category renders its entries via one of two
+  templates depending on `kind`:
+    • kind: feature  → _partials/tutorials/feature-tutorial.html   (single video + annotation)
+    • kind: reel     → _partials/tutorials/journey-reel.html       (master video + per-shot breakdown)
+
+  Data: data/<lang>/tutorials/
+    meta.yml                      — tag, headline, subtitle
+    categories/NN-slug.yml        — { id, title, blurb, entries:[{ kind, ref }] }
+    features/NN-slug.yml          — single-feature tutorials referenced by entries
+    reels/NN-slug.yml             — journey reels referenced by entries
+
+  Categories are alphabetical by filename; entries within a category are
+  rendered in the order they appear in the category file. Entry `ref` is
+  the bare filename (no extension) under features/ or reels/.
+*/ -}}
+{{- $data := index site.Data site.Language.Lang "tutorials" -}}
+{{- $meta := $data.meta -}}
+{{- $features := $data.features -}}
+{{- $reels := $data.reels -}}
+<section id="tutorials" class="sec tut-section">
+  <div class="si">
+
+    <div class="tc tut-head">
+      <span class="tag tag-t">{{ $meta.tag }}</span>
+      <h1 class="stitle">{{ $meta.headline }}</h1>
+      <p class="ssub">{{ $meta.subtitle }}</p>
+    </div>
+
+    {{- /* TOC — one card per category, anchored to the matching #tutorials-<id>
+       block below. Visually parallel to .how-grid but list-styled like
+       .fp-bullets so it reads as a navigation primitive, not a content grid. */ -}}
+    <nav class="tut-toc" aria-label="Tutorial categories">
+      <ul>
+        {{- range $key, $cat := $data.categories }}
+          <li>
+            <a href="#tutorials-{{ $cat.id }}">
+              <span class="tut-toc-label">{{ $cat.title }}</span>
+              <span class="tut-toc-count" aria-hidden="true">{{ len $cat.entries }}</span>
+              <span class="tut-toc-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+        {{- end }}
+      </ul>
+    </nav>
+
+    {{- /* Category sections — one per file under data/<lang>/tutorials/categories/.
+       Each category renders its blurb then loops its entries, dispatching
+       each one through the feature-tutorial or journey-reel partial. */ -}}
+    {{- range $key, $cat := $data.categories }}
+      <section class="tut-category" id="tutorials-{{ $cat.id }}">
+        <header class="tut-cat-head">
+          <h2 class="tut-cat-title">{{ $cat.title }}</h2>
+          {{- with $cat.blurb }}<p class="tut-cat-blurb">{{ . }}</p>{{- end }}
+        </header>
+
+        <div class="tut-cat-body">
+          {{- range $cat.entries }}
+            {{- if eq .kind "feature" }}
+              {{- with index $features .ref }}
+                {{ partial "tutorials/feature-tutorial.html" . }}
+              {{- end }}
+            {{- else if eq .kind "reel" }}
+              {{- with index $reels .ref }}
+                {{ partial "tutorials/journey-reel.html" . }}
+              {{- end }}
+            {{- end }}
+          {{- end }}
+        </div>
+      </section>
+    {{- end }}
+
+  </div>
+</section>

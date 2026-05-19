@@ -1,0 +1,62 @@
+{{- /*
+  Journey reel. Renders an optional master video, the reel title + lead, and a
+  vertical list of shots where each shot pairs a short clip with a caption.
+
+  Layout: side-by-side per shot (caption left, clip right) at desktop;
+  stacks at the 900px breakpoint so the clip stays watchable on mobile.
+
+  Expected dict keys:
+    id            — anchor slug (string)
+    title         — reel title (string)
+    lead          — paragraph below the title (string)
+    duration      — optional human-readable runtime, e.g. "0:42" (string)
+    masterVideo   — optional dict { webm, mp4, poster, alt } rendered above the shots
+    shots         — ordered list of { index, caption, clip:{webm,mp4,poster,alt} }
+*/ -}}
+<article class="tut-reel" id="tutorial-{{ .id }}">
+  <header class="tut-reel-head">
+    <h3 class="tut-reel-title">{{ .title }}</h3>
+    {{- with .duration }}<span class="tut-reel-duration" aria-label="Duration">{{ . }}</span>{{ end }}
+    {{- with .lead }}<p class="tut-reel-lead">{{ . }}</p>{{ end }}
+  </header>
+
+  {{- with .masterVideo }}
+    <div class="tut-reel-master">
+      <video
+        class="tut-video"
+        controls
+        preload="metadata"
+        {{ with .poster }}poster="{{ . }}"{{ end }}
+        aria-label="{{ .alt | default "Full reel" }}">
+        {{- with .webm }}<source src="{{ . }}" type="video/webm" />{{ end }}
+        {{- with .mp4 }}<source src="{{ . }}" type="video/mp4" />{{ end }}
+      </video>
+    </div>
+  {{- end }}
+
+  {{- with .shots }}
+    <ol class="tut-reel-shots">
+      {{- $total := len . }}
+      {{- range $i, $shot := . }}
+        {{- $num := add $i 1 }}
+        <li class="tut-shot">
+          <div class="tut-shot-text">
+            <span class="tut-shot-marker" aria-label="Shot {{ $num }} of {{ $total }}">{{ printf "%02d" $num }} <span aria-hidden="true">/ {{ printf "%02d" $total }}</span></span>
+            <p class="tut-shot-caption">{{ $shot.caption }}</p>
+          </div>
+          <div class="tut-shot-media">
+            <video
+              class="tut-video"
+              controls
+              preload="metadata"
+              {{ with $shot.clip.poster }}poster="{{ . }}"{{ end }}
+              aria-label="{{ $shot.clip.alt | default $shot.caption }}">
+              {{- with $shot.clip.webm }}<source src="{{ . }}" type="video/webm" />{{ end }}
+              {{- with $shot.clip.mp4 }}<source src="{{ . }}" type="video/mp4" />{{ end }}
+            </video>
+          </div>
+        </li>
+      {{- end }}
+    </ol>
+  {{- end }}
+</article>

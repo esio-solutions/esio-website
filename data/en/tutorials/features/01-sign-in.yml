@@ -1,0 +1,11 @@
+id: sign-in
+title: Sign in to ESIO
+duration: "0:25"
+lead: Open the login page, enter your email and password, and land on your dashboard. The same flow your team will use every day.
+bullets:
+  - You can switch language and region from the dropdown before logging in.
+  - "Forgot password? The reset link is one click away on the same screen."
+  - First time here? The Register link opens the sign-up dialog instead.
+video:
+  webm: /videos/tutorials/sign-in.webm
+  alt: ESIO sign-in screen, email and password entry, redirect to dashboard

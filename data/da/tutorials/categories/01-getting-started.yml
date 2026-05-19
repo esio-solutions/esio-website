@@ -1,0 +1,8 @@
+id: getting-started
+title: Kom i gang
+blurb: "[DA — translate] Sign in, get oriented, and walk one budget from empty to populated."
+entries:
+  - kind: feature
+    ref: "01-sign-in"
+  - kind: reel
+    ref: "01-empty-to-dashboard"

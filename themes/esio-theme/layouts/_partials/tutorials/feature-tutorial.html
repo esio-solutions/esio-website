@@ -1,0 +1,40 @@
+{{- /*
+  Single-feature tutorial. Renders one <video> followed by a title, lead
+  paragraph, and optional bullet list explaining what the viewer just saw.
+
+  Expected dict keys:
+    id          — anchor slug (string)
+    title       — tutorial title (string)
+    lead        — paragraph below the title (string)
+    bullets     — optional list of short "what you can now do" notes ([]string)
+    duration    — optional human-readable runtime, e.g. "1:30" (string)
+    video.webm  — path to the .webm source (string)
+    video.mp4   — path to the .mp4 source (string)
+    video.poster— optional poster image path (string)
+    video.alt   — aria-label for the <video> element (string)
+*/ -}}
+<article class="tut-feature" id="tutorial-{{ .id }}">
+  <div class="tut-feature-media">
+    <video
+      class="tut-video"
+      controls
+      preload="metadata"
+      {{ with .video.poster }}poster="{{ . }}"{{ end }}
+      aria-label="{{ .video.alt | default .title }}">
+      {{- with .video.webm }}<source src="{{ . }}" type="video/webm" />{{ end }}
+      {{- with .video.mp4 }}<source src="{{ . }}" type="video/mp4" />{{ end }}
+    </video>
+  </div>
+  <div class="tut-feature-text">
+    <header class="tut-feature-head">
+      <h3 class="tut-feature-title">{{ .title }}</h3>
+      {{- with .duration }}<span class="tut-feature-duration" aria-label="Duration">{{ . }}</span>{{ end }}
+    </header>
+    {{- with .lead }}<p class="tut-feature-lead">{{ . }}</p>{{ end }}
+    {{- with .bullets }}
+      <ul class="tut-feature-bullets">
+        {{- range . }}<li>{{ . }}</li>{{ end }}
+      </ul>
+    {{- end }}
+  </div>
+</article>

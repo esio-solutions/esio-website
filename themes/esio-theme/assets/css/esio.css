@@ -1072,3 +1072,108 @@ html.theme-transitioning *::after{
   }
 }
 
+
+/* ─────────────────────────────────────────────────────────────────────────
+   TUTORIALS PAGE
+   ─────────────────────────────────────────────────────────────────────────
+   Dedicated /tutorials/ page. Uses the shared .sec + .si container,
+   .stitle/.ssub/.tag-t primitives, then layers a `.tut-*` namespace for:
+     • .tut-toc        — anchor-link table of contents at the top
+     • .tut-category   — heading + body wrapper per category
+     • .tut-feature    — single-video tutorial card (video left, text right)
+     • .tut-reel       — multi-shot reel: master video + .tut-shot list
+     • .tut-shot       — one shot row inside a reel (caption left, clip right)
+   All responsive collapses happen at the existing 900px breakpoint and
+   match the .fp-* / .how-* breakpoints already in use. */
+
+.tut-section{background:var(--color-surface)}
+.tut-head{max-width:760px;margin:0 auto 56px;padding-top:80px}
+
+/* TOC — list-styled like .fp-bullets but rendered as a 2-column card grid on
+   wide viewports so all five categories fit above the fold. Each card is a
+   single anchor link with a label, a count badge, and a directional arrow. */
+.tut-toc{margin:0 0 72px}
+.tut-toc ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.tut-toc li{background:var(--color-surface-container-high);border:1px solid color-mix(in srgb,var(--color-on-surface),transparent 90%);border-radius:var(--radius-large);transition:border-color .2s ease,transform .2s ease}
+.tut-toc li:hover{border-color:color-mix(in srgb,var(--color-on-surface),transparent 75%);transform:translateY(-2px)}
+.tut-toc a{display:flex;align-items:center;gap:14px;padding:18px 22px;text-decoration:none;color:var(--color-on-surface);font-weight:700;font-size:clamp(15px,1.4vw,17px);letter-spacing:-.2px}
+.tut-toc a:hover{color:var(--color-primary)}
+.tut-toc-label{flex:1}
+.tut-toc-count{display:inline-flex;align-items:center;justify-content:center;min-width:28px;height:24px;padding:0 8px;border-radius:999px;background:color-mix(in srgb,var(--color-primary),transparent 85%);color:var(--color-primary);font-size:12px;font-weight:800}
+.tut-toc-arrow{color:color-mix(in srgb,var(--color-on-surface),transparent 50%);transition:color .2s ease,transform .2s ease}
+.tut-toc a:hover .tut-toc-arrow{color:var(--color-primary);transform:translateX(4px)}
+
+/* Category block — scroll-margin so the anchored jump from the TOC lands the
+   heading below the sticky nav. Empty .tut-cat-body (categories without
+   recordings yet) collapses naturally; no special styling needed. */
+.tut-category{scroll-margin-top:108px;padding-top:48px;margin-top:48px;border-top:1px solid color-mix(in srgb,var(--color-on-surface),transparent 92%)}
+.tut-category:first-of-type{border-top:0;margin-top:0;padding-top:0}
+.tut-cat-head{margin-bottom:32px;max-width:760px}
+.tut-cat-title{font-size:clamp(22px,2.4vw,32px);font-weight:900;color:var(--color-on-surface);letter-spacing:-.5px;margin:0 0 10px}
+.tut-cat-blurb{font-size:clamp(14px,1.3vw,16px);line-height:1.7;color:color-mix(in srgb,var(--color-on-surface),transparent 35%);font-weight:500;margin:0}
+.tut-cat-body{display:flex;flex-direction:column;gap:48px}
+
+/* Single-feature tutorial — video left, text right on desktop. Same 12-ish
+   ratio as .fp-inner so the page feels like a continuation of the home feature
+   panels. Card sits in a .tut-feature wrapper for the rounded surface. */
+.tut-feature{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:32px;align-items:start;background:var(--color-surface-container-high);border:1px solid color-mix(in srgb,var(--color-on-surface),transparent 90%);border-radius:var(--radius-large);padding:24px;scroll-margin-top:108px}
+.tut-feature-media{min-width:0}
+.tut-feature-text{display:flex;flex-direction:column;gap:12px}
+.tut-feature-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.tut-feature-title{font-size:clamp(18px,1.7vw,22px);font-weight:800;color:var(--color-on-surface);letter-spacing:-.2px;margin:0}
+.tut-feature-duration{font-variant-numeric:tabular-nums;font-size:13px;font-weight:700;color:color-mix(in srgb,var(--color-on-surface),transparent 40%);background:color-mix(in srgb,var(--color-on-surface),transparent 92%);padding:3px 10px;border-radius:999px}
+.tut-feature-lead{font-size:clamp(14px,1.25vw,15px);line-height:1.7;color:color-mix(in srgb,var(--color-on-surface),transparent 25%);font-weight:500;margin:0}
+.tut-feature-bullets{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+.tut-feature-bullets li{position:relative;padding-left:18px;font-size:14px;line-height:1.55;color:color-mix(in srgb,var(--color-on-surface),transparent 30%)}
+.tut-feature-bullets li::before{content:"";position:absolute;left:0;top:.65em;width:6px;height:6px;border-radius:50%;background:var(--color-primary);opacity:.85}
+
+/* Journey reel — master video on top, then a vertical .tut-reel-shots list.
+   Each .tut-shot is a 2-column grid: text left, video right (always
+   side-by-side, no alternating — easier to scan). */
+.tut-reel{background:var(--color-surface-container-high);border:1px solid color-mix(in srgb,var(--color-on-surface),transparent 90%);border-radius:var(--radius-large);padding:32px;scroll-margin-top:108px}
+.tut-reel-head{margin-bottom:24px;display:flex;flex-direction:column;gap:8px}
+.tut-reel-title{font-size:clamp(20px,2vw,26px);font-weight:900;color:var(--color-on-surface);letter-spacing:-.3px;margin:0;display:inline}
+.tut-reel-duration{font-variant-numeric:tabular-nums;font-size:13px;font-weight:700;color:color-mix(in srgb,var(--color-on-surface),transparent 40%);background:color-mix(in srgb,var(--color-on-surface),transparent 92%);padding:3px 10px;border-radius:999px;align-self:flex-start}
+.tut-reel-lead{font-size:clamp(14px,1.25vw,15px);line-height:1.7;color:color-mix(in srgb,var(--color-on-surface),transparent 25%);font-weight:500;margin:0}
+.tut-reel-master{margin:8px 0 28px}
+.tut-reel-shots{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:24px;counter-reset:tut-shot}
+.tut-shot{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:24px;align-items:center;padding:18px;background:var(--color-surface);border:1px solid color-mix(in srgb,var(--color-on-surface),transparent 92%);border-radius:var(--radius-base)}
+.tut-shot-text{display:flex;flex-direction:column;gap:10px}
+.tut-shot-marker{font-variant-numeric:tabular-nums;font-size:12px;font-weight:800;letter-spacing:.5px;color:var(--color-primary);text-transform:uppercase}
+.tut-shot-caption{font-size:clamp(14px,1.25vw,15px);line-height:1.65;color:var(--color-on-surface);font-weight:500;margin:0}
+.tut-shot-media{min-width:0}
+
+/* Shared video element — rounded, fits its container, no native chrome
+   overflow. Posters and controls render via the inline <video> attributes. */
+.tut-video{width:100%;height:auto;display:block;border-radius:var(--radius-base);background:color-mix(in srgb,var(--color-on-surface),transparent 92%);aspect-ratio:16/9;object-fit:cover}
+
+@media(max-width:900px){
+  .tut-head{padding-top:48px;margin-bottom:36px}
+  .tut-toc{margin-bottom:48px}
+  .tut-toc ul{grid-template-columns:1fr}
+  .tut-feature{grid-template-columns:1fr;gap:20px;padding:20px}
+  .tut-shot{grid-template-columns:1fr;gap:14px;padding:14px}
+  .tut-reel{padding:22px}
+  .tut-cat-head{text-align:left}
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   HOW-IT-WORKS CARDS, LINKED VARIANT
+   ─────────────────────────────────────────────────────────────────────────
+   When a step in data/<lang>/index/how/NN-*.yml carries an `href`, the
+   partial wraps the card content in an <a class="how-step-link">. We reset
+   the link's default decoration so the card LOOKS the same as before, then
+   add a hover-only treatment: subtle border accent + a directional shift on
+   the CTA arrow at the bottom of the card. The CTA strip itself uses .how-cta
+   and renders only on linked cards (the partial gates it behind `with .href`). */
+
+.how-step-link{display:flex;flex-direction:column;gap:inherit;text-decoration:none;color:inherit;height:100%;border-radius:inherit}
+.how-step-link:focus-visible{outline:2px solid var(--color-primary);outline-offset:2px;border-radius:var(--radius-base)}
+
+.how-step-linked{cursor:pointer;transition:border-color .2s ease,transform .2s ease,box-shadow .2s ease}
+.how-step-linked:hover{border-color:color-mix(in srgb,var(--color-primary),transparent 50%);transform:translateY(-2px)}
+
+.how-cta{display:inline-flex;align-items:center;gap:6px;margin-top:auto;padding-top:14px;font-size:13px;font-weight:700;letter-spacing:.2px;color:var(--color-primary);opacity:.85;transition:opacity .2s ease}
+.how-cta-arrow{transition:transform .2s ease}
+.how-step-linked:hover .how-cta{opacity:1}
+.how-step-linked:hover .how-cta-arrow{transform:translateX(4px)}
