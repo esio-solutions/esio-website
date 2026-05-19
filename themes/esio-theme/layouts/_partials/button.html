@@ -25,9 +25,11 @@
 {{- $type    := default "link" .type -}}
 {{- $href    := .href -}}
 {{- if and (eq $variant "primary") (not $href) -}}
-  {{- /* Default primary destination: #pricing on the current language's
-     home page. site.Home resolves to /  in EN and /da/ in DA. */ -}}
-  {{- $href = printf "%s#pricing" site.Home.RelPermalink -}}
+  {{- /* Default primary destination: #subscribe (the "Get early access"
+     section) on the current language's home page. site.Home resolves to
+     /  in EN and /da/ in DA. Callers can still pass an explicit href to
+     override (e.g. nav action that points elsewhere). */ -}}
+  {{- $href = printf "%s#subscribe" site.Home.RelPermalink -}}
 {{- end -}}
 {{- $cls := printf "btn btn--%s" $variant -}}
 {{- if ne $size "default" -}}

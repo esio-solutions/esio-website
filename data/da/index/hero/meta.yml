@@ -14,11 +14,11 @@ headline:
   suffix: '& iværksættere'
 paragraph: ESIO gør dine faktiske tal til et klart billede af hvad der venter — pengestrøm, skat, gæld, balancen — så du kan planlægge uden gætteri.
 actions:
-# Primær CTA — href udeladt, så button partialen sender den til #pricing.
 - label: Få tidlig adgang
+  href: '#subscribe'
   style: primary
 - label: Læs mere
-  href: '#video'
+  href: '#how'
   style: secondary
 illustrations:
   background:

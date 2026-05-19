@@ -1,0 +1,26 @@
+{{- $lang := site.Language.Lang -}}
+{{- $sub  := index site.Data $lang "index" "subscribe" "meta" -}}
+<div class="slide">
+  <div class="bg-blob-terra s5-blob"></div>
+  <img class="character s5-character" src="/assets/characters/characters-03-gradient.svg" alt="">
+
+  <div class="head">
+    {{ partial "instagram/logo.html" . }}
+    <span class="pageno">05 / 05</span>
+  </div>
+
+  <div class="col mt-56" style="max-width: 720px;">
+    <div class="eyebrow">{{ $sub.tag }}</div>
+    <h2 class="h-xl">{{ $sub.headline.prefix }}</h2>
+    <h2 class="h-xl h-accent">{{ $sub.headline.suffix }}.</h2>
+    <p class="lede mt-40">{{ $sub.body }}</p>
+  </div>
+
+  <div class="mt-56">
+    <a class="cta">{{ $sub.formBox.cta.label }}</a>
+  </div>
+
+  <div class="foot">
+    <span>esio.dk</span>
+  </div>
+</div>

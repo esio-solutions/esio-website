@@ -14,11 +14,11 @@ headline:
   suffix: '& Startups'
 paragraph: ESIO turns your real numbers into a clear picture of what's coming — cashflow, taxes, debts, the balance sheet — so you can plan without guesswork.
 actions:
-# Primary CTA — href omitted so the button partial routes it to #pricing.
 - label: Get early access
+  href: '#subscribe'
   style: primary
 - label: Learn More
-  href: '#video'
+  href: '#how'
   style: secondary
 illustrations:
   background:

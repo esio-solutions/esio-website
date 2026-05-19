@@ -1,0 +1,62 @@
+{{- $lang := site.Language.Lang -}}
+{{- $hero := index site.Data $lang "index" "hero" "meta" -}}
+{{- $parts := split $hero.tagline ", " -}}
+{{- $titleA := humanize (index $parts 0) -}}
+{{- $titleB := humanize (index $parts 1) -}}
+{{- $ctaLabel := (index $hero.actions 0).label -}}
+<style>
+  html, body { width: 728px; height: 90px; }
+  .banner {
+    position: relative;
+    width: 728px;
+    height: 90px;
+    padding: 14px 20px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    column-gap: 24px;
+    overflow: hidden;
+  }
+  .banner::before {
+    content: "";
+    position: absolute;
+    top: -30px; right: 240px;
+    width: 140px; height: 140px;
+    border-radius: 50%;
+    background: var(--c-primary);
+    opacity: 0.16;
+  }
+  .logo { height: 44px; position: relative; z-index: 2; }
+  .title {
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    color: var(--c-on-surface);
+    position: relative;
+    z-index: 2;
+  }
+  .title-accent { color: var(--c-primary); }
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--c-primary);
+    color: var(--c-on-primary);
+    font-weight: 800;
+    font-size: 16px;
+    padding: 10px 18px;
+    border-radius: 999px;
+    position: relative;
+    z-index: 2;
+    white-space: nowrap;
+  }
+</style>
+<div class="banner">
+  <div class="logo">
+    <img class="logo-white" src="/assets/logos/logo-white.svg" alt="ESIO">
+    <img class="logo-blue"  src="/assets/logos/logo-blue.svg"  alt="ESIO">
+  </div>
+  <div class="title">{{ $titleA }}. <span class="title-accent">{{ $titleB }}.</span></div>
+  <a class="cta">{{ $ctaLabel }} →</a>
+</div>

@@ -1,0 +1,49 @@
+{{- $lang := site.Language.Lang -}}
+{{- $hero := index site.Data $lang "index" "hero" "meta" -}}
+{{- $parts := split $hero.tagline ", " -}}
+{{- $titleA := humanize (index $parts 0) -}}
+{{- $titleB := humanize (index $parts 1) -}}
+{{- $ctaLabel := (index $hero.actions 0).label -}}
+<style>
+  html, body { width: 320px; height: 50px; }
+  .banner {
+    position: relative;
+    width: 320px;
+    height: 50px;
+    padding: 6px 10px 6px 10px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    column-gap: 10px;
+    overflow: hidden;
+  }
+  .logo { height: 26px; }
+  .title {
+    font-weight: 800;
+    font-size: 13px;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: var(--c-on-surface);
+  }
+  .title-accent { color: var(--c-primary); }
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--c-primary);
+    color: var(--c-on-primary);
+    font-weight: 800;
+    font-size: 11px;
+    padding: 5px 9px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+</style>
+<div class="banner">
+  <div class="logo">
+    <img class="logo-white" src="/assets/logos/logo-white.svg" alt="ESIO">
+    <img class="logo-blue"  src="/assets/logos/logo-blue.svg"  alt="ESIO">
+  </div>
+  <div class="title">{{ $titleA }}. <span class="title-accent">{{ $titleB }}.</span></div>
+  <a class="cta">{{ $ctaLabel }} →</a>
+</div>

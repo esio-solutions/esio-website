@@ -1,0 +1,35 @@
+{{- $lang := site.Language.Lang -}}
+{{- $intro  := index site.Data $lang "index" "features" "intro" -}}
+{{- $panels := index site.Data $lang "index" "features" "panels" -}}
+{{- $headLines := split $intro.headline "\n" -}}
+<div class="slide">
+  <div class="head">
+    {{ partial "instagram/logo.html" . }}
+    <span class="pageno">04 / 05</span>
+  </div>
+
+  <div class="col mt-40" style="max-width: 820px;">
+    <div class="eyebrow">{{ $intro.tag }}</div>
+    {{- $headOne := delimit (first 2 $headLines) " " -}}
+    {{- $headRest := delimit (after 2 $headLines) " " -}}
+    {{- if not $headRest -}}{{- $headRest = $headOne -}}{{- $headOne = "" -}}{{- end -}}
+    {{ with $headOne }}<h2 class="h-l">{{ . }}</h2>{{ end }}
+    <h2 class="h-l h-accent">{{ $headRest }}.</h2>
+  </div>
+
+  <div class="feature-grid mt-56" style="max-width: 920px;">
+    {{ range $panels }}
+      <div class="feature">
+        <span class="material-symbols-outlined glyph">{{ .icon }}</span>
+        <div class="feature-title">{{ replace .title "\n" " " }}</div>
+        <div class="feature-body">{{ .body }}</div>
+      </div>
+    {{ end }}
+  </div>
+
+  <div class="foot foot-with-arrow">
+    <span>esio.dk</span>
+    {{ partial "instagram/big-arrow.html" . }}
+    <span></span>
+  </div>
+</div>

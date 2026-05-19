@@ -1,0 +1,38 @@
+{{- $lang := site.Language.Lang -}}
+{{- $intro  := index site.Data $lang "index" "features" "intro" -}}
+{{- $panels := index site.Data $lang "index" "features" "panels" -}}
+{{- $headLines := split $intro.headline "\n" -}}
+<div class="slide">
+  <div class="head">
+    {{ partial "linkedin/logo.html" . }}
+    <span class="pageno">04 / 05</span>
+  </div>
+
+  <div class="slide-header">
+    <div class="eyebrow">{{ $intro.tag }}</div>
+    {{- $headOne := delimit (first 2 $headLines) " " -}}
+    {{- $headRest := delimit (after 2 $headLines) " " -}}
+    {{- if not $headRest -}}{{- $headRest = $headOne -}}{{- $headOne = "" -}}{{- end -}}
+    <h2 class="h-l">
+      {{ with $headOne }}{{ . }} {{ end }}<span class="h-accent">{{ $headRest }}.</span>
+    </h2>
+  </div>
+
+  <div class="body" style="flex-direction: column; justify-content: center; align-items: stretch;">
+    <div class="feature-grid">
+      {{ range $panels }}
+        <div class="feature">
+          <span class="material-symbols-outlined glyph">{{ .icon }}</span>
+          <div class="feature-title">{{ replace .title "\n" " " }}</div>
+          <div class="feature-body">{{ .body }}</div>
+        </div>
+      {{ end }}
+    </div>
+  </div>
+
+  <div class="foot foot-with-arrow">
+    <span>esio.dk</span>
+    {{ partial "linkedin/big-arrow.html" . }}
+    <span></span>
+  </div>
+</div>

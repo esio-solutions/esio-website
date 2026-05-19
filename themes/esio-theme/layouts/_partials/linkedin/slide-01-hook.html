@@ -1,0 +1,27 @@
+{{- $lang := site.Language.Lang -}}
+{{- $hero := index site.Data $lang "index" "hero" "meta" -}}
+{{- $parts := split $hero.tagline ", " -}}
+{{- $titleA := humanize (index $parts 0) -}}
+{{- $titleB := humanize (index $parts 1) -}}
+<div class="slide">
+  <div class="bg-blob-terra s1-blob"></div>
+  <img class="character s1-character" src="/assets/characters/characters-01-gradient.svg" alt="">
+
+  <div class="head">
+    {{ partial "linkedin/logo.html" . }}
+    <span class="pageno">01 / 05</span>
+  </div>
+
+  <div class="body" style="flex-direction: column; justify-content: flex-start; margin-top: 40px;">
+    <div style="max-width: 760px;">
+      <div class="eyebrow">{{ $hero.headline.emphasis }} {{ $hero.headline.suffix }}</div>
+      <h1 class="h-xxl">{{ $titleA }}.</h1>
+      <h1 class="h-xxl h-accent">{{ $titleB }}.</h1>
+      <p class="lede mt-32" style="max-width: 600px;">{{ $hero.paragraph }}</p>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span>esio.dk</span>
+  </div>
+</div>

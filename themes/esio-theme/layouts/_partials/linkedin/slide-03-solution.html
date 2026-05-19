@@ -1,0 +1,31 @@
+{{- $lang := site.Language.Lang -}}
+{{- $how := index site.Data $lang "index" "how" "meta" -}}
+{{- $lines := split $how.headline "\n" -}}
+{{- $count := len $lines -}}
+<div class="slide">
+  <div class="bg-blob-terra s5-blob"></div>
+  <img class="character s3-character" src="/assets/characters/characters-04-gradient.svg" alt="">
+
+  <div class="head">
+    {{ partial "linkedin/logo.html" . }}
+    <span class="pageno">03 / 05</span>
+  </div>
+
+  <div class="body" style="flex-direction: column; justify-content: flex-start; margin-top: 40px;">
+    <div style="max-width: 700px;">
+      <div class="eyebrow">{{ $how.tag }}</div>
+      {{ range $i, $line := $lines }}
+        {{- $cls := "h-xl" -}}
+        {{- if eq $i (sub $count 1) -}}{{- $cls = "h-xl h-accent" -}}{{- end -}}
+        <h2 class="{{ $cls }}">{{ $line }}</h2>
+      {{ end }}
+      <p class="lede mt-24" style="max-width: 580px;">{{ $how.subtitle }}</p>
+    </div>
+  </div>
+
+  <div class="foot foot-with-arrow">
+    <span>esio.dk</span>
+    {{ partial "linkedin/big-arrow.html" . }}
+    <span></span>
+  </div>
+</div>

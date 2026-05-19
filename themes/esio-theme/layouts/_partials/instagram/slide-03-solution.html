@@ -1,0 +1,28 @@
+{{- $lang := site.Language.Lang -}}
+{{- $how := index site.Data $lang "index" "how" "meta" -}}
+{{- $lines := split $how.headline "\n" -}}
+{{- $count := len $lines -}}
+<div class="slide">
+  <img class="character s3-character" src="/assets/characters/characters-04-gradient.svg" alt="">
+
+  <div class="head">
+    {{ partial "instagram/logo.html" . }}
+    <span class="pageno">03 / 05</span>
+  </div>
+
+  <div class="col mt-40" style="max-width: 820px;">
+    <div class="eyebrow">{{ $how.tag }}</div>
+    {{ range $i, $line := $lines }}
+      {{- $cls := "h-xl" -}}
+      {{- if eq $i (sub $count 1) -}}{{- $cls = "h-xl h-accent" -}}{{- end -}}
+      <h2 class="{{ $cls }}">{{ $line }}</h2>
+    {{ end }}
+    <p class="lede mt-40">{{ $how.subtitle }}</p>
+  </div>
+
+  <div class="foot foot-with-arrow">
+    <span>esio.dk</span>
+    {{ partial "instagram/big-arrow.html" . }}
+    <span></span>
+  </div>
+</div>

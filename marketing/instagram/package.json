@@ -1,0 +1,13 @@
+{
+  "name": "esio-instagram-render",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Renders marketing/instagram/*.html into JPGs inside the Playwright container.",
+  "scripts": {
+    "render": "node render.mjs"
+  },
+  "dependencies": {
+    "playwright": "1.49.1"
+  }
+}

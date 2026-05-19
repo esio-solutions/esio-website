@@ -1,0 +1,32 @@
+{{- $lang := site.Language.Lang -}}
+{{- $pain := index site.Data $lang "index" "pain" "meta" -}}
+{{- $cards := index site.Data $lang "index" "pain" "cards" -}}
+<div class="slide">
+  <div class="head">
+    {{ partial "linkedin/logo.html" . }}
+    <span class="pageno">02 / 05</span>
+  </div>
+
+  <div class="slide-header">
+    <div class="eyebrow">{{ $pain.tag }}</div>
+    <h2 class="h-l">{{ $pain.headline.primary }} <span class="h-accent">{{ $pain.headline.emphasis }}</span></h2>
+  </div>
+
+  <div class="body" style="flex-direction: column; justify-content: center; align-items: stretch;">
+    <div class="cards-row">
+      {{ range $cards }}
+        <div class="card">
+          <span class="glyph">{{ .icon }}</span>
+          <div class="card-title">{{ .title }}</div>
+          <div class="card-body">{{ .body }}</div>
+        </div>
+      {{ end }}
+    </div>
+  </div>
+
+  <div class="foot foot-with-arrow">
+    <span>esio.dk</span>
+    {{ partial "linkedin/big-arrow.html" . }}
+    <span></span>
+  </div>
+</div>
