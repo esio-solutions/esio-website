@@ -31,7 +31,7 @@
 set -euo pipefail
 
 REPO_ROOT="$(git rev-parse --show-toplevel)"
-RENDER_DIR="$REPO_ROOT/marketing/instagram"   # docker build context; name is legacy
+RENDER_DIR="$REPO_ROOT/marketing/render"   # docker build context; name is legacy
 PUBLIC_DIR="$REPO_ROOT/public"
 OUTPUT_DIR="$REPO_ROOT/marketing/output"
 IMAGE_TAG="esio-social-render:latest"

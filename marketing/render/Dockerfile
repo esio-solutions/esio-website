@@ -11,7 +11,7 @@ COPY render.mjs ./
 
 # Inputs / outputs (mounted by scripts/render-instagram-carousel.sh):
 #   /work/public  → site's Hugo build (`hugo --minify` output)  [RO]
-#   /work/output  → marketing/instagram/output                  [RW]
+#   /work/output  → marketing/output                            [RW]
 ENV PUBLIC_DIR=/work/public \
     OUTPUT_DIR=/work/output \
     LANGS=en,da \

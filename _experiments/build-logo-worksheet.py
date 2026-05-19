@@ -17,7 +17,7 @@ import os
 import re
 from PIL import ImageFont
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT = os.path.dirname(os.path.abspath(__file__))
 SUGS = os.path.join(ROOT, "logo-suggestions")
 OUT = os.path.join(SUGS, "_worksheet.svg")
 
