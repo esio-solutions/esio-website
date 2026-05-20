@@ -235,14 +235,8 @@ defaultContentLanguageInSubdir = false
     m3DarkOnTertiaryContainer  = "#30003e"
 
   [params.typography]
-    # Body text — humanist sans designed for UI legibility at 14–18px.
-    # Pairs cleanly with a serif display font.
-    fontFamily   = "Inter"
+    fontFamily   = "Plus Jakarta Sans"
     fontWeights  = "400;500;600;700;800;900"
-    # Display headlines — variable serif, magazine-style register.
-    # Leave displayFontFamily blank to fall back to fontFamily for headlines.
-    displayFontFamily  = "Fraunces"
-    displayFontWeights = "500;700;800;900"
 
   [params.radii]
     base  = "16px"
