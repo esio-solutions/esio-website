@@ -150,6 +150,10 @@
   --color-primary:                var(--md-sys-color-primary);
   --color-primary-container:      var(--md-sys-color-primary-container);
   --color-on-primary:             var(--md-sys-color-on-primary);
+  --color-secondary:              var(--md-sys-color-secondary);
+  --color-on-secondary:           var(--md-sys-color-on-secondary);
+  --color-secondary-container:    var(--md-sys-color-secondary-container);
+  --color-on-secondary-container: var(--md-sys-color-on-secondary-container);
   --color-tertiary:               var(--md-sys-color-tertiary);
   --color-on-tertiary:            var(--md-sys-color-on-tertiary);
   --color-tertiary-container:     var(--md-sys-color-tertiary-container);
