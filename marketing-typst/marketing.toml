@@ -1,0 +1,34 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Marketing renderer configuration
+# ─────────────────────────────────────────────────────────────────────────────
+# Settings for the ad/social-card templates rendered via
+# layouts/marketing/<platform>/single.html and screenshotted by
+# scripts/render-*.sh. Pinned independently of the site's interactive M3
+# palette picker — published ads stay stable while the live site
+# experiments with palettes.
+#
+# Single source of color truth: ads consume the same M3 palette files
+# as the site (themes/esio-theme/assets/css/m3/<palette>/light.css|dark.css).
+# Brand change = swap the `palette` value below, re-run render scripts.
+# Existing JPGs in marketing/output/ get overwritten on next render.
+#
+# Accessed in templates as `site.Data.marketing.*`.
+
+# M3 palette name. Must be a folder under
+# themes/esio-theme/assets/css/m3/<palette>/ containing light.css + dark.css.
+# Currently available: indigo, blue-vibrant (run hugo without errors to
+# confirm — Hugo's resources.Get fails the build if the folder is missing).
+palette = "indigo-mtb"
+
+[fonts]
+  # Body / UI font — matches the esio-website's [params.typography].fontFamily
+  # so ads share the site's voice. Inter is cleaner and more readable than
+  # Plus Jakarta Sans at the smaller body sizes (eyebrow, lede, card body).
+  primary         = "Inter"
+  primary_weights = "400;500;600;700;800"
+
+  # Display / headline font — matches the website's [params.typography]
+  # .displayFontFamily. Fraunces is a contemporary serif with optical-size
+  # support; used on h-xxl / h-xl / h-l headline text only.
+  display         = "Fraunces"
+  display_weights = "500;700;900"

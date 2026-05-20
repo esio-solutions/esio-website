@@ -52,6 +52,12 @@
   --color-primary:                {{ index $colors $default.primary }};
   --color-primary-container:      {{ index $colors $default.primaryContainer }};
   --color-on-primary:             {{ index $colors $default.onPrimary }};
+  {{- with $default.tertiary }}
+  --color-tertiary:               {{ index $colors . }};
+  --color-on-tertiary:            {{ index $colors $default.onTertiary }};
+  --color-tertiary-container:     {{ index $colors $default.tertiaryContainer }};
+  --color-on-tertiary-container:  {{ index $colors $default.onTertiaryContainer }};
+  {{- end }}
   --color-inverse-surface:        {{ index $colors $default.inverseSurface }};
   --color-inverse-on-surface:     {{ index $colors $default.inverseOnSurface }};
 
@@ -62,7 +68,7 @@
   --color-panel-4: {{ index $colors $default.panels.fp4 }};
   --color-panel-5: {{ index $colors $default.panels.fp5 }};
 
-  --font-display: "{{ site.Params.typography.fontFamily }}", sans-serif;
+  --font-display: "{{ default site.Params.typography.fontFamily site.Params.typography.displayFontFamily }}", "{{ site.Params.typography.fontFamily }}", serif;
   --font-sans:    "{{ site.Params.typography.fontFamily }}", sans-serif;
 
   --radius-base:  {{ site.Params.radii.base }};
@@ -89,6 +95,12 @@
   --color-primary:                {{ index $colors $cfg.primary }};
   --color-primary-container:      {{ index $colors $cfg.primaryContainer }};
   --color-on-primary:             {{ index $colors $cfg.onPrimary }};
+  {{- with $cfg.tertiary }}
+  --color-tertiary:               {{ index $colors . }};
+  --color-on-tertiary:            {{ index $colors $cfg.onTertiary }};
+  --color-tertiary-container:     {{ index $colors $cfg.tertiaryContainer }};
+  --color-on-tertiary-container:  {{ index $colors $cfg.onTertiaryContainer }};
+  {{- end }}
   --color-inverse-surface:        {{ index $colors $cfg.inverseSurface }};
   --color-inverse-on-surface:     {{ index $colors $cfg.inverseOnSurface }};
   --color-panel-1: {{ index $colors $cfg.panels.fp1 }};
@@ -99,6 +111,52 @@
 }
 {{- end }}
 {{- end }}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   Material 3 palette overlay.
+   Imports the active palette's MTB-generated --md-sys-color-* tokens (one
+   :root[data-theme="X"] block per theme) and aliases them onto the site's
+   --color-* slots. The bridge wins over the Hugo-emitted theme blocks above
+   because of source order, so toggling the picker drives whichever M3
+   palette is active.
+
+   Swap palettes by editing [params.m3].palette in hugo.toml. The m3Light* /
+   m3Dark* hex values in [params.colors] are only used by the theme picker
+   for swatch previews — when you swap palettes, update those values too if
+   you want the swatches to match (the rendered colors come from the
+   imported CSS files, not [params.colors]).
+   ────────────────────────────────────────────────────────────────────────── */
+{{- /* Import every palette listed in [params.m3.options]. Each palette's
+   light.css and dark.css scope themselves to
+   :root[data-palette="<name>"][data-theme="<theme>"], so all five can
+   coexist in the bundle — only the active one matches at any moment. */ -}}
+{{- range site.Params.m3.options }}
+@import "./m3/{{ .name }}/light.css";
+@import "./m3/{{ .name }}/dark.css";
+{{- end }}
+
+/* Bridge — applies to any [data-palette] value, both themes. */
+:root[data-palette][data-theme="light"],
+:root[data-palette][data-theme="dark"] {
+  --color-surface:                var(--md-sys-color-surface);
+  --color-surface-dim:            var(--md-sys-color-surface-dim);
+  --color-surface-container-high: var(--md-sys-color-surface-container-high);
+  --color-on-surface:             var(--md-sys-color-on-surface);
+  --color-primary:                var(--md-sys-color-primary);
+  --color-primary-container:      var(--md-sys-color-primary-container);
+  --color-on-primary:             var(--md-sys-color-on-primary);
+  --color-tertiary:               var(--md-sys-color-tertiary);
+  --color-on-tertiary:            var(--md-sys-color-on-tertiary);
+  --color-tertiary-container:     var(--md-sys-color-tertiary-container);
+  --color-on-tertiary-container:  var(--md-sys-color-on-tertiary-container);
+  --color-inverse-surface:        var(--md-sys-color-inverse-surface);
+  --color-inverse-on-surface:     var(--md-sys-color-inverse-on-surface);
+  --color-panel-1: var(--md-sys-color-surface-container);
+  --color-panel-2: var(--md-sys-color-surface);
+  --color-panel-3: var(--md-sys-color-surface-container);
+  --color-panel-4: var(--md-sys-color-surface);
+  --color-panel-5: var(--md-sys-color-surface-container);
+}
 
 /* Logo variant swap — driven by each theme's declared `colorScheme` so any
    new light/dark theme picks the correct logo file without a CSS edit. The

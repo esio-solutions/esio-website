@@ -1,17 +1,23 @@
 <!doctype html>
-<html lang="{{ site.Language.Lang }}" data-theme="{{ site.Params.theme.default | default "dark" }}">
+<html lang="{{ site.Language.Lang }}"
+      data-theme="{{ site.Params.theme.default | default "dark" }}"
+      data-palette="{{ site.Params.m3.default | default "blue" }}">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script>
-      // Pre-paint theme bootstrap. Reads the user's saved choice and applies
-      // it before any CSS resolves, so there's no flash on subsequent visits.
-      // Validated against the kebab-case slug pattern emitted by styles.css.
+      // Pre-paint bootstrap. Reads the user's saved theme + palette choices
+      // and applies them before any CSS resolves, so there's no flash on
+      // subsequent visits. Validated against the kebab-case slug pattern.
       (function () {
         try {
-          var saved = localStorage.getItem('esio-theme');
-          if (saved && /^[a-z][a-z0-9-]*$/.test(saved)) {
-            document.documentElement.dataset.theme = saved;
+          var theme = localStorage.getItem('esio-theme');
+          if (theme && /^[a-z][a-z0-9-]*$/.test(theme)) {
+            document.documentElement.dataset.theme = theme;
+          }
+          var palette = localStorage.getItem('esio-palette');
+          if (palette && /^[a-z][a-z0-9-]*$/.test(palette)) {
+            document.documentElement.dataset.palette = palette;
           }
         } catch (_) {}
       })();

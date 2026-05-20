@@ -1,0 +1,9 @@
+id: expenses
+title: |-
+  Easy Expenses
+  & Income Viewer
+body: 'All your transactions in one place: organized, searchable, and export-ready. ESIO connects with tools like Dinero and your e-commerce setup to keep your financial data up to date automatically.'
+icon: wallet
+illustration:
+  src: /assets/characters/characters-03-gradient.svg
+  alt: Expense and income viewer illustration

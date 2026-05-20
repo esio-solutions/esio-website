@@ -1,0 +1,9 @@
+id: tax
+title: |-
+  Intelligent
+  skatteforudsigelse
+body: Stop med at gætte hvad du skylder. ESIO beregner dine skatteforpligtelser i realtid, holder styr på alle deadlines og fremhæver fradrag, du ikke vidste fandtes.
+icon: receipt_long
+illustration:
+  src: /assets/characters/characters-06-gradient.svg
+  alt: Illustration af skatteprognose

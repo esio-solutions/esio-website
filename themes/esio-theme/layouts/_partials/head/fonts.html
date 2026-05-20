@@ -6,12 +6,36 @@
   the intro grid uses, so the font payload is a tiny per-glyph slice
   rather than the full ~500 KB variable font.
 */ -}}
-{{ $family := site.Params.typography.fontFamily | default "Plus Jakarta Sans" }}
-{{ $weights := site.Params.typography.fontWeights | default "400;500;600;700;800;900" }}
+{{ $family   := site.Params.typography.fontFamily   | default "Plus Jakarta Sans" }}
+{{ $weights  := site.Params.typography.fontWeights  | default "400;500;600;700;800;900" }}
+{{ $display  := site.Params.typography.displayFontFamily }}
+{{ $dWeights := site.Params.typography.displayFontWeights | default "500;700;800;900" }}
+{{- /* Display-font optical size. Fraunces (and any other opsz-capable
+   variable font) renders thicker, more readable strokes at lower opsz
+   values (text-optimized: 14) and more refined strokes at higher opsz
+   (display-optimized: 144). Without an explicit opsz axis in the URL,
+   Google Fonts serves the variable font with its default opsz, which
+   varies between Fraunces builds and is not always 14. Pin it so the
+   site renders consistently and matches the marketing renderer's static
+   instances. Override in hugo.toml [params.typography] if needed. */ -}}
+{{ $dOpsz := site.Params.typography.displayFontOpsz | default 14 }}
 {{ $familyURL := replace $family " " "+" }}
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-{{ $href := printf "https://fonts.googleapis.com/css2?family=%s:wght@%s&display=swap" $familyURL $weights }}
+{{- /* Build a single Google Fonts URL covering body + (optional) display family.
+   Loading both in one request keeps the FCP penalty to a single round-trip.
+   Display family uses opsz,wght axis tuples to pin the optical size. */ -}}
+{{ $href := printf "https://fonts.googleapis.com/css2?family=%s:wght@%s" $familyURL $weights }}
+{{- with $display }}
+  {{ $displayURL := replace . " " "+" }}
+  {{- /* Build opsz,wght tuples — one per weight, all at the pinned opsz. */ -}}
+  {{ $tuples := slice }}
+  {{ range split $dWeights ";" }}
+    {{ $tuples = $tuples | append (printf "%v,%s" $dOpsz .) }}
+  {{ end }}
+  {{ $href = printf "%s&family=%s:opsz,wght@%s" $href $displayURL (delimit $tuples ";") }}
+{{- end }}
+{{ $href = printf "%s&display=swap" $href }}
 <link href="{{ $href | safeURL }}" rel="stylesheet" />
 {{- /* Material Symbols Rounded — filled, weight 400, optical-size 24, grade 0.
    icon_names= subsets the font to only these glyphs. Add a name here when

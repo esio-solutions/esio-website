@@ -1,0 +1,5 @@
+# Generated outputs — re-run render.sh to regenerate.
+out/
+
+# Local test scratch folder used during development.
+_out/

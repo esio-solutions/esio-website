@@ -1,0 +1,29 @@
+logo:
+  src: /assets/logos/logo-white.svg
+  srcLight: /assets/logos/logo-blue.svg
+  alt: ESIO
+  href: /da/
+pills:
+- Budgettering
+- Planlægning
+- Beslutningstagning
+tagline: Stop med at gætte, begynd at vide
+headline:
+  prefix: Budget-app til
+  emphasis: Små virksomheder
+  suffix: '& iværksættere'
+paragraph: ESIO gør dine faktiske tal til et klart billede af hvad der venter — pengestrøm, skat, gæld, balancen — så du kan planlægge uden gætteri.
+actions:
+- label: Få tidlig adgang
+  href: '#subscribe'
+  style: primary
+- label: Læs mere
+  href: '#how'
+  style: secondary
+illustrations:
+  background:
+    src: /assets/illustrations/chart-bg.svg
+    alt: ''
+  foreground:
+    src: /assets/characters/characters-01-gradient.svg
+    alt: Iværksætter, der gennemgår en budgetplan med ESIO

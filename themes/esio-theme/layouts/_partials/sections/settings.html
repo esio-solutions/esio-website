@@ -40,6 +40,12 @@
   </div>
 </div>
 
+{{- /* Palette picker removed — the site is locked to a single palette
+   (`[params.m3].default` in hugo.toml). The other palette folders in
+   `themes/esio-theme/assets/css/m3/` still exist but are not user-
+   switchable from the chrome. If you want the picker back, restore the
+   block from git history and re-populate `[[params.m3.options]]`. */ -}}
+
 <div class="settings-section">
   <span class="settings-section__label">{{ i18n "language" }}</span>
   <div class="settings-section__items">

@@ -1,0 +1,20 @@
+tag: Få tidlig adgang
+headline:
+  prefix: Vær den første til at prøve ESIO
+  suffix: når vi åbner
+body: Skriv din email. Vi giver besked i samme øjeblik ESIO åbner for tilmeldinger. Intet kreditkort, ingen forpligtelser.
+benefits:
+- Fuld adgang til alle funktioner under prøveperioden
+- Automatisk overvågning af skattedeadlines
+- Realtids-pengestrømsdashboard
+- Opsig eller nedgrader når som helst
+formBox:
+  title: Vil du have tidlig adgang?
+  subtitle: |-
+    Bare din email.
+    Vi tager os af resten.
+  cta:
+    label: Få besked når vi lancerer →
+    href: /da/newsletter/
+    event: cta-notify-subscribe
+  legalNote: Ved tilmelding accepterer du vores vilkår & privatlivspolitik. Priser er ekskl. moms.

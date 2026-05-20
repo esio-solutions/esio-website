@@ -1,0 +1,29 @@
+logo:
+  src: /assets/logos/logo-white.svg
+  srcLight: /assets/logos/logo-blue.svg
+  alt: ESIO
+  href: /
+pills:
+- Budgeting
+- Planning
+- Decision making
+tagline: Stop guessing, start knowing
+headline:
+  prefix: Budget App for
+  emphasis: Small Business
+  suffix: '& Startups'
+paragraph: ESIO turns your real numbers into a clear picture of what's coming — cashflow, taxes, debts, the balance sheet — so you can plan without guesswork.
+actions:
+- label: Get early access
+  href: '#subscribe'
+  style: primary
+- label: Learn More
+  href: '#how'
+  style: secondary
+illustrations:
+  background:
+    src: /assets/illustrations/chart-bg.svg
+    alt: ''
+  foreground:
+    src: /assets/characters/characters-01-gradient.svg
+    alt: Founder reviewing a budget plan with ESIO

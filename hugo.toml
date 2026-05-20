@@ -94,6 +94,30 @@ defaultContentLanguageInSubdir = false
   # Optional. If set, emits twitter:site and twitter:creator meta tags.
   # twitterHandle = "@esio_dk"
 
+  # ──────────────────────────────────────────────────────────────────────────
+  # Material 3 palette catalogue.
+  # Every entry below is loaded into the compiled CSS, scoped by
+  # :root[data-palette="<name>"]. The site's top-of-page settings panel
+  # renders one swatch per option; clicking it sets data-palette on <html>
+  # and persists the choice to localStorage (see assets/js/shared/theme.js).
+  # The styles.css bridge maps --md-sys-color-* → --color-* across all
+  # palettes — adding a new palette only requires dropping CSS files into
+  # m3/<name>/{light,dark}.css and appending an entry below.
+  #
+  # `swatch` is the hex shown in the picker chip (typically the MTB primary,
+  # which differs slightly from the input key color because MTB normalises
+  # to tone-40 — see _docs/color-decisions.md).
+  [params.m3]
+    # Site palette locked to indigo-mtb. The picker UI in settings.html has
+    # been removed (only the light/dark theme toggle remains). Other palette
+    # folders (indigo, blue-vibrant) still exist under m3/ for ad-hoc
+    # experimentation but are not user-switchable from the chrome.
+    default = "indigo-mtb"
+
+    # No [[params.m3.options]] — the picker partial only renders entries
+    # from this list, so an empty list means no palette swatches in the UI.
+    # Re-add entries here if you want the picker back.
+
   [params.colors]
     # ESIO brand palette — used by both the Dark theme (default brand) and
     # Light theme (daytime variant of the same brand).
@@ -145,9 +169,80 @@ defaultContentLanguageInSubdir = false
     ebBaseLight       = "#f8fafb"  # almost-white (signature — default surface)
     ebOnBase          = "#1b1d20"  # near-black (signature — text on surface)
 
+    # ─── App preview — DARK mode ────────────────────────────────────────────
+    # Mirrors Radzen's dark-mode overrides for the same product UI. Source:
+    # EsioBudget.WebApp/wwwroot/css/material3-dark-base.css (:root block). In
+    # the app, switching to dark mode swaps every --rz-* token to these
+    # values; we mirror that here so the marketing site's `app-preview-dark`
+    # theme previews the actual product's dark mode. Same `eb` heritage,
+    # `ebDark*` to disambiguate from the light family.
+    ebDarkPrimary       = "#94c1ff"  # light blue (primary in dark mode)
+    ebDarkPrimaryLight  = "#bcd7ff"  # soft blue (primaryContainer)
+    ebDarkPrimaryDarker = "#001f5d"  # deepest navy (onPrimary — high contrast on light-blue button)
+    ebDarkSecondary     = "#c2cbdc"  # light slate (secondary inverts in dark)
+    ebDarkBody          = "#1f2226"  # --rz-base-700 — main dark surface (app body bg)
+    ebDarkRaised        = "#292c30"  # --rz-base-600 — raised panels above the body
+    ebDarkSurfaceDeep   = "#121518"  # --rz-base-900 — deepest recessed bg
+    ebDarkBaseLight     = "#e0e4e9"  # --rz-base-50 — inverse surface (light strip on dark bg)
+    ebDarkBase          = "#45494f"  # --rz-base — neutral dark
+    ebDarkOnBase        = "#ffffff"  # text on dark surface
+
+    # ─── Material Theme Builder palette ─────────────────────────────────────
+    # Source of truth for the M3 palette is now this block (previously the
+    # CSS bridge at themes/esio-theme/assets/css/m3/{light,dark}.css). Values
+    # captured 2026-05-20 from Material Theme Builder output. Regenerate by
+    # re-running MTB with the same key color (the m3LightPrimary below) and
+    # replacing this block. Tertiary/secondary/error families are present in
+    # MTB output but not yet wired into [params.theme.X] — see
+    # _docs/color-decisions.md for the rationale.
+    #
+    # Light theme (M3) — daylight surfaces with deep saturated blue primary.
+    m3LightPrimary              = "#005bb2"
+    m3LightOnPrimary            = "#ffffff"
+    m3LightPrimaryContainer     = "#1f74d7"
+    m3LightSurface              = "#f9f9ff"
+    m3LightSurfaceDim           = "#d8dae2"
+    m3LightSurfaceContainer     = "#eceef6"
+    m3LightSurfaceContainerHigh = "#e6e8f1"
+    m3LightOnSurface            = "#191c22"
+    m3LightInverseSurface       = "#2d3037"
+    m3LightInverseOnSurface     = "#eff0f9"
+    # Tertiary — purple, +60° hue rotation from primary blue. Used for the
+    # second accent (decorative blobs, secondary CTAs, badge variations) so
+    # the page isn't a single-hue wash. Distinct from primary, harmonised via
+    # tone (same M3 tone-40 light / tone-80 dark as primary).
+    m3LightTertiary             = "#883a9d"
+    m3LightOnTertiary           = "#ffffff"
+    m3LightTertiaryContainer    = "#a454b8"
+    m3LightOnTertiaryContainer  = "#fffbff"
+
+    # Dark theme (M3) — near-black surfaces with light-blue primary.
+    m3DarkPrimary              = "#a9c7ff"
+    m3DarkOnPrimary            = "#003063"
+    m3DarkPrimaryContainer     = "#4891f6"
+    m3DarkSurface              = "#101319"
+    m3DarkSurfaceDim           = "#101319"
+    m3DarkSurfaceContainer     = "#1d2026"
+    m3DarkSurfaceContainerHigh = "#272a30"
+    m3DarkOnSurface            = "#e1e2eb"
+    m3DarkInverseSurface       = "#e1e2eb"
+    m3DarkInverseOnSurface     = "#2d3037"
+    # Tertiary dark — light pink/purple (M3 tone-80), pairs with the lighter
+    # primary blue (#a9c7ff) for dark-surface contrast.
+    m3DarkTertiary             = "#f2afff"
+    m3DarkOnTertiary           = "#55006b"
+    m3DarkTertiaryContainer    = "#c370d7"
+    m3DarkOnTertiaryContainer  = "#30003e"
+
   [params.typography]
-    fontFamily   = "Plus Jakarta Sans"
+    # Body text — humanist sans designed for UI legibility at 14–18px.
+    # Pairs cleanly with a serif display font.
+    fontFamily   = "Inter"
     fontWeights  = "400;500;600;700;800;900"
+    # Display headlines — variable serif, magazine-style register.
+    # Leave displayFontFamily blank to fall back to fontFamily for headlines.
+    displayFontFamily  = "Fraunces"
+    displayFontWeights = "500;700;800;900"
 
   [params.radii]
     base  = "16px"
@@ -163,84 +258,117 @@ defaultContentLanguageInSubdir = false
   [params.theme]
     default = "dark"
 
-    [params.theme.dark]
-      colorScheme          = "dark"      # browser hint for native form controls / scrollbars
-      label                = "theme_dark"
-      surface              = "navy"      # default page surface (body, hero, pricing)
-      surfaceDim           = "navyDark"  # recessed sections (video, how, cta, footer)
-      surfaceContainerHigh = "navyMid"   # elevated (setup section, popovers)
-      onSurface            = "white"
-      primary              = "terra"
-      primaryContainer     = "terraDark"
-      # Dark navy on terra ≈ 5.5:1 contrast (AA body text); white-on-terra was
-      # only ~3:1 (AA large-text only). navy + terra is the brand signature
-      # pair, so the flip also reads as more on-brand.
-      onPrimary            = "navyDark"
-      inverseSurface       = "white"
-      inverseOnSurface     = "navyDark"
+    # ─── Brand themes commented out 2026-05-20 ──────────────────────────────
+    # The brand-styled (navy+terra) dark and light themes are temporarily
+    # disabled. The picker now shows the Radzen-styled themes only, with the
+    # `light` and `dark` slot names taken over by what were previously named
+    # `app-preview` and `app-preview-dark`. To restore the brand picker
+    # entries, uncomment the two blocks below AND rename the current `dark`
+    # and `light` blocks back to `app-preview-dark` and `app-preview` so
+    # both layers can coexist.
+    #
+    # [params.theme.dark-brand]
+    #   colorScheme          = "dark"
+    #   label                = "theme_dark"
+    #   surface              = "navy"
+    #   surfaceDim           = "navyDark"
+    #   surfaceContainerHigh = "navyMid"
+    #   onSurface            = "white"
+    #   primary              = "terra"
+    #   primaryContainer     = "terraDark"
+    #   onPrimary            = "navyDark"
+    #   inverseSurface       = "white"
+    #   inverseOnSurface     = "navyDark"
+    #   [params.theme.dark-brand.panels]
+    #     fp1 = "navyMid"; fp2 = "navy"; fp3 = "navyMid"; fp4 = "navy"; fp5 = "navyMid"
+    #
+    # [params.theme.light-brand]
+    #   colorScheme          = "light"
+    #   label                = "theme_light"
+    #   surface              = "white"
+    #   surfaceDim           = "terraPale"
+    #   surfaceContainerHigh = "white"
+    #   onSurface            = "navyDark"
+    #   primary              = "terra"
+    #   primaryContainer     = "terraLight"
+    #   onPrimary            = "navyDark"
+    #   inverseSurface       = "navyDark"
+    #   inverseOnSurface     = "white"
+    #   [params.theme.light-brand.panels]
+    #     fp1 = "terraPale"; fp2 = "white"; fp3 = "terraPale"; fp4 = "white"; fp5 = "terraPale"
 
-      # Feature-panel backgrounds. The intro panel (fp1) uses the elevated
-      # `surfaceContainerHigh` tone (navyMid); the four feature cards alternate
-      # between the page surface (navy) and the elevated tone — a calm
-      # two-tone rhythm rather than 5 distinct colours.
-      [params.theme.dark.panels]
-        fp1 = "navyMid"
-        fp2 = "navy"
-        fp3 = "navyMid"
-        fp4 = "navy"
-        fp5 = "navyMid"
-
+    # ─── Light ──────────────────────────────────────────────────────────────
+    # Material Theme Builder palette, daylight. Key color: deep saturated
+    # blue (m3LightPrimary). The Radzen-mirroring ebBaseLight / ebPrimary
+    # mapping is preserved below as a comment in case you want to revert.
     [params.theme.light]
       colorScheme          = "light"
       label                = "theme_light"
-      surface              = "white"
-      surfaceDim           = "terraPale" # subtle warm tint for recessed sections
-      surfaceContainerHigh = "white"
-      onSurface            = "navyDark"
-      primary              = "terra"
-      primaryContainer     = "terraLight"  # softer-than-primary tinted bg for
-                                           # chips/hover — distinct from
-                                           # surfaceDim (terraPale)
-      # See dark theme comment — navy text on terra is the higher-contrast,
-      # more on-brand pairing. App-preview theme keeps onPrimary=white
-      # because its primary is bright blue (#3481e5), where white works.
-      onPrimary            = "navyDark"
-      inverseSurface       = "navyDark"
-      inverseOnSurface     = "white"
+      surface              = "m3LightSurface"
+      surfaceDim           = "m3LightSurfaceDim"
+      surfaceContainerHigh = "m3LightSurfaceContainerHigh"
+      onSurface            = "m3LightOnSurface"
+      primary              = "m3LightPrimary"
+      primaryContainer     = "m3LightPrimaryContainer"
+      onPrimary            = "m3LightOnPrimary"
+      tertiary             = "m3LightTertiary"
+      onTertiary           = "m3LightOnTertiary"
+      tertiaryContainer    = "m3LightTertiaryContainer"
+      onTertiaryContainer  = "m3LightOnTertiaryContainer"
+      inverseSurface       = "m3LightInverseSurface"
+      inverseOnSurface     = "m3LightInverseOnSurface"
 
-      # Two-tone alternation: fp1/3/5 use terraPale (the warm recessed
-      # surface), fp2/4 use white (the default surface). The intro panel
-      # leads with the warm tone; feature cards alternate.
+      # Two-tone alternation: alternates between the MTB "surface-container"
+      # (recessed neutral) and "surface" (default) tones.
       [params.theme.light.panels]
-        fp1 = "terraPale"
-        fp2 = "white"
-        fp3 = "terraPale"
-        fp4 = "white"
-        fp5 = "terraPale"
+        fp1 = "m3LightSurfaceContainer"
+        fp2 = "m3LightSurface"
+        fp3 = "m3LightSurfaceContainer"
+        fp4 = "m3LightSurface"
+        fp5 = "m3LightSurfaceContainer"
+    #
+    # Previous Radzen-light mapping (kept for reference, uncomment to revert):
+    # [params.theme.light]
+    #   surface = "ebBaseLight"; surfaceDim = "ebBase"; surfaceContainerHigh = "white"
+    #   onSurface = "ebOnBase"; primary = "ebPrimary"; primaryContainer = "ebPrimaryLight"
+    #   onPrimary = "white"; inverseSurface = "ebPrimaryDarker"; inverseOnSurface = "ebBaseLight"
+    #   [params.theme.light.panels]
+    #     fp1 = "ebBase"; fp2 = "ebBaseLight"; fp3 = "ebBase"; fp4 = "ebBaseLight"; fp5 = "ebBase"
 
-    # ─── App preview ────────────────────────────────────────────────────────
-    # Mirrors the in-app palette (EsioBudget.WebApp). Picking this theme on
-    # the marketing site previews the actual product UI: bright-blue primary
-    # on near-white surfaces with slate accents. Light-mode by design.
-    [params.theme."app-preview"]
-      colorScheme          = "light"
-      label                = "theme_app_preview"
-      surface              = "ebBaseLight"     # almost-white (app default)
-      surfaceDim           = "ebBase"          # slightly darker base
-      surfaceContainerHigh = "white"
-      onSurface            = "ebOnBase"        # near-black text
-      primary              = "ebPrimary"       # bright blue
-      primaryContainer     = "ebPrimaryLight"  # soft blue
-      onPrimary            = "white"
-      inverseSurface       = "ebPrimaryDarker" # deep navy
-      inverseOnSurface     = "ebBaseLight"
+    # ─── Dark ───────────────────────────────────────────────────────────────
+    # Mirrors the Radzen dark-mode palette (material3-dark-base.css). Was
+    # `app-preview-dark`. Primary is the lighter blue (#94c1ff) because on a
+    # dark surface the saturated brand-blue would be too low-contrast;
+    # Radzen's design choice is to lighten primary in dark mode.
+    [params.theme.dark]
+      colorScheme          = "dark"
+      label                = "theme_dark"
+      surface              = "m3DarkSurface"
+      surfaceDim           = "m3DarkSurfaceDim"
+      surfaceContainerHigh = "m3DarkSurfaceContainerHigh"
+      onSurface            = "m3DarkOnSurface"
+      primary              = "m3DarkPrimary"
+      primaryContainer     = "m3DarkPrimaryContainer"
+      onPrimary            = "m3DarkOnPrimary"
+      tertiary             = "m3DarkTertiary"
+      onTertiary           = "m3DarkOnTertiary"
+      tertiaryContainer    = "m3DarkTertiaryContainer"
+      onTertiaryContainer  = "m3DarkOnTertiaryContainer"
+      inverseSurface       = "m3DarkInverseSurface"
+      inverseOnSurface     = "m3DarkInverseOnSurface"
 
-      # Two-tone alternation: fp1/3/5 use ebBase (the slightly-darker neutral),
-      # fp2/4 use ebBaseLight (the default near-white surface). Mirrors the
-      # in-app section banding.
-      [params.theme."app-preview".panels]
-        fp1 = "ebBase"
-        fp2 = "ebBaseLight"
-        fp3 = "ebBase"
-        fp4 = "ebBaseLight"
-        fp5 = "ebBase"
+      # Two-tone alternation between MTB "surface-container" and "surface".
+      [params.theme.dark.panels]
+        fp1 = "m3DarkSurfaceContainer"
+        fp2 = "m3DarkSurface"
+        fp3 = "m3DarkSurfaceContainer"
+        fp4 = "m3DarkSurface"
+        fp5 = "m3DarkSurfaceContainer"
+    #
+    # Previous Radzen-dark mapping (kept for reference, uncomment to revert):
+    # [params.theme.dark]
+    #   surface = "ebDarkBody"; surfaceDim = "ebDarkSurfaceDeep"; surfaceContainerHigh = "ebDarkRaised"
+    #   onSurface = "ebDarkOnBase"; primary = "ebDarkPrimary"; primaryContainer = "ebDarkPrimaryLight"
+    #   onPrimary = "ebDarkPrimaryDarker"; inverseSurface = "ebDarkBaseLight"; inverseOnSurface = "ebDarkBody"
+    #   [params.theme.dark.panels]
+    #     fp1 = "ebDarkRaised"; fp2 = "ebDarkBody"; fp3 = "ebDarkRaised"; fp4 = "ebDarkBody"; fp5 = "ebDarkRaised"

@@ -1,0 +1,20 @@
+tag: Get Early Access
+headline:
+  prefix: Be first to try ESIO
+  suffix: when we open
+body: Drop your email. We'll let you know the moment ESIO opens for sign-ups. No credit card, no commitment.
+benefits:
+- Full access to all features during trial
+- Automatic tax deadline tracking
+- Real-time cashflow dashboard
+- Cancel or downgrade anytime
+formBox:
+  title: Want early access?
+  subtitle: |-
+    Just your email.
+    We'll handle the rest.
+  cta:
+    label: Notify me at launch →
+    href: /newsletter/
+    event: cta-notify-subscribe
+  legalNote: By signing up you agree to our Terms & Privacy Policy. Prices exclude taxes.

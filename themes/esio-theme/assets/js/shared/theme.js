@@ -1,40 +1,25 @@
-// Theme switcher. The <html data-theme="..."> attribute is set in a tiny
-// inline script in baseof.html before paint to avoid a flash; this module
-// only handles user-initiated switching.
+// Theme + palette switcher. Both attributes (data-theme, data-palette) are
+// set in a tiny inline script in baseof.html before paint to avoid a flash;
+// this module only handles user-initiated swaps.
 //
-// Each palette swatch in theme-toggle.html carries [data-theme-set="<slug>"];
-// clicking one flips the attribute and persists the choice. The legacy
-// [data-theme-toggle] binding (dark↔light cycle) is kept for any callsite
-// that still uses it.
-const KEY = 'esio-theme';
+// Theme swatches in settings.html carry [data-theme-set="<slug>"]; palette
+// swatches carry [data-palette-set="<slug>"]. Clicking flips the
+// corresponding attribute on <html> and persists the choice to localStorage.
+// The legacy [data-theme-toggle] binding (dark↔light cycle) is kept.
 
-function apply(theme) {
-  const swap = () => {
-    document.documentElement.dataset.theme = theme;
-    try { localStorage.setItem(KEY, theme); } catch (_) {}
-    document.querySelectorAll('[data-theme-set]').forEach((el) => {
-      el.classList.toggle('is-active', el.dataset.themeSet === theme);
-    });
-  };
+const THEME_KEY   = 'esio-theme';
+const PALETTE_KEY = 'esio-palette';
 
+// Wrap an attribute write in a View Transition / class-based fade so it
+// crossfades rather than hard-cuts. Same machinery for both theme and palette
+// — the only thing that changes is what swap() does.
+function transition(swap) {
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduceMotion) {
-    swap();
-    return;
-  }
-
-  // Modern path: View Transitions API. Browser snapshots the page,
-  // applies the swap, snapshots again, then crossfades the two bitmaps
-  // on the GPU. Customised via ::view-transition-old/new(root) in CSS.
+  if (reduceMotion) { swap(); return; }
   if (typeof document.startViewTransition === 'function') {
     document.startViewTransition(swap);
     return;
   }
-
-  // Fallback for older Firefox / Safari: a temporary class on <html>
-  // scopes a global color transition to the moment of the swap. Less
-  // smooth than the API but better than a hard cut. Window matches the
-  // CSS transition duration in esio.css (760ms) plus a small buffer.
   document.documentElement.classList.add('theme-transitioning');
   swap();
   window.setTimeout(() => {
@@ -42,19 +27,44 @@ function apply(theme) {
   }, 820);
 }
 
+function applyTheme(theme) {
+  transition(() => {
+    document.documentElement.dataset.theme = theme;
+    try { localStorage.setItem(THEME_KEY, theme); } catch (_) {}
+    document.querySelectorAll('[data-theme-set]').forEach((el) => {
+      el.classList.toggle('is-active', el.dataset.themeSet === theme);
+    });
+  });
+}
+
+function applyPalette(palette) {
+  transition(() => {
+    document.documentElement.dataset.palette = palette;
+    try { localStorage.setItem(PALETTE_KEY, palette); } catch (_) {}
+    document.querySelectorAll('[data-palette-set]').forEach((el) => {
+      el.classList.toggle('is-active', el.dataset.paletteSet === palette);
+    });
+  });
+}
+
 export function initTheme() {
-  // Mark whichever swatch matches the current theme on first paint so the
-  // active ring shows immediately.
-  apply(document.documentElement.dataset.theme);
+  // Mark whichever swatches match the current state on first paint so the
+  // active rings show immediately.
+  applyTheme(document.documentElement.dataset.theme);
+  applyPalette(document.documentElement.dataset.palette);
 
   document.querySelectorAll('[data-theme-set]').forEach((el) => {
-    el.addEventListener('click', () => apply(el.dataset.themeSet));
+    el.addEventListener('click', () => applyTheme(el.dataset.themeSet));
+  });
+
+  document.querySelectorAll('[data-palette-set]').forEach((el) => {
+    el.addEventListener('click', () => applyPalette(el.dataset.paletteSet));
   });
 
   document.querySelectorAll('[data-theme-toggle]').forEach((el) => {
     el.addEventListener('click', () => {
       const current = document.documentElement.dataset.theme;
-      apply(current === 'light' ? 'dark' : 'light');
+      applyTheme(current === 'light' ? 'dark' : 'light');
     });
   });
 }

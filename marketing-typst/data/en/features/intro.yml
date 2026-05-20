@@ -1,0 +1,15 @@
+tag: How it works
+headline: |-
+  Everything
+  your business
+  needs finally
+  in one place
+subtitle: Tools built for sole traders, cafés, and small teams who want clarity without complexity.
+iconGrid:
+- currency_exchange     # → panel 01: Cashflow
+- receipt_long          # → panel 02: Tax
+- trending_up           # → panel 03: Projections
+- wallet                # → panel 04: Expenses
+illustration:
+  src: /assets/characters/characters-04-gradient.svg
+  alt: ESIO feature suite overview illustration
