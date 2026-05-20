@@ -126,13 +126,18 @@
    you want the swatches to match (the rendered colors come from the
    imported CSS files, not [params.colors]).
    ────────────────────────────────────────────────────────────────────────── */
-{{- /* Import every palette listed in [params.m3.options]. Each palette's
-   light.css and dark.css scope themselves to
-   :root[data-palette="<name>"][data-theme="<theme>"], so all five can
-   coexist in the bundle — only the active one matches at any moment. */ -}}
+{{- /* Bundle the active default palette plus any picker options. Each
+   palette's light.css / dark.css scopes itself to
+   :root[data-palette="<name>"][data-theme="<theme>"], so all can coexist
+   in the bundle — only the active one matches at any moment. The default
+   is always included so the site renders even when the picker is empty. */ -}}
+{{- $palettes := slice site.Params.m3.default }}
 {{- range site.Params.m3.options }}
-@import "./m3/{{ .name }}/light.css";
-@import "./m3/{{ .name }}/dark.css";
+{{- $palettes = $palettes | append .name }}
+{{- end }}
+{{- range ($palettes | uniq) }}
+@import "./m3/{{ . }}/light.css";
+@import "./m3/{{ . }}/dark.css";
 {{- end }}
 
 /* Bridge — applies to any [data-palette] value, both themes. */
