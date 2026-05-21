@@ -1,0 +1,93 @@
+:root[data-palette="blue-tonal-spot"] {
+  /* Material 3 reference tonal palettes generated from #3482E7 (tonal-spot). */
+  /* primary */
+  --md-ref-palette-primary0: rgb(0 0 0);
+  --md-ref-palette-primary5: rgb(0 17 42);
+  --md-ref-palette-primary10: rgb(0 27 61);
+  --md-ref-palette-primary15: rgb(0 37 80);
+  --md-ref-palette-primary20: rgb(8 48 95);
+  --md-ref-palette-primary25: rgb(24 59 107);
+  --md-ref-palette-primary30: rgb(38 71 119);
+  --md-ref-palette-primary35: rgb(51 83 132);
+  --md-ref-palette-primary40: rgb(64 95 144);
+  --md-ref-palette-primary50: rgb(89 120 171);
+  --md-ref-palette-primary60: rgb(115 145 198);
+  --md-ref-palette-primary70: rgb(141 172 227);
+  --md-ref-palette-primary80: rgb(169 199 255);
+  --md-ref-palette-primary90: rgb(214 227 255);
+  --md-ref-palette-primary95: rgb(236 240 255);
+  --md-ref-palette-primary99: rgb(253 251 255);
+  --md-ref-palette-primary100: rgb(255 255 255);
+  /* secondary */
+  --md-ref-palette-secondary0: rgb(0 0 0);
+  --md-ref-palette-secondary5: rgb(18 18 0);
+  --md-ref-palette-secondary10: rgb(28 29 0);
+  --md-ref-palette-secondary15: rgb(39 39 0);
+  --md-ref-palette-secondary20: rgb(50 50 0);
+  --md-ref-palette-secondary25: rgb(61 62 0);
+  --md-ref-palette-secondary30: rgb(73 74 0);
+  --md-ref-palette-secondary35: rgb(85 86 0);
+  --md-ref-palette-secondary40: rgb(97 98 0);
+  --md-ref-palette-secondary50: rgb(122 123 0);
+  --md-ref-palette-secondary60: rgb(148 150 0);
+  --md-ref-palette-secondary70: rgb(176 177 0);
+  --md-ref-palette-secondary80: rgb(203 205 22);
+  --md-ref-palette-secondary90: rgb(232 234 58);
+  --md-ref-palette-secondary95: rgb(247 249 72);
+  --md-ref-palette-secondary99: rgb(255 251 255);
+  --md-ref-palette-secondary100: rgb(255 255 255);
+  /* tertiary */
+  --md-ref-palette-tertiary0: rgb(0 0 0);
+  --md-ref-palette-tertiary5: rgb(28 8 35);
+  --md-ref-palette-tertiary10: rgb(40 19 47);
+  --md-ref-palette-tertiary15: rgb(51 30 57);
+  --md-ref-palette-tertiary20: rgb(62 40 69);
+  --md-ref-palette-tertiary25: rgb(74 51 80);
+  --md-ref-palette-tertiary30: rgb(86 62 92);
+  --md-ref-palette-tertiary35: rgb(99 74 104);
+  --md-ref-palette-tertiary40: rgb(111 86 117);
+  --md-ref-palette-tertiary50: rgb(137 110 143);
+  --md-ref-palette-tertiary60: rgb(164 135 169);
+  --md-ref-palette-tertiary70: rgb(191 161 197);
+  --md-ref-palette-tertiary80: rgb(220 188 225);
+  --md-ref-palette-tertiary90: rgb(249 216 254);
+  --md-ref-palette-tertiary95: rgb(255 235 255);
+  --md-ref-palette-tertiary99: rgb(255 251 255);
+  --md-ref-palette-tertiary100: rgb(255 255 255);
+  /* neutral */
+  --md-ref-palette-neutral0: rgb(0 0 0);
+  --md-ref-palette-neutral5: rgb(15 17 22);
+  --md-ref-palette-neutral10: rgb(25 28 32);
+  --md-ref-palette-neutral15: rgb(36 38 43);
+  --md-ref-palette-neutral20: rgb(46 48 54);
+  --md-ref-palette-neutral25: rgb(57 59 65);
+  --md-ref-palette-neutral30: rgb(69 71 76);
+  --md-ref-palette-neutral35: rgb(80 82 88);
+  --md-ref-palette-neutral40: rgb(92 94 100);
+  --md-ref-palette-neutral50: rgb(117 119 125);
+  --md-ref-palette-neutral60: rgb(143 144 151);
+  --md-ref-palette-neutral70: rgb(170 171 177);
+  --md-ref-palette-neutral80: rgb(197 198 205);
+  --md-ref-palette-neutral90: rgb(226 226 233);
+  --md-ref-palette-neutral95: rgb(240 240 247);
+  --md-ref-palette-neutral99: rgb(253 251 255);
+  --md-ref-palette-neutral100: rgb(255 255 255);
+  /* neutral-variant */
+  --md-ref-palette-neutral-variant0: rgb(0 0 0);
+  --md-ref-palette-neutral-variant5: rgb(14 17 23);
+  --md-ref-palette-neutral-variant10: rgb(24 28 34);
+  --md-ref-palette-neutral-variant15: rgb(34 38 45);
+  --md-ref-palette-neutral-variant20: rgb(45 48 56);
+  --md-ref-palette-neutral-variant25: rgb(56 59 67);
+  --md-ref-palette-neutral-variant30: rgb(68 71 78);
+  --md-ref-palette-neutral-variant35: rgb(79 82 90);
+  --md-ref-palette-neutral-variant40: rgb(91 94 102);
+  --md-ref-palette-neutral-variant50: rgb(116 119 127);
+  --md-ref-palette-neutral-variant60: rgb(142 144 153);
+  --md-ref-palette-neutral-variant70: rgb(168 171 180);
+  --md-ref-palette-neutral-variant80: rgb(196 198 207);
+  --md-ref-palette-neutral-variant90: rgb(224 226 236);
+  --md-ref-palette-neutral-variant95: rgb(238 240 250);
+  --md-ref-palette-neutral-variant99: rgb(253 251 255);
+  --md-ref-palette-neutral-variant100: rgb(255 255 255);
+}

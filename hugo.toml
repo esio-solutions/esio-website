@@ -112,7 +112,7 @@ defaultContentLanguageInSubdir = false
     # been removed (only the light/dark theme toggle remains). Other palette
     # folders (indigo, blue-vibrant) still exist under m3/ for ad-hoc
     # experimentation but are not user-switchable from the chrome.
-    default = "scheme-b-vibrant"
+    default = "blue-vibrant"
 
     # No [[params.m3.options]] — the picker partial only renders entries
     # from this list, so an empty list means no palette swatches in the UI.
