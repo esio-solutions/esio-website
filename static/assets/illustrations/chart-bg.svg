@@ -2,7 +2,7 @@
 	 viewBox="0 0 1920 1080" enable-background="new 0 0 1920 1080" xml:space="preserve">
 <style type="text/css">
 	.bg1-st0{clip-path:url(#SVGID_00000159446381551896770590000008905886660250496900_);}
-	.bg1-st1{fill:var(--color-tertiary);}
+	.bg1-st1{fill:var(--color-tertiary-container);}
 	.bg1-st2{fill:#464E58;}
 	.bg1-st3{fill:#F2F2F2;}
 	.bg1-st4{fill:#7CCEDC;}
