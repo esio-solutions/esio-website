@@ -138,9 +138,10 @@
      through M3 roles.
    - --color-inverse-primary is not bridged: nothing on the site renders
      M3 snackbars/tooltips today. Add it alongside the consumer.
-   - --color-secondary-fixed* tokens are bridged but unused; the .fbadge
-     "Most Popular" pricing badge uses --color-yellow directly because it
-     is a brand accent, not a role.
+   - --color-yellow is aliased to --md-sys-color-secondary-fixed-dim in
+     the palette-active bridge below; the M3 generator pins the brand
+     hex (#F5C842) into that slot via --pin-secondary-fixed-dim so the
+     alias and the static @theme fallback agree on value.
    ────────────────────────────────────────────────────────────────────────── */
 {{- /* Bundle the active default palette plus any picker options. Each
    palette's light.css / dark.css scopes itself to
@@ -188,6 +189,12 @@
   --color-secondary-fixed-dim:         var(--md-sys-color-secondary-fixed-dim);
   --color-on-secondary-fixed:          var(--md-sys-color-on-secondary-fixed);
   --color-on-secondary-fixed-variant:  var(--md-sys-color-on-secondary-fixed-variant);
+  /* Brand yellow re-routed to the M3 fixed-dim slot. The palette pins
+     #F5C842 literally into --md-sys-color-secondary-fixed-dim via the
+     generator's --pin-secondary-fixed-dim flag, so this alias is the
+     same warm gold across all palette variants (and survives light/dark
+     theme swaps because *-fixed-dim is identity-stable by design). */
+  --color-yellow:                      var(--md-sys-color-secondary-fixed-dim);
   --color-tertiary:               var(--md-sys-color-tertiary);
   --color-on-tertiary:            var(--md-sys-color-on-tertiary);
   --color-tertiary-container:     var(--md-sys-color-tertiary-container);
