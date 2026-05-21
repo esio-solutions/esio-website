@@ -52,6 +52,7 @@
   --color-primary:                {{ index $colors $default.primary }};
   --color-primary-container:      {{ index $colors $default.primaryContainer }};
   --color-on-primary:             {{ index $colors $default.onPrimary }};
+  --color-on-primary-container:   {{ index $colors $default.onPrimaryContainer }};
   {{- with $default.tertiary }}
   --color-tertiary:               {{ index $colors . }};
   --color-on-tertiary:            {{ index $colors $default.onTertiary }};
@@ -95,6 +96,7 @@
   --color-primary:                {{ index $colors $cfg.primary }};
   --color-primary-container:      {{ index $colors $cfg.primaryContainer }};
   --color-on-primary:             {{ index $colors $cfg.onPrimary }};
+  --color-on-primary-container:   {{ index $colors $cfg.onPrimaryContainer }};
   {{- with $cfg.tertiary }}
   --color-tertiary:               {{ index $colors . }};
   --color-on-tertiary:            {{ index $colors $cfg.onTertiary }};
@@ -150,6 +152,7 @@
   --color-primary:                var(--md-sys-color-primary);
   --color-primary-container:      var(--md-sys-color-primary-container);
   --color-on-primary:             var(--md-sys-color-on-primary);
+  --color-on-primary-container:   var(--md-sys-color-on-primary-container);
   --color-secondary:                   var(--md-sys-color-secondary);
   --color-on-secondary:                var(--md-sys-color-on-secondary);
   --color-secondary-container:         var(--md-sys-color-secondary-container);

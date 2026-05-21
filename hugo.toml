@@ -112,7 +112,7 @@ defaultContentLanguageInSubdir = false
     # been removed (only the light/dark theme toggle remains). Other palette
     # folders (indigo, blue-vibrant) still exist under m3/ for ad-hoc
     # experimentation but are not user-switchable from the chrome.
-    default = "indigo"
+    default = "scheme-b-vibrant"
 
     # No [[params.m3.options]] — the picker partial only renders entries
     # from this list, so an empty list means no palette swatches in the UI.
@@ -200,6 +200,7 @@ defaultContentLanguageInSubdir = false
     m3LightPrimary              = "#005bb2"
     m3LightOnPrimary            = "#ffffff"
     m3LightPrimaryContainer     = "#1f74d7"
+    m3LightOnPrimaryContainer   = "#364379"
     m3LightSurface              = "#f9f9ff"
     m3LightSurfaceDim           = "#d8dae2"
     m3LightSurfaceContainer     = "#eceef6"
@@ -220,6 +221,7 @@ defaultContentLanguageInSubdir = false
     m3DarkPrimary              = "#a9c7ff"
     m3DarkOnPrimary            = "#003063"
     m3DarkPrimaryContainer     = "#4891f6"
+    m3DarkOnPrimaryContainer   = "#dde1ff"
     m3DarkSurface              = "#101319"
     m3DarkSurfaceDim           = "#101319"
     m3DarkSurfaceContainer     = "#1d2026"
@@ -305,6 +307,7 @@ defaultContentLanguageInSubdir = false
       primary              = "m3LightPrimary"
       primaryContainer     = "m3LightPrimaryContainer"
       onPrimary            = "m3LightOnPrimary"
+      onPrimaryContainer   = "m3LightOnPrimaryContainer"
       tertiary             = "m3LightTertiary"
       onTertiary           = "m3LightOnTertiary"
       tertiaryContainer    = "m3LightTertiaryContainer"
@@ -344,6 +347,7 @@ defaultContentLanguageInSubdir = false
       primary              = "m3DarkPrimary"
       primaryContainer     = "m3DarkPrimaryContainer"
       onPrimary            = "m3DarkOnPrimary"
+      onPrimaryContainer   = "m3DarkOnPrimaryContainer"
       tertiary             = "m3DarkTertiary"
       onTertiary           = "m3DarkOnTertiary"
       tertiaryContainer    = "m3DarkTertiaryContainer"
