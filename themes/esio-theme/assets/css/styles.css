@@ -127,6 +127,20 @@
    for swatch previews — when you swap palettes, update those values too if
    you want the swatches to match (the rendered colors come from the
    imported CSS files, not [params.colors]).
+
+   Intentional non-M3 choices (don't "fix" these without discussing):
+   - Status colors (success/danger/warning/info) are absolute, not bridged
+     to --md-sys-color-error*. A positive number should look positive
+     regardless of which palette is active.
+   - Brand tokens (--color-navy, --color-terra, --color-yellow, etc.) carry
+     visual identity, not role. Avatars, .fbadge, prose accents, and the
+     pain-card frosted overlay reach for these directly rather than going
+     through M3 roles.
+   - --color-inverse-primary is not bridged: nothing on the site renders
+     M3 snackbars/tooltips today. Add it alongside the consumer.
+   - --color-secondary-fixed* tokens are bridged but unused; the .fbadge
+     "Most Popular" pricing badge uses --color-yellow directly because it
+     is a brand accent, not a role.
    ────────────────────────────────────────────────────────────────────────── */
 {{- /* Bundle the active default palette plus any picker options. Each
    palette's light.css / dark.css scopes itself to
@@ -145,10 +159,18 @@
 /* Bridge — applies to any [data-palette] value, both themes. */
 :root[data-palette][data-theme="light"],
 :root[data-palette][data-theme="dark"] {
-  --color-surface:                var(--md-sys-color-surface);
-  --color-surface-dim:            var(--md-sys-color-surface-dim);
-  --color-surface-container-high: var(--md-sys-color-surface-container-high);
-  --color-on-surface:             var(--md-sys-color-on-surface);
+  --color-surface:                   var(--md-sys-color-surface);
+  --color-surface-dim:               var(--md-sys-color-surface-dim);
+  --color-surface-bright:            var(--md-sys-color-surface-bright);
+  --color-surface-container-lowest:  var(--md-sys-color-surface-container-lowest);
+  --color-surface-container-low:     var(--md-sys-color-surface-container-low);
+  --color-surface-container:         var(--md-sys-color-surface-container);
+  --color-surface-container-high:    var(--md-sys-color-surface-container-high);
+  --color-surface-container-highest: var(--md-sys-color-surface-container-highest);
+  --color-on-surface:                var(--md-sys-color-on-surface);
+  --color-on-surface-variant:        var(--md-sys-color-on-surface-variant);
+  --color-outline:                   var(--md-sys-color-outline);
+  --color-outline-variant:           var(--md-sys-color-outline-variant);
   --color-primary:                var(--md-sys-color-primary);
   --color-primary-container:      var(--md-sys-color-primary-container);
   --color-on-primary:             var(--md-sys-color-on-primary);
