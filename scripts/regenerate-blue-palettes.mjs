@@ -4,10 +4,16 @@
 // as a single source of truth: edit yellow in hugo.toml, re-run this,
 // and every variant's secondary family follows.
 //
-// No --pin, no --harmonize — the M3 algorithm normalizes the seed
-// naturally so secondary-fixed-dim ends up at tone-80 of a palette
-// derived from the brand color (not exactly the brand hex, but in
-// the same hue family).
+// Pins the brand yellow literally into secondary-fixed-dim — M3's
+// tone-80 normalization would otherwise shift it (the brand sits at
+// tone ~83). Pinning here is *not* hardcoding: the pinned value comes
+// from [params.colors].yellow above, so hugo.toml stays the single
+// source of truth. The other secondary slots (secondary, on-secondary,
+// secondary-container, etc.) still derive from M3 naturally; only the
+// fixed-dim slot is exact-brand.
+//
+// No --harmonize — harmonization rotates the hue toward blue and
+// produces a neon lime when paired with M3's tone-80 normalization.
 //
 // Usage:
 //   node scripts/regenerate-blue-palettes.mjs [--seed <primary-hex>]
@@ -47,13 +53,20 @@ for (const variant of VARIANTS) {
     "scripts/generate-m3-palette.mjs",
     "scripts/generate-m3-tonal-palettes.mjs",
   ]) {
-    const result = spawnSync("node", [
+    const cliArgs = [
       script,
       "--seed", primarySeed,
       "--name", name,
       "--variant", variant,
       "--secondary-seed", secondarySeed,
-    ], { stdio: "inherit" });
+    ];
+    // Only the role-token generator understands --pin-secondary-fixed-dim;
+    // the tonal-palette generator doesn't emit fixed slots so the flag
+    // would be a no-op there.
+    if (script.endsWith("generate-m3-palette.mjs")) {
+      cliArgs.push("--pin-secondary-fixed-dim");
+    }
+    const result = spawnSync("node", cliArgs, { stdio: "inherit" });
     if (result.status !== 0) process.exit(result.status);
   }
 }

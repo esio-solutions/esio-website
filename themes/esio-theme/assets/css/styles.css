@@ -141,9 +141,11 @@
    - --color-yellow is aliased to --md-sys-color-secondary-fixed-dim in
      the palette-active bridge below. The secondary seed used to derive
      that slot is [params.colors].yellow itself, sourced via
-     scripts/regenerate-blue-palettes.mjs — so the brand yellow is the
-     single source of truth, and M3's tone-80 normalization of it lands
-     in the fixed-dim slot (close to but not identical to the brand hex).
+     scripts/regenerate-blue-palettes.mjs — and the same script pins
+     the brand hex literally into the slot, bypassing M3's tone-80
+     normalization. Net effect: the brand yellow flows from hugo.toml
+     through to .fbadge and any other --color-yellow consumer, exact
+     match across all palette variants.
    ────────────────────────────────────────────────────────────────────────── */
 {{- /* Bundle the active default palette plus any picker options. Each
    palette's light.css / dark.css scopes itself to
@@ -191,11 +193,12 @@
   --color-secondary-fixed-dim:         var(--md-sys-color-secondary-fixed-dim);
   --color-on-secondary-fixed:          var(--md-sys-color-on-secondary-fixed);
   --color-on-secondary-fixed-variant:  var(--md-sys-color-on-secondary-fixed-variant);
-  /* Brand yellow re-routed to the M3 fixed-dim slot. The secondary seed
-     fed to the generator comes from [params.colors].yellow via
-     scripts/regenerate-blue-palettes.mjs — single source of truth — so
-     this alias resolves to M3's normalized tone-80 of a palette derived
-     from the brand yellow. Survives light/dark theme swaps because
+  /* Brand yellow re-routed to the M3 fixed-dim slot. The secondary
+     seed fed to the generator comes from [params.colors].yellow via
+     scripts/regenerate-blue-palettes.mjs (single source of truth), and
+     the same script pins that exact hex into secondary-fixed-dim so
+     the slot reads back as the brand yellow rather than M3's
+     tone-80 normalization. Survives light/dark theme swaps because
      *-fixed-dim is identity-stable by design. */
   --color-yellow:                      var(--md-sys-color-secondary-fixed-dim);
   --color-tertiary:               var(--md-sys-color-tertiary);
