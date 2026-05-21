@@ -22,9 +22,19 @@
 // tone-80 computation. Use when the brand color must appear exactly as
 // specified at the fixed-dim slot — e.g., matching a hand-tuned brand
 // yellow that M3's algorithm would otherwise normalize.
+//
+// --harmonize-secondary runs M3's Blend.harmonize on the secondary seed
+// before deriving the secondary palette: the seed's hue is nudged a few
+// degrees toward the primary seed while chroma and tone are preserved.
+// Result: the brand color stays recognizable but reads as "of this
+// palette" instead of an unrelated import. Mirrors the harmonization
+// step the Material Theme Builder applies to imported custom colors.
+// Requires --secondary-seed.
 
 import {
   argbFromHex,
+  hexFromArgb,
+  Blend,
   Hct,
   SchemeTonalSpot,
   SchemeVibrant,
@@ -48,20 +58,37 @@ const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), ".."
 const args = process.argv.slice(2);
 let seedHex, name, variantName = "tonal-spot", secondarySeedHex;
 let pinSecondaryFixedDim = false;
+let harmonizeSecondary = false;
 for (let i = 0; i < args.length; i++) {
   if (args[i] === "--seed") seedHex = args[++i];
   else if (args[i] === "--name") name = args[++i];
   else if (args[i] === "--variant") variantName = args[++i];
   else if (args[i] === "--secondary-seed") secondarySeedHex = args[++i];
   else if (args[i] === "--pin-secondary-fixed-dim") pinSecondaryFixedDim = true;
+  else if (args[i] === "--harmonize-secondary") harmonizeSecondary = true;
 }
 if (!seedHex || !name) {
-  console.error("Usage: node scripts/generate-m3-palette.mjs --seed <hex> --name <slug> [--variant tonal-spot|vibrant|expressive|fidelity|content|monochrome|neutral|rainbow|fruit-salad] [--secondary-seed <hex>] [--pin-secondary-fixed-dim]");
+  console.error("Usage: node scripts/generate-m3-palette.mjs --seed <hex> --name <slug> [--variant tonal-spot|vibrant|expressive|fidelity|content|monochrome|neutral|rainbow|fruit-salad] [--secondary-seed <hex>] [--pin-secondary-fixed-dim] [--harmonize-secondary]");
   process.exit(1);
 }
 if (pinSecondaryFixedDim && !secondarySeedHex) {
   console.error("--pin-secondary-fixed-dim requires --secondary-seed");
   process.exit(1);
+}
+if (harmonizeSecondary && !secondarySeedHex) {
+  console.error("--harmonize-secondary requires --secondary-seed");
+  process.exit(1);
+}
+
+// Harmonize the secondary seed toward the primary seed before deriving its
+// tonal palette. Pinning (--pin-secondary-fixed-dim) and harmonization can
+// stack: in that case we pin the *harmonized* hex into the fixed-dim slot
+// so the literal value still reads as palette-compatible.
+if (harmonizeSecondary) {
+  const beforeHex = secondarySeedHex.startsWith("#") ? secondarySeedHex : `#${secondarySeedHex}`;
+  const afterArgb = Blend.harmonize(argbFromHex(beforeHex), argbFromHex(seedHex.startsWith("#") ? seedHex : `#${seedHex}`));
+  secondarySeedHex = hexFromArgb(afterArgb);
+  console.log(`harmonized secondary ${beforeHex} → ${secondarySeedHex} (toward primary ${seedHex})`);
 }
 
 const variants = {
