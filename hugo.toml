@@ -134,9 +134,11 @@ defaultContentLanguageInSubdir = false
     terraPale       = "#FAE8DF"  # state — Light theme's surfaceDim
     white           = "#FFFFFF"  # signature — text on dark / surface on light
     teal            = "#4DBFB8"  # accent — used by marketing SVGs as creative fleck
-    yellow          = "#F5C842"  # accent — "Most Popular" pricing badge (CSS-direct,
-                                 # a saturated attention yellow distinct from
-                                 # status `warning` which is paler / more citrus)
+    yellow          = "#fdbb2d"  # accent — "Most Popular" pricing badge. Computed
+                                 # as the +180° HCT complement of the brand primary
+                                 # at tone 80 (i.e. the bright-yellow region where
+                                 # yellow reads as yellow). Distinct from status
+                                 # `warning` which is paler / more citrus.
     purple          = "#6B5B9E"  # accent — decorative avatars + how-steps gradient
                                  # (CSS-direct, no longer used as a section bg)
 
