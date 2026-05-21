@@ -56,14 +56,15 @@ body > nav{
 }
 
 #pain{
-  /* Painted in tertiary (M3 purple in light, light-pink in dark) to break
-     the page's primary-blue dominance. Text uses --color-on-tertiary so
-     the contrast pair stays M3-coherent across theme swaps. Cards keep
-     the white-tinted overlay so they read as raised panels regardless
-     of the section hue. */
-  --pain-bg:var(--color-tertiary);
-  --pain-title:var(--color-on-tertiary);
-  --pain-muted:color-mix(in srgb, var(--color-on-tertiary), transparent 22%);
+  /* Painted in tertiary-container — the M3 *tonal* tertiary surface
+     (lighter than plain --color-tertiary). Container roles are designed
+     for accent bands like this; they stay readable on low-chroma palette
+     variants (neutral, monochrome) where plain --color-tertiary would
+     collapse to near-greyscale. Cards keep the white-tinted overlay so
+     they read as raised panels regardless of the section hue. */
+  --pain-bg:var(--color-tertiary-container);
+  --pain-title:var(--color-on-tertiary-container);
+  --pain-muted:color-mix(in srgb, var(--color-on-tertiary-container), transparent 22%);
   --pain-card-bg:color-mix(in srgb, var(--color-white), transparent 88%);
   --pain-card-border:color-mix(in srgb, var(--color-white), transparent 82%);
 }
@@ -386,8 +387,12 @@ body > nav.is-menu-open .nav-menu-settings{opacity:1;visibility:visible;transfor
 /* Translucent fill (not solid) keeps the chip clearly distinct from the
    primary button (.btn--primary), which uses the same color pair but
    solid. The chip reads as a label/badge; the button reads as clickable. */
-.tag-t{background:color-mix(in srgb, var(--color-primary), transparent 80%);color:var(--color-primary)}
+.tag-t{background:var(--color-secondary-container);color:var(--color-on-secondary-container)}
 .tag-w{background:color-mix(in srgb, var(--color-on-primary), transparent 80%);color:var(--color-on-primary)}
+/* .tag-w on the pain band re-derives from the tertiary-container pair so
+   the chip tonality matches its parent section instead of carrying the
+   primary-bg subscribe styling. */
+#pain .tag-w{background:color-mix(in srgb, var(--color-on-tertiary-container), transparent 80%);color:var(--color-on-tertiary-container)}
 
 /* Hero tagline — a decorative strapline sitting under the H1 ("Stop
    guessing, start knowing"). Distinct from .tag because the role is
