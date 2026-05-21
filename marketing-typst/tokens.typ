@@ -15,13 +15,15 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 #let marketing = toml("/marketing-typst/marketing.toml")
-#let palette-name = marketing.palette
 #let primary-font = marketing.fonts.primary
 #let display-font = marketing.fonts.at("display", default: marketing.fonts.primary)
 
-// Render-time inputs
+// Render-time inputs. --input palette=<name> overrides marketing.toml when
+// supplied — used by the palette-comparison script to render every M3 folder
+// without rewriting marketing.toml each iteration.
 #let theme = sys.inputs.at("theme", default: "light")
 #let lang  = sys.inputs.at("lang",  default: "en")
+#let palette-name = sys.inputs.at("palette", default: marketing.palette)
 
 // Load M3 tokens for the active theme.
 #let palette = json("/themes/esio-theme/assets/css/m3/" + palette-name + "/" + theme + ".json")

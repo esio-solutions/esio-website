@@ -16,8 +16,8 @@
 
 #let slide-setup(body) = {
   set page(width: 1080pt, height: 1350pt, margin: 0pt, fill: surface)
-  // Full-metric line box (ascender to descender) — stops Fraunces's
-  // deep descenders from clipping into the line below.
+  // Full-metric line box (ascender to descender) — stops descenders
+  // from clipping into the line below.
   set text(font: primary-font, fill: on-surface, size: 16pt,
     top-edge: "ascender", bottom-edge: "descender")
   set par(leading: 0.3em)
@@ -119,9 +119,8 @@
 
 // Material Symbols `arrow_right_alt` ligature — sized for Instagram's
 // larger portrait canvas.
-// Big inline arrow (focal point on 01-hook) — 3× the original 72pt
-// (was 4× but with the thicker opsz=14 Fraunces taking more vertical room,
-// 4× pushes Danish 01-hook past canvas height).
+// Big inline arrow (focal point on 01-hook) — 3× the original 72pt;
+// 4× pushed the Danish 01-hook past the canvas height.
 #let big-arrow() = text(
   font: "Material Symbols Outlined",
   size: 216pt,

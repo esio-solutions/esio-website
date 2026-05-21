@@ -16,9 +16,8 @@
 #let slide-setup(body) = {
   set page(width: 1200pt, height: 630pt, margin: 0pt, fill: surface)
   // top-edge: "ascender" / bottom-edge: "descender" makes the line box
-  // include the full font metrics so Fraunces's deep descenders don't
-  // clip into the next line below. Without this, "guessing" + "knowing"
-  // overlapped visibly.
+  // include the full font metrics so descenders don't clip into the next
+  // line below.
   set text(font: primary-font, fill: on-surface, size: 14pt,
     top-edge: "ascender", bottom-edge: "descender")
   set par(leading: 0.3em)

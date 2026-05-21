@@ -22,13 +22,7 @@ palette = "indigo-mtb"
 
 [fonts]
   # Body / UI font — matches the esio-website's [params.typography].fontFamily
-  # so ads share the site's voice. Inter is cleaner and more readable than
-  # Plus Jakarta Sans at the smaller body sizes (eyebrow, lede, card body).
-  primary         = "Inter"
+  # so ads share the site's voice. Single-family setup: `display` is omitted
+  # so tokens.typ falls `display-font` back to `primary` (see tokens.typ:20).
+  primary         = "Plus Jakarta Sans"
   primary_weights = "400;500;600;700;800"
-
-  # Display / headline font — matches the website's [params.typography]
-  # .displayFontFamily. Fraunces is a contemporary serif with optical-size
-  # support; used on h-xxl / h-xl / h-l headline text only.
-  display         = "Fraunces"
-  display_weights = "500;700;900"
