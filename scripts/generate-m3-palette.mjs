@@ -62,7 +62,7 @@ import { fileURLToPath } from "node:url";
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 const args = process.argv.slice(2);
-let seedHex, name, variantName = "tonal-spot", secondarySeedHex, secondaryFixedDimHex;
+let seedHex, name, variantName = "tonal-spot", secondarySeedHex, secondaryFixedDimHex, primaryHexPin;
 let pinSecondaryFixedDim = false;
 let harmonizeSecondary = false;
 for (let i = 0; i < args.length; i++) {
@@ -73,6 +73,7 @@ for (let i = 0; i < args.length; i++) {
   else if (args[i] === "--pin-secondary-fixed-dim") pinSecondaryFixedDim = true;
   else if (args[i] === "--secondary-fixed-dim") secondaryFixedDimHex = args[++i];
   else if (args[i] === "--harmonize-secondary") harmonizeSecondary = true;
+  else if (args[i] === "--primary") primaryHexPin = args[++i];
 }
 if (!seedHex || !name) {
   console.error("Usage: node scripts/generate-m3-palette.mjs --seed <hex> --name <slug> [--variant tonal-spot|vibrant|expressive|fidelity|content|monochrome|neutral|rainbow|fruit-salad] [--secondary-seed <hex>] [--pin-secondary-fixed-dim] [--secondary-fixed-dim <hex>] [--harmonize-secondary]");
@@ -179,6 +180,14 @@ function buildPins() {
   const pins = {};
   if (pinSecondaryFixedDim) pins.secondaryFixedDim = secondarySeedHex;
   if (secondaryFixedDimHex) pins.secondaryFixedDim = secondaryFixedDimHex;
+  // --primary pins the light-scheme primary slot to a literal hex. Used when
+  // reconstructing a theme whose primary was hand-picked (rather than M3-
+  // derived at tone 40), e.g. mirroring a pre-existing brand primary. Also
+  // pins surfaceTint, which M3 keeps in lock-step with primary.
+  if (primaryHexPin) {
+    pins.primary = primaryHexPin;
+    pins.surfaceTint = primaryHexPin;
+  }
   return pins;
 }
 const pins = buildPins();

@@ -1,0 +1,55 @@
+/* Radzen "material3" dark theme remapped to M3 role tokens. Source:
+   m3/tmo/material3-dark-base.css. Note Radzen also lightens primary in
+   dark mode (#94c1ff vs #3481e5 in light) — same idea as M3 tone-80.
+   "fixed" tokens keep light-scheme values per M3 spec (theme-invariant). */
+:root[data-palette="app-preview-rz"][data-theme="dark"] {
+  --md-sys-color-primary: rgb(148 193 255);
+  --md-sys-color-surface-tint: rgb(148 193 255);
+  --md-sys-color-on-primary: rgb(0 31 93);
+  --md-sys-color-primary-container: rgb(55 89 139);
+  --md-sys-color-on-primary-container: rgb(188 215 255);
+  --md-sys-color-secondary: rgb(194 203 220);
+  --md-sys-color-on-secondary: rgb(25 31 43);
+  --md-sys-color-secondary-container: rgb(68 75 88);
+  --md-sys-color-on-secondary-container: rgb(194 203 220);
+  --md-sys-color-tertiary: rgb(170 218 255);           /* n/a — using --rz-info-light */
+  --md-sys-color-on-tertiary: rgb(0 45 65);
+  --md-sys-color-tertiary-container: rgb(8 103 145);   /* --rz-info-dark */
+  --md-sys-color-on-tertiary-container: rgb(170 218 255);
+  --md-sys-color-error: rgb(179 38 30);
+  --md-sys-color-on-error: rgb(255 255 255);
+  --md-sys-color-error-container: rgb(145 8 10);
+  --md-sys-color-on-error-container: rgb(255 180 170);
+  --md-sys-color-background: rgb(27 29 32);
+  --md-sys-color-on-background: rgb(255 255 255);
+  --md-sys-color-surface: rgb(27 29 32);
+  --md-sys-color-on-surface: rgb(255 255 255);
+  --md-sys-color-surface-variant: rgb(31 34 38);
+  --md-sys-color-on-surface-variant: rgb(196 201 208);
+  --md-sys-color-outline: rgb(69 73 79);
+  --md-sys-color-outline-variant: rgb(52 55 59);
+  --md-sys-color-shadow: rgb(0 0 0);
+  --md-sys-color-scrim: rgb(0 0 0);
+  --md-sys-color-inverse-surface: rgb(224 228 233);
+  --md-sys-color-inverse-on-surface: rgb(27 29 32);
+  --md-sys-color-inverse-primary: rgb(55 89 139);
+  --md-sys-color-primary-fixed: rgb(188 216 255);      /* light-scheme value (theme-invariant) */
+  --md-sys-color-on-primary-fixed: rgb(0 33 93);
+  --md-sys-color-primary-fixed-dim: rgb(188 216 255);
+  --md-sys-color-on-primary-fixed-variant: rgb(55 90 139);
+  --md-sys-color-secondary-fixed: rgb(194 204 220);
+  --md-sys-color-on-secondary-fixed: rgb(25 32 43);
+  --md-sys-color-secondary-fixed-dim: rgb(194 204 220);
+  --md-sys-color-on-secondary-fixed-variant: rgb(68 76 88);
+  --md-sys-color-tertiary-fixed: rgb(170 218 255);
+  --md-sys-color-on-tertiary-fixed: rgb(0 45 65);
+  --md-sys-color-tertiary-fixed-dim: rgb(170 218 255);
+  --md-sys-color-on-tertiary-fixed-variant: rgb(8 103 145);
+  --md-sys-color-surface-dim: rgb(18 21 24);
+  --md-sys-color-surface-bright: rgb(69 73 79);
+  --md-sys-color-surface-container-lowest: rgb(18 21 24);
+  --md-sys-color-surface-container-low: rgb(27 29 32);
+  --md-sys-color-surface-container: rgb(31 34 38);
+  --md-sys-color-surface-container-high: rgb(41 44 48);
+  --md-sys-color-surface-container-highest: rgb(52 55 59);
+}

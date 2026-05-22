@@ -1,0 +1,21 @@
+/* App-preview theme — static snapshot of [params.theme."app-preview"]
+   as defined on commit fe2a6cd. Resolved against [params.colors] (eb*
+   tokens). Hex values are intentionally inlined; this file is a
+   reference snapshot and is not imported by styles.css. */
+:root[data-theme="app-preview"] {
+  color-scheme: light;
+  --color-surface:                #f8fafb;
+  --color-surface-dim:            #dfe5ec;
+  --color-surface-container-high: #ffffff;
+  --color-on-surface:             #1b1d20;
+  --color-primary:                #3481e5;
+  --color-primary-container:      #bcd8ff;
+  --color-on-primary:             #ffffff;
+  --color-inverse-surface:        #00215d;
+  --color-inverse-on-surface:     #f8fafb;
+  --color-panel-1: #dfe5ec;
+  --color-panel-2: #f8fafb;
+  --color-panel-3: #dfe5ec;
+  --color-panel-4: #f8fafb;
+  --color-panel-5: #dfe5ec;
+}

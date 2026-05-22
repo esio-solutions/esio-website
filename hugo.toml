@@ -108,15 +108,33 @@ defaultContentLanguageInSubdir = false
   # which differs slightly from the input key color because MTB normalises
   # to tone-40 — see _docs/color-decisions.md).
   [params.m3]
-    # Site palette locked to indigo-mtb. The picker UI in settings.html has
-    # been removed (only the light/dark theme toggle remains). Other palette
-    # folders (indigo, blue-vibrant) still exist under m3/ for ad-hoc
-    # experimentation but are not user-switchable from the chrome.
     default = "blue-vibrant"
 
-    # No [[params.m3.options]] — the picker partial only renders entries
-    # from this list, so an empty list means no palette swatches in the UI.
-    # Re-add entries here if you want the picker back.
+    # Palette picker entries — rendered by sections/settings.html as
+    # .palette-swatch buttons. Each click sets data-palette on <html>.
+    # `swatch` is the chip colour (typically the palette's light primary).
+    # `label` is an i18n key under [palette_*] in i18n/{en,da}.toml.
+    [[params.m3.options]]
+      name   = "blue-vibrant"
+      label  = "palette_blue_vibrant"
+      swatch = "#005db6"
+
+    # Algorithmically generated from seed #3481e5 (TonalSpot), with the
+    # primary slot pinned to the seed via scripts/generate-m3-palette.mjs
+    # --primary so it matches the Radzen brand primary exactly.
+    [[params.m3.options]]
+      name   = "app-preview"
+      label  = "palette_app_preview"
+      swatch = "#3481e5"
+
+    # Radzen "material3" theme remapped to M3 role tokens — hand-defined
+    # (no algorithm). Same primary as `app-preview` but secondaries,
+    # surfaces, and containers come from Radzen's hand-tuned values.
+    # Kept beside the generated one for side-by-side comparison.
+    [[params.m3.options]]
+      name   = "app-preview-rz"
+      label  = "palette_app_preview_rz"
+      swatch = "#3481e5"
 
   [params.colors]
     # ESIO brand palette — used by both the Dark theme (default brand) and
