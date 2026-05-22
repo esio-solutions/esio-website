@@ -20,21 +20,21 @@
   --md-ref-palette-primary100: rgb(255 255 255);
   /* secondary */
   --md-ref-palette-secondary0: rgb(0 0 0);
-  --md-ref-palette-secondary5: rgb(25 15 0);
-  --md-ref-palette-secondary10: rgb(39 25 0);
-  --md-ref-palette-secondary15: rgb(52 35 0);
-  --md-ref-palette-secondary20: rgb(65 45 0);
-  --md-ref-palette-secondary25: rgb(80 55 0);
-  --md-ref-palette-secondary30: rgb(94 66 0);
-  --md-ref-palette-secondary35: rgb(109 77 0);
-  --md-ref-palette-secondary40: rgb(124 88 0);
-  --md-ref-palette-secondary50: rgb(156 111 0);
-  --md-ref-palette-secondary60: rgb(188 135 0);
-  --md-ref-palette-secondary70: rgb(222 160 4);
-  --md-ref-palette-secondary80: rgb(253 187 45);
-  --md-ref-palette-secondary90: rgb(255 222 168);
-  --md-ref-palette-secondary95: rgb(255 238 216);
-  --md-ref-palette-secondary99: rgb(255 251 255);
+  --md-ref-palette-secondary5: rgb(17 17 17);
+  --md-ref-palette-secondary10: rgb(27 27 27);
+  --md-ref-palette-secondary15: rgb(38 38 38);
+  --md-ref-palette-secondary20: rgb(48 48 48);
+  --md-ref-palette-secondary25: rgb(59 59 59);
+  --md-ref-palette-secondary30: rgb(71 71 71);
+  --md-ref-palette-secondary35: rgb(82 82 82);
+  --md-ref-palette-secondary40: rgb(94 94 94);
+  --md-ref-palette-secondary50: rgb(119 119 119);
+  --md-ref-palette-secondary60: rgb(145 145 145);
+  --md-ref-palette-secondary70: rgb(171 171 171);
+  --md-ref-palette-secondary80: rgb(198 198 198);
+  --md-ref-palette-secondary90: rgb(226 226 226);
+  --md-ref-palette-secondary95: rgb(241 241 241);
+  --md-ref-palette-secondary99: rgb(252 252 252);
   --md-ref-palette-secondary100: rgb(255 255 255);
   /* tertiary */
   --md-ref-palette-tertiary0: rgb(0 0 0);

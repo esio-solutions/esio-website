@@ -4,10 +4,10 @@
   --md-sys-color-on-primary: rgb(0 0 0);
   --md-sys-color-primary-container: rgb(212 212 212);
   --md-sys-color-on-primary-container: rgb(0 0 0);
-  --md-sys-color-secondary: rgb(255 238 213);
+  --md-sys-color-secondary: rgb(240 240 240);
   --md-sys-color-on-secondary: rgb(0 0 0);
-  --md-sys-color-secondary-container: rgb(249 183 41);
-  --md-sys-color-on-secondary-container: rgb(18 10 0);
+  --md-sys-color-secondary-container: rgb(194 194 194);
+  --md-sys-color-on-secondary-container: rgb(11 11 11);
   --md-sys-color-tertiary: rgb(240 240 240);
   --md-sys-color-on-tertiary: rgb(0 0 0);
   --md-sys-color-tertiary-container: rgb(194 194 194);
@@ -33,10 +33,10 @@
   --md-sys-color-on-primary-fixed: rgb(0 0 0);
   --md-sys-color-primary-fixed-dim: rgb(194 194 194);
   --md-sys-color-on-primary-fixed-variant: rgb(11 11 11);
-  --md-sys-color-secondary-fixed: rgb(255 217 153);
+  --md-sys-color-secondary-fixed: rgb(222 222 222);
   --md-sys-color-on-secondary-fixed: rgb(0 0 0);
   --md-sys-color-secondary-fixed-dim: rgb(253 187 45);
-  --md-sys-color-on-secondary-fixed-variant: rgb(18 10 0);
+  --md-sys-color-on-secondary-fixed-variant: rgb(11 11 11);
   --md-sys-color-tertiary-fixed: rgb(222 222 222);
   --md-sys-color-on-tertiary-fixed: rgb(0 0 0);
   --md-sys-color-tertiary-fixed-dim: rgb(194 194 194);
