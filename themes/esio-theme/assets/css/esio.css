@@ -1,9 +1,8 @@
-
 /* Global design tokens that aren't theme-conditional. Lives at :root so
    any descendant can consume it. Per-theme overrides (--color-*) live in
    styles.css; this is reserved for cross-theme constants like the soft
    illustration shadow that lifts character SVGs off the page. */
-:root{
+:root {
   --illo-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
 }
 
@@ -28,45 +27,53 @@
    selector here — content pages also emit <nav> elements (table-of-contents
    on legal pages, breadcrumbs in articles, etc.), and they would otherwise
    inherit the position:fixed below and stack on top of the real navbar. */
-body > nav{
-  --nav-bg:color-mix(in srgb, var(--color-surface-dim), transparent 3%);
-  --nav-border:color-mix(in srgb, var(--color-on-surface), transparent 93%);
-  --nav-text:color-mix(in srgb, var(--color-on-surface), transparent 35%);
-  --nav-text-hover:var(--color-on-surface);
+body > nav {
+  --nav-bg: color-mix(in srgb, var(--color-surface-dim), transparent 3%);
+  --nav-border: color-mix(in srgb, var(--color-on-surface), transparent 93%);
+  --nav-text: color-mix(in srgb, var(--color-on-surface), transparent 35%);
+  --nav-text-hover: var(--color-on-surface);
 }
 
-#hero{
-  --hero-bg:var(--color-surface);
-  --hero-text:var(--color-on-surface);
-  --hero-muted:color-mix(in srgb, var(--color-on-surface), transparent 35%);
-  --hero-accent:var(--color-primary);
-  --hero-accent-strong:color-mix(in srgb, var(--color-primary), black 15%);
-  --hero-pill-bg:color-mix(in srgb, var(--color-primary), transparent 80%);
-  --hero-pill-border:color-mix(in srgb, var(--color-primary), transparent 60%);
-  --hero-pill-text:color-mix(in srgb, var(--color-primary), white 30%);
-  --hero-outline:color-mix(in srgb, var(--color-on-surface), transparent 70%);
+#hero {
+  --hero-bg: var(--color-surface);
+  --hero-text: var(--color-on-surface);
+  --hero-muted: color-mix(in srgb, var(--color-on-surface), transparent 35%);
+  --hero-accent: var(--color-primary);
+  --hero-accent-strong: color-mix(in srgb, var(--color-primary), black 15%);
+  --hero-pill-bg: color-mix(in srgb, var(--color-primary), transparent 80%);
+  --hero-pill-border: color-mix(in srgb, var(--color-primary), transparent 60%);
+  --hero-pill-text: color-mix(in srgb, var(--color-primary), white 30%);
+  --hero-outline: color-mix(in srgb, var(--color-on-surface), transparent 70%);
 }
 
-#video{
-  --video-bg:var(--color-surface-dim);
-  --video-title:var(--color-on-surface);
-  --video-muted:color-mix(in srgb, var(--color-on-surface), transparent 40%);
-  --video-stat-muted:color-mix(in srgb, var(--color-on-surface), transparent 50%);
-  --video-accent:var(--color-primary);
+#video {
+  --video-bg: var(--color-surface-dim);
+  --video-title: var(--color-on-surface);
+  --video-muted: color-mix(in srgb, var(--color-on-surface), transparent 40%);
+  --video-stat-muted: color-mix(
+    in srgb,
+    var(--color-on-surface),
+    transparent 50%
+  );
+  --video-accent: var(--color-primary);
 }
 
-#pain{
+#pain {
   /* Painted in tertiary-container — the M3 *tonal* tertiary surface
      (lighter than plain --color-tertiary). Container roles are designed
      for accent bands like this; they stay readable on low-chroma palette
      variants (neutral, monochrome) where plain --color-tertiary would
      collapse to near-greyscale. Cards keep the white-tinted overlay so
      they read as raised panels regardless of the section hue. */
-  --pain-bg:var(--color-tertiary-container);
-  --pain-title:var(--color-on-tertiary-container);
-  --pain-muted:color-mix(in srgb, var(--color-on-tertiary-container), transparent 22%);
-  --pain-card-bg:color-mix(in srgb, var(--color-white), transparent 88%);
-  --pain-card-border:color-mix(in srgb, var(--color-white), transparent 82%);
+  --pain-bg: var(--color-tertiary-container);
+  --pain-title: var(--color-on-tertiary-container);
+  --pain-muted: color-mix(
+    in srgb,
+    var(--color-on-tertiary-container),
+    transparent 22%
+  );
+  --pain-card-bg: color-mix(in srgb, var(--color-white), transparent 88%);
+  --pain-card-border: color-mix(in srgb, var(--color-white), transparent 82%);
 }
 
 /* (Removed: `#features` scoped vars were a brand-lock to purple plus four
@@ -75,50 +82,62 @@ body > nav{
    .panels mapping; text colours come from --color-on-surface so they flip
    with the theme.) */
 
-#how{
-  --how-bg:var(--color-surface-dim);
-  --how-title:var(--color-on-surface);
-  --how-muted:color-mix(in srgb, var(--color-on-surface), transparent 40%);
+#how {
+  --how-bg: var(--color-surface-dim);
+  --how-title: var(--color-on-surface);
+  --how-muted: color-mix(in srgb, var(--color-on-surface), transparent 40%);
   /* Tertiary accent — step numerals, icons, and pull-quotes pick up the
      same purple used by the pain section above so the journey reads as
      a continuous hue thread rather than blue/blue/blue. */
-  --how-accent:var(--color-tertiary);
+  --how-accent: var(--color-tertiary);
 }
 
-#pricing{
-  --pricing-bg:var(--color-surface);
-  --pricing-title:var(--color-on-surface);
-  --pricing-muted:color-mix(in srgb, var(--color-on-surface), transparent 35%);
-  --pricing-card-bg:color-mix(in srgb, var(--color-on-surface), transparent 96%);
-  --pricing-card-border:color-mix(in srgb, var(--color-on-surface), transparent 88%);
-  --pricing-feature-bg:var(--color-primary);
+#pricing {
+  --pricing-bg: var(--color-surface);
+  --pricing-title: var(--color-on-surface);
+  --pricing-muted: color-mix(in srgb, var(--color-on-surface), transparent 35%);
+  --pricing-card-bg: color-mix(
+    in srgb,
+    var(--color-on-surface),
+    transparent 96%
+  );
+  --pricing-card-border: color-mix(
+    in srgb,
+    var(--color-on-surface),
+    transparent 88%
+  );
+  --pricing-feature-bg: var(--color-primary);
 }
 
-#setup{
-  --setup-bg:var(--color-surface-container-high);
-  --setup-title:var(--color-on-surface);
-  --setup-muted:color-mix(in srgb, var(--color-on-surface), transparent 35%);
-  --setup-accent:var(--color-primary);
+#setup {
+  --setup-bg: var(--color-surface-container-high);
+  --setup-title: var(--color-on-surface);
+  --setup-muted: color-mix(in srgb, var(--color-on-surface), transparent 35%);
+  --setup-accent: var(--color-primary);
 }
 
-#cta{
-  --cta-bg:var(--color-surface-dim);
-  --cta-title:var(--color-on-surface);
-  --cta-muted:color-mix(in srgb, var(--color-on-surface), transparent 35%);
+#cta {
+  --cta-bg: var(--color-surface-dim);
+  --cta-title: var(--color-on-surface);
+  --cta-muted: color-mix(in srgb, var(--color-on-surface), transparent 35%);
 }
 
-#subscribe{
-  --subscribe-bg:var(--color-primary);
+#subscribe {
+  --subscribe-bg: var(--color-primary);
   /* See #pain block — text colors derive from the on-primary token so they
      auto-swap with the brand pair. */
-  --subscribe-title:var(--color-on-primary);
-  --subscribe-muted:color-mix(in srgb, var(--color-on-primary), transparent 15%);
+  --subscribe-title: var(--color-on-primary);
+  --subscribe-muted: color-mix(
+    in srgb,
+    var(--color-on-primary),
+    transparent 15%
+  );
 }
 
-footer{
-  --footer-bg:var(--color-surface-dim);
-  --footer-text:color-mix(in srgb, var(--color-on-surface), transparent 45%);
-  --footer-muted:color-mix(in srgb, var(--color-on-surface), transparent 65%);
+footer {
+  --footer-bg: var(--color-surface-dim);
+  --footer-text: color-mix(in srgb, var(--color-on-surface), transparent 45%);
+  --footer-muted: color-mix(in srgb, var(--color-on-surface), transparent 65%);
 }
 
 /* Section anchor offset. The fixed navbar (68px) covers the top of any
@@ -126,91 +145,195 @@ footer{
    #features, etc.). scroll-margin-top tells the browser to land 88px
    before the section's box edge — 68px navbar + 20px breathing room —
    so the eyebrow tag and headline aren't hidden behind the navbar. */
-section[id]{scroll-margin-top:88px}
+section[id] {
+  scroll-margin-top: 88px;
+}
 
 /* NAV — scoped to the direct-body-child site nav only (see comment above).
    Three-column grid layout (1fr | auto | 1fr) so the .nav-menu always sits
    in the visual centre regardless of how wide the logo or burger are. */
-body > nav{position:fixed;top:0;left:0;right:0;z-index:200;height:68px;background:var(--nav-bg);backdrop-filter:blur(16px);border-bottom:1px solid var(--nav-border);padding:0 6%;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;column-gap:24px}
+body > nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  height: 68px;
+  background: var(--nav-bg);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--nav-border);
+  padding: 0 6%;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  column-gap: 24px;
+}
 /* Pin each child to its own grid column so the layout doesn't reshuffle
    when .nav-menu becomes display:none at the mobile breakpoint. Without
    this, the burger (third DOM child) slides into cell 2 and ends up
    centered instead of right-aligned. */
-.nav-logo{grid-column:1;justify-self:start}
-.nav-logo svg,.nav-logo img{height:28px;width:auto;display:block}
+.nav-logo {
+  grid-column: 1;
+  justify-self: start;
+}
+.nav-logo svg,
+.nav-logo img {
+  height: 28px;
+  width: auto;
+  display: block;
+}
 /* Nav menu wrapper. Desktop: just .nav-links visible inline; the
    .nav-menu-settings dropdown (theme/language + the CTA) is an absolute
    popover anchored to the nav's right edge, revealed when the burger
    toggles .is-menu-open. Mobile: .nav-menu becomes a full-width drawer
    containing both children stacked vertically. */
-.nav-menu{grid-column:2;display:flex;align-items:center;justify-self:center}
-.nav-links{display:flex;gap:30px}
-.nav-links a{font-size:14px;font-weight:600;color:var(--nav-text);text-decoration:none;transition:color .15s}
-.nav-links a:hover{color:var(--nav-text-hover)}
+.nav-menu {
+  grid-column: 2;
+  display: flex;
+  align-items: center;
+  justify-self: center;
+}
+.nav-links {
+  display: flex;
+  gap: 30px;
+}
+.nav-links a {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--nav-text);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.nav-links a:hover {
+  color: var(--nav-text-hover);
+}
 
 /* Burger toggle — always visible, occupies the right cell of the nav grid.
    Click flips .is-menu-open on the nav, revealing the settings popover
    (desktop) or the full drawer (mobile). */
-.nav-burger{grid-column:3;justify-self:end;display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;border:1px solid var(--color-on-surface);background:transparent;color:var(--color-on-surface);cursor:pointer;transition:background .18s,color .18s,border-color .18s;padding:0}
-.nav-burger:hover{background:var(--color-on-surface);color:var(--color-surface)}
+.nav-burger {
+  grid-column: 3;
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--color-on-surface);
+  background: transparent;
+  color: var(--color-on-surface);
+  cursor: pointer;
+  transition:
+    background 0.18s,
+    color 0.18s,
+    border-color 0.18s;
+  padding: 0;
+}
+.nav-burger:hover {
+  background: var(--color-on-surface);
+  color: var(--color-surface);
+}
 
 /* In-menu CTA — the "Get early access" button sits at the bottom of the
    burger dropdown (desktop) and at the bottom of the mobile drawer.
    Stretches full-width so it reads as a clear conversion action. */
-.nav-menu-cta{margin-top:6px}
-.nav-menu-cta .btn{width:100%;display:flex;justify-content:center}
+.nav-menu-cta {
+  margin-top: 6px;
+}
+.nav-menu-cta .btn {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
 
 /* Theme + language popover. Desktop default: absolute popover anchored to
    the nav's right edge, hidden until .is-menu-open. */
-.nav-menu-settings{
-  position:absolute;top:calc(100% + 10px);right:6%;
-  display:flex;flex-direction:column;gap:14px;
-  padding:14px 16px;
-  border-radius:var(--radius-base);
-  background:var(--color-surface-container-high);
-  color:var(--color-on-surface);
-  border:1px solid var(--color-on-surface);
-  box-shadow:0 18px 40px rgba(0,0,0,.25);
-  opacity:0;visibility:hidden;transform:translateY(-6px);
-  transition:opacity .15s,transform .15s,visibility .15s;
-  z-index:300;min-width:210px;
+.nav-menu-settings {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 6%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: var(--radius-base);
+  background: var(--color-surface-container-high);
+  color: var(--color-on-surface);
+  border: 1px solid var(--color-on-surface);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition:
+    opacity 0.15s,
+    transform 0.15s,
+    visibility 0.15s;
+  z-index: 300;
+  min-width: 210px;
 }
-body > nav.is-menu-open .nav-menu-settings{opacity:1;visibility:visible;transform:translateY(0)}
+body > nav.is-menu-open .nav-menu-settings {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
 
-@media (max-width:900px){
+@media (max-width: 900px) {
   /* Mobile breakpoint: hide the inline menu in the top bar. The nav-right
      CTA is gone (moved into the burger), so only the inline-menu rule is
      needed here. */
-  body > nav .nav-menu{display:none}
+  body > nav .nav-menu {
+    display: none;
+  }
 
   /* When the burger opens, .nav-menu becomes the full-width drawer
      below the navbar, holding the link list and the settings picker
      stacked vertically. */
-  body > nav.is-menu-open .nav-menu{
-    display:flex;flex-direction:column;align-items:stretch;
-    position:fixed;top:68px;left:0;right:0;
-    padding:18px 6% 24px;gap:16px;
-    background:var(--color-surface);
-    border-bottom:1px solid var(--nav-border);
-    box-shadow:0 18px 40px rgba(0,0,0,.25);
-    z-index:199;
+  body > nav.is-menu-open .nav-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    position: fixed;
+    top: 68px;
+    left: 0;
+    right: 0;
+    padding: 18px 6% 24px;
+    gap: 16px;
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--nav-border);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+    z-index: 199;
   }
-  body > nav.is-menu-open .nav-links{
-    display:flex;flex-direction:column;align-items:stretch;gap:4px;
+  body > nav.is-menu-open .nav-links {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
   }
-  body > nav.is-menu-open .nav-links a{
-    font-size:17px;font-weight:600;padding:14px 0;color:var(--color-on-surface);
-    border-bottom:1px solid color-mix(in srgb,var(--color-on-surface),transparent 92%);
+  body > nav.is-menu-open .nav-links a {
+    font-size: 17px;
+    font-weight: 600;
+    padding: 14px 0;
+    color: var(--color-on-surface);
+    border-bottom: 1px solid
+      color-mix(in srgb, var(--color-on-surface), transparent 92%);
   }
-  body > nav.is-menu-open .nav-links a:last-child{border-bottom:none}
+  body > nav.is-menu-open .nav-links a:last-child {
+    border-bottom: none;
+  }
 
   /* Strip the popover chrome on mobile — the drawer already provides
      the surface; the settings picker just flows inline inside it. */
-  body > nav.is-menu-open .nav-menu-settings{
-    position:static;
-    opacity:1;visibility:visible;transform:none;
-    padding:0;background:transparent;border:none;box-shadow:none;
-    min-width:0;
+  body > nav.is-menu-open .nav-menu-settings {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    min-width: 0;
   }
 }
 /* Removed: .btn-ng / .btn-ns. Nav buttons now use the same .btn system
@@ -221,25 +344,113 @@ body > nav.is-menu-open .nav-menu-settings{opacity:1;visibility:visible;transfor
    .nav-menu-settings (see NAV block above). The .settings-section /
    .theme-swatch / .lang-flag rules below still style the inner content;
    only the outer trigger + panel chrome moved up to .nav-menu-settings. */
-.settings-section{display:flex;flex-direction:column;gap:8px}
-.settings-section__label{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:color-mix(in srgb, var(--color-on-surface), transparent 45%)}
-.settings-section__items{display:inline-flex;gap:8px;align-items:center;flex-wrap:wrap}
+.settings-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.settings-section__label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-on-surface), transparent 45%);
+}
+.settings-section__items {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
 
-.theme-swatch{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;padding:0;border-radius:50%;border:2px solid transparent;background:transparent;cursor:pointer;line-height:0;transition:transform .15s,border-color .15s,box-shadow .15s}
-.theme-swatch:hover{transform:scale(1.15);border-color:color-mix(in srgb,var(--color-on-surface),transparent 60%);box-shadow:0 0 0 4px color-mix(in srgb,var(--color-on-surface),transparent 92%)}
-.theme-swatch:active{transform:scale(1.05)}
-.theme-swatch.is-active{border-color:var(--color-primary);box-shadow:0 0 0 3px color-mix(in srgb,var(--color-primary),transparent 75%)}
-.theme-swatch__dot{display:block;width:18px;height:18px;border-radius:50%;background:conic-gradient(from 210deg, var(--sw-1) 0 33%, var(--sw-2) 33% 66%, var(--sw-3) 66% 100%);box-shadow:inset 0 0 0 1px rgba(0,0,0,.18)}
+.theme-swatch {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  line-height: 0;
+  transition:
+    transform 0.15s,
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+.theme-swatch:hover {
+  transform: scale(1.15);
+  border-color: color-mix(in srgb, var(--color-on-surface), transparent 60%);
+  box-shadow: 0 0 0 4px
+    color-mix(in srgb, var(--color-on-surface), transparent 92%);
+}
+.theme-swatch:active {
+  transform: scale(1.05);
+}
+.theme-swatch.is-active {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px
+    color-mix(in srgb, var(--color-primary), transparent 75%);
+}
+.theme-swatch__dot {
+  display: block;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 210deg,
+    var(--sw-1) 0 33%,
+    var(--sw-2) 33% 66%,
+    var(--sw-3) 66% 100%
+  );
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.18);
+}
 
 /* Palette swatch — same chip shell as .theme-swatch, but the dot is a
    single solid colour (the palette's --pl, set inline from the
    [params.m3.options].swatch value). Active state ring matches the
    currently-active palette. */
-.palette-swatch{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;padding:0;border-radius:50%;border:2px solid transparent;background:transparent;cursor:pointer;line-height:0;transition:transform .15s,border-color .15s,box-shadow .15s}
-.palette-swatch:hover{transform:scale(1.15);border-color:color-mix(in srgb,var(--color-on-surface),transparent 60%);box-shadow:0 0 0 4px color-mix(in srgb,var(--color-on-surface),transparent 92%)}
-.palette-swatch:active{transform:scale(1.05)}
-.palette-swatch.is-active{border-color:var(--color-on-surface);box-shadow:0 0 0 3px color-mix(in srgb,var(--color-on-surface),transparent 75%)}
-.palette-swatch__dot{display:block;width:18px;height:18px;border-radius:50%;background:var(--pl);box-shadow:inset 0 0 0 1px rgba(0,0,0,.18)}
+.palette-swatch {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  line-height: 0;
+  transition:
+    transform 0.15s,
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+.palette-swatch:hover {
+  transform: scale(1.15);
+  border-color: color-mix(in srgb, var(--color-on-surface), transparent 60%);
+  box-shadow: 0 0 0 4px
+    color-mix(in srgb, var(--color-on-surface), transparent 92%);
+}
+.palette-swatch:active {
+  transform: scale(1.05);
+}
+.palette-swatch.is-active {
+  border-color: var(--color-on-surface);
+  box-shadow: 0 0 0 3px
+    color-mix(in srgb, var(--color-on-surface), transparent 75%);
+}
+.palette-swatch__dot {
+  display: block;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--pl);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.18);
+}
 
 /* LANGUAGE SWITCHER — narrow popover with just flags. Smaller than the old
    combined settings panel so it doesn't overflow on mobile. */
@@ -248,46 +459,81 @@ body > nav.is-menu-open .nav-menu-settings{opacity:1;visibility:visible;transfor
    its two sections. The .lang-flag rule below still applies — it's the
    only piece of the old lang-toggle that survives because the new partial
    reuses it inside the settings popover. */
-.lang-flag{display:inline-flex;align-items:center;justify-content:center;padding:4px;border-radius:6px;border:1px solid transparent;background:transparent;cursor:pointer;line-height:0;transition:border-color .15s,background .15s,transform .15s}
-.lang-flag:not(.is-active):not([disabled]):hover{border-color:var(--color-on-surface);background:color-mix(in srgb,var(--color-on-surface),transparent 90%);transform:translateY(-1px)}
-.lang-flag:active{transform:translateY(0)}
-.lang-flag.is-active{border-color:var(--color-primary);background:color-mix(in srgb,var(--color-primary),transparent 88%)}
-.lang-flag[disabled]{opacity:.4;cursor:not-allowed}
-.lang-flag svg{display:block;border-radius:2px}
+.lang-flag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  line-height: 0;
+  transition:
+    border-color 0.15s,
+    background 0.15s,
+    transform 0.15s;
+}
+.lang-flag:not(.is-active):not([disabled]):hover {
+  border-color: var(--color-on-surface);
+  background: color-mix(in srgb, var(--color-on-surface), transparent 90%);
+  transform: translateY(-1px);
+}
+.lang-flag:active {
+  transform: translateY(0);
+}
+.lang-flag.is-active {
+  border-color: var(--color-primary);
+  background: color-mix(in srgb, var(--color-primary), transparent 88%);
+}
+.lang-flag[disabled] {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.lang-flag svg {
+  display: block;
+  border-radius: 2px;
+}
 
 /* BUTTONS */
 /* BUTTONS — single system used by every CTA on the site. The `button.html`
    partial is the sole call site; everything renders through it so a tweak
    here propagates to nav, hero, CTA section, etc. Two variants
    (primary / secondary) and one size modifier (--sm) cover all usages. */
-.btn{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:14px 28px;border-radius:28px;
-  font-size:15px;font-weight:800;
-  font-family:var(--font-display);
-  text-decoration:none;cursor:pointer;
-  border:2px solid transparent;
-  transition:all .2s;
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 28px;
+  font-size: 15px;
+  font-weight: 800;
+  font-family: var(--font-display);
+  text-decoration: none;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.2s;
 }
-.btn--primary{
-  background:var(--color-primary);
-  color:var(--color-on-primary);
+.btn--primary {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
 }
-.btn--primary:hover{
-  background:color-mix(in srgb, var(--color-primary), black 15%);
-  transform:translateY(-2px);
-  box-shadow:0 14px 36px color-mix(in srgb, var(--color-primary), transparent 65%);
+.btn--primary:hover {
+  background: color-mix(in srgb, var(--color-primary), black 15%);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 36px
+    color-mix(in srgb, var(--color-primary), transparent 65%);
 }
-.btn--secondary{
-  background:transparent;
-  color:var(--color-tertiary);
-  border-color:var(--color-tertiary);
-  font-weight:700;
+.btn--secondary {
+  background: transparent;
+  color: var(--color-tertiary);
+  border-color: var(--color-tertiary);
+  font-weight: 700;
 }
-.btn--secondary:hover{
-  background:var(--color-tertiary-container);
-  color:var(--color-on-tertiary-container);
-  border-color:var(--color-tertiary);
+.btn--secondary:hover {
+  background: var(--color-tertiary-container);
+  color: var(--color-on-tertiary-container);
+  border-color: var(--color-tertiary);
 }
 /* When a primary CTA sits on a primary-colored surface, the default
    fill would blend in. Invert here: white surface, primary text. Same
@@ -298,71 +544,273 @@ body > nav.is-menu-open .nav-menu-settings{opacity:1;visibility:visible;transfor
      • .pcard.feat — the featured pricing card's background is
        --pricing-feature-bg (= --color-primary). */
 #subscribe .btn--primary,
-.pcard.feat .btn--primary{
-  background:var(--color-white);
-  color:var(--color-primary);
+.pcard.feat .btn--primary {
+  background: var(--color-white);
+  color: var(--color-primary);
 }
 #subscribe .btn--primary:hover,
-.pcard.feat .btn--primary:hover{
-  background:color-mix(in srgb, var(--color-white), var(--color-primary) 12%);
+.pcard.feat .btn--primary:hover {
+  background: color-mix(in srgb, var(--color-white), var(--color-primary) 12%);
 }
 
 /* Compact size — used in the nav where the 68px bar can't fit the full
    button. Same colors + treatment as default, just trimmed padding. */
-.btn--sm{padding:9px 20px;font-size:14px}
+.btn--sm {
+  padding: 9px 20px;
+  font-size: 14px;
+}
 /* Large size — used where the button is the page's main CTA and gets
    visual emphasis (newsletter signup submit / fallback, subscribe section
    on the home page). Same colors as default, scaled up on monitors. On
    small screens the page is already narrow, so the lg padding crowds the
    button; we fall back to the default .btn size below the breakpoint. */
-.btn--lg{padding:16px 40px;font-size:17px}
-@media (max-width:900px){
-  .btn--lg{padding:14px 28px;font-size:15px}
+.btn--lg {
+  padding: 16px 40px;
+  font-size: 17px;
+}
+@media (max-width: 900px) {
+  .btn--lg {
+    padding: 14px 28px;
+    font-size: 15px;
+  }
 }
 
 /* HERO */
-#hero{min-height:100vh;background:var(--hero-bg);padding:108px 0 36px;display:grid;grid-template-columns:2fr 3fr;column-gap:clamp(8px,1.4vw,22px);align-items:center;justify-content:center;position:relative;overflow:hidden;max-width:1360px;width:min(1360px,calc(100% - clamp(28px,5vw,72px)));margin:0 auto}
-.hero-left{position:relative;z-index:3;padding-top:20px;max-width:530px;justify-self:start;display:flex;flex-direction:column;align-items:center;text-align:center}
-.logo-big{display:block;margin-bottom:28px;width:min(100%,clamp(240px,28vw,520px))}
-.logo-big svg,.logo-big img{display:block;width:100%;height:auto;max-width:100%}
-.pill-row{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:nowrap;margin-bottom:18px}
-.pill{display:inline-flex;align-items:center;gap:8px;background:var(--hero-pill-bg);border:1px solid var(--hero-pill-border);border-radius:24px;padding:5px 14px;font-size:11px;font-weight:800;color:var(--hero-pill-text);margin-bottom:18px;letter-spacing:.06em;text-transform:uppercase}
-.pill-row .pill{margin-bottom:0}
-.dot{width:6px;height:6px;border-radius:50%;background:var(--hero-accent);animation:blink 2s ease-in-out infinite}
-@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.5)}}
-#hero h1{font-size:clamp(38px,4.8vw,68px);font-weight:900;color:var(--hero-text);line-height:1.04;letter-spacing:-2px;margin-bottom:18px}
-#hero h1 em{font-style:normal;color:var(--color-secondary-fixed-dim)}
-.hero-p{font-size:clamp(13px,1.3vw,16px);color:var(--hero-muted);line-height:1.8;margin-bottom:30px;max-width:420px;font-weight:500}
-.btns{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-.trust{margin-top:28px;display:flex;align-items:center;gap:12px}
-.avs{display:flex}
-.av{width:30px;height:30px;border-radius:50%;border:2px solid var(--color-surface);margin-left:-7px;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;color:var(--color-white);background:var(--color-terra)}
-.av:first-child{margin-left:0}
-.av:nth-child(2){background:var(--color-purple)}
-.av:nth-child(3){background:var(--color-teal)}
-.trust-txt{font-size:12px;color:color-mix(in srgb, var(--color-on-surface), transparent 50%);font-weight:600}
-.trust-txt strong{color:color-mix(in srgb, var(--color-on-surface), transparent 15%)}
-.hero-left .btns,.hero-left .trust{justify-content:center}
+#hero {
+  min-height: 100vh;
+  background: var(--hero-bg);
+  padding: 108px 0 36px;
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  column-gap: clamp(8px, 1.4vw, 22px);
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  max-width: 1360px;
+  width: min(1360px, calc(100% - clamp(28px, 5vw, 72px)));
+  margin: 0 auto;
+}
+.hero-left {
+  position: relative;
+  z-index: 3;
+  padding-top: 20px;
+  max-width: 530px;
+  justify-self: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.logo-big {
+  display: block;
+  margin-bottom: 28px;
+  width: min(100%, clamp(240px, 28vw, 520px));
+}
+.logo-big svg,
+.logo-big img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+}
+.pill-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+  margin-bottom: 18px;
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--hero-pill-bg);
+  border: 1px solid var(--hero-pill-border);
+  border-radius: 24px;
+  padding: 5px 14px;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--hero-pill-text);
+  margin-bottom: 18px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.pill-row .pill {
+  margin-bottom: 0;
+}
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--hero-accent);
+  animation: blink 2s ease-in-out infinite;
+}
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.5);
+  }
+}
+#hero h1 {
+  font-size: clamp(38px, 4.8vw, 68px);
+  font-weight: 900;
+  color: var(--hero-text);
+  line-height: 1.04;
+  letter-spacing: -2px;
+  margin-bottom: 18px;
+}
+#hero h1 em {
+  font-style: normal;
+  color: var(--color-primary);
+}
+.hero-p {
+  font-size: clamp(13px, 1.3vw, 16px);
+  color: var(--hero-muted);
+  line-height: 1.8;
+  margin-bottom: 30px;
+  max-width: 420px;
+  font-weight: 500;
+}
+.btns {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.trust {
+  margin-top: 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.avs {
+  display: flex;
+}
+.av {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid var(--color-surface);
+  margin-left: -7px;
+  font-size: 10px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-white);
+  background: var(--color-terra);
+}
+.av:first-child {
+  margin-left: 0;
+}
+.av:nth-child(2) {
+  background: var(--color-purple);
+}
+.av:nth-child(3) {
+  background: var(--color-teal);
+}
+.trust-txt {
+  font-size: 12px;
+  color: color-mix(in srgb, var(--color-on-surface), transparent 50%);
+  font-weight: 600;
+}
+.trust-txt strong {
+  color: color-mix(in srgb, var(--color-on-surface), transparent 15%);
+}
+.hero-left .btns,
+.hero-left .trust {
+  justify-content: center;
+}
 
 /* HERO RIGHT - illustration + chart bg */
-.hero-right{position:relative;z-index:2;display:flex;justify-content:center;align-items:center;height:100%;width:min(100%,760px);justify-self:start;align-self:center;overflow:visible}
-.hero-chart-bg{position:absolute;width:760px;height:760px;top:44%;left:52%;transform:translate(-35%,-52%);z-index:1;opacity:1}
-.hero-chart-bg svg,.hero-chart-bg img{width:100%;height:100%}
-.hero-illo{position:relative;z-index:2;width:100%;max-width:760px;margin-left:0;animation:float 6s ease-in-out infinite}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
-.hero-illo svg,.hero-illo img{width:100%;height:auto;filter:drop-shadow(var(--illo-shadow))}
-.hero-illo img{transform:scaleX(-1)}
+.hero-right {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: min(100%, 760px);
+  justify-self: start;
+  align-self: center;
+  overflow: visible;
+}
+.hero-chart-bg {
+  position: absolute;
+  width: 760px;
+  height: 760px;
+  top: 44%;
+  left: 52%;
+  transform: translate(-35%, -52%);
+  z-index: 1;
+  opacity: 1;
+}
+.hero-chart-bg svg,
+.hero-chart-bg img {
+  width: 100%;
+  height: 100%;
+}
+.hero-illo {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 760px;
+  margin-left: 0;
+  animation: float 6s ease-in-out infinite;
+}
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+.hero-illo svg,
+.hero-illo img {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(var(--illo-shadow));
+}
+.hero-illo img {
+  transform: scaleX(-1);
+}
 
-@media(min-width:901px){
-  #hero{grid-template-columns:2fr 3fr;column-gap:clamp(8px,1.2vw,18px)}
-  .hero-right{width:min(100%,760px)}
-  .hero-chart-bg{width:988px;height:988px}
-  .hero-illo{max-width:760px}
+@media (min-width: 901px) {
+  #hero {
+    grid-template-columns: 2fr 3fr;
+    column-gap: clamp(8px, 1.2vw, 18px);
+  }
+  .hero-right {
+    width: min(100%, 760px);
+  }
+  .hero-chart-bg {
+    width: 988px;
+    height: 988px;
+  }
+  .hero-illo {
+    max-width: 760px;
+  }
 }
 
 /* VIDEO SECTION */
-#video{background:var(--video-bg);padding:90px 6%}
-.video-inner{max-width:1000px;margin:0 auto;text-align:center}
+#video {
+  background: var(--video-bg);
+  padding: 90px 6%;
+}
+.video-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+}
 /* Section-header eyebrow. Sits above each section's H2 and announces the
    section's purpose. Sized to read as a section marker, not a decorative
    chip — visitors scanning the page register it as the start of a new
@@ -378,168 +826,524 @@ body > nav.is-menu-open .nav-menu-settings{opacity:1;visibility:visible;transfor
      .tag-w — translucent-white chip with on-primary text. Used on sections
               whose background is `--color-primary` itself (#pain,
               #subscribe), where the H2 is also on-primary. */
-.tag{
-  display:inline-block;
-  font-size:clamp(16px, 1.6vw, 22px);
-  font-weight:800;letter-spacing:.12em;text-transform:uppercase;
-  padding:10px 24px;border-radius:24px;margin-bottom:20px;
+.tag {
+  display: inline-block;
+  font-size: clamp(16px, 1.6vw, 22px);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 10px 24px;
+  border-radius: 24px;
+  margin-bottom: 20px;
 }
 /* Translucent fill (not solid) keeps the chip clearly distinct from the
    primary button (.btn--primary), which uses the same color pair but
    solid. The chip reads as a label/badge; the button reads as clickable. */
-.tag-t{background:var(--color-secondary-container);color:var(--color-on-secondary-container)}
-.tag-w{background:color-mix(in srgb, var(--color-on-primary), transparent 80%);color:var(--color-on-primary)}
+.tag-t {
+  background: var(--color-secondary-container);
+  color: var(--color-on-secondary-container);
+}
+.tag-w {
+  background: color-mix(in srgb, var(--color-on-primary), transparent 80%);
+  color: var(--color-on-primary);
+}
 /* .tag-w on the pain band re-derives from the tertiary-container pair so
    the chip tonality matches its parent section instead of carrying the
    primary-bg subscribe styling. */
-#pain .tag-w{background:color-mix(in srgb, var(--color-on-tertiary-container), transparent 80%);color:var(--color-on-tertiary-container)}
+#pain .tag-w {
+  background: color-mix(
+    in srgb,
+    var(--color-on-tertiary-container),
+    transparent 80%
+  );
+  color: var(--color-on-tertiary-container);
+}
 
 /* Hero tagline — a decorative strapline sitting under the H1 ("Stop
    guessing, start knowing"). Distinct from .tag because the role is
    different: a section eyebrow marks "what section comes next", whereas
    the tagline is a brand line accompanying the headline. Smaller, lighter
    tint, no button-like solid fill. */
-.tagline{
-  display:inline-block;
-  font-size:14px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
-  padding:7px 20px;border-radius:24px;margin-bottom:18px;
-  background:color-mix(in srgb, var(--color-primary), transparent 85%);
-  color:color-mix(in srgb, var(--color-primary), white 25%);
+.tagline {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 7px 20px;
+  border-radius: 24px;
+  margin-bottom: 18px;
+  background: color-mix(in srgb, var(--color-primary), transparent 85%);
+  color: color-mix(in srgb, var(--color-primary), white 25%);
 }
-.stitle{font-size:clamp(26px,3.2vw,44px);font-weight:900;line-height:1.1;letter-spacing:-1px;margin-bottom:14px;color:var(--color-on-surface)}
-.ssub{font-size:clamp(14px,1.3vw,16px);line-height:1.8;font-weight:500;color:color-mix(in srgb, var(--color-on-surface), transparent 40%)}
-.ssub-lead{font-size:clamp(17px,1.7vw,22px);line-height:1.5;font-weight:600;color:var(--color-on-surface);margin-bottom:14px}
-#video .stitle{color:var(--video-title)}
-#video .ssub{color:var(--video-muted)}
-#pain .stitle{color:var(--pain-title)}
-#pain .ssub{color:var(--pain-muted)}
-#features .stitle{color:var(--features-title)}
-#features .ssub{color:var(--features-muted)}
-#how .stitle{color:var(--how-title)}
-#how .ssub{color:var(--how-muted)}
-#pricing .stitle{color:var(--pricing-title)}
-#pricing .ssub{color:var(--pricing-muted)}
-#setup .stitle{color:var(--setup-title)}
-#setup .ssub{color:var(--setup-muted)}
-#setup .ss-c p{color:var(--setup-muted)}
-.video-wrap{margin-top:40px;position:relative;border-radius:20px;overflow:hidden;background:#000;aspect-ratio:16/9;box-shadow:0 30px 80px rgba(0,0,0,.5)}
-.video-wrap video{width:100%;height:100%;object-fit:cover;display:block}
-.video-overlay{position:absolute;inset:0;background:linear-gradient(135deg, color-mix(in srgb, var(--color-navy), transparent 30%), color-mix(in srgb, var(--color-purple), transparent 60%));display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .3s;z-index:2}
-.video-overlay.hidden{opacity:0;pointer-events:none}
-.play-btn{width:80px;height:80px;border-radius:50%;background:color-mix(in srgb, var(--color-white), transparent 5%);display:flex;align-items:center;justify-content:center;margin-bottom:18px;transition:transform .2s;box-shadow:0 8px 32px rgba(0,0,0,.3)}
-.play-btn:hover{transform:scale(1.1)}
-.play-btn svg{width:28px;height:28px;margin-left:4px}
-.video-overlay p{font-size:16px;font-weight:700;color:var(--color-white);opacity:.9}
-.video-stats{display:flex;justify-content:center;gap:40px;margin-top:36px}
-.vstat{text-align:center}
-.vstat-num{font-size:32px;font-weight:900;color:var(--color-on-surface);letter-spacing:-1px}
-.vstat-num span{color:var(--video-accent)}
-.vstat-lbl{font-size:13px;color:var(--video-stat-muted);font-weight:600;margin-top:4px}
+.stitle {
+  font-size: clamp(26px, 3.2vw, 44px);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  margin-bottom: 14px;
+  color: var(--color-on-surface);
+}
+.ssub {
+  font-size: clamp(14px, 1.3vw, 16px);
+  line-height: 1.8;
+  font-weight: 500;
+  color: color-mix(in srgb, var(--color-on-surface), transparent 40%);
+}
+.ssub-lead {
+  font-size: clamp(17px, 1.7vw, 22px);
+  line-height: 1.5;
+  font-weight: 600;
+  color: var(--color-on-surface);
+  margin-bottom: 14px;
+}
+#video .stitle {
+  color: var(--video-title);
+}
+#video .ssub {
+  color: var(--video-muted);
+}
+#pain .stitle {
+  color: var(--pain-title);
+}
+#pain .ssub {
+  color: var(--pain-muted);
+}
+#features .stitle {
+  color: var(--features-title);
+}
+#features .ssub {
+  color: var(--features-muted);
+}
+#how .stitle {
+  color: var(--how-title);
+}
+#how .ssub {
+  color: var(--how-muted);
+}
+#pricing .stitle {
+  color: var(--pricing-title);
+}
+#pricing .ssub {
+  color: var(--pricing-muted);
+}
+#setup .stitle {
+  color: var(--setup-title);
+}
+#setup .ssub {
+  color: var(--setup-muted);
+}
+#setup .ss-c p {
+  color: var(--setup-muted);
+}
+.video-wrap {
+  margin-top: 40px;
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #000;
+  aspect-ratio: 16/9;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+}
+.video-wrap video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.video-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--color-navy), transparent 30%),
+    color-mix(in srgb, var(--color-purple), transparent 60%)
+  );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s;
+  z-index: 2;
+}
+.video-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+.play-btn {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--color-white), transparent 5%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+  transition: transform 0.2s;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+.play-btn:hover {
+  transform: scale(1.1);
+}
+.play-btn svg {
+  width: 28px;
+  height: 28px;
+  margin-left: 4px;
+}
+.video-overlay p {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-white);
+  opacity: 0.9;
+}
+.video-stats {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 36px;
+}
+.vstat {
+  text-align: center;
+}
+.vstat-num {
+  font-size: 32px;
+  font-weight: 900;
+  color: var(--color-on-surface);
+  letter-spacing: -1px;
+}
+.vstat-num span {
+  color: var(--video-accent);
+}
+.vstat-lbl {
+  font-size: 13px;
+  color: var(--video-stat-muted);
+  font-weight: 600;
+  margin-top: 4px;
+}
 
 /* PAIN */
-.sec{padding:90px 6%}
-.si{max-width:1120px;margin:0 auto}
+.sec {
+  padding: 90px 6%;
+}
+.si {
+  max-width: 1120px;
+  margin: 0 auto;
+}
 
 /* HTTP ERROR PAGES — shared layout used by Hugo's auto-404 and the
    content-driven /403, /500, /502, /503 pages (see layouts/404.html and
    layouts/errors/single.html). Tall section centred vertically between
    nav + footer so the error stays at eye-level on any viewport. */
-.error-section{min-height:calc(100vh - 220px);display:flex;align-items:center;justify-content:center;padding-top:140px;padding-bottom:60px}
-.error-section .tc{max-width:600px;margin:0 auto}
-.error-code{
-  display:block;
-  font-size:clamp(80px, 14vw, 180px);
-  font-weight:900;
-  line-height:0.95;
-  letter-spacing:-4px;
-  color:var(--color-primary);
-  margin-bottom:8px;
+.error-section {
+  min-height: calc(100vh - 220px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 140px;
+  padding-bottom: 60px;
 }
-.error-actions{margin-top:32px;display:flex;justify-content:center}
-#pain{background:var(--pain-bg)}
-#pain .pain-intro{max-width:760px;margin:0 auto 40px}
-.pain-illo{position:relative;max-width:500px;margin:0 auto 56px}
-.pain-illo svg,.pain-illo img{width:100%;max-width:500px;filter:drop-shadow(var(--illo-shadow))}
-.badge{position:absolute;background:color-mix(in srgb, var(--color-white), transparent 5%);border-radius:14px;padding:12px 16px;box-shadow:0 8px 30px rgba(0,0,0,.15)}
-.b1{top:8%;right:-16px;animation:fb1 4s ease-in-out infinite}
-.b2{bottom:8%;left:-16px;animation:fb2 5s ease-in-out infinite}
-@keyframes fb1{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-@keyframes fb2{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-.bl{font-size:10px;color:color-mix(in srgb, var(--color-navy-dark), transparent 45%);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
-.bv{font-size:18px;font-weight:900;color:var(--color-navy)}
-.bt{font-size:11px;font-weight:700;color:var(--color-success);margin-top:2px}
-.pain-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.pc{background:var(--pain-card-bg);border:1px solid var(--pain-card-border);border-radius:var(--radius-large);padding:28px 24px;transition:all .22s}
-.pc:hover{background:color-mix(in srgb, var(--color-white), transparent 80%);transform:translateY(-5px)}
-.pc-icon{font-size:32px;margin-bottom:14px;display:block}
-.pc h3{font-size:17px;font-weight:800;margin-bottom:10px;color:var(--pain-title)}
-.pc p{font-size:14px;color:var(--pain-muted);line-height:1.75;font-weight:500}
+.error-section .tc {
+  max-width: 600px;
+  margin: 0 auto;
+}
+.error-code {
+  display: block;
+  font-size: clamp(80px, 14vw, 180px);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -4px;
+  color: var(--color-primary);
+  margin-bottom: 8px;
+}
+.error-actions {
+  margin-top: 32px;
+  display: flex;
+  justify-content: center;
+}
+#pain {
+  background: var(--pain-bg);
+}
+#pain .pain-intro {
+  max-width: 760px;
+  margin: 0 auto 40px;
+}
+.pain-illo {
+  position: relative;
+  max-width: 500px;
+  margin: 0 auto 56px;
+}
+.pain-illo svg,
+.pain-illo img {
+  width: 100%;
+  max-width: 500px;
+  filter: drop-shadow(var(--illo-shadow));
+}
+.badge {
+  position: absolute;
+  background: color-mix(in srgb, var(--color-white), transparent 5%);
+  border-radius: 14px;
+  padding: 12px 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+.b1 {
+  top: 8%;
+  right: -16px;
+  animation: fb1 4s ease-in-out infinite;
+}
+.b2 {
+  bottom: 8%;
+  left: -16px;
+  animation: fb2 5s ease-in-out infinite;
+}
+@keyframes fb1 {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+@keyframes fb2 {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+.bl {
+  font-size: 10px;
+  color: color-mix(in srgb, var(--color-navy-dark), transparent 45%);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 3px;
+}
+.bv {
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--color-navy);
+}
+.bt {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-success);
+  margin-top: 2px;
+}
+.pain-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.pc {
+  background: var(--pain-card-bg);
+  border: 1px solid var(--pain-card-border);
+  border-radius: var(--radius-large);
+  padding: 28px 24px;
+  transition: all 0.22s;
+}
+.pc:hover {
+  background: color-mix(in srgb, var(--color-white), transparent 80%);
+  transform: translateY(-5px);
+}
+.pc-icon {
+  font-size: 32px;
+  margin-bottom: 14px;
+  display: block;
+}
+.pc h3 {
+  font-size: 17px;
+  font-weight: 800;
+  margin-bottom: 10px;
+  color: var(--pain-title);
+}
+.pc p {
+  font-size: 14px;
+  color: var(--pain-muted);
+  line-height: 1.75;
+  font-weight: 500;
+}
 
 /* FEATURES */
-.feat-section{padding:0;background:none}
-.feat-panel{padding:80px 6%;position:relative;overflow:hidden}
-.fp-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 3fr;gap:48px;align-items:center}
-.fp-inner-intro{grid-template-columns:minmax(280px,1.15fr) minmax(220px,.9fr) minmax(320px,1.35fr);gap:36px}
-.fp-left{display:flex;flex-direction:column;gap:16px}
-.fp-left .tag{align-self:flex-start;width:auto;margin-bottom:4px}
-.fp-right{display:flex;align-items:flex-end;justify-content:flex-end;position:relative}
-.fp-illo{width:100%;max-width:520px;height:auto;display:block;filter:drop-shadow(var(--illo-shadow))}
-.fp-flip{transform:scaleX(-1)}
-.fp-heading-intro{font-size:clamp(32px,4vw,52px);font-weight:900;color:var(--color-on-surface);line-height:1.08;letter-spacing:-1px}
-.fp-sub{font-size:clamp(13px,1.2vw,15px);line-height:1.8;font-weight:500;max-width:380px}
+.feat-section {
+  padding: 0;
+  background: none;
+}
+.feat-panel {
+  padding: 80px 6%;
+  position: relative;
+  overflow: hidden;
+}
+.fp-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  gap: 48px;
+  align-items: center;
+}
+.fp-inner-intro {
+  grid-template-columns: minmax(280px, 1.15fr) minmax(220px, 0.9fr) minmax(
+      320px,
+      1.35fr
+    );
+  gap: 36px;
+}
+.fp-left {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.fp-left .tag {
+  align-self: flex-start;
+  width: auto;
+  margin-bottom: 4px;
+}
+.fp-right {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  position: relative;
+}
+.fp-illo {
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  display: block;
+  filter: drop-shadow(var(--illo-shadow));
+}
+.fp-flip {
+  transform: scaleX(-1);
+}
+.fp-heading-intro {
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 900;
+  color: var(--color-on-surface);
+  line-height: 1.08;
+  letter-spacing: -1px;
+}
+.fp-sub {
+  font-size: clamp(13px, 1.2vw, 15px);
+  line-height: 1.8;
+  font-weight: 500;
+  max-width: 380px;
+}
 /* Feature-panel title — sized smaller than the section H2 (.stitle, which
    clamps 26-44px) so the parent section's header stays the dominant beat
    and these read as subsections nested inside it. */
-.fp-title{font-size:clamp(22px,2.6vw,34px);font-weight:900;line-height:1.1;letter-spacing:-1px}
+.fp-title {
+  font-size: clamp(22px, 2.6vw, 34px);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -1px;
+}
 
 /* Subsection marker — small uppercase eyebrow above each feature panel's
    H3. Echoes the parent section's eyebrow ("How it works") + a step
    number so visitors clearly see they're still inside the parent. */
-.fp-step{
-  display:inline-block;
-  font-size:12px;font-weight:800;
-  letter-spacing:.12em;text-transform:uppercase;
-  color:color-mix(in srgb, var(--color-on-surface), transparent 35%);
-  margin-bottom:14px;
+.fp-step {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-on-surface), transparent 35%);
+  margin-bottom: 14px;
 }
-.fp-step::before{
-  content:'';display:inline-block;
-  width:24px;height:1px;
-  background:var(--color-primary);
-  vertical-align:middle;
-  margin-right:10px;
+.fp-step::before {
+  content: "";
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background: var(--color-primary);
+  vertical-align: middle;
+  margin-right: 10px;
 }
 
 /* Intro panel's feature list — replaces the decorative icon grid with a
    navigable bullet list. Each item links to a lower feature panel. */
-.fp-bullets{list-style:none;display:flex;flex-direction:column;gap:0;padding:0;margin:0}
-.fp-bullets li{border-bottom:1px solid color-mix(in srgb, var(--color-on-surface), transparent 88%)}
-.fp-bullets li:first-child{border-top:1px solid color-mix(in srgb, var(--color-on-surface), transparent 88%)}
-.fp-bullets a{
-  display:flex;align-items:center;gap:14px;
-  padding:14px 4px;
-  font-size:clamp(15px,1.3vw,17px);font-weight:600;
-  color:var(--color-on-surface);
-  text-decoration:none;
-  transition:color .15s, transform .15s, padding .15s;
+.fp-bullets {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0;
+  margin: 0;
 }
-.fp-bullets a:hover{color:var(--color-primary);padding-left:8px}
-.fp-bullet-icon{
-  font-family:'Material Symbols Rounded';font-weight:normal;
-  font-size:24px;line-height:1;flex-shrink:0;
-  color:var(--color-primary);
-  font-variation-settings:'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+.fp-bullets li {
+  border-bottom: 1px solid
+    color-mix(in srgb, var(--color-on-surface), transparent 88%);
 }
-.fp-bullet-label{flex:1}
-.fp-bullet-arrow{
-  font-size:18px;font-weight:800;
-  color:color-mix(in srgb, var(--color-on-surface), transparent 55%);
-  transition:color .15s, transform .15s;
+.fp-bullets li:first-child {
+  border-top: 1px solid
+    color-mix(in srgb, var(--color-on-surface), transparent 88%);
 }
-.fp-bullets a:hover .fp-bullet-arrow{color:var(--color-primary);transform:translateX(4px)}
-.fp-desc{font-size:clamp(13px,1.2vw,15px);line-height:1.85;font-weight:500;max-width:420px}
-.fp-icon-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:240px;margin-top:8px}
-.fp-icon-grid img{width:100%;height:auto;display:block}
+.fp-bullets a {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 4px;
+  font-size: clamp(15px, 1.3vw, 17px);
+  font-weight: 600;
+  color: var(--color-on-surface);
+  text-decoration: none;
+  transition:
+    color 0.15s,
+    transform 0.15s,
+    padding 0.15s;
+}
+.fp-bullets a:hover {
+  color: var(--color-primary);
+  padding-left: 8px;
+}
+.fp-bullet-icon {
+  font-family: "Material Symbols Rounded";
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 1;
+  flex-shrink: 0;
+  color: var(--color-primary);
+  font-variation-settings:
+    "FILL" 1,
+    "wght" 400,
+    "GRAD" 0,
+    "opsz" 24;
+}
+.fp-bullet-label {
+  flex: 1;
+}
+.fp-bullet-arrow {
+  font-size: 18px;
+  font-weight: 800;
+  color: color-mix(in srgb, var(--color-on-surface), transparent 55%);
+  transition:
+    color 0.15s,
+    transform 0.15s;
+}
+.fp-bullets a:hover .fp-bullet-arrow {
+  color: var(--color-primary);
+  transform: translateX(4px);
+}
+.fp-desc {
+  font-size: clamp(13px, 1.2vw, 15px);
+  line-height: 1.85;
+  font-weight: 500;
+  max-width: 420px;
+}
+.fp-icon-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  max-width: 240px;
+  margin-top: 8px;
+}
+.fp-icon-grid img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
 /* Intro-grid icons rendered as Material Symbols Rounded glyphs (variable
    font loaded in head/fonts.html, subset to just these names). Each <span>
    contains the icon's name as text; the font's ligature feature renders
@@ -550,7 +1354,28 @@ body > nav.is-menu-open .nav-menu-settings{opacity:1;visibility:visible;transfor
    the legacy nth-child scale() transforms below — those were calibrated
    for tiny intrinsic-sized <img> elements and would now compound the
    font's already-explicit pixel size into oversized chaos. */
-.fp-grid-icon{font-family:'Material Symbols Rounded';font-weight:normal;font-style:normal;font-size:72px;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;text-align:center;white-space:nowrap;word-wrap:normal;direction:ltr;color:var(--color-primary);-webkit-font-smoothing:antialiased;font-feature-settings:'liga';font-variation-settings:'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48}
+.fp-grid-icon {
+  font-family: "Material Symbols Rounded";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 72px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  text-align: center;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  color: var(--color-primary);
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "liga";
+  font-variation-settings:
+    "FILL" 1,
+    "wght" 400,
+    "GRAD" 0,
+    "opsz" 48;
+}
 /* Per-panel background silhouette — large Material Symbols glyph centred
    behind each character illustration. Replaces the legacy `.fp-mask-icon`
    role (which used per-panel hand-tuned SVG silhouettes that were stylistically
@@ -562,7 +1387,30 @@ body > nav.is-menu-open .nav-menu-settings{opacity:1;visibility:visible;transfor
    left:25%) so the glyph sits more towards the panel's middle rather than
    tucked behind the illustration. Color is set per-panel below — see the
    .fp-N .fp-panel-bg-icon block for the alternate-tone logic. */
-.fp-panel-bg-icon{font-family:'Material Symbols Rounded';font-weight:normal;font-style:normal;font-size:360px;line-height:1;letter-spacing:normal;text-transform:none;white-space:nowrap;direction:ltr;position:absolute;top:50%;left:25%;transform:translate(-50%,-50%);z-index:1;pointer-events:none;-webkit-font-smoothing:antialiased;font-feature-settings:'liga';font-variation-settings:'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48}
+.fp-panel-bg-icon {
+  font-family: "Material Symbols Rounded";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 360px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  white-space: nowrap;
+  direction: ltr;
+  position: absolute;
+  top: 50%;
+  left: 25%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  pointer-events: none;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "liga";
+  font-variation-settings:
+    "FILL" 1,
+    "wght" 400,
+    "GRAD" 0,
+    "opsz" 48;
+}
 
 /* Each panel's background alternates between two surface tones
    (fp-1/3/5 use --color-panel-1; fp-2/4 use --color-panel-2). The bg
@@ -572,11 +1420,23 @@ body > nav.is-menu-open .nav-menu-settings{opacity:1;visibility:visible;transfor
    --color-panel-N is theme-mapped in hugo.toml [params.theme.*.panels]. */
 .fp-1 .fp-panel-bg-icon,
 .fp-3 .fp-panel-bg-icon,
-.fp-5 .fp-panel-bg-icon{color:var(--color-panel-2)}
+.fp-5 .fp-panel-bg-icon {
+  color: var(--color-panel-2);
+}
 .fp-2 .fp-panel-bg-icon,
-.fp-4 .fp-panel-bg-icon{color:var(--color-panel-1)}
-.fp-right .fp-illo{position:relative;z-index:2}
-.fp-icon-grid-intro{max-width:340px;gap:24px;align-self:center;justify-self:center}
+.fp-4 .fp-panel-bg-icon {
+  color: var(--color-panel-1);
+}
+.fp-right .fp-illo {
+  position: relative;
+  z-index: 2;
+}
+.fp-icon-grid-intro {
+  max-width: 340px;
+  gap: 24px;
+  align-self: center;
+  justify-self: center;
+}
 /* (Removed: `.fp-right-duo`, `.fp-illo-stack`, `.fp-icon-sm` and the per-panel
    `.fp-N .fp-icon-sm` positioning rules. They composed a CSS-mask silhouette
    *behind* each feature-panel character — but stretching a 24×24 Lucide icon
@@ -596,19 +1456,29 @@ body > nav.is-menu-open .nav-menu-settings{opacity:1;visibility:visible;transfor
    the grid (max-width 340px / 2 cols = ~158px each) and the 72px glyph
    sits comfortably inside with margin to spare. */
 /* ── Panel 1 SVG (features-02) — translate px = position offset, scale = size ── */
-.fp-1 .fp-illo{transform:translate(0px,0px) scale(1)}
+.fp-1 .fp-illo {
+  transform: translate(0px, 0px) scale(1);
+}
 
 /* ── Panel 2 SVG (features-07) — translate px = position offset, scale = size (keeps horizontal flip) ── */
-.fp-2 .fp-illo{transform:scaleX(-1) translate(-100px,0px) scale(1)}
+.fp-2 .fp-illo {
+  transform: scaleX(-1) translate(-100px, 0px) scale(1);
+}
 
 /* ── Panel 3 SVG (footer-06) — translate px = position offset, scale = size ── */
-.fp-3 .fp-illo{transform:translate(0px,0px) scale(1)}
+.fp-3 .fp-illo {
+  transform: translate(0px, 0px) scale(1);
+}
 
 /* ── Panel 4 SVG (features-05) — translate px = position offset, scale = size ── */
-.fp-4 .fp-illo{transform:translate(0px,0px) scale(1)}
+.fp-4 .fp-illo {
+  transform: translate(0px, 0px) scale(1);
+}
 
 /* ── Panel 5 SVG (features-04) — translate px = position offset, scale = size ── */
-.fp-5 .fp-illo{transform:translate(0px,0px) scale(1)}
+.fp-5 .fp-illo {
+  transform: translate(0px, 0px) scale(1);
+}
 /* (Removed: per-panel `.fp-N .fp-icon-sm` positioning + four `.fp-icon-0N`
    mask URL rules + `.fp-mask-icon` background-paint rule. The icons have
    moved under assets/icons/ (Hugo asset pipeline, fingerprinted), and the
@@ -622,184 +1492,775 @@ body > nav.is-menu-open .nav-menu-settings{opacity:1;visibility:visible;transfor
    not 5 distinct colours. Text colour is uniformly --color-on-surface
    because both alternating tones are paired with the same on-surface
    contrast in every theme. */
-.fp-1{background:var(--color-panel-1)}
-.fp-2{background:var(--color-panel-2)}
-.fp-3{background:var(--color-panel-3)}
-.fp-4{background:var(--color-panel-4)}
-.fp-5{background:var(--color-panel-5)}
-.fp-title,.fp-desc{color:var(--color-on-surface)}
-.fp-sub{color:color-mix(in srgb, var(--color-on-surface), transparent 35%)}
+.fp-1 {
+  background: var(--color-panel-1);
+}
+.fp-2 {
+  background: var(--color-panel-2);
+}
+.fp-3 {
+  background: var(--color-panel-3);
+}
+.fp-4 {
+  background: var(--color-panel-4);
+}
+.fp-5 {
+  background: var(--color-panel-5);
+}
+.fp-title,
+.fp-desc {
+  color: var(--color-on-surface);
+}
+.fp-sub {
+  color: color-mix(in srgb, var(--color-on-surface), transparent 35%);
+}
 
 /* HOW */
-#how{background:var(--how-bg)}
-.how-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;margin-top:52px;position:relative}
-.how-steps::before{content:'';position:absolute;top:36px;left:16.5%;right:16.5%;height:2px;background:linear-gradient(90deg,var(--how-accent),var(--color-purple));opacity:.4}
-.step{text-align:center;position:relative;z-index:1}
-.step-num{width:72px;height:72px;border-radius:50%;background:var(--how-accent);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;color:var(--color-on-primary);margin:0 auto 22px;position:relative}
-.step-num::after{content:'';position:absolute;inset:-5px;border-radius:50%;border:2px solid color-mix(in srgb, var(--color-terra), transparent 70%)}
-.step h3{font-size:17px;font-weight:800;color:var(--color-on-surface);margin-bottom:10px}
-.step p{font-size:14px;color:color-mix(in srgb, var(--color-on-surface), transparent 40%);line-height:1.8;font-weight:500;max-width:240px;margin:0 auto}
-.how-bottom{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-top:70px;padding-top:60px;border-top:1px solid color-mix(in srgb, var(--color-on-surface), transparent 92%)}
-.how-bottom svg,.how-bottom img{width:100%;max-width:460px}
+#how {
+  background: var(--how-bg);
+}
+.how-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-top: 52px;
+  position: relative;
+}
+.how-steps::before {
+  content: "";
+  position: absolute;
+  top: 36px;
+  left: 16.5%;
+  right: 16.5%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--how-accent), var(--color-purple));
+  opacity: 0.4;
+}
+.step {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.step-num {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--how-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--color-on-primary);
+  margin: 0 auto 22px;
+  position: relative;
+}
+.step-num::after {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  border: 2px solid color-mix(in srgb, var(--color-terra), transparent 70%);
+}
+.step h3 {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--color-on-surface);
+  margin-bottom: 10px;
+}
+.step p {
+  font-size: 14px;
+  color: color-mix(in srgb, var(--color-on-surface), transparent 40%);
+  line-height: 1.8;
+  font-weight: 500;
+  max-width: 240px;
+  margin: 0 auto;
+}
+.how-bottom {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  margin-top: 70px;
+  padding-top: 60px;
+  border-top: 1px solid
+    color-mix(in srgb, var(--color-on-surface), transparent 92%);
+}
+.how-bottom svg,
+.how-bottom img {
+  width: 100%;
+  max-width: 460px;
+}
 
 /* PRICING */
-#pricing{background:var(--pricing-bg)}
-.billing-toggle{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:28px}
-.billing-label{font-size:13px;color:color-mix(in srgb, var(--color-on-surface), transparent 52%);font-weight:700;transition:color .2s ease}
-.billing-label.is-active{color:var(--color-on-surface)}
-.billing-switch{width:60px;height:34px;border:none;border-radius:999px;background:color-mix(in srgb, var(--color-on-surface), transparent 86%);padding:4px;position:relative;cursor:pointer;transition:background .2s ease,box-shadow .2s ease;box-shadow:inset 0 0 0 1px color-mix(in srgb, var(--color-on-surface), transparent 88%)}
-.billing-switch:hover{background:color-mix(in srgb, var(--color-on-surface), transparent 80%)}
-.billing-switch:focus-visible{outline:2px solid var(--color-on-surface);outline-offset:3px}
-.billing-switch__thumb{display:block;width:26px;height:26px;border-radius:50%;background:var(--color-terra);transition:transform .2s ease;background-image:linear-gradient(135deg,var(--color-terra-light),var(--color-terra-dark));box-shadow:0 6px 18px rgba(0,0,0,.25)}
-.billing-switch.is-monthly .billing-switch__thumb{transform:translateX(26px)}
-.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:52px}
-.pcard{border-radius:var(--radius-large);padding:36px;border:1px solid var(--pricing-card-border);background:var(--pricing-card-bg);transition:all .25s;display:flex;flex-direction:column;position:relative}
-.pcard:hover{transform:translateY(-6px);border-color:color-mix(in srgb, var(--color-on-surface), transparent 75%)}
-.pcard.feat{background:var(--pricing-feature-bg);border-color:var(--pricing-feature-bg)}
-.fbadge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--color-yellow);color:var(--color-navy);font-size:11px;font-weight:800;padding:5px 18px;border-radius:20px;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
-.pname{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:color-mix(in srgb, var(--color-on-surface), transparent 45%);margin-bottom:12px}
-.pcard.feat .pname{color:color-mix(in srgb, var(--color-on-primary), transparent 15%)}
-.pprice{font-size:50px;font-weight:900;color:var(--color-on-surface);line-height:1;margin-bottom:6px}
-.pcard.feat .pprice{color:var(--color-on-primary)}
-.pcurrency{font-size:18px;font-weight:600;vertical-align:top;margin-top:8px;display:inline-block;opacity:.7}
-.pperiod{font-size:13px;color:color-mix(in srgb, var(--color-on-surface), transparent 55%);margin-bottom:22px;font-weight:600}
-.pcard.feat .pperiod{color:color-mix(in srgb, var(--color-on-primary), transparent 25%)}
-.pdesc{font-size:14px;color:color-mix(in srgb, var(--color-on-surface), transparent 35%);line-height:1.7;margin-bottom:24px;font-weight:500;border-bottom:1px solid color-mix(in srgb, var(--color-on-surface), transparent 90%);padding-bottom:24px}
-.pcard.feat .pdesc{color:color-mix(in srgb, var(--color-on-primary), transparent 12%);border-color:color-mix(in srgb, var(--color-on-primary), transparent 80%)}
-.pfeats{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:30px;flex:1}
-.pfeats li{font-size:14px;color:color-mix(in srgb, var(--color-on-surface), transparent 28%);font-weight:500;display:flex;align-items:flex-start;gap:10px;line-height:1.5}
-.pcard.feat .pfeats li{color:color-mix(in srgb, var(--color-on-primary), transparent 8%)}
-.pfeats li::before{content:'\2713';color:var(--color-teal);font-weight:900;font-size:14px;flex-shrink:0;margin-top:1px}
-.pcard.feat .pfeats li::before{color:var(--color-on-primary)}
+#pricing {
+  background: var(--pricing-bg);
+}
+.billing-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 28px;
+}
+.billing-label {
+  font-size: 13px;
+  color: color-mix(in srgb, var(--color-on-surface), transparent 52%);
+  font-weight: 700;
+  transition: color 0.2s ease;
+}
+.billing-label.is-active {
+  color: var(--color-on-surface);
+}
+.billing-switch {
+  width: 60px;
+  height: 34px;
+  border: none;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-on-surface), transparent 86%);
+  padding: 4px;
+  position: relative;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+  box-shadow: inset 0 0 0 1px
+    color-mix(in srgb, var(--color-on-surface), transparent 88%);
+}
+.billing-switch:hover {
+  background: color-mix(in srgb, var(--color-on-surface), transparent 80%);
+}
+.billing-switch:focus-visible {
+  outline: 2px solid var(--color-on-surface);
+  outline-offset: 3px;
+}
+.billing-switch__thumb {
+  display: block;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--color-terra);
+  transition: transform 0.2s ease;
+  background-image: linear-gradient(
+    135deg,
+    var(--color-terra-light),
+    var(--color-terra-dark)
+  );
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+.billing-switch.is-monthly .billing-switch__thumb {
+  transform: translateX(26px);
+}
+.price-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 52px;
+}
+.pcard {
+  border-radius: var(--radius-large);
+  padding: 36px;
+  border: 1px solid var(--pricing-card-border);
+  background: var(--pricing-card-bg);
+  transition: all 0.25s;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.pcard:hover {
+  transform: translateY(-6px);
+  border-color: color-mix(in srgb, var(--color-on-surface), transparent 75%);
+}
+.pcard.feat {
+  background: var(--pricing-feature-bg);
+  border-color: var(--pricing-feature-bg);
+}
+.fbadge {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-yellow);
+  color: var(--color-navy);
+  font-size: 11px;
+  font-weight: 800;
+  padding: 5px 18px;
+  border-radius: 20px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.pname {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-on-surface), transparent 45%);
+  margin-bottom: 12px;
+}
+.pcard.feat .pname {
+  color: color-mix(in srgb, var(--color-on-primary), transparent 15%);
+}
+.pprice {
+  font-size: 50px;
+  font-weight: 900;
+  color: var(--color-on-surface);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.pcard.feat .pprice {
+  color: var(--color-on-primary);
+}
+.pcurrency {
+  font-size: 18px;
+  font-weight: 600;
+  vertical-align: top;
+  margin-top: 8px;
+  display: inline-block;
+  opacity: 0.7;
+}
+.pperiod {
+  font-size: 13px;
+  color: color-mix(in srgb, var(--color-on-surface), transparent 55%);
+  margin-bottom: 22px;
+  font-weight: 600;
+}
+.pcard.feat .pperiod {
+  color: color-mix(in srgb, var(--color-on-primary), transparent 25%);
+}
+.pdesc {
+  font-size: 14px;
+  color: color-mix(in srgb, var(--color-on-surface), transparent 35%);
+  line-height: 1.7;
+  margin-bottom: 24px;
+  font-weight: 500;
+  border-bottom: 1px solid
+    color-mix(in srgb, var(--color-on-surface), transparent 90%);
+  padding-bottom: 24px;
+}
+.pcard.feat .pdesc {
+  color: color-mix(in srgb, var(--color-on-primary), transparent 12%);
+  border-color: color-mix(in srgb, var(--color-on-primary), transparent 80%);
+}
+.pfeats {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 30px;
+  flex: 1;
+}
+.pfeats li {
+  font-size: 14px;
+  color: color-mix(in srgb, var(--color-on-surface), transparent 28%);
+  font-weight: 500;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  line-height: 1.5;
+}
+.pcard.feat .pfeats li {
+  color: color-mix(in srgb, var(--color-on-primary), transparent 8%);
+}
+.pfeats li::before {
+  content: "\2713";
+  color: var(--color-teal);
+  font-weight: 900;
+  font-size: 14px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.pcard.feat .pfeats li::before {
+  color: var(--color-on-primary);
+}
 /* Pricing cards use the unified .btn system. Layout-only rule: stretch
    to card width and push to the card's bottom edge. The button's color
    treatment comes from .btn--primary / .btn--secondary; the featured
    card's primary-bg context triggers the same inversion as #subscribe
    (see BUTTONS block — .pcard.feat .btn--primary is listed there). */
-.pcard .btn{display:flex;justify-content:center;width:100%;margin-top:auto}
+.pcard .btn {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: auto;
+}
 
 /* SETUP */
-#setup{background:var(--setup-bg)}
-.setup-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
-.setup-grid svg,.setup-grid img{width:100%;max-width:460px;filter:drop-shadow(var(--illo-shadow))}
-.ssteps{display:flex;flex-direction:column;gap:24px;margin-top:32px}
-.sstep{display:flex;gap:18px;align-items:flex-start}
-.ss-n{width:40px;height:40px;border-radius:50%;background:var(--setup-accent);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:var(--color-on-primary);flex-shrink:0}
-.ss-c h4{font-size:16px;font-weight:800;color:var(--color-on-surface);margin-bottom:6px}
-.ss-c p{font-size:14px;color:color-mix(in srgb, var(--color-on-surface), transparent 35%);line-height:1.75;font-weight:500}
+#setup {
+  background: var(--setup-bg);
+}
+.setup-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 70px;
+  align-items: center;
+}
+.setup-grid svg,
+.setup-grid img {
+  width: 100%;
+  max-width: 460px;
+  filter: drop-shadow(var(--illo-shadow));
+}
+.ssteps {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 32px;
+}
+.sstep {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+}
+.ss-n {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--setup-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 900;
+  color: var(--color-on-primary);
+  flex-shrink: 0;
+}
+.ss-c h4 {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--color-on-surface);
+  margin-bottom: 6px;
+}
+.ss-c p {
+  font-size: 14px;
+  color: color-mix(in srgb, var(--color-on-surface), transparent 35%);
+  line-height: 1.75;
+  font-weight: 500;
+}
 
 /* CTA */
-#cta{background:var(--cta-bg);padding:100px 6%;text-align:center}
-.cta-inner{max-width:680px;margin:0 auto}
-#cta h2{font-size:clamp(32px,4vw,52px);font-weight:900;letter-spacing:-1.5px;line-height:1.08;margin-bottom:18px;color:var(--cta-title)}
-#cta p{font-size:clamp(15px,1.4vw,18px);color:var(--cta-muted);line-height:1.8;margin-bottom:40px;font-weight:500}
-.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+#cta {
+  background: var(--cta-bg);
+  padding: 100px 6%;
+  text-align: center;
+}
+.cta-inner {
+  max-width: 680px;
+  margin: 0 auto;
+}
+#cta h2 {
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 900;
+  letter-spacing: -1.5px;
+  line-height: 1.08;
+  margin-bottom: 18px;
+  color: var(--cta-title);
+}
+#cta p {
+  font-size: clamp(15px, 1.4vw, 18px);
+  color: var(--cta-muted);
+  line-height: 1.8;
+  margin-bottom: 40px;
+  font-weight: 500;
+}
+.cta-btns {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
 
 /* SUBSCRIBE */
-#subscribe{background:var(--subscribe-bg);padding:90px 6%}
-.sub-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:start}
-.sub-text h2{color:var(--subscribe-title);font-size:clamp(28px,3vw,42px);font-weight:900;letter-spacing:-1px;margin-bottom:16px}
-.sub-text p{color:var(--subscribe-muted);font-size:16px;line-height:1.8;font-weight:500;margin-bottom:28px}
-.sub-benefits{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:32px}
-.sub-benefits li{display:flex;align-items:center;gap:10px;font-size:14px;color:color-mix(in srgb, var(--color-on-primary), transparent 10%);font-weight:600}
-.sub-benefits li::before{content:'\2713';width:22px;height:22px;background:color-mix(in srgb, var(--color-white), transparent 80%);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0;color:var(--color-on-primary)}
+#subscribe {
+  background: var(--subscribe-bg);
+  padding: 90px 6%;
+}
+.sub-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 70px;
+  align-items: start;
+}
+.sub-text h2 {
+  color: var(--subscribe-title);
+  font-size: clamp(28px, 3vw, 42px);
+  font-weight: 900;
+  letter-spacing: -1px;
+  margin-bottom: 16px;
+}
+.sub-text p {
+  color: var(--subscribe-muted);
+  font-size: 16px;
+  line-height: 1.8;
+  font-weight: 500;
+  margin-bottom: 28px;
+}
+.sub-benefits {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+.sub-benefits li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: color-mix(in srgb, var(--color-on-primary), transparent 10%);
+  font-weight: 600;
+}
+.sub-benefits li::before {
+  content: "\2713";
+  width: 22px;
+  height: 22px;
+  background: color-mix(in srgb, var(--color-white), transparent 80%);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 900;
+  flex-shrink: 0;
+  color: var(--color-on-primary);
+}
 /* Form chrome — defaults assume the form sits on a surface (the /newsletter/
    page wraps in <main class="bg-surface">). The #subscribe section below
    overrides these defaults because that section's background is the
    primary color, where text/contrast pair flips to on-primary. */
-.form-box{background:color-mix(in srgb, var(--color-on-surface), transparent 92%);backdrop-filter:blur(16px);border:1px solid color-mix(in srgb, var(--color-on-surface), transparent 80%);border-radius:var(--radius-large);padding:40px}
-.form-title{font-size:20px;font-weight:800;color:var(--color-on-surface);margin-bottom:6px}
-.form-sub-t{font-size:14px;color:color-mix(in srgb, var(--color-on-surface), transparent 28%);margin-bottom:28px;font-weight:500}
-.frow{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.form-note{font-size:12px;color:color-mix(in srgb, var(--color-on-surface), transparent 45%);text-align:center;margin-top:14px;font-weight:500}
+.form-box {
+  background: color-mix(in srgb, var(--color-on-surface), transparent 92%);
+  backdrop-filter: blur(16px);
+  border: 1px solid color-mix(in srgb, var(--color-on-surface), transparent 80%);
+  border-radius: var(--radius-large);
+  padding: 40px;
+}
+.form-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--color-on-surface);
+  margin-bottom: 6px;
+}
+.form-sub-t {
+  font-size: 14px;
+  color: color-mix(in srgb, var(--color-on-surface), transparent 28%);
+  margin-bottom: 28px;
+  font-weight: 500;
+}
+.frow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.form-note {
+  font-size: 12px;
+  color: color-mix(in srgb, var(--color-on-surface), transparent 45%);
+  text-align: center;
+  margin-top: 14px;
+  font-weight: 500;
+}
 
 /* #subscribe context — section background is --color-primary, so the
    form chrome flips to the on-primary contrast pair. */
-#subscribe .form-box{background:color-mix(in srgb, var(--color-white), transparent 88%);border-color:color-mix(in srgb, var(--color-white), transparent 80%)}
-#subscribe .form-title{color:var(--color-on-primary)}
-#subscribe .form-sub-t{color:color-mix(in srgb, var(--color-on-primary), transparent 28%)}
-#subscribe .form-note{color:color-mix(in srgb, var(--color-on-primary), transparent 45%)}
-
-/* FOOTER */
-footer{background:var(--footer-bg);padding:60px 0 36px}
-.footer-inner{max-width:1200px;width:min(1200px,calc(100% - clamp(32px,6vw,96px)));margin:0 auto}
-.foot-illos{display:flex;justify-content:center;align-items:flex-end;margin-bottom:48px;padding-bottom:40px;border-bottom:1px solid color-mix(in srgb, var(--color-on-surface), transparent 93%)}
-.foot-illos>div{width:calc(100%/6);flex-shrink:0}
-.foot-illos svg,.foot-illos img{width:100%;height:auto;filter:drop-shadow(var(--illo-shadow))}
-.foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:32px;margin-bottom:40px}
-.brand-logo{display:block;width:min(220px,100%);height:auto}
-.foot-brand p{font-size:13px;color:color-mix(in srgb, var(--color-on-surface), transparent 55%);line-height:1.7;max-width:220px;font-weight:500;margin-top:12px}
-.foot-col h2{font-size:11px;font-weight:800;color:var(--footer-muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:16px}
-.foot-col a{display:block;font-size:13px;color:var(--footer-text);text-decoration:none;margin-bottom:10px;transition:color .15s;font-weight:500}
-.foot-col a:hover{color:var(--color-on-surface)}
-.foot-bottom{border-top:1px solid color-mix(in srgb, var(--color-on-surface), transparent 93%);padding-top:22px;display:flex;justify-content:space-between;align-items:center}
-.foot-bottom p{font-size:12px;color:color-mix(in srgb, var(--color-on-surface), transparent 70%);font-weight:500}
-
-/* TC */
-.tc{text-align:center}
-.tc .ssub{margin:0 auto}
-
-@media(max-width:900px){
-  #hero{min-height:auto;grid-template-columns:1fr;justify-items:center;row-gap:0;text-align:center;padding:78px 5% 20px}
-  .hero-left{max-width:640px;padding-top:8px;justify-self:center}
-  .logo-big{width:min(88vw,420px);margin-inline:auto}
-  .hero-p{margin-inline:auto}
-  .btns,.trust{justify-content:center}
-  .hero-right{width:min(100%,560px);justify-self:center;align-self:center;margin-top:14px}
-  .hero-chart-bg{width:600px;height:600px;top:46%;left:50%}
-  .hero-illo{max-width:560px}
-  .setup-grid,.sub-grid,.how-bottom{grid-template-columns:1fr}
-  .pain-cards,.fl,.how-steps,.price-grid{grid-template-columns:1fr}
-  .pain-illo{width:min(100%,500px);margin:0 auto 40px}
-  .pain-illo svg,.pain-illo img{display:block;margin:0 auto}
-  .b1{top:10%;right:clamp(8px,4vw,18px)}
-  .b2{left:clamp(8px,4vw,18px)}
-  .pcard,.pc,.sub-text{text-align:center}
-  .pdesc,.sub-text p{margin-left:auto;margin-right:auto}
-  .pfeats li,.sub-benefits li{justify-content:center;text-align:left}
-  .sub-text .tag{margin-left:auto;margin-right:auto}
-  .fc-big{grid-column:span 1;grid-template-columns:1fr}
-  .footer-inner{width:min(1200px,calc(100% - 40px))}
-  .foot-grid{grid-template-columns:1fr 1fr}
-  nav .nav-links{display:none}
-  .video-stats{gap:20px}
-  .billing-toggle{flex-wrap:wrap;gap:10px 14px}
+#subscribe .form-box {
+  background: color-mix(in srgb, var(--color-white), transparent 88%);
+  border-color: color-mix(in srgb, var(--color-white), transparent 80%);
+}
+#subscribe .form-title {
+  color: var(--color-on-primary);
+}
+#subscribe .form-sub-t {
+  color: color-mix(in srgb, var(--color-on-primary), transparent 28%);
+}
+#subscribe .form-note {
+  color: color-mix(in srgb, var(--color-on-primary), transparent 45%);
 }
 
-@media(max-width:600px){
-  .hero-right{width:min(100%,460px);margin-top:10px}
-  .hero-chart-bg{width:500px;height:500px;top:45%}
-  .hero-illo{max-width:470px}
+/* FOOTER */
+footer {
+  background: var(--footer-bg);
+  padding: 60px 0 36px;
+}
+.footer-inner {
+  max-width: 1200px;
+  width: min(1200px, calc(100% - clamp(32px, 6vw, 96px)));
+  margin: 0 auto;
+}
+.foot-illos {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  margin-bottom: 48px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid
+    color-mix(in srgb, var(--color-on-surface), transparent 93%);
+}
+.foot-illos > div {
+  width: calc(100% / 6);
+  flex-shrink: 0;
+}
+.foot-illos svg,
+.foot-illos img {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(var(--illo-shadow));
+}
+.foot-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr;
+  gap: 32px;
+  margin-bottom: 40px;
+}
+.brand-logo {
+  display: block;
+  width: min(220px, 100%);
+  height: auto;
+}
+.foot-brand p {
+  font-size: 13px;
+  color: color-mix(in srgb, var(--color-on-surface), transparent 55%);
+  line-height: 1.7;
+  max-width: 220px;
+  font-weight: 500;
+  margin-top: 12px;
+}
+.foot-col h2 {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--footer-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 16px;
+}
+.foot-col a {
+  display: block;
+  font-size: 13px;
+  color: var(--footer-text);
+  text-decoration: none;
+  margin-bottom: 10px;
+  transition: color 0.15s;
+  font-weight: 500;
+}
+.foot-col a:hover {
+  color: var(--color-on-surface);
+}
+.foot-bottom {
+  border-top: 1px solid
+    color-mix(in srgb, var(--color-on-surface), transparent 93%);
+  padding-top: 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.foot-bottom p {
+  font-size: 12px;
+  color: color-mix(in srgb, var(--color-on-surface), transparent 70%);
+  font-weight: 500;
+}
+
+/* TC */
+.tc {
+  text-align: center;
+}
+.tc .ssub {
+  margin: 0 auto;
+}
+
+@media (max-width: 900px) {
+  #hero {
+    min-height: auto;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    row-gap: 0;
+    text-align: center;
+    padding: 78px 5% 20px;
+  }
+  .hero-left {
+    max-width: 640px;
+    padding-top: 8px;
+    justify-self: center;
+  }
+  .logo-big {
+    width: min(88vw, 420px);
+    margin-inline: auto;
+  }
+  .hero-p {
+    margin-inline: auto;
+  }
+  .btns,
+  .trust {
+    justify-content: center;
+  }
+  .hero-right {
+    width: min(100%, 560px);
+    justify-self: center;
+    align-self: center;
+    margin-top: 14px;
+  }
+  .hero-chart-bg {
+    width: 600px;
+    height: 600px;
+    top: 46%;
+    left: 50%;
+  }
+  .hero-illo {
+    max-width: 560px;
+  }
+  .setup-grid,
+  .sub-grid,
+  .how-bottom {
+    grid-template-columns: 1fr;
+  }
+  .pain-cards,
+  .fl,
+  .how-steps,
+  .price-grid {
+    grid-template-columns: 1fr;
+  }
+  .pain-illo {
+    width: min(100%, 500px);
+    margin: 0 auto 40px;
+  }
+  .pain-illo svg,
+  .pain-illo img {
+    display: block;
+    margin: 0 auto;
+  }
+  .b1 {
+    top: 10%;
+    right: clamp(8px, 4vw, 18px);
+  }
+  .b2 {
+    left: clamp(8px, 4vw, 18px);
+  }
+  .pcard,
+  .pc,
+  .sub-text {
+    text-align: center;
+  }
+  .pdesc,
+  .sub-text p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .pfeats li,
+  .sub-benefits li {
+    justify-content: center;
+    text-align: left;
+  }
+  .sub-text .tag {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .fc-big {
+    grid-column: span 1;
+    grid-template-columns: 1fr;
+  }
+  .footer-inner {
+    width: min(1200px, calc(100% - 40px));
+  }
+  .foot-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  nav .nav-links {
+    display: none;
+  }
+  .video-stats {
+    gap: 20px;
+  }
+  .billing-toggle {
+    flex-wrap: wrap;
+    gap: 10px 14px;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-right {
+    width: min(100%, 460px);
+    margin-top: 10px;
+  }
+  .hero-chart-bg {
+    width: 500px;
+    height: 500px;
+    top: 45%;
+  }
+  .hero-illo {
+    max-width: 470px;
+  }
 }
 
 /* FEATURE PANEL RESPONSIVE */
-@media(max-width:900px){
-  .fp-inner{grid-template-columns:1fr;gap:32px}
-  .fp-inner-intro{grid-template-columns:1fr}
-  .fp-left{align-items:center;text-align:center}
-  .fp-left .tag{align-self:center}
-  .fp-right{justify-content:center}
-  .fp-illo{max-width:380px}
+@media (max-width: 900px) {
+  .fp-inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .fp-inner-intro {
+    grid-template-columns: 1fr;
+  }
+  .fp-left {
+    align-items: center;
+    text-align: center;
+  }
+  .fp-left .tag {
+    align-self: center;
+  }
+  .fp-right {
+    justify-content: center;
+  }
+  .fp-illo {
+    max-width: 380px;
+  }
   /* Panel 1 icon grid — add top padding so icons don't overlap the text */
-  .fp-icon-grid-intro{max-width:280px;gap:18px;margin-top:28px}
-  .fp-right-duo{justify-content:center}
+  .fp-icon-grid-intro {
+    max-width: 280px;
+    gap: 18px;
+    margin-top: 28px;
+  }
+  .fp-right-duo {
+    justify-content: center;
+  }
   /* Hide background icons on panels 2-5 in tablet/phone view */
   .fp-2 .fp-icon-sm,
   .fp-3 .fp-icon-sm,
   .fp-4 .fp-icon-sm,
-  .fp-5 .fp-icon-sm{display:none}
-  .fp-heading-intro{font-size:clamp(28px,6vw,40px)}
-  .fp-sub,.fp-desc{margin-inline:auto}
+  .fp-5 .fp-icon-sm {
+    display: none;
+  }
+  .fp-heading-intro {
+    font-size: clamp(28px, 6vw, 40px);
+  }
+  .fp-sub,
+  .fp-desc {
+    margin-inline: auto;
+  }
 }
 
-
-
 /* Inline-style replacements */
-.video-section{background:var(--color-navy-dark);padding:90px 6%}
-.video-inner-compact{max-width:960px;margin:0 auto;text-align:center}
-.video-sub{max-width:520px;margin:0 auto 40px}
-.video-frame{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:20px}
-.bt-deadline{color:var(--color-primary)}
+.video-section {
+  background: var(--color-navy-dark);
+  padding: 90px 6%;
+}
+.video-inner-compact {
+  max-width: 960px;
+  margin: 0 auto;
+  text-align: center;
+}
+.video-sub {
+  max-width: 520px;
+  margin: 0 auto 40px;
+}
+.video-frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+}
+.bt-deadline {
+  color: var(--color-primary);
+}
 
 /* Status utility classes — apply the in-app palette (see hugo.toml [params.colors])
    to inline status text, badge variants, variance indicators, and any future
@@ -811,24 +2272,76 @@ footer{background:var(--footer-bg);padding:60px 0 36px}
    --color-on-surface), not as text on light surfaces. The deeper variant
    (--rz-warning-dark #918908 in the app) would be needed for caution-text;
    import it if/when that role appears. */
-.status-success{color:var(--color-success)}
-.status-danger {color:var(--color-danger)}
-.status-warning{color:var(--color-warning)}
-.status-info   {color:var(--color-info)}
-.smart-title{font-size:clamp(22px,2.6vw,36px)}
-.smart-sub{margin-top:14px}
-.smart-actions{margin-top:28px;display:flex;gap:12px;flex-wrap:wrap}
-.tag-cta{display:inline-block;margin-bottom:20px}
-.cta-primary-lg{font-size:16px;padding:16px 36px}
-.cta-secondary-lg{font-size:16px;padding:16px 32px}
-.sub-tag{display:inline-block;margin-bottom:18px}
-.sub-avatars{margin-bottom:10px}
-.av-purple{background:var(--color-purple)}
-.av-teal{background:var(--color-teal)}
-.trust-eu{font-size:13px;color:color-mix(in srgb, var(--color-on-primary), transparent 30%);font-weight:600}
-.form-box-center{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:48px 40px}
-.form-title-lg{font-size:26px}
-.form-sub-center{text-align:center;font-size:16px;line-height:1.7}
+.status-success {
+  color: var(--color-success);
+}
+.status-danger {
+  color: var(--color-danger);
+}
+.status-warning {
+  color: var(--color-warning);
+}
+.status-info {
+  color: var(--color-info);
+}
+.smart-title {
+  font-size: clamp(22px, 2.6vw, 36px);
+}
+.smart-sub {
+  margin-top: 14px;
+}
+.smart-actions {
+  margin-top: 28px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.tag-cta {
+  display: inline-block;
+  margin-bottom: 20px;
+}
+.cta-primary-lg {
+  font-size: 16px;
+  padding: 16px 36px;
+}
+.cta-secondary-lg {
+  font-size: 16px;
+  padding: 16px 32px;
+}
+.sub-tag {
+  display: inline-block;
+  margin-bottom: 18px;
+}
+.sub-avatars {
+  margin-bottom: 10px;
+}
+.av-purple {
+  background: var(--color-purple);
+}
+.av-teal {
+  background: var(--color-teal);
+}
+.trust-eu {
+  font-size: 13px;
+  color: color-mix(in srgb, var(--color-on-primary), transparent 30%);
+  font-weight: 600;
+}
+.form-box-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  padding: 48px 40px;
+}
+.form-title-lg {
+  font-size: 26px;
+}
+.form-sub-center {
+  text-align: center;
+  font-size: 16px;
+  line-height: 1.7;
+}
 /* (Removed: .btn-sub / .btn-sub-link. The subscribe section's CTA and the
    newsletter form's submit + fallback now all render through the unified
    .btn / .btn--primary system via the button partial.) */
@@ -836,16 +2349,74 @@ footer{background:var(--footer-bg);padding:60px 0 36px}
 /* NEWSLETTER FORM — actual <input> styling inside .form-box on /newsletter/.
    The site's other "form" sections (subscribe.html) are text + link, so input
    styling didn't exist; this matches the glassmorphic aesthetic of .form-box. */
-.newsletter-form{display:flex;flex-direction:column;gap:14px;width:100%;max-width:420px}
-.newsletter-form .form-label{font-size:13px;color:color-mix(in srgb, var(--color-on-surface), transparent 15%);font-weight:600;align-self:flex-start;margin-bottom:-8px}
-.newsletter-form .form-input{width:100%;padding:14px 18px;border-radius:var(--radius-base);background:color-mix(in srgb, var(--color-on-surface), transparent 92%);border:1px solid color-mix(in srgb, var(--color-on-surface), transparent 80%);color:var(--color-on-surface);font-size:15px;font-family:var(--font-display);transition:border-color .2s,background .2s}
-.newsletter-form .form-input::placeholder{color:color-mix(in srgb, var(--color-on-surface), transparent 50%)}
-.newsletter-form .form-input:focus{outline:none;border-color:var(--color-primary);background:color-mix(in srgb, var(--color-on-surface), transparent 88%)}
-.newsletter-form altcha-widget{align-self:stretch;margin-top:6px;--altcha-color-base:color-mix(in srgb, var(--color-on-surface), transparent 92%);--altcha-color-border:color-mix(in srgb, var(--color-on-surface), transparent 80%);--altcha-color-text:var(--color-on-surface);--altcha-border-radius:var(--radius-base)}
-.newsletter-status{font-size:14px;font-weight:600;text-align:center;margin:8px 0 0;min-height:1.4em;line-height:1.4}
-.newsletter-status.is-pending{color:color-mix(in srgb, var(--color-on-surface), transparent 25%)}
-.newsletter-status.is-success{color:color-mix(in srgb, var(--color-success), white 35%)}
-.newsletter-status.is-error{color:color-mix(in srgb, var(--color-danger), white 50%)}
+.newsletter-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  max-width: 420px;
+}
+.newsletter-form .form-label {
+  font-size: 13px;
+  color: color-mix(in srgb, var(--color-on-surface), transparent 15%);
+  font-weight: 600;
+  align-self: flex-start;
+  margin-bottom: -8px;
+}
+.newsletter-form .form-input {
+  width: 100%;
+  padding: 14px 18px;
+  border-radius: var(--radius-base);
+  background: color-mix(in srgb, var(--color-on-surface), transparent 92%);
+  border: 1px solid color-mix(in srgb, var(--color-on-surface), transparent 80%);
+  color: var(--color-on-surface);
+  font-size: 15px;
+  font-family: var(--font-display);
+  transition:
+    border-color 0.2s,
+    background 0.2s;
+}
+.newsletter-form .form-input::placeholder {
+  color: color-mix(in srgb, var(--color-on-surface), transparent 50%);
+}
+.newsletter-form .form-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  background: color-mix(in srgb, var(--color-on-surface), transparent 88%);
+}
+.newsletter-form altcha-widget {
+  align-self: stretch;
+  margin-top: 6px;
+  --altcha-color-base: color-mix(
+    in srgb,
+    var(--color-on-surface),
+    transparent 92%
+  );
+  --altcha-color-border: color-mix(
+    in srgb,
+    var(--color-on-surface),
+    transparent 80%
+  );
+  --altcha-color-text: var(--color-on-surface);
+  --altcha-border-radius: var(--radius-base);
+}
+.newsletter-status {
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  margin: 8px 0 0;
+  min-height: 1.4em;
+  line-height: 1.4;
+}
+.newsletter-status.is-pending {
+  color: color-mix(in srgb, var(--color-on-surface), transparent 25%);
+}
+.newsletter-status.is-success {
+  color: color-mix(in srgb, var(--color-success), white 35%);
+}
+.newsletter-status.is-error {
+  color: color-mix(in srgb, var(--color-danger), white 50%);
+}
 
 /* PROSE — long-form content typography (legal, articles, posts, about, contact).
    Hand-rolled because @tailwindcss/typography v0.5.x only partially supports
@@ -855,46 +2426,162 @@ footer{background:var(--footer-bg);padding:60px 0 36px}
    Wrapped in @layer components so Tailwind utility-variant overrides on
    templates (e.g. prose-headings:text-white) still win the cascade. */
 @layer components {
-  .prose{color:var(--color-on-surface);line-height:1.7;font-size:16px;max-width:65ch}
-  .prose>:first-child{margin-top:0}
-  .prose>:last-child{margin-bottom:0}
-  .prose h1{font-size:2.25em;margin:1.5em 0 .5em;font-weight:900;line-height:1.2;color:var(--color-on-surface)}
-  .prose h2{font-size:1.5em;margin:2em 0 .75em;font-weight:900;line-height:1.3;color:var(--color-on-surface)}
-  .prose h3{font-size:1.25em;margin:1.6em 0 .5em;font-weight:800;line-height:1.4;color:var(--color-on-surface)}
-  .prose h4{font-size:1.1em;margin:1.5em 0 .5em;font-weight:800;color:var(--color-on-surface)}
-  .prose p{margin:1.25em 0}
-  .prose ul,.prose ol{margin:1.25em 0;padding-left:1.625em}
-  .prose ul{list-style-type:disc}
-  .prose ol{list-style-type:decimal}
-  .prose li{margin:.5em 0}
-  .prose li>p{margin:.6em 0}
-  .prose li::marker{color:color-mix(in srgb,var(--color-on-surface),transparent 50%)}
-  .prose strong{color:var(--color-on-surface);font-weight:700}
-  .prose em{font-style:italic}
-  .prose a{color:var(--color-terra-light);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px;font-weight:500;transition:color .15s}
-  .prose a:hover{color:var(--color-terra)}
-  .prose code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,monospace;font-size:.875em;padding:.2em .4em;border-radius:4px;background:color-mix(in srgb,var(--color-on-surface),transparent 90%);color:var(--color-terra-light)}
-  .prose pre{margin:1.5em 0;padding:1.25em 1.5em;border-radius:var(--radius-base);background:rgba(0,0,0,.3);overflow-x:auto;font-size:.875em;line-height:1.6}
-  .prose pre code{background:transparent;padding:0;font-size:1em;color:inherit}
-  .prose blockquote{margin:1.5em 0;padding-left:1.25em;border-left:3px solid var(--color-terra);font-style:italic;color:color-mix(in srgb,var(--color-on-surface),transparent 25%)}
-  .prose hr{margin:2.5em 0;border:0;border-top:1px solid color-mix(in srgb,var(--color-on-surface),transparent 85%)}
+  .prose {
+    color: var(--color-on-surface);
+    line-height: 1.7;
+    font-size: 16px;
+    max-width: 65ch;
+  }
+  .prose > :first-child {
+    margin-top: 0;
+  }
+  .prose > :last-child {
+    margin-bottom: 0;
+  }
+  .prose h1 {
+    font-size: 2.25em;
+    margin: 1.5em 0 0.5em;
+    font-weight: 900;
+    line-height: 1.2;
+    color: var(--color-on-surface);
+  }
+  .prose h2 {
+    font-size: 1.5em;
+    margin: 2em 0 0.75em;
+    font-weight: 900;
+    line-height: 1.3;
+    color: var(--color-on-surface);
+  }
+  .prose h3 {
+    font-size: 1.25em;
+    margin: 1.6em 0 0.5em;
+    font-weight: 800;
+    line-height: 1.4;
+    color: var(--color-on-surface);
+  }
+  .prose h4 {
+    font-size: 1.1em;
+    margin: 1.5em 0 0.5em;
+    font-weight: 800;
+    color: var(--color-on-surface);
+  }
+  .prose p {
+    margin: 1.25em 0;
+  }
+  .prose ul,
+  .prose ol {
+    margin: 1.25em 0;
+    padding-left: 1.625em;
+  }
+  .prose ul {
+    list-style-type: disc;
+  }
+  .prose ol {
+    list-style-type: decimal;
+  }
+  .prose li {
+    margin: 0.5em 0;
+  }
+  .prose li > p {
+    margin: 0.6em 0;
+  }
+  .prose li::marker {
+    color: color-mix(in srgb, var(--color-on-surface), transparent 50%);
+  }
+  .prose strong {
+    color: var(--color-on-surface);
+    font-weight: 700;
+  }
+  .prose em {
+    font-style: italic;
+  }
+  .prose a {
+    color: var(--color-terra-light);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+    font-weight: 500;
+    transition: color 0.15s;
+  }
+  .prose a:hover {
+    color: var(--color-terra);
+  }
+  .prose code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+    font-size: 0.875em;
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    background: color-mix(in srgb, var(--color-on-surface), transparent 90%);
+    color: var(--color-terra-light);
+  }
+  .prose pre {
+    margin: 1.5em 0;
+    padding: 1.25em 1.5em;
+    border-radius: var(--radius-base);
+    background: rgba(0, 0, 0, 0.3);
+    overflow-x: auto;
+    font-size: 0.875em;
+    line-height: 1.6;
+  }
+  .prose pre code {
+    background: transparent;
+    padding: 0;
+    font-size: 1em;
+    color: inherit;
+  }
+  .prose blockquote {
+    margin: 1.5em 0;
+    padding-left: 1.25em;
+    border-left: 3px solid var(--color-terra);
+    font-style: italic;
+    color: color-mix(in srgb, var(--color-on-surface), transparent 25%);
+  }
+  .prose hr {
+    margin: 2.5em 0;
+    border: 0;
+    border-top: 1px solid
+      color-mix(in srgb, var(--color-on-surface), transparent 85%);
+  }
 
   /* prose-lg variant — used in articles/posts/legal/about for slightly larger reading */
-  .prose-lg{font-size:18px;line-height:1.75}
-  .prose-lg h1{font-size:2.5em}
-  .prose-lg h2{font-size:1.625em}
-  .prose-lg h3{font-size:1.375em}
+  .prose-lg {
+    font-size: 18px;
+    line-height: 1.75;
+  }
+  .prose-lg h1 {
+    font-size: 2.5em;
+  }
+  .prose-lg h2 {
+    font-size: 1.625em;
+  }
+  .prose-lg h3 {
+    font-size: 1.375em;
+  }
 
   /* prose-invert — light text on a fixed-dark surface (used on legal/article
      pages embedded in navy sections). Container `color` is set explicitly so
      inherited-color descendants get the right value; the @tailwindcss/
      typography plugin's own selectors (h1/p/etc.) consume the --tw-prose-*
      vars bound below, which are theme-responsive. */
-  .prose-invert{color:var(--color-white)}
-  .prose-invert h1,.prose-invert h2,.prose-invert h3,.prose-invert h4,.prose-invert strong{color:var(--color-white)}
-  .prose-invert a{color:var(--color-terra-light)}
-  .prose-invert blockquote{color:color-mix(in srgb, var(--color-white), transparent 15%)}
-  .prose-invert code{background:color-mix(in srgb, var(--color-white), transparent 92%)}
+  .prose-invert {
+    color: var(--color-white);
+  }
+  .prose-invert h1,
+  .prose-invert h2,
+  .prose-invert h3,
+  .prose-invert h4,
+  .prose-invert strong {
+    color: var(--color-white);
+  }
+  .prose-invert a {
+    color: var(--color-terra-light);
+  }
+  .prose-invert blockquote {
+    color: color-mix(in srgb, var(--color-white), transparent 15%);
+  }
+  .prose-invert code {
+    background: color-mix(in srgb, var(--color-white), transparent 92%);
+  }
 }
 
 /* Bind @tailwindcss/typography's internal CSS variables to our M3 tokens.
@@ -906,72 +2593,318 @@ footer{background:var(--footer-bg);padding:60px 0 36px}
    theme, while accent vars (links/code/quote-border) stay brand-locked. */
 .prose,
 .prose-invert {
-  --tw-prose-body:          var(--color-on-surface);
-  --tw-prose-headings:      var(--color-on-surface);
-  --tw-prose-lead:          color-mix(in srgb, var(--color-on-surface), transparent 25%);
-  --tw-prose-links:         var(--color-terra-light);
-  --tw-prose-bold:          var(--color-on-surface);
-  --tw-prose-counters:      color-mix(in srgb, var(--color-on-surface), transparent 35%);
-  --tw-prose-bullets:       color-mix(in srgb, var(--color-on-surface), transparent 50%);
-  --tw-prose-hr:            color-mix(in srgb, var(--color-on-surface), transparent 85%);
-  --tw-prose-quotes:        color-mix(in srgb, var(--color-on-surface), transparent 25%);
+  --tw-prose-body: var(--color-on-surface);
+  --tw-prose-headings: var(--color-on-surface);
+  --tw-prose-lead: color-mix(in srgb, var(--color-on-surface), transparent 25%);
+  --tw-prose-links: var(--color-terra-light);
+  --tw-prose-bold: var(--color-on-surface);
+  --tw-prose-counters: color-mix(
+    in srgb,
+    var(--color-on-surface),
+    transparent 35%
+  );
+  --tw-prose-bullets: color-mix(
+    in srgb,
+    var(--color-on-surface),
+    transparent 50%
+  );
+  --tw-prose-hr: color-mix(in srgb, var(--color-on-surface), transparent 85%);
+  --tw-prose-quotes: color-mix(
+    in srgb,
+    var(--color-on-surface),
+    transparent 25%
+  );
   --tw-prose-quote-borders: var(--color-terra);
-  --tw-prose-captions:      color-mix(in srgb, var(--color-on-surface), transparent 35%);
-  --tw-prose-code:          var(--color-terra-light);
-  --tw-prose-pre-code:      var(--color-on-surface);
-  --tw-prose-pre-bg:        color-mix(in srgb, var(--color-on-surface), transparent 92%);
-  --tw-prose-th-borders:    color-mix(in srgb, var(--color-on-surface), transparent 75%);
-  --tw-prose-td-borders:    color-mix(in srgb, var(--color-on-surface), transparent 85%);
+  --tw-prose-captions: color-mix(
+    in srgb,
+    var(--color-on-surface),
+    transparent 35%
+  );
+  --tw-prose-code: var(--color-terra-light);
+  --tw-prose-pre-code: var(--color-on-surface);
+  --tw-prose-pre-bg: color-mix(
+    in srgb,
+    var(--color-on-surface),
+    transparent 92%
+  );
+  --tw-prose-th-borders: color-mix(
+    in srgb,
+    var(--color-on-surface),
+    transparent 75%
+  );
+  --tw-prose-td-borders: color-mix(
+    in srgb,
+    var(--color-on-surface),
+    transparent 85%
+  );
 }
 
 /* TEAM section — personal-first B2B layout. Card per member with photo (or
    initials fallback), name, role, bio, optional pull quote. Sits at the end
    of the about page; closes with a contact CTA so the section answers
    "who built this and how do I reach them" in one continuous beat. */
-.team-section{background:var(--color-surface-dim);padding:90px 6%;color:var(--color-on-surface)}
-.team-inner{max-width:1080px;margin:0 auto}
-.team-intro{text-align:center;margin-bottom:56px}
-.team-headline{font-size:clamp(28px,3.2vw,40px);font-weight:900;color:var(--color-on-surface);line-height:1.15;letter-spacing:-.5px;margin:14px 0 18px}
-.team-body{font-size:clamp(15px,1.3vw,17px);color:color-mix(in srgb,var(--color-on-surface),transparent 25%);line-height:1.7;max-width:640px;margin:0 auto}
+.team-section {
+  background: var(--color-surface-dim);
+  padding: 90px 6%;
+  color: var(--color-on-surface);
+}
+.team-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.team-intro {
+  text-align: center;
+  margin-bottom: 56px;
+}
+.team-headline {
+  font-size: clamp(28px, 3.2vw, 40px);
+  font-weight: 900;
+  color: var(--color-on-surface);
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+  margin: 14px 0 18px;
+}
+.team-body {
+  font-size: clamp(15px, 1.3vw, 17px);
+  color: color-mix(in srgb, var(--color-on-surface), transparent 25%);
+  line-height: 1.7;
+  max-width: 640px;
+  margin: 0 auto;
+}
 
 /* Flex grid (not CSS grid) so any card count centers naturally — with two
    founders, the row sits centered; if a third joins, it wraps cleanly. */
-.team-grid{list-style:none;padding:0;margin:0 0 56px;display:flex;flex-wrap:wrap;justify-content:center;gap:32px}
+.team-grid {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 56px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 32px;
+}
 
-.team-card{background:var(--color-surface-container-high);border:1px solid color-mix(in srgb,var(--color-on-surface),transparent 88%);border-radius:var(--radius-large);padding:40px;display:flex;flex-direction:column;gap:22px;flex:1 1 380px;max-width:520px;transition:border-color .2s ease,transform .2s ease}
-.team-card:hover{border-color:color-mix(in srgb,var(--color-on-surface),transparent 70%);transform:translateY(-2px)}
+.team-card {
+  background: var(--color-surface-container-high);
+  border: 1px solid color-mix(in srgb, var(--color-on-surface), transparent 88%);
+  border-radius: var(--radius-large);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  flex: 1 1 380px;
+  max-width: 520px;
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+.team-card:hover {
+  border-color: color-mix(in srgb, var(--color-on-surface), transparent 70%);
+  transform: translateY(-2px);
+}
 
-.team-photo{width:96px;height:96px;border-radius:50%;overflow:hidden;background:var(--color-primary-container);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.team-photo img{width:100%;height:100%;object-fit:cover;display:block}
-.team-initials{font-size:38px;font-weight:900;color:var(--color-on-primary-container);font-family:var(--font-display);line-height:1}
+.team-photo {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--color-primary-container);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.team-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.team-initials {
+  font-size: 38px;
+  font-weight: 900;
+  color: var(--color-on-primary-container);
+  font-family: var(--font-display);
+  line-height: 1;
+}
 
-.team-content{display:flex;flex-direction:column;gap:8px}
-.team-name{font-size:24px;font-weight:800;color:var(--color-on-surface);margin:0;line-height:1.25}
-.team-role{font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--color-primary);margin:0}
-.team-bio{font-size:17px;line-height:1.75;color:color-mix(in srgb,var(--color-on-surface),transparent 20%);margin:12px 0 0}
-.team-quote{margin:18px 0 0;padding:14px 0 0;border-top:1px solid color-mix(in srgb,var(--color-on-surface),transparent 90%);font-style:italic;font-size:15px;color:color-mix(in srgb,var(--color-on-surface),transparent 30%);line-height:1.6;border-left:0}
+.team-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.team-name {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--color-on-surface);
+  margin: 0;
+  line-height: 1.25;
+}
+.team-role {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin: 0;
+}
+.team-bio {
+  font-size: 17px;
+  line-height: 1.75;
+  color: color-mix(in srgb, var(--color-on-surface), transparent 20%);
+  margin: 12px 0 0;
+}
+.team-quote {
+  margin: 18px 0 0;
+  padding: 14px 0 0;
+  border-top: 1px solid
+    color-mix(in srgb, var(--color-on-surface), transparent 90%);
+  font-style: italic;
+  font-size: 15px;
+  color: color-mix(in srgb, var(--color-on-surface), transparent 30%);
+  line-height: 1.6;
+  border-left: 0;
+}
 
-.team-cta{text-align:center}
-.team-cta p{font-size:16px;color:color-mix(in srgb,var(--color-on-surface),transparent 25%);margin:0 0 12px}
-.team-cta-link{display:inline-flex;align-items:center;gap:8px;color:var(--color-primary);font-weight:700;font-size:16px;text-decoration:none;border-bottom:2px solid var(--color-primary);padding-bottom:2px;transition:color .2s ease,border-color .2s ease}
-.team-cta-link:hover{color:var(--color-terra-light);border-bottom-color:var(--color-terra-light)}
+.team-cta {
+  text-align: center;
+}
+.team-cta p {
+  font-size: 16px;
+  color: color-mix(in srgb, var(--color-on-surface), transparent 25%);
+  margin: 0 0 12px;
+}
+.team-cta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-primary);
+  font-weight: 700;
+  font-size: 16px;
+  text-decoration: none;
+  border-bottom: 2px solid var(--color-primary);
+  padding-bottom: 2px;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+.team-cta-link:hover {
+  color: var(--color-terra-light);
+  border-bottom-color: var(--color-terra-light);
+}
 
 /* ── How it works ────────────────────────────────────────────────────────── */
-.how-section{background:var(--color-surface-dim)}
-.how-section .tc{max-width:760px;margin:0 auto 56px;text-align:center}
-.how-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px}
-.how-step{position:relative;background:var(--color-surface-container-high);border:1px solid color-mix(in srgb,var(--color-on-surface),transparent 90%);border-radius:var(--radius-large);padding:32px 24px 26px;display:flex;flex-direction:column;align-items:flex-start;gap:14px;transition:border-color .2s ease,transform .2s ease}
-.how-step:hover{border-color:color-mix(in srgb,var(--color-on-surface),transparent 75%);transform:translateY(-2px)}
-.how-num{position:absolute;top:-14px;left:24px;width:32px;height:32px;border-radius:50%;background:var(--color-primary);color:var(--color-on-primary);font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px color-mix(in srgb,var(--color-primary),transparent 60%)}
-.how-illo{width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--color-on-surface),transparent 95%);border-radius:var(--radius-base);overflow:hidden;margin-top:4px}
-.how-illo img,.how-illo svg{width:100%;height:100%;object-fit:contain;display:block}
-.how-title{font-size:clamp(17px,1.5vw,20px);font-weight:800;color:var(--color-on-surface);margin:6px 0 0;line-height:1.25;letter-spacing:-.2px}
-.how-body{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;font-size:14px;line-height:1.55;color:color-mix(in srgb,var(--color-on-surface),transparent 30%)}
-.how-body li{position:relative;padding-left:16px}
-.how-body li::before{content:"";position:absolute;left:0;top:.65em;width:6px;height:6px;border-radius:50%;background:var(--color-primary);opacity:.85}
-@media (max-width:520px){
-  .how-grid{grid-template-columns:1fr;gap:28px}
-  .how-num{left:20px}
+.how-section {
+  background: var(--color-surface-dim);
+}
+.how-section .tc {
+  max-width: 760px;
+  margin: 0 auto 56px;
+  text-align: center;
+}
+.how-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+.how-step {
+  position: relative;
+  background: var(--color-surface-container-high);
+  border: 1px solid color-mix(in srgb, var(--color-on-surface), transparent 90%);
+  border-radius: var(--radius-large);
+  padding: 32px 24px 26px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+.how-step:hover {
+  border-color: color-mix(in srgb, var(--color-on-surface), transparent 75%);
+  transform: translateY(-2px);
+}
+.how-num {
+  position: absolute;
+  top: -14px;
+  left: 24px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font-weight: 800;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 16px
+    color-mix(in srgb, var(--color-primary), transparent 60%);
+}
+.how-illo {
+  width: 100%;
+  aspect-ratio: 4/3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--color-on-surface), transparent 95%);
+  border-radius: var(--radius-base);
+  overflow: hidden;
+  margin-top: 4px;
+}
+.how-illo img,
+.how-illo svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+.how-title {
+  font-size: clamp(17px, 1.5vw, 20px);
+  font-weight: 800;
+  color: var(--color-on-surface);
+  margin: 6px 0 0;
+  line-height: 1.25;
+  letter-spacing: -0.2px;
+}
+.how-body {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: color-mix(in srgb, var(--color-on-surface), transparent 30%);
+}
+.how-body li {
+  position: relative;
+  padding-left: 16px;
+}
+.how-body li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  opacity: 0.85;
+}
+@media (max-width: 520px) {
+  .how-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .how-num {
+    left: 20px;
+  }
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
@@ -987,10 +2920,10 @@ footer{background:var(--footer-bg);padding:60px 0 36px}
    terra glow. :focus-visible only triggers for keyboard users so mouse
    clicks never show it. outline-offset gives breathing room from rounded
    button edges. */
-:focus-visible{
-  outline:3px solid color-mix(in srgb, var(--color-primary), transparent 55%);
-  outline-offset:3px;
-  border-radius:inherit;
+:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--color-primary), transparent 55%);
+  outline-offset: 3px;
+  border-radius: inherit;
 }
 
 /* Theme transition — primary path uses the View Transitions API
@@ -998,7 +2931,7 @@ footer{background:var(--footer-bg);padding:60px 0 36px}
    snapshot of the page, applies the theme swap, snapshots again, then
    crossfades the two bitmaps. We just customise the timing here. */
 ::view-transition-old(root),
-::view-transition-new(root){
+::view-transition-new(root) {
   animation-duration: 760ms;
   animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -1011,17 +2944,17 @@ footer{background:var(--footer-bg);padding:60px 0 36px}
 html.theme-transitioning,
 html.theme-transitioning *,
 html.theme-transitioning *::before,
-html.theme-transitioning *::after{
+html.theme-transitioning *::after {
   transition:
-    background-color .76s cubic-bezier(0.4, 0, 0.2, 1),
-    background-image .76s cubic-bezier(0.4, 0, 0.2, 1),
-    color .76s cubic-bezier(0.4, 0, 0.2, 1),
-    border-color .76s cubic-bezier(0.4, 0, 0.2, 1),
-    fill .76s cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow .76s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    background-color 0.76s cubic-bezier(0.4, 0, 0.2, 1),
+    background-image 0.76s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.76s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.76s cubic-bezier(0.4, 0, 0.2, 1),
+    fill 0.76s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.76s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
-@media (prefers-reduced-motion: no-preference){
+@media (prefers-reduced-motion: no-preference) {
   /* ── Scroll reveal ──────────────────────────────────────────────────
      Elements start with opacity 0 + a 16-20px downward offset; the
      IntersectionObserver adds .is-visible when they enter the viewport
@@ -1030,22 +2963,32 @@ html.theme-transitioning *::after{
      containers whose children stagger. */
 
   /* Section title blocks — eyebrow + headline + subtitle group. */
-  .tc{
-    opacity:0;
-    transform:translateY(16px);
-    transition: opacity .55s ease, transform .55s ease;
+  .tc {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity 0.55s ease,
+      transform 0.55s ease;
   }
-  .tc.is-visible{opacity:1;transform:none}
+  .tc.is-visible {
+    opacity: 1;
+    transform: none;
+  }
 
   /* Feature subsections — each renders independently as the visitor
      scrolls. A slightly longer travel (20px) reads as a heavier
      "section arriving" than a small chip. */
-  .fp-subsection{
-    opacity:0;
-    transform:translateY(20px);
-    transition: opacity .65s ease, transform .65s ease;
+  .fp-subsection {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 0.65s ease,
+      transform 0.65s ease;
   }
-  .fp-subsection.is-visible{opacity:1;transform:none}
+  .fp-subsection.is-visible {
+    opacity: 1;
+    transform: none;
+  }
 
   /* Stagger — grid children animate in one after another when the parent
      gets .is-visible. transition-delay scales by child index so the
@@ -1053,46 +2996,63 @@ html.theme-transitioning *::after{
   .price-grid > .pcard,
   .pain-cards > .pc,
   .how-grid > .how-step,
-  .fp-bullets > li{
-    opacity:0;
-    transform:translateY(12px);
-    transition: opacity .5s ease, transform .5s ease;
+  .fp-bullets > li {
+    opacity: 0;
+    transform: translateY(12px);
+    transition:
+      opacity 0.5s ease,
+      transform 0.5s ease;
   }
   .price-grid.is-visible > .pcard,
   .pain-cards.is-visible > .pc,
   .how-grid.is-visible > .how-step,
-  .fp-bullets.is-visible > li{
-    opacity:1;
-    transform:none;
+  .fp-bullets.is-visible > li {
+    opacity: 1;
+    transform: none;
   }
   .price-grid.is-visible > .pcard:nth-child(2),
   .pain-cards.is-visible > .pc:nth-child(2),
   .how-grid.is-visible > .how-step:nth-child(2),
-  .fp-bullets.is-visible > li:nth-child(2){transition-delay:.08s}
+  .fp-bullets.is-visible > li:nth-child(2) {
+    transition-delay: 0.08s;
+  }
   .price-grid.is-visible > .pcard:nth-child(3),
   .pain-cards.is-visible > .pc:nth-child(3),
   .how-grid.is-visible > .how-step:nth-child(3),
-  .fp-bullets.is-visible > li:nth-child(3){transition-delay:.16s}
+  .fp-bullets.is-visible > li:nth-child(3) {
+    transition-delay: 0.16s;
+  }
   .how-grid.is-visible > .how-step:nth-child(4),
-  .fp-bullets.is-visible > li:nth-child(4){transition-delay:.24s}
-  .how-grid.is-visible > .how-step:nth-child(5){transition-delay:.32s}
-  .how-grid.is-visible > .how-step:nth-child(6){transition-delay:.40s}
-  .how-grid.is-visible > .how-step:nth-child(7){transition-delay:.48s}
+  .fp-bullets.is-visible > li:nth-child(4) {
+    transition-delay: 0.24s;
+  }
+  .how-grid.is-visible > .how-step:nth-child(5) {
+    transition-delay: 0.32s;
+  }
+  .how-grid.is-visible > .how-step:nth-child(6) {
+    transition-delay: 0.4s;
+  }
+  .how-grid.is-visible > .how-step:nth-child(7) {
+    transition-delay: 0.48s;
+  }
 }
 
 /* Reduced-motion fallback — neutralise scroll reveal so visitors who opt
    out get a fully static page. The IntersectionObserver short-circuits
    in JS; this rule belt-and-braces the CSS too in case the script
    doesn't run. */
-@media (prefers-reduced-motion: reduce){
-  .tc, .fp-subsection,
-  .price-grid > .pcard, .pain-cards > .pc, .how-grid > .how-step, .fp-bullets > li{
-    opacity:1 !important;
-    transform:none !important;
-    transition:none !important;
+@media (prefers-reduced-motion: reduce) {
+  .tc,
+  .fp-subsection,
+  .price-grid > .pcard,
+  .pain-cards > .pc,
+  .how-grid > .how-step,
+  .fp-bullets > li {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 }
-
 
 /* ─────────────────────────────────────────────────────────────────────────
    TUTORIALS PAGE
@@ -1107,75 +3067,326 @@ html.theme-transitioning *::after{
    All responsive collapses happen at the existing 900px breakpoint and
    match the .fp-* / .how-* breakpoints already in use. */
 
-.tut-section{background:var(--color-surface)}
-.tut-head{max-width:760px;margin:0 auto 56px;padding-top:80px}
+.tut-section {
+  background: var(--color-surface);
+}
+.tut-head {
+  max-width: 760px;
+  margin: 0 auto 56px;
+  padding-top: 80px;
+}
 
 /* TOC — list-styled like .fp-bullets but rendered as a 2-column card grid on
    wide viewports so all five categories fit above the fold. Each card is a
    single anchor link with a label, a count badge, and a directional arrow. */
-.tut-toc{margin:0 0 72px}
-.tut-toc ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
-.tut-toc li{background:var(--color-surface-container-high);border:1px solid color-mix(in srgb,var(--color-on-surface),transparent 90%);border-radius:var(--radius-large);transition:border-color .2s ease,transform .2s ease}
-.tut-toc li:hover{border-color:color-mix(in srgb,var(--color-on-surface),transparent 75%);transform:translateY(-2px)}
-.tut-toc a{display:flex;align-items:center;gap:14px;padding:18px 22px;text-decoration:none;color:var(--color-on-surface);font-weight:700;font-size:clamp(15px,1.4vw,17px);letter-spacing:-.2px}
-.tut-toc a:hover{color:var(--color-primary)}
-.tut-toc-label{flex:1}
-.tut-toc-count{display:inline-flex;align-items:center;justify-content:center;min-width:28px;height:24px;padding:0 8px;border-radius:999px;background:color-mix(in srgb,var(--color-primary),transparent 85%);color:var(--color-primary);font-size:12px;font-weight:800}
-.tut-toc-arrow{color:color-mix(in srgb,var(--color-on-surface),transparent 50%);transition:color .2s ease,transform .2s ease}
-.tut-toc a:hover .tut-toc-arrow{color:var(--color-primary);transform:translateX(4px)}
+.tut-toc {
+  margin: 0 0 72px;
+}
+.tut-toc ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 14px;
+}
+.tut-toc li {
+  background: var(--color-surface-container-high);
+  border: 1px solid color-mix(in srgb, var(--color-on-surface), transparent 90%);
+  border-radius: var(--radius-large);
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+.tut-toc li:hover {
+  border-color: color-mix(in srgb, var(--color-on-surface), transparent 75%);
+  transform: translateY(-2px);
+}
+.tut-toc a {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 22px;
+  text-decoration: none;
+  color: var(--color-on-surface);
+  font-weight: 700;
+  font-size: clamp(15px, 1.4vw, 17px);
+  letter-spacing: -0.2px;
+}
+.tut-toc a:hover {
+  color: var(--color-primary);
+}
+.tut-toc-label {
+  flex: 1;
+}
+.tut-toc-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 24px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-primary), transparent 85%);
+  color: var(--color-primary);
+  font-size: 12px;
+  font-weight: 800;
+}
+.tut-toc-arrow {
+  color: color-mix(in srgb, var(--color-on-surface), transparent 50%);
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+.tut-toc a:hover .tut-toc-arrow {
+  color: var(--color-primary);
+  transform: translateX(4px);
+}
 
 /* Category block — scroll-margin so the anchored jump from the TOC lands the
    heading below the sticky nav. Empty .tut-cat-body (categories without
    recordings yet) collapses naturally; no special styling needed. */
-.tut-category{scroll-margin-top:108px;padding-top:48px;margin-top:48px;border-top:1px solid color-mix(in srgb,var(--color-on-surface),transparent 92%)}
-.tut-category:first-of-type{border-top:0;margin-top:0;padding-top:0}
-.tut-cat-head{margin-bottom:32px;max-width:760px}
-.tut-cat-title{font-size:clamp(22px,2.4vw,32px);font-weight:900;color:var(--color-on-surface);letter-spacing:-.5px;margin:0 0 10px}
-.tut-cat-blurb{font-size:clamp(14px,1.3vw,16px);line-height:1.7;color:color-mix(in srgb,var(--color-on-surface),transparent 35%);font-weight:500;margin:0}
-.tut-cat-body{display:flex;flex-direction:column;gap:48px}
+.tut-category {
+  scroll-margin-top: 108px;
+  padding-top: 48px;
+  margin-top: 48px;
+  border-top: 1px solid
+    color-mix(in srgb, var(--color-on-surface), transparent 92%);
+}
+.tut-category:first-of-type {
+  border-top: 0;
+  margin-top: 0;
+  padding-top: 0;
+}
+.tut-cat-head {
+  margin-bottom: 32px;
+  max-width: 760px;
+}
+.tut-cat-title {
+  font-size: clamp(22px, 2.4vw, 32px);
+  font-weight: 900;
+  color: var(--color-on-surface);
+  letter-spacing: -0.5px;
+  margin: 0 0 10px;
+}
+.tut-cat-blurb {
+  font-size: clamp(14px, 1.3vw, 16px);
+  line-height: 1.7;
+  color: color-mix(in srgb, var(--color-on-surface), transparent 35%);
+  font-weight: 500;
+  margin: 0;
+}
+.tut-cat-body {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
 
 /* Single-feature tutorial — video left, text right on desktop. Same 12-ish
    ratio as .fp-inner so the page feels like a continuation of the home feature
    panels. Card sits in a .tut-feature wrapper for the rounded surface. */
-.tut-feature{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:32px;align-items:start;background:var(--color-surface-container-high);border:1px solid color-mix(in srgb,var(--color-on-surface),transparent 90%);border-radius:var(--radius-large);padding:24px;scroll-margin-top:108px}
-.tut-feature-media{min-width:0}
-.tut-feature-text{display:flex;flex-direction:column;gap:12px}
-.tut-feature-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.tut-feature-title{font-size:clamp(18px,1.7vw,22px);font-weight:800;color:var(--color-on-surface);letter-spacing:-.2px;margin:0}
-.tut-feature-duration{font-variant-numeric:tabular-nums;font-size:13px;font-weight:700;color:color-mix(in srgb,var(--color-on-surface),transparent 40%);background:color-mix(in srgb,var(--color-on-surface),transparent 92%);padding:3px 10px;border-radius:999px}
-.tut-feature-lead{font-size:clamp(14px,1.25vw,15px);line-height:1.7;color:color-mix(in srgb,var(--color-on-surface),transparent 25%);font-weight:500;margin:0}
-.tut-feature-bullets{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
-.tut-feature-bullets li{position:relative;padding-left:18px;font-size:14px;line-height:1.55;color:color-mix(in srgb,var(--color-on-surface),transparent 30%)}
-.tut-feature-bullets li::before{content:"";position:absolute;left:0;top:.65em;width:6px;height:6px;border-radius:50%;background:var(--color-primary);opacity:.85}
+.tut-feature {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 32px;
+  align-items: start;
+  background: var(--color-surface-container-high);
+  border: 1px solid color-mix(in srgb, var(--color-on-surface), transparent 90%);
+  border-radius: var(--radius-large);
+  padding: 24px;
+  scroll-margin-top: 108px;
+}
+.tut-feature-media {
+  min-width: 0;
+}
+.tut-feature-text {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.tut-feature-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.tut-feature-title {
+  font-size: clamp(18px, 1.7vw, 22px);
+  font-weight: 800;
+  color: var(--color-on-surface);
+  letter-spacing: -0.2px;
+  margin: 0;
+}
+.tut-feature-duration {
+  font-variant-numeric: tabular-nums;
+  font-size: 13px;
+  font-weight: 700;
+  color: color-mix(in srgb, var(--color-on-surface), transparent 40%);
+  background: color-mix(in srgb, var(--color-on-surface), transparent 92%);
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+.tut-feature-lead {
+  font-size: clamp(14px, 1.25vw, 15px);
+  line-height: 1.7;
+  color: color-mix(in srgb, var(--color-on-surface), transparent 25%);
+  font-weight: 500;
+  margin: 0;
+}
+.tut-feature-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.tut-feature-bullets li {
+  position: relative;
+  padding-left: 18px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: color-mix(in srgb, var(--color-on-surface), transparent 30%);
+}
+.tut-feature-bullets li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  opacity: 0.85;
+}
 
 /* Journey reel — master video on top, then a vertical .tut-reel-shots list.
    Each .tut-shot is a 2-column grid: text left, video right (always
    side-by-side, no alternating — easier to scan). */
-.tut-reel{background:var(--color-surface-container-high);border:1px solid color-mix(in srgb,var(--color-on-surface),transparent 90%);border-radius:var(--radius-large);padding:32px;scroll-margin-top:108px}
-.tut-reel-head{margin-bottom:24px;display:flex;flex-direction:column;gap:8px}
-.tut-reel-title{font-size:clamp(20px,2vw,26px);font-weight:900;color:var(--color-on-surface);letter-spacing:-.3px;margin:0;display:inline}
-.tut-reel-duration{font-variant-numeric:tabular-nums;font-size:13px;font-weight:700;color:color-mix(in srgb,var(--color-on-surface),transparent 40%);background:color-mix(in srgb,var(--color-on-surface),transparent 92%);padding:3px 10px;border-radius:999px;align-self:flex-start}
-.tut-reel-lead{font-size:clamp(14px,1.25vw,15px);line-height:1.7;color:color-mix(in srgb,var(--color-on-surface),transparent 25%);font-weight:500;margin:0}
-.tut-reel-master{margin:8px 0 28px}
-.tut-reel-shots{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:24px;counter-reset:tut-shot}
-.tut-shot{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:24px;align-items:center;padding:18px;background:var(--color-surface);border:1px solid color-mix(in srgb,var(--color-on-surface),transparent 92%);border-radius:var(--radius-base)}
-.tut-shot-text{display:flex;flex-direction:column;gap:10px}
-.tut-shot-marker{font-variant-numeric:tabular-nums;font-size:12px;font-weight:800;letter-spacing:.5px;color:var(--color-primary);text-transform:uppercase}
-.tut-shot-caption{font-size:clamp(14px,1.25vw,15px);line-height:1.65;color:var(--color-on-surface);font-weight:500;margin:0}
-.tut-shot-media{min-width:0}
+.tut-reel {
+  background: var(--color-surface-container-high);
+  border: 1px solid color-mix(in srgb, var(--color-on-surface), transparent 90%);
+  border-radius: var(--radius-large);
+  padding: 32px;
+  scroll-margin-top: 108px;
+}
+.tut-reel-head {
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.tut-reel-title {
+  font-size: clamp(20px, 2vw, 26px);
+  font-weight: 900;
+  color: var(--color-on-surface);
+  letter-spacing: -0.3px;
+  margin: 0;
+  display: inline;
+}
+.tut-reel-duration {
+  font-variant-numeric: tabular-nums;
+  font-size: 13px;
+  font-weight: 700;
+  color: color-mix(in srgb, var(--color-on-surface), transparent 40%);
+  background: color-mix(in srgb, var(--color-on-surface), transparent 92%);
+  padding: 3px 10px;
+  border-radius: 999px;
+  align-self: flex-start;
+}
+.tut-reel-lead {
+  font-size: clamp(14px, 1.25vw, 15px);
+  line-height: 1.7;
+  color: color-mix(in srgb, var(--color-on-surface), transparent 25%);
+  font-weight: 500;
+  margin: 0;
+}
+.tut-reel-master {
+  margin: 8px 0 28px;
+}
+.tut-reel-shots {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  counter-reset: tut-shot;
+}
+.tut-shot {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  gap: 24px;
+  align-items: center;
+  padding: 18px;
+  background: var(--color-surface);
+  border: 1px solid color-mix(in srgb, var(--color-on-surface), transparent 92%);
+  border-radius: var(--radius-base);
+}
+.tut-shot-text {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.tut-shot-marker {
+  font-variant-numeric: tabular-nums;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: var(--color-primary);
+  text-transform: uppercase;
+}
+.tut-shot-caption {
+  font-size: clamp(14px, 1.25vw, 15px);
+  line-height: 1.65;
+  color: var(--color-on-surface);
+  font-weight: 500;
+  margin: 0;
+}
+.tut-shot-media {
+  min-width: 0;
+}
 
 /* Shared video element — rounded, fits its container, no native chrome
    overflow. Posters and controls render via the inline <video> attributes. */
-.tut-video{width:100%;height:auto;display:block;border-radius:var(--radius-base);background:color-mix(in srgb,var(--color-on-surface),transparent 92%);aspect-ratio:16/9;object-fit:cover}
+.tut-video {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius-base);
+  background: color-mix(in srgb, var(--color-on-surface), transparent 92%);
+  aspect-ratio: 16/9;
+  object-fit: cover;
+}
 
-@media(max-width:900px){
-  .tut-head{padding-top:48px;margin-bottom:36px}
-  .tut-toc{margin-bottom:48px}
-  .tut-toc ul{grid-template-columns:1fr}
-  .tut-feature{grid-template-columns:1fr;gap:20px;padding:20px}
-  .tut-shot{grid-template-columns:1fr;gap:14px;padding:14px}
-  .tut-reel{padding:22px}
-  .tut-cat-head{text-align:left}
+@media (max-width: 900px) {
+  .tut-head {
+    padding-top: 48px;
+    margin-bottom: 36px;
+  }
+  .tut-toc {
+    margin-bottom: 48px;
+  }
+  .tut-toc ul {
+    grid-template-columns: 1fr;
+  }
+  .tut-feature {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 20px;
+  }
+  .tut-shot {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 14px;
+  }
+  .tut-reel {
+    padding: 22px;
+  }
+  .tut-cat-head {
+    text-align: left;
+  }
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
@@ -1188,13 +3399,52 @@ html.theme-transitioning *::after{
    the CTA arrow at the bottom of the card. The CTA strip itself uses .how-cta
    and renders only on linked cards (the partial gates it behind `with .href`). */
 
-.how-step-link{display:flex;flex-direction:column;gap:inherit;text-decoration:none;color:inherit;height:100%;border-radius:inherit}
-.how-step-link:focus-visible{outline:2px solid var(--color-primary);outline-offset:2px;border-radius:var(--radius-base)}
+.how-step-link {
+  display: flex;
+  flex-direction: column;
+  gap: inherit;
+  text-decoration: none;
+  color: inherit;
+  height: 100%;
+  border-radius: inherit;
+}
+.how-step-link:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-base);
+}
 
-.how-step-linked{cursor:pointer;transition:border-color .2s ease,transform .2s ease,box-shadow .2s ease}
-.how-step-linked:hover{border-color:color-mix(in srgb,var(--color-primary),transparent 50%);transform:translateY(-2px)}
+.how-step-linked {
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.how-step-linked:hover {
+  border-color: color-mix(in srgb, var(--color-primary), transparent 50%);
+  transform: translateY(-2px);
+}
 
-.how-cta{display:inline-flex;align-items:center;gap:6px;margin-top:auto;padding-top:14px;font-size:13px;font-weight:700;letter-spacing:.2px;color:var(--color-primary);opacity:.85;transition:opacity .2s ease}
-.how-cta-arrow{transition:transform .2s ease}
-.how-step-linked:hover .how-cta{opacity:1}
-.how-step-linked:hover .how-cta-arrow{transform:translateX(4px)}
+.how-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 14px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  color: var(--color-primary);
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
+}
+.how-cta-arrow {
+  transition: transform 0.2s ease;
+}
+.how-step-linked:hover .how-cta {
+  opacity: 1;
+}
+.how-step-linked:hover .how-cta-arrow {
+  transform: translateX(4px);
+}
