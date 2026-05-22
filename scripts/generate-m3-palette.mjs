@@ -23,6 +23,12 @@
 // specified at the fixed-dim slot — e.g., matching a hand-tuned brand
 // yellow that M3's algorithm would otherwise normalize.
 //
+// --secondary-fixed-dim <hex> is the decoupled variant: pin the
+// secondary-fixed-dim slot to an arbitrary hex independent of the
+// secondary-seed (so secondary itself can derive naturally from the
+// primary seed while fixed-dim stays the brand-accent color). Mutually
+// exclusive with --pin-secondary-fixed-dim, which sources from the seed.
+//
 // --harmonize-secondary runs M3's Blend.harmonize on the secondary seed
 // before deriving the secondary palette: the seed's hue is nudged a few
 // degrees toward the primary seed while chroma and tone are preserved.
@@ -56,7 +62,7 @@ import { fileURLToPath } from "node:url";
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 const args = process.argv.slice(2);
-let seedHex, name, variantName = "tonal-spot", secondarySeedHex;
+let seedHex, name, variantName = "tonal-spot", secondarySeedHex, secondaryFixedDimHex;
 let pinSecondaryFixedDim = false;
 let harmonizeSecondary = false;
 for (let i = 0; i < args.length; i++) {
@@ -65,14 +71,19 @@ for (let i = 0; i < args.length; i++) {
   else if (args[i] === "--variant") variantName = args[++i];
   else if (args[i] === "--secondary-seed") secondarySeedHex = args[++i];
   else if (args[i] === "--pin-secondary-fixed-dim") pinSecondaryFixedDim = true;
+  else if (args[i] === "--secondary-fixed-dim") secondaryFixedDimHex = args[++i];
   else if (args[i] === "--harmonize-secondary") harmonizeSecondary = true;
 }
 if (!seedHex || !name) {
-  console.error("Usage: node scripts/generate-m3-palette.mjs --seed <hex> --name <slug> [--variant tonal-spot|vibrant|expressive|fidelity|content|monochrome|neutral|rainbow|fruit-salad] [--secondary-seed <hex>] [--pin-secondary-fixed-dim] [--harmonize-secondary]");
+  console.error("Usage: node scripts/generate-m3-palette.mjs --seed <hex> --name <slug> [--variant tonal-spot|vibrant|expressive|fidelity|content|monochrome|neutral|rainbow|fruit-salad] [--secondary-seed <hex>] [--pin-secondary-fixed-dim] [--secondary-fixed-dim <hex>] [--harmonize-secondary]");
   process.exit(1);
 }
 if (pinSecondaryFixedDim && !secondarySeedHex) {
   console.error("--pin-secondary-fixed-dim requires --secondary-seed");
+  process.exit(1);
+}
+if (pinSecondaryFixedDim && secondaryFixedDimHex) {
+  console.error("--pin-secondary-fixed-dim and --secondary-fixed-dim are mutually exclusive");
   process.exit(1);
 }
 if (harmonizeSecondary && !secondarySeedHex) {
@@ -167,6 +178,7 @@ const argbToHex = (argb) => {
 function buildPins() {
   const pins = {};
   if (pinSecondaryFixedDim) pins.secondaryFixedDim = secondarySeedHex;
+  if (secondaryFixedDimHex) pins.secondaryFixedDim = secondaryFixedDimHex;
   return pins;
 }
 const pins = buildPins();
@@ -239,7 +251,8 @@ for (const f of jsonFiles) {
 // should show). Use this for [[params.m3.options]].swatch in hugo.toml.
 const lightScheme = buildScheme(Scheme, hct, false, 0, secondaryHct);
 const swatch = argbToHex(MaterialDynamicColors.primary.getArgb(lightScheme));
-const seedReport = secondarySeedHex ? `${seedHex} + secondary ${secondarySeedHex}` : seedHex;
+const pinReport = secondaryFixedDimHex ? ` + secondary-fixed-dim pin ${secondaryFixedDimHex}` : "";
+const seedReport = (secondarySeedHex ? `${seedHex} + secondary ${secondarySeedHex}` : seedHex) + pinReport;
 console.log(`palette '${name}' (${variantName}) generated from seed ${seedReport}`);
 console.log(`  out: themes/esio-theme/assets/css/m3/${name}/`);
 console.log(`  picker swatch (use for hugo.toml): ${swatch}`);

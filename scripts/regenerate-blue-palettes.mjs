@@ -1,19 +1,20 @@
 #!/usr/bin/env node
-// Regenerate the 5 blue-* M3 palette folders, sourcing the secondary
-// seed from [params.colors].yellow in hugo.toml. Keeps the brand color
-// as a single source of truth: edit yellow in hugo.toml, re-run this,
-// and every variant's secondary family follows.
+// Regenerate the 5 blue-* M3 palette folders. M3 derives the entire
+// secondary family from the primary (blue) seed per each variant's
+// algorithm — Vibrant gives pink/magenta, Tonal Spot gives blue-gray,
+// etc. The brand yellow lives ONLY in secondary-fixed-dim, pinned
+// literally so it bypasses M3's tone-80 normalization (the brand sits
+// at tone ~83 and M3 would otherwise shift it).
 //
-// Pins the brand yellow literally into secondary-fixed-dim — M3's
-// tone-80 normalization would otherwise shift it (the brand sits at
-// tone ~83). Pinning here is *not* hardcoding: the pinned value comes
-// from [params.colors].yellow above, so hugo.toml stays the single
-// source of truth. The other secondary slots (secondary, on-secondary,
-// secondary-container, etc.) still derive from M3 naturally; only the
-// fixed-dim slot is exact-brand.
+// Why the yellow pin lives on fixed-dim specifically: the *-fixed and
+// *-fixed-dim tier is theme-stable (same value in light and dark) and
+// isolated from M3's automatic contrast machinery, so a hand-pinned
+// brand hex behaves predictably. Other secondary slots adapt with the
+// theme; pinning a brand color there fights M3 in dark mode.
 //
-// No --harmonize — harmonization rotates the hue toward blue and
-// produces a neon lime when paired with M3's tone-80 normalization.
+// The pinned value is sourced from [params.colors].yellow in hugo.toml
+// so the brand color stays a single source of truth: edit yellow there,
+// re-run this script, every variant's fixed-dim follows.
 //
 // Usage:
 //   node scripts/regenerate-blue-palettes.mjs [--seed <primary-hex>]
@@ -40,12 +41,12 @@ if (!match) {
   console.error("Could not find [params.colors].yellow in hugo.toml");
   process.exit(1);
 }
-const secondarySeed = match[1];
+const fixedDimYellow = match[1];
 
 const VARIANTS = ["tonal-spot", "vibrant", "expressive", "neutral", "monochrome"];
 
-console.log(`primary  ${primarySeed}  (from --seed)`);
-console.log(`secondary ${secondarySeed}  (from [params.colors].yellow)\n`);
+console.log(`primary             ${primarySeed}  (from --seed)`);
+console.log(`secondary-fixed-dim ${fixedDimYellow}  (from [params.colors].yellow)\n`);
 
 for (const variant of VARIANTS) {
   const name = `blue-${variant}`;
@@ -58,13 +59,12 @@ for (const variant of VARIANTS) {
       "--seed", primarySeed,
       "--name", name,
       "--variant", variant,
-      "--secondary-seed", secondarySeed,
     ];
-    // Only the role-token generator understands --pin-secondary-fixed-dim;
+    // Only the role-token generator understands --secondary-fixed-dim;
     // the tonal-palette generator doesn't emit fixed slots so the flag
     // would be a no-op there.
     if (script.endsWith("generate-m3-palette.mjs")) {
-      cliArgs.push("--pin-secondary-fixed-dim");
+      cliArgs.push("--secondary-fixed-dim", fixedDimYellow);
     }
     const result = spawnSync("node", cliArgs, { stdio: "inherit" });
     if (result.status !== 0) process.exit(result.status);
