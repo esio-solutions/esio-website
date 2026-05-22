@@ -15,10 +15,12 @@
 # Accessed in templates as `site.Data.marketing.*`.
 
 # M3 palette name. Must be a folder under
-# themes/esio-theme/assets/css/m3/<palette>/ containing light.css + dark.css.
-# Currently available: indigo, blue-vibrant (run hugo without errors to
-# confirm — Hugo's resources.Get fails the build if the folder is missing).
-palette = "indigo-mtb"
+# themes/esio-theme/assets/css/m3/<palette>/ containing light.json + dark.json
+# (Typst reads the .json variants; the .css variants are for the live site).
+# Currently available: blue-expressive, blue-monochrome, blue-neutral,
+# blue-tonal-spot, blue-vibrant. Keep aligned with hugo.toml [params.m3].default
+# so published ads match the live site.
+palette = "blue-vibrant"
 
 [fonts]
   # Body / UI font — matches the esio-website's [params.typography].fontFamily
