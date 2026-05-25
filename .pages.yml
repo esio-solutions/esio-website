@@ -22,7 +22,7 @@
 #
 # Sidebar layout mirrors the homepage flow — Navigation at the top, Footer at
 # the bottom. Each section is a `type: group` containing the header file(s) and
-# any collection(s) of list items, with EN/DA/HU split inside the group so an
+# any collection(s) of list items, with EN/DA split inside the group so an
 # editor first picks WHAT to edit and then the language.
 #
 # Field schemas use YAML anchors (&navHeader, &tierFields, …) so editing the EN
@@ -53,21 +53,11 @@ media:
     input: static/assets/logos
     output: /assets/logos
     extensions: [svg, png, jpg, jpeg, webp, ico]
-  - name: icons
-    label: Icon glyphs (esio-icon01..05 — used as CSS masks)
-    input: static/assets/icons
-    output: /assets/icons
-    extensions: [svg]
   - name: share
     label: Social-share cards (per-post 1200x630 OG images + source artwork)
     input: static/assets/share
     output: /assets/share
     extensions: [svg, jpg, jpeg, png, webp]
-  - name: marketing
-    label: Marketing illustrations (how-it-works SVGs)
-    input: static/marketing
-    output: /marketing
-    extensions: [svg]
   # Catch-all kept last so editors can still reach anything stray under
   # static/assets/ that doesn't fit the buckets above (e.g. team/).
   - name: assets
@@ -112,12 +102,6 @@ content:
         label: Dansk
         type: file
         path: content/_index.da.md
-        format: yaml-frontmatter
-        fields: *homeFields
-      - name: hu
-        label: Magyar
-        type: file
-        path: content/_index.hu.md
         format: yaml-frontmatter
         fields: *homeFields
 
@@ -296,7 +280,7 @@ content:
           - name: style
             type: select
             options:
-              values: [ghost, solid]
+              values: [primary, secondary]
       - name: actions-da
         label: "Right-side buttons (Dansk)"
         type: collection
@@ -369,12 +353,6 @@ content:
         path: data/da/index/hero/meta.yml
         format: yaml
         fields: *heroFields
-      - name: hu
-        label: Magyar
-        type: file
-        path: data/hu/index/hero/meta.yml
-        format: yaml
-        fields: *heroFields
 
   # ──────────────────────────────────────────────────────────────────────
   # Video section — currently commented out of home.html in favour of the
@@ -409,12 +387,6 @@ content:
         label: Dansk
         type: file
         path: data/da/index/video/meta.yml
-        format: yaml
-        fields: *videoFields
-      - name: hu
-        label: Magyar
-        type: file
-        path: data/hu/index/video/meta.yml
         format: yaml
         fields: *videoFields
 
@@ -453,7 +425,7 @@ content:
           primary: title
           fields: [title]
         fields: &howStepFields
-          - { name: icon, type: image, label: "Illustration SVG (under /marketing/)" }
+          - { name: icon, type: image, label: "Illustration SVG (under /assets/illustrations/how/)" }
           - { name: title, type: string, required: true }
           - { name: body, type: string, list: true, label: "Bullet body (one line per bullet)" }
       - name: steps-da
@@ -566,7 +538,7 @@ content:
           - { name: tag, type: string }
           - { name: headline, type: text, label: "Headline (newline = <br>)" }
           - { name: subtitle, type: text }
-          - { name: iconGrid, type: image, list: true, label: "4 icon SVGs" }
+          - { name: iconGrid, type: string, list: true, label: "4 Material Symbols icon names (e.g. currency_exchange)" }
           - name: illustration
             label: "Right-side illustration"
             type: object
@@ -592,11 +564,7 @@ content:
           - { name: id, type: string, label: "Slug (cashflow, tax, ...)" }
           - { name: title, type: text, label: "Title (newline = <br>)" }
           - { name: body, type: text, required: true }
-          - name: maskIcon
-            type: select
-            label: "Mask icon (numeric ID, must match esio-iconNN.svg)"
-            options:
-              values: ["01", "02", "03", "05"]
+          - { name: icon, type: string, label: "Material Symbols icon name (e.g. currency_exchange)" }
           - name: illustration
             type: object
             fields:
@@ -717,12 +685,30 @@ content:
         path: data/da/index/subscribe/meta.yml
         format: yaml
         fields: *subscribeFields
-      - name: hu
-        label: Magyar
+
+  # ──────────────────────────────────────────────────────────────────────
+  # Newsletter page metadata — <title>/<meta description> for /newsletter/.
+  # Mirrors the home/about/contact page-metadata groups; the editable section
+  # content lives in the `newsletter` group below.
+  # ──────────────────────────────────────────────────────────────────────
+  - name: newsletter_page
+    label: Newsletter page metadata
+    type: group
+    items:
+      - name: en
+        label: English
         type: file
-        path: data/hu/index/subscribe/meta.yml
-        format: yaml
-        fields: *subscribeFields
+        path: content/newsletter.md
+        format: yaml-frontmatter
+        fields: &newsletterPageFields
+          - { name: title, label: Page title, type: string, required: true, default: "Newsletter" }
+          - { name: description, label: Meta description, type: text }
+      - name: da
+        label: Dansk
+        type: file
+        path: content/newsletter.da.md
+        format: yaml-frontmatter
+        fields: *newsletterPageFields
 
   # ──────────────────────────────────────────────────────────────────────
   # Newsletter page section — appears on /newsletter/, not the home page.
@@ -779,6 +765,157 @@ content:
         path: data/da/index/newsletter/meta.yml
         format: yaml
         fields: *newsletterFields
+
+  # ──────────────────────────────────────────────────────────────────────
+  # Tutorials page — standalone page at /tutorials/ (layout: tutorials).
+  # Page metadata (title/description) plus the section header and three
+  # data collections: categories (which order + group the entries),
+  # features (single-video walkthroughs) and reels (multi-shot run-throughs).
+  # A category's `entries` reference features/reels by their filename stem.
+  # ──────────────────────────────────────────────────────────────────────
+  - name: tutorials
+    label: Tutorials page
+    type: group
+    items:
+      - name: page-en
+        label: "Page metadata (English)"
+        type: file
+        path: content/tutorials.md
+        format: yaml-frontmatter
+        fields: &tutorialsPageFields
+          - { name: title, type: string, required: true, default: "Tutorials" }
+          - { name: description, type: text, label: "Meta description" }
+          - { name: date, type: date, required: true, label: "Last reviewed" }
+      - name: page-da
+        label: "Page metadata (Dansk)"
+        type: file
+        path: content/tutorials.da.md
+        format: yaml-frontmatter
+        fields: *tutorialsPageFields
+      - name: header-en
+        label: "Header (English)"
+        type: file
+        path: data/en/tutorials/meta.yml
+        format: yaml
+        fields: &tutorialsHeaderFields
+          - { name: tag, type: string, label: "Eyebrow tag (small uppercase)" }
+          - { name: headline, type: string }
+          - { name: subtitle, type: text }
+      - name: header-da
+        label: "Header (Dansk)"
+        type: file
+        path: data/da/tutorials/meta.yml
+        format: yaml
+        fields: *tutorialsHeaderFields
+      - name: categories-en
+        label: "Categories (English)"
+        type: collection
+        path: data/en/tutorials/categories
+        filename: '{primary}.yml'
+        format: yaml
+        view:
+          primary: title
+          fields: [id, title]
+        fields: &tutorialsCategoryFields
+          - { name: id, type: string, required: true, label: "Slug (getting-started, ...)" }
+          - { name: title, type: string, required: true }
+          - { name: blurb, type: text }
+          - name: entries
+            label: "Entries (ordered references into Features / Reels)"
+            type: object
+            list:
+              collapsible:
+                summary: "{kind}: {ref}"
+            fields:
+              - name: kind
+                type: select
+                options:
+                  values: [feature, reel]
+              - { name: ref, type: string, label: "Filename stem of the feature/reel (e.g. 01-sign-in)" }
+      - name: categories-da
+        label: "Categories (Dansk)"
+        type: collection
+        path: data/da/tutorials/categories
+        filename: '{primary}.yml'
+        format: yaml
+        view:
+          primary: title
+          fields: [id, title]
+        fields: *tutorialsCategoryFields
+      - name: features-en
+        label: "Features — single-video walkthroughs (English)"
+        type: collection
+        path: data/en/tutorials/features
+        filename: '{primary}.yml'
+        format: yaml
+        view:
+          primary: title
+          fields: [id, title, duration]
+        fields: &tutorialsFeatureFields
+          - { name: id, type: string, required: true, label: "Slug (sign-in, ...)" }
+          - { name: title, type: string, required: true }
+          - { name: duration, type: string, label: "Run time (e.g. 0:25)" }
+          - { name: lead, type: text }
+          - { name: bullets, type: string, list: true, label: "Bullet points (one line each)" }
+          - name: video
+            type: object
+            fields:
+              - { name: webm, type: string, label: "Video path (under /videos/tutorials/)" }
+              - { name: alt, type: string, label: "Description (a11y)" }
+      - name: features-da
+        label: "Features — single-video walkthroughs (Dansk)"
+        type: collection
+        path: data/da/tutorials/features
+        filename: '{primary}.yml'
+        format: yaml
+        view:
+          primary: title
+          fields: [id, title, duration]
+        fields: *tutorialsFeatureFields
+      - name: reels-en
+        label: "Reels — multi-shot run-throughs (English)"
+        type: collection
+        path: data/en/tutorials/reels
+        filename: '{primary}.yml'
+        format: yaml
+        view:
+          primary: title
+          fields: [id, title, duration]
+        fields: &tutorialsReelFields
+          - { name: id, type: string, required: true, label: "Slug (empty-to-dashboard, ...)" }
+          - { name: title, type: string, required: true }
+          - { name: duration, type: string, label: "Run time (e.g. 0:42)" }
+          - { name: lead, type: text }
+          - name: masterVideo
+            label: "Full reel (one continuous video)"
+            type: object
+            fields:
+              - { name: webm, type: string, label: "Video path (under /videos/tutorials/reels/)" }
+              - { name: alt, type: string, label: "Description (a11y)" }
+          - name: shots
+            label: "Shots (per-step clips with captions)"
+            type: object
+            list:
+              collapsible:
+                summary: "Shot {index}"
+            fields:
+              - { name: index, type: number, required: true, label: "Order (1, 2, 3, ...)" }
+              - { name: caption, type: text }
+              - name: clip
+                type: object
+                fields:
+                  - { name: webm, type: string, label: "Clip path (under /videos/tutorials/reels/<slug>/)" }
+                  - { name: alt, type: string, label: "Description (a11y)" }
+      - name: reels-da
+        label: "Reels — multi-shot run-throughs (Dansk)"
+        type: collection
+        path: data/da/tutorials/reels
+        filename: '{primary}.yml'
+        format: yaml
+        view:
+          primary: title
+          fields: [id, title, duration]
+        fields: *tutorialsReelFields
 
   - name: footer
     label: Footer
