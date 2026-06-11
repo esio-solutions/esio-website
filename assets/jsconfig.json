@@ -1,6 +1,5 @@
 {
  "compilerOptions": {
-  "baseUrl": ".",
   "paths": {
    "*": [
     "../themes/esio-theme/assets/*"
