@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" fill="none" role="img" aria-label="Forecast projections with intuitive charts">
+  <!-- Card -->
+  <rect x="32" y="32" width="256" height="176" rx="14" fill="#FFFFFF" stroke="#1B2B6B" stroke-width="2.5"/>
+
+  <!-- Header -->
+  <rect x="48" y="48" width="80" height="8" rx="4" fill="#1B2B6B"/>
+  <rect x="48" y="62" width="48" height="4" rx="2" fill="#1B2B6B" opacity="0.4"/>
+
+  <!-- Legend -->
+  <circle cx="200" cy="54" r="4" fill="#1B2B6B"/>
+  <rect x="208" y="52" width="24" height="4" rx="2" fill="#1B2B6B" opacity="0.5"/>
+  <circle cx="244" cy="54" r="4" fill="#E07B5B"/>
+  <rect x="252" y="52" width="24" height="4" rx="2" fill="#E07B5B" opacity="0.6"/>
+
+  <!-- Axes -->
+  <line x1="64" y1="88"  x2="64"  y2="176" stroke="#1B2B6B" stroke-width="1.5" opacity="0.5"/>
+  <line x1="64" y1="176" x2="272" y2="176" stroke="#1B2B6B" stroke-width="1.5" opacity="0.5"/>
+
+  <!-- Gridlines -->
+  <line x1="64" y1="148" x2="272" y2="148" stroke="#1B2B6B" stroke-width="1" opacity="0.1"/>
+  <line x1="64" y1="120" x2="272" y2="120" stroke="#1B2B6B" stroke-width="1" opacity="0.1"/>
+  <line x1="64" y1="92"  x2="272" y2="92"  stroke="#1B2B6B" stroke-width="1" opacity="0.1"/>
+
+  <!-- "Now" divider -->
+  <line x1="172" y1="88" x2="172" y2="176" stroke="#1B2B6B" stroke-width="1" stroke-dasharray="3 4" opacity="0.5"/>
+
+  <!-- Past area + line (solid navy) -->
+  <path d="M 72 156 L 96 142 L 120 148 L 144 130 L 172 118 L 172 176 L 72 176 Z" fill="#1B2B6B" opacity="0.06"/>
+  <path d="M 72 156 L 96 142 L 120 148 L 144 130 L 172 118" stroke="#1B2B6B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="72"  cy="156" r="3" fill="#1B2B6B"/>
+  <circle cx="96"  cy="142" r="3" fill="#1B2B6B"/>
+  <circle cx="120" cy="148" r="3" fill="#1B2B6B"/>
+  <circle cx="144" cy="130" r="3" fill="#1B2B6B"/>
+  <circle cx="172" cy="118" r="3" fill="#1B2B6B"/>
+
+  <!-- Future projection (dashed terra) -->
+  <path d="M 172 118 L 198 110 L 224 98 L 250 86 L 250 176 L 172 176 Z" fill="#E07B5B" opacity="0.08"/>
+  <path d="M 172 118 L 198 110 L 224 98 L 250 86" stroke="#E07B5B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 4" fill="none"/>
+  <circle cx="250" cy="86" r="4" fill="#E07B5B"/>
+
+  <!-- Forward arrow past endpoint -->
+  <path d="M 254 84 L 268 76 M 263 73 L 268 76 L 266 81" stroke="#E07B5B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</svg>

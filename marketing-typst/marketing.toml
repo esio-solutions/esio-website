@@ -1,25 +1,23 @@
 # ─────────────────────────────────────────────────────────────────────────────
 # Marketing renderer configuration
 # ─────────────────────────────────────────────────────────────────────────────
-# Settings for the ad/social-card templates rendered via
-# layouts/marketing/<platform>/single.html and screenshotted by
-# scripts/render-*.sh. Pinned independently of the site's interactive M3
-# palette picker — published ads stay stable while the live site
+# Settings for the ad/social-card templates compiled by marketing-typst/
+# render.sh (Typst → SVG). Pinned independently of the site's interactive
+# M3 palette picker — published ads stay stable while the live site
 # experiments with palettes.
 #
 # Single source of color truth: ads consume the same M3 palette files
-# as the site (themes/esio-theme/assets/css/m3/<palette>/light.css|dark.css).
-# Brand change = swap the `palette` value below, re-run render scripts.
-# Existing JPGs in marketing/output/ get overwritten on next render.
+# as the site (themes/esio-theme/assets/css/m3/<palette>/light.json|dark.json).
+# Brand change = swap the `palette` value below, re-run render.sh.
+# Existing SVGs in marketing-typst/out/ get overwritten on next render.
 #
-# Accessed in templates as `site.Data.marketing.*`.
+# Loaded by tokens.typ via `toml("/marketing-typst/marketing.toml")`.
 
 # M3 palette name. Must be a folder under
 # themes/esio-theme/assets/css/m3/<palette>/ containing light.json + dark.json
 # (Typst reads the .json variants; the .css variants are for the live site).
-# Currently available: blue-expressive, blue-monochrome, blue-neutral,
-# blue-tonal-spot, blue-vibrant. Keep aligned with hugo.toml [params.m3].default
-# so published ads match the live site.
+# Keep aligned with hugo.toml [params.m3].default so published ads match the
+# live site.
 palette = "blue-vibrant"
 
 [fonts]

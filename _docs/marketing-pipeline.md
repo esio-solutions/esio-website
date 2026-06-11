@@ -1,10 +1,15 @@
 # Marketing renderer — Typst pipeline
 
-The marketing ad assets (Facebook / Instagram / LinkedIn carousels and
+The marketing ad assets (a universal 1080×1080 square social carousel and
 Google Display banners) are rendered by Typst from templates under
 `marketing-typst/`. The whole subsystem is self-contained inside that
 folder — templates, fonts, slide content data, config, and the render
 script all live together.
+
+One square asset satisfies every social feed (Facebook, Instagram,
+LinkedIn), so there is a single `square/` format rather than a folder per
+platform. The `google-ads/` banners stay separate — their IAB dimensions
+are mandated by the ad network and can't be square.
 
 ## What lives where
 
@@ -18,15 +23,14 @@ marketing-typst/
 ├── data/                   slide content (YAML), {en, da}
 │   ├── en/{hero,pain,how,features,subscribe}/…
 │   └── da/…
-├── fonts/                  static TTF/woff2 files Typst loads via
-│                           --font-path (Inter, Fraunces, Material Symbols)
-├── facebook/               1200×630 landscape — 5 slides + _layout.typ
-├── instagram/              1080×1350 portrait — 5 slides + _layout.typ
-├── linkedin/               1200×1200 square — 5 slides + _layout.typ
+├── fonts/                  static TTF files Typst loads via --font-path
+│                           (Plus Jakarta Sans, Material Symbols)
+├── square/                 1080×1080 universal social — 5 slides +
+│                           _layout.typ (serves FB / IG / LI feeds)
 ├── google-ads/             5 display-banner sizes + _layout.typ
-├── render.sh               compiles every (platform × lang × theme × slide)
-│                           combination to JPG
-├── out/                    rendered JPGs, grouped per-platform, flat
+├── render.sh               compiles every (format × lang × theme × slide)
+│                           combination to SVG
+├── out/                    rendered SVGs, grouped <lang>/<format>/<theme>/
 │                           (gitignored — re-run render.sh to regenerate)
 └── .gitignore              ignores out/
 ```
@@ -37,14 +41,15 @@ marketing-typst/
 TYPST=~/.local/bin/typst ./marketing-typst/render.sh
 ```
 
-Outputs 80 JPGs total: 4 platforms × 2 languages × 2 themes × 5 slides
-(20 for google-ads since each banner size is one slide). Each lands at
-`marketing-typst/out/<platform>/<slide>-<lang>-<theme>.jpg`, ready to
-drag-upload to that platform's ad manager.
+Outputs 40 SVGs total: 2 formats × 2 languages × 2 themes × 5 slides
+(`square` has 5 carousel slides; `google-ads` has 5 banner sizes, one
+slide each). Each lands at
+`marketing-typst/out/<lang>/<format>/<theme>/<slide>.svg`, ready to
+drag-upload to the relevant ad manager.
 
-Requires Typst on PATH (or set `TYPST=path/to/typst`) and ImageMagick
-(`magick`). The render itself runs in seconds — no Docker, no browser,
-no Hugo.
+Requires only Typst on PATH (or set `TYPST=path/to/typst`) — Typst exports
+SVG natively, so there's no ImageMagick/PNG round-trip. The render runs in
+seconds — no Docker, no browser, no Hugo.
 
 ## Decisions
 
@@ -79,33 +84,22 @@ site would silently invalidate already-published ads. The
 site-side experimentation. To change the ad palette: edit
 `marketing-typst/marketing.toml`, re-run `render.sh`, re-upload.
 
-### Why Inter + Fraunces (matching the website)
+### Why Plus Jakarta Sans (matching the website)
 
-`marketing.toml` declares:
-- `fonts.primary = "Inter"` (body/UI text)
-- `fonts.display = "Fraunces"` (headlines)
+`marketing.toml` declares a single family:
+- `fonts.primary = "Plus Jakarta Sans"` (body/UI text)
 
-Same families the website uses (`[params.typography].fontFamily` and
-`.displayFontFamily` in `hugo.toml`). Both surfaces now render a
-visually identical "voice."
+No `fonts.display` key — `tokens.typ` falls `display-font` back to
+`primary` (see `tokens.typ:19`), so headlines and body share Plus Jakarta
+Sans. The static weights in `marketing-typst/fonts/`
+(`PlusJakartaSans-{Regular,Medium,SemiBold,Bold,ExtraBold}.ttf`) cover the
+400–800 range the slides ask for via `weight:`.
 
-The static font files in `marketing-typst/fonts/` were extracted at
-`opsz=14` from the Fraunces variable font — text-optimized, thicker
-strokes. The website's font loader was updated at the same time to
-explicitly declare `opsz=14` in its Google Fonts URL
-(`themes/esio-theme/layouts/_partials/head/fonts.html`), so the
-variable font served by Google Fonts uses the same optical-size
-instance. Without that explicit declaration, Google would serve
-Fraunces at its default opsz, which differs from the static instance
-and would make the website headlines visibly thicker than the marketing
-headlines.
-
-If you ever want to tune the Fraunces optical size:
-1. Re-extract statics: `python3 -m fontTools.varLib.instancer
-   Fraunces-Variable.ttf wght=900 opsz=<value> SOFT=0 WONK=0 --output
-   Fraunces-Black.ttf` (and Medium 500, Bold 700)
-2. Update `[params.typography].displayFontOpsz` in `hugo.toml` to the
-   same value so the site stays in sync.
+Same family the website uses (`[params.typography].fontFamily` in
+`hugo.toml`), so both surfaces render a visually identical "voice." To
+swap the family: drop the new static TTFs into `marketing-typst/fonts/`,
+update `fonts.primary` (and `fonts.primary_weights`) in `marketing.toml`,
+and re-run `render.sh`.
 
 ### Why icons via Material Symbols Outlined
 
@@ -119,17 +113,17 @@ The slide-04 navigation arrow and the inline focal arrow on slide 01-hook
 also use Material Symbols (`arrow_right_alt` ligature), so they pick up
 the active palette's primary color automatically via `text(fill: primary)`.
 
-## Per-platform sizing
+## Sizing
 
-Each platform's `_layout.typ` carries a `SIZES` dict mirroring the Hugo
-CSS's per-platform scale (`themes/esio-theme/layouts/_partials/<platform>/styles.html`
-in git history if you need the original numbers):
+`square/_layout.typ` carries a `SIZES` dict defining the type + spacing
+scale for the 1080×1080 canvas. It was scaled down ~0.8× from the former
+1080×1350 Instagram portrait layout, because the square canvas has ~270pt
+less vertical room (~904pt usable inner height vs 1174pt) — the same copy
+in a shorter box needs smaller headings and tighter gaps to fit.
 
-| Platform | Canvas | logo | h-xxl | h-l | padding (x / top / bottom) |
+| Format | Canvas | logo | h-xxl | h-l | padding (x / top / bottom) |
 |---|---|---|---|---|---|
-| Facebook | 1200×630 | 64pt | 72pt | 44pt | 56 / 48 / 48 |
-| Instagram | 1080×1350 | 144pt | 108pt | 76pt | 80 / 80 / 96 |
-| LinkedIn | 1200×1200 | 108pt | 100pt | 64pt | 72 / 64 / 80 |
+| square | 1080×1080 | 112pt | 84pt | 60pt | 72 / 64 / 72 |
 
 Google-ads sizes vary per banner — sized inline in each banner's `.typ`.
 
