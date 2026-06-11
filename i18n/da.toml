@@ -13,24 +13,6 @@ other = "Lyst"
 [theme_app_preview]
 other = "App-forhåndsvisning"
 
-[palette]
-other = "Palette"
-
-[palette_indigo]
-other = "Indigo"
-
-[palette_indigo_mtb]
-other = "Indigo · MTB"
-
-[palette_blue_vibrant]
-other = "Blå · Vibrant"
-
-[palette_app_preview]
-other = "App-forhåndsvisning"
-
-[palette_app_preview_rz]
-other = "App-forhåndsvisning 2"
-
 [language]
 other = "Sprog"
 

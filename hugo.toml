@@ -119,23 +119,6 @@ defaultContentLanguageInSubdir = false
       label  = "palette_blue_vibrant"
       swatch = "#005db6"
 
-    # Algorithmically generated from seed #3481e5 (TonalSpot), with the
-    # primary slot pinned to the seed via scripts/generate-m3-palette.mjs
-    # --primary so it matches the Radzen brand primary exactly.
-    [[params.m3.options]]
-      name   = "app-preview"
-      label  = "palette_app_preview"
-      swatch = "#3481e5"
-
-    # Radzen "material3" theme remapped to M3 role tokens — hand-defined
-    # (no algorithm). Same primary as `app-preview` but secondaries,
-    # surfaces, and containers come from Radzen's hand-tuned values.
-    # Kept beside the generated one for side-by-side comparison.
-    [[params.m3.options]]
-      name   = "app-preview-rz"
-      label  = "palette_app_preview_rz"
-      swatch = "#3481e5"
-
   [params.colors]
     # ESIO brand palette — used by both the Dark theme (default brand) and
     # Light theme (daytime variant of the same brand).

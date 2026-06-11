@@ -13,24 +13,6 @@ other = "Light"
 [theme_app_preview]
 other = "App preview"
 
-[palette]
-other = "Palette"
-
-[palette_indigo]
-other = "Indigo"
-
-[palette_indigo_mtb]
-other = "Indigo · MTB"
-
-[palette_blue_vibrant]
-other = "Blue · Vibrant"
-
-[palette_app_preview]
-other = "App preview"
-
-[palette_app_preview_rz]
-other = "App preview 2"
-
 [language]
 other = "Language"
 

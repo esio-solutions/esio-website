@@ -6,27 +6,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script>
-      // Pre-paint bootstrap. Restores the user's saved theme + palette
-      // choices before any CSS resolves so there's no FOUC. Palette is
-      // validated against the actually-bundled set — a stale localStorage
-      // value pointing at a palette no longer in the bundle would resolve
-      // to undefined --md-sys-color-* tokens and render black-on-white.
+      // Pre-paint bootstrap. Restores the user's saved theme (day/night)
+      // choice before any CSS resolves so there's no FOUC. The palette is
+      // fixed to the single bundled option (data-palette is set statically
+      // on <html> above), so there's nothing to restore for it.
       (function () {
         try {
           var theme = localStorage.getItem('esio-theme');
           if (theme && /^[a-z][a-z0-9-]*$/.test(theme)) {
             document.documentElement.dataset.theme = theme;
-          }
-          var allowed = [
-            {{- $palettes := slice site.Params.m3.default -}}
-            {{- range site.Params.m3.options -}}
-              {{- $palettes = $palettes | append .name -}}
-            {{- end -}}
-            {{- range ($palettes | uniq) }}{{ . | jsonify }},{{ end }}
-          ];
-          var palette = localStorage.getItem('esio-palette');
-          if (palette && allowed.indexOf(palette) !== -1) {
-            document.documentElement.dataset.palette = palette;
           }
         } catch (_) {}
       })();

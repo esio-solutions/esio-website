@@ -40,27 +40,6 @@
   </div>
 </div>
 
-{{- /* Palette picker. Entries come from [[params.m3.options]] in hugo.toml;
-   each click sets data-palette on <html> via theme.js's
-   [data-palette-set] handler. The .palette-swatch chip uses --pl
-   (set inline from the option's `swatch` hex). */ -}}
-<div class="settings-section">
-  <span class="settings-section__label">{{ i18n "palette" }}</span>
-  <div class="settings-section__items">
-    {{- range site.Params.m3.options }}
-      {{- $label := i18n (default "palette" .label) -}}
-      <button type="button"
-              class="palette-swatch"
-              data-palette-set="{{ .name }}"
-              aria-label="{{ $label }}"
-              title="{{ $label }}"
-              style="--pl: {{ .swatch }};">
-        <span class="palette-swatch__dot" aria-hidden="true"></span>
-      </button>
-    {{- end }}
-  </div>
-</div>
-
 <div class="settings-section">
   <span class="settings-section__label">{{ i18n "language" }}</span>
   <div class="settings-section__items">
